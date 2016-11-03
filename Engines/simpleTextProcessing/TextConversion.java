@@ -134,22 +134,11 @@ public class TextConversion
 	}
 	
 	public static void main(String[] args )
-	{
-		String source = "This is a test. This is a T.L.A.(a) [test]. Now<with a Dr. (in it.";
-//		splitIntoSentencesBI(source);
-		
-		
-		String str1 ="C:/Users/Subadmin/Desktop/Deep LSTM/epoch- 70 Final.txt";
-		String str2 = "C:/Users/Subadmin/Desktop/Bsp1.txt";
+	{		
+		String str1 ="C:/Users/Subadmin/Desktop/BA AKSW/Deep LSTM/epoch- 70 Final.txt";
+		String str2 = "C:/Users/Subadmin/Desktop/BA AKSW/Testtexte bad/Bsp1.txt";
 		String text = decompose(TextReader.fileReader(str2));
 
-		System.out.println(text);
-		
-//		String[] test = text.split("\\s");
-//		
-//		for(String s : test){
-//			System.out.println(s);
-//		}
-		
+		System.out.println(text);		
 	}
 }

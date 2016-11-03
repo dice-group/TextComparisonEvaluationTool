@@ -57,8 +57,6 @@ public class WordFrequencyEngine
 	
 	public boolean sizeEqualitySetMap(HashMap map, HashSet set)
 	{
-		System.out.println("MS: "+map.size());
-		System.out.println("SS: "+set.size());
 		return (map.size() == set.size());
 	}
 	
