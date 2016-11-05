@@ -4,14 +4,9 @@ import java.text.BreakIterator;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import IOContent.TextReader;
-import edu.stanford.nlp.util.StringUtils;
 
 public class TextConversion 
 {
@@ -91,13 +86,12 @@ public class TextConversion
 				out += c;
 			}else if(punctutations.contains(""+c))												// Check punctuation 
 			{
-				if(c == '.' && (Character.isAlphabetic(old)))									// Check previous is a letter and current is a dot
+				if(c == '.')									// Check previous is a letter and current is a dot
 				{
-					if(Character.isUpperCase(old))												// Check previous value is a upper case letter to keep cases like C.E.O. 
+					if(Character.isUpperCase(old) && Character.isAlphabetic(old))												// Check previous value is a upper case letter to keep cases like C.E.O. 
 					{
 						out += c;
 					}else{																		// DEFAUL add space+nonAlnum+space
-						out += ' ';
 						out += c;
 						out += ' ';
 					}

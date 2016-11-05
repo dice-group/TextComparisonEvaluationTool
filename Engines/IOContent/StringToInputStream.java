@@ -44,7 +44,7 @@ public class StringToInputStream
 		
 		HashMap outer_map = wfe.wordAppearancePercentage(wfe.getMap());
 		
-		System.out.println(wfe.sizeEqualityMaps(outer_map, wfe.getMap()));
-		System.out.println(wfe.sizeEqualitySetMap(wfe.getMap(), wfe.getSet()));
+//		System.out.println(wfe.sizeEqualityMaps(outer_map, wfe.getMap()));
+//		System.out.println(wfe.sizeEqualitySetMap(wfe.getMap(), wfe.getSet()));
 	}
 }

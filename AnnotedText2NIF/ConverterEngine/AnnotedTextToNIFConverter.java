@@ -19,19 +19,13 @@ package ConverterEngine;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.aksw.gerbil.io.nif.DocumentListWriter;
-import org.aksw.gerbil.io.nif.NIFParser;
 import org.aksw.gerbil.io.nif.NIFWriter;
-import org.aksw.gerbil.io.nif.impl.TurtleNIFParser;
 import org.aksw.gerbil.io.nif.impl.TurtleNIFWriter;
 import org.aksw.gerbil.transfer.nif.Document;
 import org.aksw.gerbil.transfer.nif.data.DocumentImpl;
 import org.aksw.gerbil.transfer.nif.data.NamedEntity;
 import org.aksw.gerbil.transfer.nif.data.SpanImpl;
 import org.junit.Ignore;
-
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import IOContent.TextReader;
 import IOContent.TextWriter;
