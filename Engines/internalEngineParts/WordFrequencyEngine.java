@@ -3,9 +3,6 @@ package internalEngineParts;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.apache.commons.lang3.StringUtils;
 
 import simpleTextProcessing.*;
@@ -78,13 +75,9 @@ public class WordFrequencyEngine
 	
 	public HashMap<String, Double> wordAppearancePercentage(HashMap<String, Integer> hashmap)
 	{
-		int elem_count = hashmap.keySet().size();
 		word_count = getElementCount(hashmap);
 		double percantage;
 		HashMap<String, Double> perc_map = new HashMap<String, Double>();
-		
-//		System.out.println("Elem Count Map: "+elem_count);
-//		System.out.println("Elem Count Word: "+word_count);
 		
 		for(String elem : hashmap.keySet())
 		{
