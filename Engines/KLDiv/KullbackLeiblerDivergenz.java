@@ -9,6 +9,14 @@ import java.util.Set;
 
 public class KullbackLeiblerDivergenz 
 {	
+	/**
+	 * This method takes 2 Maps (for exam. HashMap) of comparable distributions of 2 texts and a set of key names depending on 
+	 * for exam. distribution step labels.
+	 * @param sharedKeys
+	 * @param s1
+	 * @param s2
+	 * @return kl divergence
+	 */
 	public static double KLDivergenceMS(Set<String> sharedKeys, Map<String,Double> s1, Map<String,Double> s2)
 	{
 		if(sharedKeys.size()>= s1.keySet().size() && sharedKeys.size()>= s2.keySet().size())
