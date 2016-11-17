@@ -34,6 +34,7 @@ public class StringToInputStream
 		String str = "C:/Users/Subadmin/Dropbox/BA AKSW/Deep LSTM/Testtexte bad/Bsp1.txt";
 		String text = TextConversion.decompose(TextReader.fileReader(str1));
 		
+		
 		WordFrequencyEngine wfe = new WordFrequencyEngine();	//create set and map
 		
 //		LinkedList<String> sentences = TextConversion.splitIntoSentencesViaSubs(text);
