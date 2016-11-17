@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import internalEngineParts.WordFrequencyEngine;
+import simpleTextProcessing.StanfordSegmentatorTokenizer;
 import simpleTextProcessing.TextConversion;
 
 public class StringToInputStream 
@@ -29,16 +30,19 @@ public class StringToInputStream
 	
 	public static void main(String[] args) throws IOException 
 	{
-		String str1 ="C:/Users/Subadmin/Desktop/BA AKSW/Deep LSTM/epoch- 70 Final.txt";
-		String str2 = "C:/Users/Subadmin/Desktop/BA AKSW/Testtexte bad/Bsp1.txt";
+		String str1 ="C:/Users/Subadmin/Dropbox/BA AKSW/Deep LSTM/epoch- 70 Final.txt";
+		String str = "C:/Users/Subadmin/Dropbox/BA AKSW/Deep LSTM/Testtexte bad/Bsp1.txt";
 		String text = TextConversion.decompose(TextReader.fileReader(str1));
 		
 		WordFrequencyEngine wfe = new WordFrequencyEngine();	//create set and map
 		
-		LinkedList<String> sentences = TextConversion.splitIntoSentencesViaSubs(text);
+//		LinkedList<String> sentences = TextConversion.splitIntoSentencesViaSubs(text);
+		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
+		LinkedList<String> sentences = StanfordSegmentatorTokenizer.gatherSentences(text);
 		
 		for(String s : sentences)
 		{
+//			System.out.println(s);
 			wfe.gatherWordFrequency(s);
 		}
 		

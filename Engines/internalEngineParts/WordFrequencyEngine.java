@@ -20,6 +20,7 @@ public class WordFrequencyEngine
 		set = new HashSet<String>();
 	}
 
+	
 	public void gatherWordFrequency(String text)
 	{
 		LinkedList<String> words = TextConversion.splitIntoWords(TextConversion.normalizer(text));
@@ -33,22 +34,29 @@ public class WordFrequencyEngine
 		}
 		
 		for(String current : words)
-		{		
-			if(!StringUtils.isBlank(current))
+		{
+			if(current == "-RSB-" && current == "-LSB-")
 			{
-				was_added = set.add(current); 
-			}
-			
-			if(was_added && !StringUtils.isBlank(current))
-			{
-				map.put(current, 1);
+				continue;
 			}else{
-				
 				if(!StringUtils.isBlank(current))
 				{
-					map.put(current, map.getOrDefault(current, 0) + 1);
+					was_added = set.add(current); 
+				}
+				
+				if(was_added && !StringUtils.isBlank(current))
+				{
+					map.put(current, 1);
+				}else{
+					
+					if(!StringUtils.isBlank(current))
+					{
+						map.put(current, map.getOrDefault(current, 0) + 1);
+					}
 				}
 			}
+			
+			
 		}	
 	}
 	

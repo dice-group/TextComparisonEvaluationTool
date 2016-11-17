@@ -1,12 +1,10 @@
 package simpleTextProcessing;
 
-import java.text.BreakIterator;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Locale;
 import java.util.Set;
 
 import IOContent.TextReader;
@@ -39,9 +37,21 @@ public class TextConversion
 		
 		for(int start = 0; start < text.length(); start++)
 		{
-			
 			if((text.indexOf('.', start)) < text.length() && start < end)
 			{
+				if(isAbbrOrAcry(text.substring(start,end+1)))											//check for abbr or acro
+				{
+					while(isAbbrOrAcry(text.substring(start,end+1)))
+					{
+						if(text.indexOf('.', start) < text.length() && text.indexOf('.', start) > 0)
+						{
+							end = text.indexOf('.', end+2+start+1);
+							if(end < 0) end = text.length()-1;
+						}
+						System.out.println("End value: "+end);
+					}
+				}
+				
 				sentences.add(text.substring(start,end+1));
 				if(end+2 > 0 && end+2 > start) start = end+2;
 			}
@@ -56,8 +66,70 @@ public class TextConversion
 	}
 	
 	/**
+	 * This method check a text ending is a maybe a acronym or abbreviation.
+	 * @param text
+	 * @return true if it is one and false if not
+	 */
+	public static boolean isAbbrOrAcry(String text)
+	{
+		boolean isAbbrOrAcry = false;
+		
+		Abbreviations abbr = new Abbreviations();
+		Acronyms acry = new Acronyms(); 
+		
+		int start = text.lastIndexOf(" ");
+		int end = text.lastIndexOf(".")+1;
+		
+		if(start < end)
+		{
+			if(start == -1) start = 0;
+ 
+			String input = text.substring(start, end).trim();
+			System.out.println(start+" to "+end);
+			System.out.println("input "+input);
+			
+			if(	acry.getAcronym_educational().contains(input))
+			{
+				isAbbrOrAcry = true;
+			}
+			
+			if(!isAbbrOrAcry && acry.getAcronym_general().contains(input))
+			{
+				isAbbrOrAcry = true;
+			}
+			
+			if(!isAbbrOrAcry && acry.getAcronym_names().contains(input))
+			{
+				isAbbrOrAcry = true;
+			}
+			
+			if(!isAbbrOrAcry && abbr.getAbbreviations_general().contains(input))
+			{
+				isAbbrOrAcry = true;
+			}
+			
+			if(!isAbbrOrAcry && abbr.getAbbreviations_grammar().contains(input))
+			{
+				isAbbrOrAcry = true;
+			}
+			
+			if(!isAbbrOrAcry && abbr.getAbbreviations_latin().contains(input))
+			{
+				isAbbrOrAcry = true;
+			}
+			
+			if(!isAbbrOrAcry && abbr.getAbbreviations_names().contains(input))
+			{
+				isAbbrOrAcry = true;
+			}
+		}
+		System.out.println("boolean: "+isAbbrOrAcry);
+		return isAbbrOrAcry;
+	}
+	
+	/**
 	 * This method decompose a text into characters and clean the error occurrences.
-	 * The result is (hopefully) a (desired) text without error symbols in it. 
+	 * The result is a text without error symbols in it. 
 	 * That means no cryptic words. Keep in mind that this method is just for English text!
 	 * @param text
 	 * @return cleaned text
@@ -161,8 +233,8 @@ public class TextConversion
 	 */
 	public static void main(String[] args )
 	{		
-		String str ="C:/Users/Subadmin/Desktop/BA AKSW/Deep LSTM/epoch- 70 Final.txt";
-//		String str = "C:/Users/Subadmin/Desktop/BA AKSW/Testtexte bad/Bsp1.txt";
+//		String str ="C:/Users/Subadmin/Dropbox/BA AKSW/Deep LSTM/epoch- 70 Final.txt";
+		String str = "C:/Users/Subadmin/Dropbox/BA AKSW/Deep LSTM/Testtexte bad/Bsp1.txt";
 		String textRAW = TextReader.fileReader(str);
 		String text = decompose(textRAW);
 
@@ -173,9 +245,9 @@ public class TextConversion
 		System.out.println("Sentences Count: "+sentences.size());
 		for(int k = 0; k < sentences.size(); k++) System.out.println((k+1)+" Sentence: "+sentences.get(k));
 		
-//		System.out.println("Count Errors: "+error_signs);
+		System.out.println("Count Errors: "+error_signs);
 		
-//		System.out.print("Error Signs: ");
-//		for (Character s : errors) System.out.print(s+" ");
+		System.out.print("Error Signs: ");
+		for (Character s : errors) System.out.print(s+" ");
 	}
 }
