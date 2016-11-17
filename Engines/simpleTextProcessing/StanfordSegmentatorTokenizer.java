@@ -2,7 +2,6 @@ package simpleTextProcessing;
 
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -18,6 +17,11 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.process.DocumentPreprocessor;
 
+/**
+ * This class is created reflecting the use case of the Stanford CoreNLP compontent Tokenizer, POS-Tagger and CoreLabel(ing).
+ * @author TTurke
+ *
+ */
 public class StanfordSegmentatorTokenizer 
 {
 	private Language language;
@@ -57,6 +61,8 @@ public class StanfordSegmentatorTokenizer
     //TODO hier soll das Sentence splitting der paragraph vorgenommen werden sowie das word counting und das pos tagging
     public void proceed(String query, Language language)
 	{
+    	//TODO check necessarily
+    	
     	//keep the language
 		setLanguage(language);
 		
@@ -126,7 +132,7 @@ public class StanfordSegmentatorTokenizer
      */
     private void countWordsAndPosTagsOccourence(CoreLabel token) 
 	{
-    	
+    	//TODO POS Tagging impl needed
 		// Word content of the token
         // String word = token.get(TextAnnotation.class);
 		
@@ -167,8 +173,10 @@ public class StanfordSegmentatorTokenizer
 	 */
 	public static void main(String[] args) throws Exception 
 	{
-//		String str ="C:/Users/Subadmin/Dropbox/BA AKSW/Deep LSTM/epoch- 70 Final.txt";
-		String str = "C:/Users/Subadmin/Dropbox/BA AKSW/Deep LSTM/Testtexte bad/Bsp1.txt";
+		//TODO Export to main.class needed
+		
+//		String str ="C:/Users/Subadmin/Desktop/Dropbox/BA AKSW/Deep LSTM/epoch- 70 Final.txt";
+		String str = "C:/Users/Subadmin/Desktop/Dropbox/BA AKSW/Deep LSTM/Testtexte bad/Bsp1.txt";
 		String textRAW = TextReader.fileReader(str);
 		
 		String textExample = "Another ex-Golden Stater, Paul Stankowski a bigger guy from Oxnard, is contending"
@@ -180,7 +188,12 @@ public class StanfordSegmentatorTokenizer
 		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
 		LinkedList<String> sentences = gatherSentences(textRAW);
 		
-		for(String sentence : sentences) System.out.println(sentence);
+		System.out.println(sentences.size());
+		
+		for(int i = 0; i < sentences.size(); i++)
+		{
+			System.out.println((i+1)+". Sentence: "+sentences.get(i).replaceAll("-LSB-", "[").replaceAll("-RSB-", "]").replace("[ [ ", "[[").replace(" ] ]", "]]").trim());
+		}
 		
 	}
 

@@ -35,24 +35,19 @@ public class WordFrequencyEngine
 		
 		for(String current : words)
 		{
-			if(current == "-RSB-" && current == "-LSB-")
+			if(!StringUtils.isBlank(current) && !current.contains("RSB") && !current.contains("LSB"))
 			{
-				continue;
+				was_added = set.add(current); 
+			}
+			
+			if(was_added && !StringUtils.isBlank(current) && !current.contains("RSB") && !current.contains("LSB"))
+			{
+				map.put(current, 1);
 			}else{
-				if(!StringUtils.isBlank(current))
-				{
-					was_added = set.add(current); 
-				}
 				
-				if(was_added && !StringUtils.isBlank(current))
+				if(!StringUtils.isBlank(current) && !current.contains("RSB") && !current.contains("LSB"))
 				{
-					map.put(current, 1);
-				}else{
-					
-					if(!StringUtils.isBlank(current))
-					{
-						map.put(current, map.getOrDefault(current, 0) + 1);
-					}
+					map.put(current, map.getOrDefault(current, 0) + 1);
 				}
 			}
 			
@@ -60,12 +55,12 @@ public class WordFrequencyEngine
 		}	
 	}
 	
-	public boolean sizeEqualitySetMap(HashMap map, HashSet set)
+	public boolean sizeEqualitySetMap(HashMap<?, ?> map, HashSet<?> set)
 	{
 		return (map.size() == set.size());
 	}
 	
-	public boolean sizeEqualityMaps(HashMap map1 , HashMap map2)
+	public boolean sizeEqualityMaps(HashMap<?, ?> map1 , HashMap<?, ?> map2)
 	{
 		return (map1.size() == map2.size());
 	}
@@ -92,7 +87,7 @@ public class WordFrequencyEngine
 			percantage = ( (hashmap.get(elem)*1.0) / (word_count*1.0)* 100.0);
 			perc_map.put(elem, percantage);
 			
-			System.out.println(elem+" | "+hashmap.get(elem)+" | "+percantage);
+//			System.out.println(elem+" | "+hashmap.get(elem)+" | "+percantage);
 		}
 		return perc_map;
 	}
