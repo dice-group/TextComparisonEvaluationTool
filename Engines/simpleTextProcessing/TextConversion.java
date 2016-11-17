@@ -233,6 +233,8 @@ public class TextConversion
 	 */
 	public static void main(String[] args )
 	{		
+		
+		//TODO make this work and add to main.class
 //		String str ="C:/Users/Subadmin/Dropbox/BA AKSW/Deep LSTM/epoch- 70 Final.txt";
 		String str = "C:/Users/Subadmin/Dropbox/BA AKSW/Deep LSTM/Testtexte bad/Bsp1.txt";
 		String textRAW = TextReader.fileReader(str);
