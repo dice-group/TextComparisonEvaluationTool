@@ -1,9 +1,9 @@
-package ConverterEngine;
+package AnnotedText2NIF.ConverterEngine;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import IOContent.TextReader;
+import AnnotedText2NIF.IOContent.TextReader;
 
 /**
  * Diese Klasse sammelt alle Informationen bzgl. jeder Annotation aus einem Text, 

@@ -1,12 +1,14 @@
-package Run;
+package Engines.Run;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
-import IOContent.TextReader;
-import SimpleObjects.*;
-import internalEngineParts.WordFrequencyEngine;
-import simpleTextProcessing.StanfordSegmentatorTokenizer;
-import simpleTextProcessing.TextConversion;
+import AnnotedText2NIF.IOContent.TextReader;
+import Engines.SimpleObjects.*;
+import Engines.internalEngineParts.WordFrequencyEngine;
+import Engines.simpleTextProcessing.StanfordSegmentatorTokenizer;
+import Engines.simpleTextProcessing.TextConversion;
 
 /**
  * This class start the whole process and return all necessary informations.
@@ -19,13 +21,22 @@ public class Main
 	/**
 	 * Process pipeline
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) 
+	public static void main(String[] args) throws IOException 
 	{
 		//Edit input for using other files
-//		String str1 ="C:/Users/Subadmin/Desktop/Dropbox/BA AKSW/Deep LSTM/epoch- 70 Final.txt";
-		String str = "C:/Users/Subadmin/Desktop/Dropbox/BA AKSW/Deep LSTM/Testtexte bad/Bsp1.txt";
-		String text = TextConversion.decompose(TextReader.fileReader(str));
+		
+		final String test_classes = "target\\test-classes\\";
+		final String resources = "src\\main\\resources\\";
+		String filename = "Bsp1.txt";
+		TextReader tr = new TextReader();
+
+		/*
+		 * 
+		 */
+		
+		String text = TextConversion.decompose(TextReader.fileReader(tr.getResourceFileAbsolutePath(test_classes+filename)));
 		
 		//create set and map
 		WordFrequencyEngine wfe = new WordFrequencyEngine();	

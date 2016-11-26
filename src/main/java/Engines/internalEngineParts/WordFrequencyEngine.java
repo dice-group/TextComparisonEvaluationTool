@@ -1,11 +1,11 @@
-package internalEngineParts;
+package Engines.internalEngineParts;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import org.apache.commons.lang3.StringUtils;
 
-import simpleTextProcessing.*;
+import Engines.simpleTextProcessing.*;
 
 public class WordFrequencyEngine 
 {

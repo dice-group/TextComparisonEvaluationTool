@@ -1,4 +1,4 @@
-package IOContent;
+package AnnotedText2NIF.IOContent;
 
 import java.io.BufferedWriter;
 import java.io.File;

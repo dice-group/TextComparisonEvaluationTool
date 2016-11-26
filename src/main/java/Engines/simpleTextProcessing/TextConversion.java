@@ -1,4 +1,4 @@
-package simpleTextProcessing;
+package Engines.simpleTextProcessing;
 
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-import IOContent.TextReader;
+import AnnotedText2NIF.IOContent.TextReader;
 
 public class TextConversion 
 {

@@ -1,4 +1,4 @@
-package simpleTextProcessing;
+package Engines.simpleTextProcessing;
 
 import java.io.Reader;
 import java.io.StringReader;
@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
-import Enums.Language;
-import IOContent.TextReader;
+import Engines.Enums.Language;
+import AnnotedText2NIF.IOContent.TextReader;
 import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;

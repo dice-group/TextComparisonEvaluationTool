@@ -1,5 +1,6 @@
-package IOContent;
+package AnnotedText2NIF.IOContent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 	
@@ -10,6 +11,19 @@ import java.io.IOException;
  */
 public class TextReader 
 {
+	/**
+	 * This method returns the heading file of the project 
+	 * @return
+	 */
+	public String getResourceDirectoryPath() 
+	{
+		return new File(getClass().getClassLoader().getResource("").getFile()).getParentFile().getParentFile()+"\\src\\main\\resources\\";
+	}
+	
+	public String getResourceFileAbsolutePath(String path) throws IOException 
+	{
+		return new File(getClass().getClassLoader().getResource("").getFile()).getParentFile().getParentFile().getAbsolutePath()+"\\"+path.replace("/", "\\");
+	}
 	
 	public static String fileReader(String path)
 	{

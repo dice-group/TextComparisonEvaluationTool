@@ -1,4 +1,4 @@
-package ConverterEngine;
+package AnnotedText2NIF.ConverterEngine;
 import java.util.HashSet;
 import java.util.Set;
 

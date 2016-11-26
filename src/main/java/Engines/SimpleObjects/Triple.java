@@ -1,4 +1,4 @@
-package SimpleObjects;
+package Engines.SimpleObjects;
 
 /**
  * This class contain key, value (%) and count informations of a word as a triple.

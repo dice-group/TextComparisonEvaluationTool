@@ -1,4 +1,4 @@
-package ConverterEngine;
+package AnnotedText2NIF.ConverterEngine;
 /**
  * This file is part of NIF transfer library for the General Entity Annotator Benchmark.
  *
@@ -27,8 +27,9 @@ import org.aksw.gerbil.transfer.nif.data.NamedEntity;
 import org.aksw.gerbil.transfer.nif.data.SpanImpl;
 import org.junit.Ignore;
 
-import IOContent.TextReader;
-import IOContent.TextWriter;
+import AnnotedText2NIF.IOContent.TextReader;
+import AnnotedText2NIF.IOContent.TextWriter;
+
 
 /**
  * Diese Klasse generiert NIF files aus Texten welche ein Wikimardown für Url's haben.
