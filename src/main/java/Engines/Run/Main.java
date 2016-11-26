@@ -1,7 +1,6 @@
 package Engines.Run;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import AnnotedText2NIF.IOContent.TextReader;
@@ -67,8 +66,8 @@ public class Main
 		for(Triple t : triples_sorted) System.out.println(t.retString());
 		
 		System.out.println("Different words:\t\t\t"+wfe.word_count);
-		System.out.println("Maps are equal? \t\t\t"+wfe.sizeEqualityMaps(percentage, wfe.getMap()));
-		System.out.println("Set of keys reflect map keys?\t\t"+wfe.sizeEqualitySetMap(wfe.getMap(), wfe.getSet()));
+//		System.out.println("Maps are equal? \t\t\t"+wfe.sizeEqualityMaps(percentage, wfe.getMap()));
+//		System.out.println("Set of keys reflect map keys?\t\t"+wfe.sizeEqualitySetMap(wfe.getMap(), wfe.getSet()));
 
 	}
 
