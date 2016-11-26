@@ -33,10 +33,17 @@ public class Main
 		TextReader tr = new TextReader();
 
 		/*
-		 * 
+		 * TODO Anzahl Zeichen pro Satz				(m1)	auf raw text
+		 * TODO Anzahl Fehler pro Satz 				(m2)	auf raw text
+		 * TODO Anzahl syntaktischer Fehler pro Satz (m3)	auf raw text
+		 * TODO Anzahl Worte pro Satz 				(m4)	auf cleaned text
+		 * TODO Anzahl POS-Tag verteilung pro Satz 	(m5)	auf cleaned text
+		 * TODO Anzahl Entities pro Satz 			(m6)	auf cleaned text
 		 */
 		
-		String text = TextConversion.decompose(TextReader.fileReader(tr.getResourceFileAbsolutePath(test_classes+filename)));
+		
+		String text_raw = TextReader.fileReader(tr.getResourceFileAbsolutePath(test_classes+filename));
+		String text_cleaned = TextConversion.decompose(TextReader.fileReader(tr.getResourceFileAbsolutePath(test_classes+filename)));
 		
 		//create set and map
 		WordFrequencyEngine wfe = new WordFrequencyEngine();	
@@ -45,7 +52,7 @@ public class Main
 		StanfordSegmentatorTokenizer.create();
 		
 		//get sentences
-		LinkedList<String> sentences = StanfordSegmentatorTokenizer.gatherSentences(text);
+		LinkedList<String> sentences = StanfordSegmentatorTokenizer.gatherSentences(text_cleaned);
 		
 		//calculate word frequency
 		for(String s : sentences) wfe.gatherWordFrequency(s);
