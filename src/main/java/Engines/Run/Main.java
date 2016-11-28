@@ -24,21 +24,26 @@ public class Main
 	 */
 	public static void main(String[] args) throws IOException 
 	{
-		//Edit input for using other files
-		
 		final String test_classes = "target\\test-classes\\";
 		final String resources = "src\\main\\resources\\";
-		String filename = "Bsp1.txt";
 		TextReader tr = new TextReader();
+		
+		//Edit input for using other files 
+		//EDIT HERE for your file name
+		String filename = "Bsp1.txt";
+
+		//AND EDIT HERE if you want the resource folder instead of test-classes
+		TextInformations text_info = new TextInformations(test_classes+filename);
 
 		/*
-		 * TODO Anzahl Zeichen pro Satz				(m1)	auf raw text
-		 * TODO Anzahl Fehler pro Satz 				(m2)	auf raw text
-		 * TODO Anzahl syntaktischer Fehler pro Satz (m3)	auf raw text
-		 * TODO Anzahl Worte pro Satz 				(m4)	auf cleaned text
-		 * TODO Anzahl POS-Tag verteilung pro Satz 	(m5)	auf cleaned text
-		 * TODO Anzahl Entities pro Satz 			(m6)	auf cleaned text
+		 * TODO Anzahl Zeichen pro Satz					(m1)	auf raw text		DONE
+		 * TODO Anzahl Fehler pro Satz 					(m2)	auf raw text		
+		 * TODO Anzahl syntaktischer Fehler pro Satz	(m3)	auf raw text		
+		 * TODO Anzahl Worte pro Satz 					(m4)	auf cleaned text	
+		 * TODO Anzahl POS-Tag verteilung pro Satz 		(m5)	auf cleaned text	
+		 * TODO Anzahl Entities pro Satz 				(m6)	auf cleaned text	
 		 */
+		
 		
 		
 		String text_raw = TextReader.fileReader(tr.getResourceFileAbsolutePath(test_classes+filename));
@@ -51,24 +56,42 @@ public class Main
 		StanfordSegmentatorTokenizer.create();
 		
 		//get sentences
-		LinkedList<String> sentences = StanfordSegmentatorTokenizer.gatherSentences(text_cleaned);
+		LinkedList<String> sentences = StanfordSegmentatorTokenizer.gatherSentences(text_raw);
+		
+		
 		
 		//calculate word frequency
 		for(String s : sentences) wfe.gatherWordFrequency(s);
 		
+		/* M1 */
+		text_info.setSymbol_count(text_raw.length());
+		text_info.setSymbol_count_no_ws(text_raw.replaceAll(" ", "").length());
+		text_info.setSymbol_per_sentence(text_raw.length()/sentences.size());
+		text_info.setSymbol_per_sentence_no_ws(text_raw.replaceAll(" ", "").length()/sentences.size());
+		
 		//calculate word frequency percentage
 		HashMap<String, Double> percentage = wfe.wordAppearancePercentage(wfe.getMap());
+		
+		//TODO muss das auf dem cleaned text gemacht werden? Wenn ja ändern!
+		text_info.setWord_per_sentence(SimpleRounding.round((1.0*wfe.word_count)/sentences.size()));
+		text_info.setWord_count(wfe.word_count);
 		
 		//sort calculation for presentation
 		LinkedList<Triple> triples_sorted = FrequencySorting.sortByPTL(percentage, wfe.getMap());
 		
-		//present
+		//present occurrence
+		System.out.println("\n\n#################### Word occurrence ####################\t\t\t\n");
 		for(Triple t : triples_sorted) System.out.println(t.retString());
 		
-		System.out.println("Different words:\t\t\t"+wfe.word_count);
-//		System.out.println("Maps are equal? \t\t\t"+wfe.sizeEqualityMaps(percentage, wfe.getMap()));
-//		System.out.println("Set of keys reflect map keys?\t\t"+wfe.sizeEqualitySetMap(wfe.getMap(), wfe.getSet()));
-
+		System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
+		System.out.println("Resource:\t\t\t"+text_info.getResource_name());
+		System.out.println("Date and Time:\t\t\t"+text_info.getLocalDateAsString(text_info.getGeneration_date()));
+		System.out.println("Words count:\t\t\t"+text_info.getWord_count());
+		System.out.println("Symbol average:\t\t\t"+text_info.getSymbol_count());
+		System.out.println("Symbol avg nws:\t\t\t"+text_info.getSymbol_count_no_ws());
+		System.out.println("Symbol average / Sentence:\t"+text_info.getSymbol_per_sentence());
+		System.out.println("Symbol avg nws / Sentence:\t"+text_info.getSymbol_per_sentence_no_ws());
+		System.out.println("Word per Sentence:\t\t"+text_info.getWord_per_sentence());
 	}
 
 }

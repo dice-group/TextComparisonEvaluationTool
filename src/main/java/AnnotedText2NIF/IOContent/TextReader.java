@@ -5,26 +5,28 @@ import java.io.FileReader;
 import java.io.IOException;
 	
 /**
- * Simple file Reader for *.txt files.
+ * Simple file Reader for text files.
  * @author TTurke
  *
  */
 public class TextReader 
 {
 	/**
-	 * This method returns the heading file of the project 
-	 * @return
+	 * This method return the full absolute path of the given file path
+	 * @param path
+	 * @return full file path
+	 * @throws IOException
 	 */
-	public String getResourceDirectoryPath() 
-	{
-		return new File(getClass().getClassLoader().getResource("").getFile()).getParentFile().getParentFile()+"\\src\\main\\resources\\";
-	}
-	
 	public String getResourceFileAbsolutePath(String path) throws IOException 
 	{
 		return new File(getClass().getClassLoader().getResource("").getFile()).getParentFile().getParentFile().getAbsolutePath()+"\\"+path.replace("/", "\\");
 	}
 	
+	/**
+	 * Simple file reader
+	 * @param path
+	 * @return Content String
+	 */
 	public static String fileReader(String path)
 	{
 		BufferedReader br = null;

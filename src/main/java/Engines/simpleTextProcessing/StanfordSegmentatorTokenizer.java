@@ -158,8 +158,26 @@ public class StanfordSegmentatorTokenizer
         }
     }	
 
+    /**
+     * This method replace square bracket markings by the symbol
+     * @param in 
+     * @return foramted String
+     */
+    public static String formatSBTags(String in)
+    {
+    	return in.replaceAll("-LSB-", "[").replaceAll("-RSB-", "]");
+    }
     
-    
+    /**
+     * This method clean a string from all square bracket part of speech tag labels and delete special types of whitespace's.
+     * Finally the cleaned string will be trimmed and returned.
+     * @param in
+     * @return cleaned and trimmed string
+     */
+    public static String formatCleaned(String in)
+    {
+    	return in.replaceAll("-LSB-", "[").replaceAll("-RSB-", "]").replace("[ [ ", "[[").replace(" ] ]", "]]").trim();
+    }
     
 
 	public Language getLanguage() {return language;}
@@ -174,26 +192,17 @@ public class StanfordSegmentatorTokenizer
 	public static void main(String[] args) throws Exception 
 	{
 		//TODO Export to main.class needed
-		
-//		String str ="C:/Users/Subadmin/Desktop/Dropbox/BA AKSW/Deep LSTM/epoch- 70 Final.txt";
-		String str = "C:/Users/Subadmin/Desktop/Dropbox/BA AKSW/Deep LSTM/Testtexte bad/Bsp1.txt";
-		String textRAW = TextReader.fileReader(str);
-		
-		String textExample = "Another ex-Golden Stater, Paul Stankowski a bigger guy from Oxnard, is contending"
-				+ "for a berth on the U.S. Ryder Cup team after winning his first PGA Tour"
-				+ "event last year and staying within three strokes of the lead through"
-				+ "three rounds of last month's U.S. Open. Mike is high, Mark is higher and Lars is the highest.";
 
+		final String test_classes = "target\\test-classes\\";
+		String filename = "Bsp1.txt";
 		
-		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
+		String textRAW = TextReader.fileReader(test_classes+filename);
+		StanfordSegmentatorTokenizer.create();
 		LinkedList<String> sentences = gatherSentences(textRAW);
 		
-		System.out.println(sentences.size());
+		System.out.println("SIZE: "+sentences.size());
 		
-		for(int i = 0; i < sentences.size(); i++)
-		{
-			System.out.println((i+1)+". Sentence: "+sentences.get(i).replaceAll("-LSB-", "[").replaceAll("-RSB-", "]").replace("[ [ ", "[[").replace(" ] ]", "]]").trim());
-		}
+		for(int i = 0; i < sentences.size(); i++) System.out.println((i+1)+". Sentence: "+formatCleaned(sentences.get(i)));
 		
 	}
 
