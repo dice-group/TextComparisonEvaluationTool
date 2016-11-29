@@ -2,9 +2,11 @@ package Engines.internalEngineParts;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 
+import Engines.Enums.Language;
 import Engines.simpleTextProcessing.*;
 
 /**
@@ -17,7 +19,6 @@ public class WordFrequencyEngine
 
 	private HashMap<String, Integer> map = null;
 	private HashSet<String> set = null;
-	public static int word_count = 0;
 	
 	public WordFrequencyEngine()
 	{
@@ -26,13 +27,15 @@ public class WordFrequencyEngine
 	}
 
 	/**
-	 * This method count word frequency inside a given text.
+	 * This method count word frequency inside a given text and store the informations inside the objects
+	 * global map variable.
 	 * @param text
+	 * @param sst
+	 * @param language
 	 */
-	public void gatherWordFrequency(String text)
+	public void gatherWordFrequencyByText(String text, StanfordSegmentatorTokenizer sst, Language language)
 	{
-		//TODO evtl durch ein teil vom stanford core nlp ersetzen
-		LinkedList<String> words = TextConversion.splitIntoWords(TextConversion.normalizer(text));
+		List<String> words = sst.gatherWords(text, language);
 		
 		boolean was_added = false;
 		
@@ -59,8 +62,41 @@ public class WordFrequencyEngine
 					map.put(current, map.getOrDefault(current, 0) + 1);
 				}
 			}
+		}	
+	}
+	
+	/**
+	 * This method count word frequency inside a given list of words and store the informations inside the objects
+	 * global map variable.
+	 * @param words
+	 */
+	public void gatherWordFrequencyByList(List<String> words)
+	{		
+		boolean was_added = false;
+		
+		if(words.isEmpty() && words.size() < 1)
+		{
+			System.err.println("No text given! NullPointer in class WordFrequencyEngine.gatherWordFrequency(input)!");
+			System.exit(0);
+		}
+		
+		for(String current : words)
+		{
+			if(!StringUtils.isBlank(current) && !current.contains("RSB") && !current.contains("LSB"))
+			{
+				was_added = set.add(current); 
+			}
 			
-			
+			if(was_added && !StringUtils.isBlank(current) && !current.contains("RSB") && !current.contains("LSB"))
+			{
+				map.put(current, 1);
+			}else{
+				
+				if(!StringUtils.isBlank(current) && !current.contains("RSB") && !current.contains("LSB"))
+				{
+					map.put(current, map.getOrDefault(current, 0) + 1);
+				}
+			}
 		}	
 	}
 	
@@ -107,9 +143,8 @@ public class WordFrequencyEngine
 	 * @param hashmap
 	 * @return HashMap with the percentages
 	 */
-	public HashMap<String, Double> wordAppearancePercentage(HashMap<String, Integer> hashmap)
+	public HashMap<String, Double> wordAppearancePercentage(HashMap<String, Integer> hashmap, int word_count)
 	{
-		word_count = getElementCount(hashmap);
 		double percantage;
 		HashMap<String, Double> perc_map = new HashMap<String, Double>();
 		

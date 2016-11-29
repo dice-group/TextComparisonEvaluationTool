@@ -50,8 +50,6 @@ public class DefinitionObject
 		return u;
 	}
 	
-	//TODO evtl. erweiertung auf liste von urls sofern gewünscht
-	
 	public String showAllContent()
 	{
 		return "[ "+getStartPos()+" ][ "+getEndPos()+" ][ "+getContent()+" ][ "+getEngWikiUrls()+" ]";
