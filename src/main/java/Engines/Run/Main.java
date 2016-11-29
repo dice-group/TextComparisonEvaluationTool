@@ -56,6 +56,7 @@ public class Main
 		WordFrequencyEngine wfe = new WordFrequencyEngine();	
 		
 		//init pipeline
+		//Just Load ONCE! It takes very much time to init it! Remind that for usage!!!
 		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
 		
 		//get sentences
