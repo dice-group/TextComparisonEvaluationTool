@@ -24,47 +24,7 @@ public class TextConversion
 		return new LinkedList<String>(Arrays.asList(text.split(" ")));
 	}
 	
-	/**
-	 * This method split a given text by the dots into sentences.
-	 * The used technique are substrings.
-	 * @param text
-	 * @return a list of sentences
-	 */
-	public static LinkedList<String> splitIntoSentencesViaSubs(String text)
-	{
-		LinkedList<String> sentences = new LinkedList<String>();
-		int end = text.indexOf('.');
-		
-		for(int start = 0; start < text.length(); start++)
-		{
-			if((text.indexOf('.', start)) < text.length() && start < end)
-			{
-				if(isAbbrOrAcry(text.substring(start,end+1)))											//check for abbr or acro
-				{
-					while(isAbbrOrAcry(text.substring(start,end+1)))
-					{
-						if(text.indexOf('.', start) < text.length() && text.indexOf('.', start) > 0)
-						{
-							end = text.indexOf('.', end+2+start+1);
-							if(end < 0) end = text.length()-1;
-						}
-						System.out.println("End value: "+end);
-					}
-				}
-				
-				sentences.add(text.substring(start,end+1));
-				if(end+2 > 0 && end+2 > start) start = end+2;
-			}
-			
-			if(text.indexOf('.', start) < text.length() && text.indexOf('.', start) > 0)
-			{
-				end = text.indexOf('.', start+1);
-				if(end < 0) end = text.length()-1;
-			}
-		}		
-		return sentences;
-	}
-	
+	//TODO brauch ich das???
 	/**
 	 * This method check a text ending is a maybe a acronym or abbreviation.
 	 * @param text
@@ -127,6 +87,7 @@ public class TextConversion
 		return isAbbrOrAcry;
 	}
 	
+	//TODO brauch ich das???
 	/**
 	 * This method decompose a text into characters and clean the error occurrences.
 	 * The result is a text without error symbols in it. 
@@ -223,33 +184,5 @@ public class TextConversion
 	public static String normalizer(String text)
 	{
 		return Normalizer.normalize(text, Form.NFD).replaceAll("[^A-Za-z0-9]", ".").replaceAll("\\.+", " ").replace(" .", ".");
-	}
-	
-	//TODO das auftreten der error symbole sollte je symbol gezählt werden
-	//TODO sentence creator bauen
-	
-	/*
-	 * EXAMPLE/TESTCASE
-	 */
-	public static void main(String[] args )
-	{		
-		
-		//TODO make this work and add to main.class
-//		String str ="C:/Users/Subadmin/Dropbox/BA AKSW/Deep LSTM/epoch- 70 Final.txt";
-		String str = "C:/Users/Subadmin/Dropbox/BA AKSW/Deep LSTM/Testtexte bad/Bsp1.txt";
-		String textRAW = TextReader.fileReader(str);
-		String text = decompose(textRAW);
-
-//		System.out.println("Input Text: "+textRAW);
-//		System.out.println("Output Text: "+text);
-		
-		LinkedList<String> sentences = splitIntoSentencesViaSubs(text);
-		System.out.println("Sentences Count: "+sentences.size());
-		for(int k = 0; k < sentences.size(); k++) System.out.println((k+1)+" Sentence: "+sentences.get(k));
-		
-		System.out.println("Count Errors: "+error_signs);
-		
-		System.out.print("Error Signs: ");
-		for (Character s : errors) System.out.print(s+" ");
 	}
 }

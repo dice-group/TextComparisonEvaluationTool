@@ -2,13 +2,14 @@ package Engines.simpleTextProcessing;
 
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
 import Engines.Enums.Language;
-import AnnotedText2NIF.IOContent.TextReader;
 import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.HasWord;
@@ -26,6 +27,8 @@ public class StanfordSegmentatorTokenizer
 {
 	private Language language;
 	protected StanfordCoreNLP pipeline;
+	protected final String punctutations = "':,.!-()?;\"[]|";
+	
 	
 	/**
 	 * This method creates a StanfordSegmentatorTokenizer with a pre-defined CoreNLP pipeline.
@@ -57,35 +60,37 @@ public class StanfordSegmentatorTokenizer
     }
 
     
-    
-    //TODO hier soll das Sentence splitting der paragraph vorgenommen werden sowie das word counting und das pos tagging
-    public void proceed(String query, Language language)
+    /**
+     * This method gather the words of a text and store it inside a list of string. 
+     * @param text
+     * @param language
+     * @return list of words
+     */
+    public List<String> gatherWords(String text, Language language)
 	{
-    	//TODO check necessarily
-    	
     	//keep the language
-		setLanguage(language);
-		
-        Annotation document = new Annotation(query);
-        pipeline.annotate(document);
-
-        List<CoreLabel> tokens = document.get(TokensAnnotation.class);
-
-        int lastEnd = -1;
-		
-        
-		
-        for (CoreLabel token : tokens) 
-		{
-            if (!((token.beginPosition() <= lastEnd) && ".".equals(token.get(PartOfSpeechAnnotation.class)))) 
-            {          	
-            	//TODO hier werden die Tokens verarbeitet
-            	
-            	
-                lastEnd = token.endPosition();
-            }
-        }
+    	setLanguage(language);
+    			
+    	Annotation document = new Annotation(text);
+    	pipeline.annotate(document);
+    	        
+    	List<CoreLabel> tokens = document.get(TokensAnnotation.class);
+    	List<String> words = new ArrayList<String>();
+    	int lastEnd = -1;
+    	
+    	for (CoreLabel token : tokens) 
+    	{
+    		if (!((token.beginPosition() <= lastEnd) && ".".equals(token.get(PartOfSpeechAnnotation.class)))) 
+    		{
+    			String tmp  = TextConversion.normalizer(formatCleaned(token.get(TextAnnotation.class))).trim();
+    			if(tmp != " " && tmp.length() > 0) words.add(tmp); 
+    			lastEnd = token.endPosition();
+    		}
+    	}
+    	        
+    	return words;
     }
+    
     
     /**
      * This class return all tokens for a given text of a given language.
@@ -105,6 +110,7 @@ public class StanfordSegmentatorTokenizer
         return tokens;
     }
     
+    
     /**
      * This method split a given text if its possible into single sentences.
      * @param query
@@ -122,6 +128,7 @@ public class StanfordSegmentatorTokenizer
     }        
     
     
+    //TODO POS Tagging impl needed
     /**
      * This method collect all the necessary information from token for the Segment object.
      * Lemmatize can be added later if needed (need to update Segment and this class then)!
@@ -132,7 +139,6 @@ public class StanfordSegmentatorTokenizer
      */
     private void countWordsAndPosTagsOccourence(CoreLabel token) 
 	{
-    	//TODO POS Tagging impl needed
 		// Word content of the token
         // String word = token.get(TextAnnotation.class);
 		
@@ -158,6 +164,7 @@ public class StanfordSegmentatorTokenizer
         }
     }	
 
+    
     /**
      * This method replace square bracket markings by the symbol
      * @param in 
@@ -168,6 +175,7 @@ public class StanfordSegmentatorTokenizer
     	return in.replaceAll("-LSB-", "[").replaceAll("-RSB-", "]");
     }
     
+    
     /**
      * This method clean a string from all square bracket part of speech tag labels and delete special types of whitespace's.
      * Finally the cleaned string will be trimmed and returned.
@@ -176,34 +184,11 @@ public class StanfordSegmentatorTokenizer
      */
     public static String formatCleaned(String in)
     {
-    	return in.replaceAll("-LSB-", "[").replaceAll("-RSB-", "]").replace("[ [ ", "[[").replace(" ] ]", "]]").trim();
+    	return in.replaceAll("-LSB-", "[").replaceAll("-RSB-", "]").replaceAll("LSB", "").replaceAll("RSB", "").replace("[ [ ", "[[").replace(" ] ]", "]]").trim();
     }
     
 
 	public Language getLanguage() {return language;}
 
 	public void setLanguage(Language language) {this.language = language;}
-
-
-
-	/*
-	 * Working Example for the Tokenizer
-	 */
-	public static void main(String[] args) throws Exception 
-	{
-		//TODO Export to main.class needed
-
-		final String test_classes = "target\\test-classes\\";
-		String filename = "Bsp1.txt";
-		
-		String textRAW = TextReader.fileReader(test_classes+filename);
-		StanfordSegmentatorTokenizer.create();
-		LinkedList<String> sentences = gatherSentences(textRAW);
-		
-		System.out.println("SIZE: "+sentences.size());
-		
-		for(int i = 0; i < sentences.size(); i++) System.out.println((i+1)+". Sentence: "+formatCleaned(sentences.get(i)));
-		
-	}
-
 }
