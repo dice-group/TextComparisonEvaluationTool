@@ -26,8 +26,9 @@ public class Main
 	 */
 	public static void main(String[] args) throws IOException 
 	{
-		final String test_classes = "src\\test\\resources";
-		final String resources = "src\\main\\resources\\";
+//		final String test_classes = "src\\test\\resources\\";
+//		final String test_classes = "src/test/resources/";
+//		final String resources = "src\\main\\resources\\";
 		TextReader tr = new TextReader();
 		Language language = Language.EN;
 		
@@ -36,7 +37,7 @@ public class Main
 		String filename = "Bsp1.txt";
 
 		//AND EDIT HERE if you want the resource folder instead of test-classes
-		TextInformations text_info = new TextInformations(test_classes+filename);
+		TextInformations text_info = new TextInformations(filename);
 
 		/*
 		 * Anzahl Zeichen pro Satz						(m1)	auf raw text		DONE
@@ -49,7 +50,9 @@ public class Main
 		
 		
 		
-		String text_raw = TextReader.fileReader(tr.getResourceFileAbsolutePath(test_classes+filename));
+		String resourceFileAbsolutePath = tr.getResourceFileAbsolutePath(filename);
+		System.out.println(resourceFileAbsolutePath);
+		String text_raw = TextReader.fileReader(resourceFileAbsolutePath);
 //		String text_cleaned = TextConversion.decompose(TextReader.fileReader(tr.getResourceFileAbsolutePath(test_classes+filename)));
 		
 		//create set and map

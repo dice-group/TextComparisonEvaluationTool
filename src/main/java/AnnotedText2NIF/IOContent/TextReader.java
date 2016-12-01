@@ -19,7 +19,7 @@ public class TextReader
 	 */
 	public String getResourceFileAbsolutePath(String path) throws IOException 
 	{
-		return new File(getClass().getClassLoader().getResource("").getFile()).getParentFile().getParentFile().getAbsolutePath()+"\\"+path.replace("/", "\\");
+		return getClass().getClassLoader().getResource(path).getPath();
 	}
 	
 	/**
