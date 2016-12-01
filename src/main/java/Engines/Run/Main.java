@@ -26,7 +26,7 @@ public class Main
 	 */
 	public static void main(String[] args) throws IOException 
 	{
-		final String test_classes = "target\\test-classes\\";
+		final String test_classes = "src\\test\\resources";
 		final String resources = "src\\main\\resources\\";
 		TextReader tr = new TextReader();
 		Language language = Language.EN;
