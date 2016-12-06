@@ -172,7 +172,7 @@ public class StanfordSegmentatorTokenizer
      */
     public static String formatSBTags(String in)
     {
-    	return in.replaceAll("-LSB-", "[").replaceAll("-RSB-", "]");
+    	return in.replaceAll("-LSB-", "[").replaceAll("-RSB-", "]").replace("[ [ ", "[[").replace(" ] ]", "]]");
     }
     
     

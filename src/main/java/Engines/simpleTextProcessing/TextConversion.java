@@ -152,23 +152,23 @@ public class TextConversion
 					
 				}else if(c == '|'&& (k+1) < chars_in.length)														// Check annotation separator [1st_Annot | 2nd_Annot]
 				{
-					if(Character.isAlphabetic(old) && Character.isAlphabetic(chars_in[k+1]))						// Check previous and next character is alphabetic depending on current
+					if(!Character.isAlphabetic(old) && !Character.isAlphabetic(chars_in[k+1]))						// Check previous and next character is alphabetic depending on current
 					{
 						out += c;
 					}else{																							// DEFAUL add space+nonAlnum+space
 						error_signs++;
 						errors.add(c);
-						out += ' ';
+//						out += ' ';
 					}
 					
 				}else{																								// DEFAUL add space+nonAlnum+space
 					out += c;
-					out += ' ';
+//					out += ' ';
 				}
 			}else{																									// Ignore all other signs
 				error_signs++;
 				errors.add(c);
-				out += ' ';
+//				out += ' ';
 			}
 			old = c;
 		}

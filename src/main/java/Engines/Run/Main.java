@@ -9,6 +9,7 @@ import AnnotedText2NIF.IOContent.TextReader;
 import Engines.SimpleObjects.*;
 import Engines.internalEngineParts.WordFrequencyEngine;
 import Engines.simpleTextProcessing.StanfordSegmentatorTokenizer;
+import Engines.simpleTextProcessing.TextConversion;
 import Engines.Enums.Language;
 
 /**
@@ -46,6 +47,13 @@ public class Main
 		 * Anzahl Worte pro Satz 						(m4)	auf cleaned text	DONE
 		 * TODO Anzahl POS-Tag verteilung pro Satz 		(m5)	auf cleaned text	
 		 * TODO Anzahl Entities pro Satz 				(m6)	auf cleaned text	
+		 * 
+		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
+		 * TODO Converter für BASE64 zu UTF-8
+		 * TODO Junit Test für Wortzähler und KL-Div
+		 * TODO Impl MSE/Quadratischer Fehler 
+		 * TODO Impl cos abstand 2er Vektoren 
+		 * 
 		 */
 		
 		
@@ -68,6 +76,13 @@ public class Main
 		
 		//gather words
 		List<String> words = sst.gatherWords(text_raw, language);
+		
+		for (int i = 0; i < sentences.size(); i++) 
+		{
+			System.out.println(sst.formatCleaned(sentences.get(i)));
+			System.out.println(TextConversion.decompose(sst.formatCleaned(sentences.get(i))));
+			System.out.println("ERRC: "+TextConversion.error_signs+" | ERRS: "+TextConversion.errors);
+		}
 		
 		//calculate word frequency
 		wfe.gatherWordFrequencyByList(words);
