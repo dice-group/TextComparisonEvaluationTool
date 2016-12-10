@@ -1,7 +1,6 @@
 package Engines.Run;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -62,6 +61,11 @@ public class Main
 		 * TODO Anzahl POS-Tag verteilung pro Satz 		(m5)	auf cleaned text => Which tag occurs how much inside a sentence 
 		 * TODO Anzahl Entities pro Satz 				(m6)	auf cleaned text => splitting in numerous and single annotation types desired?
 		 * 
+		 * TODO alle simple Metriken im text_info Objekt speichern und alle von Gerbil (nur) als KL-Div Wert!!!!!
+		 * TODO GERBIL Annotatoren auswählen (4 stk.) und als default GERGIL metriken nutzen.
+		 * 
+		 * m5 mit Sets und Maps wie bei meinen Tripeln und dann schauen das die Tags geordnet sind
+		 * 
 		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
 		 * TODO Converter für BASE64 zu UTF-8
 		 * TODO Junit Test für Wortzähler und KL-Div
@@ -91,6 +95,7 @@ public class Main
 			System.out.println(sentences_cleaned.getLast());
 			
 			//get text annotations 
+			//TODO store annotations in the text_info object
 			text_annotations.addAll(GatherAnnotationInformations.getAnnotationDefs(sentences_cleaned.getLast()));
 			System.out.println("Last added annotation: "+text_annotations.getLast().showAllContent());
 			
