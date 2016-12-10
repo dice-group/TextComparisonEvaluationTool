@@ -24,70 +24,9 @@ public class TextConversion
 		return new LinkedList<String>(Arrays.asList(text.split(" ")));
 	}
 	
-	//TODO brauch ich das???
-	/**
-	 * This method check a text ending is a maybe a acronym or abbreviation.
-	 * @param text
-	 * @return true if it is one and false if not
-	 */
-	public static boolean isAbbrOrAcry(String text)
-	{
-		boolean isAbbrOrAcry = false;
-		
-		Abbreviations abbr = new Abbreviations();
-		Acronyms acry = new Acronyms(); 
-		
-		int start = text.lastIndexOf(" ");
-		int end = text.lastIndexOf(".")+1;
-		
-		if(start < end)
-		{
-			if(start == -1) start = 0;
- 
-			String input = text.substring(start, end).trim();
-			System.out.println(start+" to "+end);
-			System.out.println("input "+input);
-			
-			if(	acry.getAcronym_educational().contains(input))
-			{
-				isAbbrOrAcry = true;
-			}
-			
-			if(!isAbbrOrAcry && acry.getAcronym_general().contains(input))
-			{
-				isAbbrOrAcry = true;
-			}
-			
-			if(!isAbbrOrAcry && acry.getAcronym_names().contains(input))
-			{
-				isAbbrOrAcry = true;
-			}
-			
-			if(!isAbbrOrAcry && abbr.getAbbreviations_general().contains(input))
-			{
-				isAbbrOrAcry = true;
-			}
-			
-			if(!isAbbrOrAcry && abbr.getAbbreviations_grammar().contains(input))
-			{
-				isAbbrOrAcry = true;
-			}
-			
-			if(!isAbbrOrAcry && abbr.getAbbreviations_latin().contains(input))
-			{
-				isAbbrOrAcry = true;
-			}
-			
-			if(!isAbbrOrAcry && abbr.getAbbreviations_names().contains(input))
-			{
-				isAbbrOrAcry = true;
-			}
-		}
-		System.out.println("boolean: "+isAbbrOrAcry);
-		return isAbbrOrAcry;
-	}
 	
-	//TODO brauch ich das???
+	//TODO Error Signs counten und bei bedarf auch gleich eine Art der Information was wo und wie oft auftaucht
+	//TODO einige Leerzeichen und Löschungen sind falsch gesetzt
 	/**
 	 * This method decompose a text into characters and clean the error occurrences.
 	 * The result is a text without error symbols in it. 

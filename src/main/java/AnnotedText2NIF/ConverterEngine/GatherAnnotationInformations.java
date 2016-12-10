@@ -1,6 +1,6 @@
 package AnnotedText2NIF.ConverterEngine;
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import AnnotedText2NIF.IOContent.TextReader;
@@ -29,14 +29,27 @@ public class GatherAnnotationInformations
 			
 			for(String cur : uris)
 			{
-				us.add(prefix+cur.replace(" ", "_"));
+				if(cur.substring(0,1).equals(" "))
+				{
+					if(cur.substring(cur.length()-1).equals(" "))
+					{
+						us.add(prefix+cur.substring(1,cur.length()-1).replace(" ", "_"));
+					}else{
+						us.add(prefix+cur.substring(1).replace(" ", "_"));
+					}
+				}else{
+					
+					if(cur.substring(cur.length()-1).equals(" "))
+					{
+						us.add(prefix+cur.substring(0,cur.length()-1).replace(" ", "_"));
+					}else{
+						us.add(prefix+cur.replace(" ", "_"));
+					}
+				}	
 			}
-		
 			
-		}else{
-			
+		}else{	
 			us.add(prefix+Annotation.replace(" ", "_"));
-			
 		}	
 		
 		return us;
@@ -47,9 +60,9 @@ public class GatherAnnotationInformations
 	 * @param input
 	 * @return list of intervalls
 	 */
-	public static ArrayList<int[]> returnAnnotationRanges(String input)
+	public static LinkedList<int[]> returnAnnotationRanges(String input)
 	{
-		ArrayList<int[]> output = new ArrayList<int[]>();
+		LinkedList<int[]> output = new LinkedList<int[]>();
 		String start = "[[";
 		String end = "]]";
 		int endIndex = input.indexOf(end);
@@ -99,9 +112,9 @@ public class GatherAnnotationInformations
 	 * @param input
 	 * @return list of DefinitionObject(s)
 	 */
-	public static ArrayList<DefinitionObject> getAnnotationDefs(String input)
+	public static LinkedList<DefinitionObject> getAnnotationDefs(String input)
 	{
-		ArrayList<DefinitionObject> output = new ArrayList<DefinitionObject>();
+		LinkedList<DefinitionObject> output = new LinkedList<DefinitionObject>();
 		
 		for(int[] coords : returnAnnotationRanges(input)) 
 		{
@@ -109,6 +122,18 @@ public class GatherAnnotationInformations
 		}
 		
 		return output;
+	}
+	
+	/**
+	 * This method return all known informations about the annotations 
+	 * inside the text of the given path for text file.
+	 * @param path
+	 * @return
+	 */
+	public static LinkedList<DefinitionObject> getAnnotationsOfFile(String path)
+	{
+		String input = TextReader.fileReader(path);
+		return getAnnotationDefs(input);
 	}
 	
 	/*

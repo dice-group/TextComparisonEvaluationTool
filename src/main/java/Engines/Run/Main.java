@@ -1,10 +1,13 @@
 package Engines.Run;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import AnnotedText2NIF.ConverterEngine.DefinitionObject;
+import AnnotedText2NIF.ConverterEngine.GatherAnnotationInformations;
 import AnnotedText2NIF.IOContent.TextReader;
 import Engines.SimpleObjects.*;
 import Engines.internalEngineParts.WordFrequencyEngine;
@@ -27,26 +30,37 @@ public class Main
 	 */
 	public static void main(String[] args) throws IOException 
 	{
-//		final String test_classes = "src\\test\\resources\\";
-//		final String test_classes = "src/test/resources/";
-//		final String resources = "src\\main\\resources\\";
+		
 		TextReader tr = new TextReader();
 		Language language = Language.EN;
 		
-		//Edit input for using other files 
 		//EDIT HERE for your file name
 		String filename = "Bsp1.txt";
-
-		//AND EDIT HERE if you want the resource folder instead of test-classes
+		String resourceFileAbsolutePath = tr.getResourceFileAbsolutePath(filename);
+		String text_raw = TextReader.fileReader(resourceFileAbsolutePath);
+		
+		List<String> words;
+		LinkedList<String> sentences_raw;
+		LinkedList<String> sentences_cleaned = new LinkedList<String>();
+		
 		TextInformations text_info = new TextInformations(filename);
-
+		HashMap<String, Double> percentage;
+		LinkedList<Triple> triples_sorted;
+		LinkedList<DefinitionObject> text_annotations = new LinkedList<DefinitionObject>();
+		
+		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
+		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
+		
+		//create set and map
+		WordFrequencyEngine wfe = new WordFrequencyEngine();	
+		
+		
+		
 		/*
-		 * Anzahl Zeichen pro Satz						(m1)	auf raw text		DONE
-		 * TODO Anzahl symbolische Fehler pro Satz 		(m2)	auf raw text		
-		 * TODO Anzahl syntaktischer Fehler pro Satz	(m3)	auf cleaned text		
-		 * Anzahl Worte pro Satz 						(m4)	auf cleaned text	DONE
-		 * TODO Anzahl POS-Tag verteilung pro Satz 		(m5)	auf cleaned text	
-		 * TODO Anzahl Entities pro Satz 				(m6)	auf cleaned text	
+		 * TODO Anzahl symbolische Fehler pro Satz 		(m2)	auf raw text	 => Errors like words are crossed by non alnum chars or not closed brackets
+		 * TODO Anzahl syntaktischer Fehler pro Satz	(m3)	auf cleaned text => Sentence start is big alphabetic char, sentence end is a punctutations;	
+		 * TODO Anzahl POS-Tag verteilung pro Satz 		(m5)	auf cleaned text => Which tag occurs how much inside a sentence 
+		 * TODO Anzahl Entities pro Satz 				(m6)	auf cleaned text => splitting in numerous and single annotation types desired?
 		 * 
 		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
 		 * TODO Converter für BASE64 zu UTF-8
@@ -58,30 +72,31 @@ public class Main
 		
 		
 		
-		String resourceFileAbsolutePath = tr.getResourceFileAbsolutePath(filename);
-		System.out.println(resourceFileAbsolutePath);
-		String text_raw = TextReader.fileReader(resourceFileAbsolutePath);
-//		String text_cleaned = TextConversion.decompose(TextReader.fileReader(tr.getResourceFileAbsolutePath(test_classes+filename)));
 		
-		//create set and map
-		WordFrequencyEngine wfe = new WordFrequencyEngine();	
-		
-		//init pipeline
-		//Just Load ONCE! It takes very much time to init it! Remind that for usage!!!
-		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
 		
 		//get sentences
-		LinkedList<String> sentences = StanfordSegmentatorTokenizer.gatherSentences(text_raw);
-		text_info.setSentence_count(sentences.size());
+		sentences_raw = StanfordSegmentatorTokenizer.gatherSentences(text_raw);
+		text_info.setSentence_count(sentences_raw.size());
 		
 		//gather words
-		List<String> words = sst.gatherWords(text_raw, language);
+		words = sst.gatherWords(text_raw, language);
 		
-		for (int i = 0; i < sentences.size(); i++) 
+		
+		for (int i = 0; i < sentences_raw.size(); i++) 
 		{
-			System.out.println(sst.formatCleaned(sentences.get(i)));
-			System.out.println(TextConversion.decompose(sst.formatCleaned(sentences.get(i))));
-			System.out.println("ERRC: "+TextConversion.error_signs+" | ERRS: "+TextConversion.errors);
+//			System.out.println(sst.formatCleaned(sentences_raw.get(i)));
+			
+			//store all cleaned sentences
+			sentences_cleaned.add(TextConversion.decompose(sst.formatCleaned(sentences_raw.get(i))));
+			System.out.println(sentences_cleaned.getLast());
+			
+			//get text annotations 
+			text_annotations.addAll(GatherAnnotationInformations.getAnnotationDefs(sentences_cleaned.getLast()));
+			System.out.println("Last added annotation: "+text_annotations.getLast().showAllContent());
+			
+			//additional output
+			System.out.println("Annotations count: "+text_annotations.size());
+			System.out.println("ERRC: "+TextConversion.error_signs+" | ERRS: "+TextConversion.errors+"\n");
 		}
 		
 		//calculate word frequency
@@ -90,18 +105,18 @@ public class Main
 		/* M1 */
 		text_info.setSymbol_count(text_raw.length());
 		text_info.setSymbol_count_no_ws(text_raw.replaceAll(" ", "").length());
-		text_info.setSymbol_per_sentence(text_raw.length()/sentences.size());
-		text_info.setSymbol_per_sentence_no_ws(text_raw.replaceAll(" ", "").length()/sentences.size());
+		text_info.setSymbol_per_sentence(text_raw.length()/sentences_raw.size());
+		text_info.setSymbol_per_sentence_no_ws(text_raw.replaceAll(" ", "").length()/sentences_raw.size());
 		
 		//calculate word frequency percentage
-		HashMap<String, Double> percentage = wfe.wordAppearancePercentage(wfe.getMap(), words.size());
+		percentage = wfe.wordAppearancePercentage(wfe.getMap(), words.size());
 		
 		/* M4 */
-		text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences.size()));
+		text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_raw.size()));
 		text_info.setWord_count(words.size());
 		
 		//sort calculation for presentation
-		LinkedList<Triple> triples_sorted = FrequencySorting.sortByPTL(percentage, wfe.getMap());
+		triples_sorted = FrequencySorting.sortByPTL(percentage, wfe.getMap());
 		
 		//present occurrence
 		System.out.println("\n\n#################### Word occurrence ####################\t\t\t\n");

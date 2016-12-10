@@ -18,6 +18,7 @@ package AnnotedText2NIF.ConverterEngine;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import org.aksw.gerbil.io.nif.NIFWriter;
 import org.aksw.gerbil.io.nif.impl.TurtleNIFWriter;
@@ -32,8 +33,8 @@ import AnnotedText2NIF.IOContent.TextWriter;
 
 
 /**
- * Diese Klasse generiert NIF files aus Texten welche ein Wikimardown für Url's haben.
- * Basierend auf einem Beispiel von Michael Röder (roeder@informatik.uni-leipzig.de)
+ * Diese Klasse generiert NIF files aus Texten welche ein Wikimardown fuer Url's haben.
+ * Basierend auf einem Beispiel von Michael Roeder (roeder@informatik.uni-leipzig.de)
  * @author TTurke
  *
  */
@@ -82,7 +83,7 @@ class AnnotedTextToNIFConverter
 	public static String doTheMagic(String path)
 	{
 		String input = TextReader.fileReader(path);
-		ArrayList<DefinitionObject> DOList = GatherAnnotationInformations.getAnnotationDefs(input);
+		LinkedList<DefinitionObject> DOList = GatherAnnotationInformations.getAnnotationDefs(input);
 		Document document = new DocumentImpl(input, "http://example.org/test_document");
 		
 		for(DefinitionObject dobj : DOList)
