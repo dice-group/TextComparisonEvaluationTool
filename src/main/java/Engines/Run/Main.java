@@ -10,6 +10,7 @@ import AnnotedText2NIF.ConverterEngine.GatherAnnotationInformations;
 import AnnotedText2NIF.IOContent.TextReader;
 import Engines.SimpleObjects.*;
 import Engines.internalEngineParts.WordFrequencyEngine;
+import Engines.simpleTextProcessing.DistributionProcessing;
 import Engines.simpleTextProcessing.StanfordSegmentatorTokenizer;
 import Engines.simpleTextProcessing.TextConversion;
 import Engines.Enums.Language;
@@ -41,11 +42,16 @@ public class Main
 		List<String> words;
 		LinkedList<String> sentences_raw;
 		LinkedList<String> sentences_cleaned = new LinkedList<String>();
+		LinkedList<SentenceObject> sos = new LinkedList<SentenceObject>();
+		LinkedList<int[]> sorted = new LinkedList<int[]>();
+		LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
+		LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
+		LinkedList<DefinitionObject> text_annotations = new LinkedList<DefinitionObject>();
 		
 		TextInformations text_info = new TextInformations(filename);
 		HashMap<String, Double> percentage;
-		LinkedList<Triple> triples_sorted;
-		LinkedList<DefinitionObject> text_annotations = new LinkedList<DefinitionObject>();
+		
+		
 		
 		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
 		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
@@ -59,10 +65,9 @@ public class Main
 		 * TODO Anzahl symbolische Fehler pro Satz 		(m2)	auf raw text	 => Errors like words are crossed by non alnum chars or not closed brackets
 		 * TODO Anzahl syntaktischer Fehler pro Satz	(m3)	auf cleaned text => Sentence start is big alphabetic char, sentence end is a punctutations;	
 		 * TODO Anzahl POS-Tag verteilung pro Satz 		(m5)	auf cleaned text => Which tag occurs how much inside a sentence 
-		 * TODO Anzahl Entities pro Satz 				(m6)	auf cleaned text => splitting in numerous and single annotation types desired?
 		 * 
 		 * TODO alle simple Metriken im text_info Objekt speichern und alle von Gerbil (nur) als KL-Div Wert!!!!!
-		 * TODO GERBIL Annotatoren auswählen (4 stk.) und als default GERGIL metriken nutzen.
+		 * TODO GERBIL Annotatoren auswählen (4 stk.) und als default GERBIL Metriken nutzen.
 		 * 
 		 * m5 mit Sets und Maps wie bei meinen Tripeln und dann schauen das die Tags geordnet sind
 		 * 
@@ -80,6 +85,8 @@ public class Main
 		
 		//get sentences
 		sentences_raw = StanfordSegmentatorTokenizer.gatherSentences(text_raw);
+		/* M2 */
+		
 		text_info.setSentence_count(sentences_raw.size());
 		
 		//gather words
@@ -87,22 +94,31 @@ public class Main
 		
 		
 		for (int i = 0; i < sentences_raw.size(); i++) 
-		{
-//			System.out.println(sst.formatCleaned(sentences_raw.get(i)));
-			
+		{	
 			//store all cleaned sentences
 			sentences_cleaned.add(TextConversion.decompose(sst.formatCleaned(sentences_raw.get(i))));
-			System.out.println(sentences_cleaned.getLast());
 			
-			//get text annotations 
-			//TODO store annotations in the text_info object
-			text_annotations.addAll(GatherAnnotationInformations.getAnnotationDefs(sentences_cleaned.getLast()));
-			System.out.println("Last added annotation: "+text_annotations.getLast().showAllContent());
+			//gather text annotations 
+			dobjs = GatherAnnotationInformations.getAnnotationDefs(sentences_cleaned.getLast());
+			
+			//store sentence objects and annotations
+			if(dobjs.size() > 0)
+			{
+				sos.add(new SentenceObject(sentences_cleaned.getLast(), dobjs.size()));	
+				text_annotations.addAll(dobjs);
+			}
 			
 			//additional output
-			System.out.println("Annotations count: "+text_annotations.size());
-			System.out.println("ERRC: "+TextConversion.error_signs+" | ERRS: "+TextConversion.errors+"\n");
+//			System.out.println("ERRC: "+TextConversion.error_signs+" | ERRS: "+TextConversion.errors+"\n");
 		}
+		
+		/* M6 */
+		//process, sort and store annotation distribution
+		sorted = FrequencySorting.sortAnnotDistSort(DistributionProcessing.getAnnotDist(sos));
+		text_info.setSorted_annot_dist(sorted);
+		
+		//add annotations to text_info
+		text_info.addSthToAll_Annotations(text_annotations); 
 		
 		//calculate word frequency
 		wfe.gatherWordFrequencyByList(words);
@@ -123,9 +139,9 @@ public class Main
 		//sort calculation for presentation
 		triples_sorted = FrequencySorting.sortByPTL(percentage, wfe.getMap());
 		
-		//present occurrence
-		System.out.println("\n\n#################### Word occurrence ####################\t\t\t\n");
-		for(Triple t : triples_sorted) System.out.println(t.retString());
+//		//present occurrence
+//		System.out.println("\n\n#################### Word occurrence ####################\t\t\t\n");
+//		for(Triple t : triples_sorted) System.out.println(t.retString());
 		
 		System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
 		System.out.println("Resource:\t\t\t"+text_info.getResource_name());

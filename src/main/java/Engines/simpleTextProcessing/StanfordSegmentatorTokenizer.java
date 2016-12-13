@@ -3,6 +3,7 @@ package Engines.simpleTextProcessing;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -128,7 +129,6 @@ public class StanfordSegmentatorTokenizer
     }        
     
     
-    //TODO POS Tagging impl needed
     /**
      * This method collect all the necessary information from token for the Segment object.
      * Lemmatize can be added later if needed (need to update Segment and this class then)!
@@ -137,31 +137,35 @@ public class StanfordSegmentatorTokenizer
      * @param token
      * @return Segment object
      */
-    private void countWordsAndPosTagsOccourence(CoreLabel token) 
+    public HashMap<String, Integer> countPosTagsOccourence(LinkedList<CoreLabel> token) 
 	{
-		// Word content of the token
-        // String word = token.get(TextAnnotation.class);
-		
-		// Startposition of the token
-		int start = token.beginPosition();
-		
-		// Lenght of the token
-		int len = (token.endPosition() - token.beginPosition());
-		
-        // POS tag of the token
-        String pos = token.get(PartOfSpeechAnnotation.class);
-		
-        // NER label of the token
-        // String lemma = token.get(LemmaAnnotation.class);
-        
-        // Check Superlative and Comparative
-        if(pos.contains("JJR"))
-        {
-
-        }else if(pos.contains("JJS"))
-        {
-        	
-        }
+    	HashMap<String, Integer> POS_tag_distribution = new HashMap<String, Integer>();
+    	
+    	
+        for (int i = 0; i < token.size(); i++) 
+		{
+        	// POS tag of the token
+            String pos_tag_key = token.get(i).get(PartOfSpeechAnnotation.class);
+            
+			if(POS_tag_distribution.size() < 1)
+			{
+				//fill empty map
+				POS_tag_distribution.put(pos_tag_key, 1);
+			}else{
+				if(POS_tag_distribution.get(pos_tag_key) == null && pos_tag_key != null)
+				{	
+					//add new object
+					POS_tag_distribution.put(pos_tag_key, 1);
+				}else{
+					if(pos_tag_key != null)
+					{
+						//raise count of known object
+						POS_tag_distribution.put(pos_tag_key, POS_tag_distribution.get(pos_tag_key) + 1);
+					}
+				}
+			}
+		}
+        return POS_tag_distribution;
     }	
 
     

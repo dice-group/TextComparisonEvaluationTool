@@ -27,27 +27,26 @@ public class GatherAnnotationInformations
 		{
 			String [] uris = Annotation.split("\\|");
 			
-			for(String cur : uris)
+			if(uris.length > 0 && uris.length < 3)	//only 1 or 2 elements allowed inside a annotation
 			{
-				if(cur.substring(0,1).equals(" "))
+				if(uris[1].substring(0,1).equals(" "))
 				{
-					if(cur.substring(cur.length()-1).equals(" "))
+					if(uris[1].substring(uris[1].length()-1).equals(" "))
 					{
-						us.add(prefix+cur.substring(1,cur.length()-1).replace(" ", "_"));
+						us.add(prefix+uris[1].substring(1,uris[1].length()-1).replace(" ", "_"));
 					}else{
-						us.add(prefix+cur.substring(1).replace(" ", "_"));
+						us.add(prefix+uris[1].substring(1).replace(" ", "_"));
 					}
 				}else{
 					
-					if(cur.substring(cur.length()-1).equals(" "))
+					if(uris[1].substring(uris[1].length()-1).equals(" "))
 					{
-						us.add(prefix+cur.substring(0,cur.length()-1).replace(" ", "_"));
+						us.add(prefix+uris[1].substring(0,uris[1].length()-1).replace(" ", "_"));
 					}else{
-						us.add(prefix+cur.replace(" ", "_"));
+						us.add(prefix+uris[1].replace(" ", "_"));
 					}
 				}	
 			}
-			
 		}else{	
 			us.add(prefix+Annotation.replace(" ", "_"));
 		}	
@@ -118,7 +117,10 @@ public class GatherAnnotationInformations
 		
 		for(int[] coords : returnAnnotationRanges(input)) 
 		{
-			output.add(new DefinitionObject(coords[0], coords[1], input.substring(coords[0], coords[1]), returnEnWikiUrl(input.substring(coords[0], coords[1]))));			
+			if(returnEnWikiUrl(input.substring(coords[0], coords[1])).size() != 0)
+			{
+				output.add(new DefinitionObject(coords[0], coords[1], input.substring(coords[0], coords[1]), returnEnWikiUrl(input.substring(coords[0], coords[1]))));
+			}			
 		}
 		
 		return output;
@@ -135,18 +137,4 @@ public class GatherAnnotationInformations
 		String input = TextReader.fileReader(path);
 		return getAnnotationDefs(input);
 	}
-	
-	/*
-	 * EXAMPLE of USE
-	 */
-	public static void main(String[] args) 
-	{
-		String input = TextReader.fileReader("C:/Users/Subadmin/Desktop/Test1.txt");
-		
-		for(DefinitionObject defObj : getAnnotationDefs(input))
-		{
-			System.out.println(defObj.showAllContent());
-		}
-	}
-
 }

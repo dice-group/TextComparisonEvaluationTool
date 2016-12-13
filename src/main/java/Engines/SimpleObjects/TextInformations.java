@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
+import AnnotedText2NIF.ConverterEngine.DefinitionObject;
+
 /**
  * This class contain all relevant informations about a processed text.
  * 
@@ -21,6 +23,8 @@ public class TextInformations
 	private double syntax_error_per_sentence = 0.0;
 	private double word_per_sentence = 0.0;
 	private double entity_per_sentence = 0.0;
+	private double occurrence_single_annots = 0.0;
+	private double occurrence_dual_annots = 0.0;
 	
 	private int sentence_count = 0;
 	private int word_count = 0;
@@ -30,8 +34,10 @@ public class TextInformations
 	private int syntax_error_count = 0;
 	private int entity_count = 0;
 	
-	LinkedList<Character> error_symbols = new LinkedList<Character>();
-	LinkedList<String> pos_tags_spread_per_sentence = new LinkedList<String>();
+	private LinkedList<Character> error_symbols = new LinkedList<Character>();
+	private LinkedList<String> pos_tags_spread_per_sentence = new LinkedList<String>();
+	private LinkedList<DefinitionObject> all_annotations = new LinkedList<DefinitionObject>();
+	private LinkedList<int[]> sorted_annot_dist = new LinkedList<int[]>();
 	
 	/**
 	 * This constructor store the original resource file name
@@ -65,7 +71,7 @@ public class TextInformations
 	}
 	
 	//##################################################################################
-	//########################### GETTERS & SETTERS ####################################
+	//################## GETTERS, SETTERS, ADDERS and EDITS ##########################
 	//##################################################################################
 
 	public double getSymbol_per_sentence() {
@@ -225,6 +231,47 @@ public class TextInformations
 
 	public String getResource_name() {
 		return resource_name;
+	}
+
+	public LinkedList<DefinitionObject> getAll_Annotations() {
+		return all_annotations;
+	}
+
+	public void setAll_Annotations(LinkedList<DefinitionObject> all_annotations) {
+		this.all_annotations = all_annotations;
+	}
+	
+	/**
+	 * This method add the input to the existing list
+	 * @param all_annotations
+	 */
+	public void addSthToAll_Annotations(LinkedList<DefinitionObject> all_annotations)
+	{
+		this.all_annotations.addAll(all_annotations);
+	}
+
+	public double getOccurrence_single_annots() {
+		return occurrence_single_annots;
+	}
+
+	public void setOccurrence_single_annots(double occurrence_single_annots) {
+		this.occurrence_single_annots = occurrence_single_annots;
+	}
+
+	public double getOccurrence_dual_annots() {
+		return occurrence_dual_annots;
+	}
+
+	public void setOccurrence_dual_annots(double occurrence_dual_annots) {
+		this.occurrence_dual_annots = occurrence_dual_annots;
+	}
+
+	public LinkedList<int[]> getSorted_annot_dist() {
+		return sorted_annot_dist;
+	}
+
+	public void setSorted_annot_dist(LinkedList<int[]> sorted_annot_dist) {
+		this.sorted_annot_dist = sorted_annot_dist;
 	}
 	
 	

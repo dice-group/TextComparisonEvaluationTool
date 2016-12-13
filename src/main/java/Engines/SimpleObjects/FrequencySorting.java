@@ -1,6 +1,7 @@
 package Engines.SimpleObjects;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -75,5 +76,53 @@ public class FrequencySorting
 		
 		return triples_sorted;
 	}
+	
+	/**
+	 * This method sort a raw annotation distribution map.
+	 * It return a list of sorted integer arrays with the following structure: 
+	 * 		[index 1: occurrence]
+	 * 		[index 2: count of sentences with [index 1] much annotations inside]
+	 * 
+	 * @param distribution
+	 * @return list of sorted integer arrays (by occurrence count)
+	 */
+	public static LinkedList<int[]> sortAnnotDistSort(Map<Integer, Integer> distribution)
+	{
+		int[] current = new int[2];
+		ArrayList<Integer> keys = new ArrayList<Integer>(distribution.keySet());
+		LinkedList<int[]> sorted = new LinkedList<int[]>();
+		
+		for(int k = 0; k < keys.size(); k++)
+		{	
+			//initital position for each run
+			int position = 0;
+			current = new int[2];
+			
+			current[0] = keys.get(k);					//number of annotations in a sentence
+			current[1] = distribution.get(current[0]);	//sentence count with current key value of annotation occurrence in the text
+			
+			if(sorted.size() < 1)
+			{
+				sorted.add(current);
+			}else{
+				if(sorted.size() > 0)
+				{
+					
+					for (int i = 0; i < sorted.size(); i++) 
+					{
+						if(sorted.get(i)[0] > current[0])
+						{
+							position++;
+						}
+					}
+					
+					sorted.add(position, current);
+				}
+			}	
+		}
+		return sorted;
+	}
+	
+	
 	
 }
