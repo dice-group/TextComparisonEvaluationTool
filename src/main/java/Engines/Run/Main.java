@@ -13,6 +13,7 @@ import Engines.internalEngineParts.WordFrequencyEngine;
 import Engines.simpleTextProcessing.DistributionProcessing;
 import Engines.simpleTextProcessing.StanfordSegmentatorTokenizer;
 import Engines.simpleTextProcessing.TextConversion;
+import edu.stanford.nlp.ling.CoreLabel;
 import Engines.Enums.Language;
 
 /**
@@ -47,6 +48,7 @@ public class Main
 		LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
 		LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
 		LinkedList<DefinitionObject> text_annotations = new LinkedList<DefinitionObject>();
+		LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
 		
 		TextInformations text_info = new TextInformations(filename);
 		HashMap<String, Double> percentage;
@@ -85,13 +87,17 @@ public class Main
 		
 		//get sentences
 		sentences_raw = StanfordSegmentatorTokenizer.gatherSentences(text_raw);
-		/* M2 */
 		
+		/* M2 */
 		text_info.setSentence_count(sentences_raw.size());
 		
 		//gather words
 		words = sst.gatherWords(text_raw, language);
 		
+		//TODO speichern der POS TAGS
+		/* M5 */
+		//gather, sort and store part of speech labels
+		pos_tags = FrequencySorting.sortPosTagMap(sst.countPosTagsOccourence(sst.getTokens()));
 		
 		for (int i = 0; i < sentences_raw.size(); i++) 
 		{	
@@ -138,10 +144,6 @@ public class Main
 		
 		//sort calculation for presentation
 		triples_sorted = FrequencySorting.sortByPTL(percentage, wfe.getMap());
-		
-//		//present occurrence
-//		System.out.println("\n\n#################### Word occurrence ####################\t\t\t\n");
-//		for(Triple t : triples_sorted) System.out.println(t.retString());
 		
 		System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
 		System.out.println("Resource:\t\t\t"+text_info.getResource_name());

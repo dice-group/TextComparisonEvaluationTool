@@ -1,7 +1,7 @@
 package Engines.SimpleObjects;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -77,6 +77,62 @@ public class FrequencySorting
 		return triples_sorted;
 	}
 	
+	
+	/**
+	 * This method sort a list of part of speech tags at 1st by occurrence count and 2nd by name.
+	 * @param tag_map
+	 * @return List of PosTag objects
+	 */
+	public static LinkedList<PosTagObject> sortPosTagMap(HashMap<String, Integer>  tag_map)
+	{
+		//Get key values
+		LinkedList<String> keys = new LinkedList<String>(tag_map.keySet());
+		
+		//Init output list
+		LinkedList<PosTagObject> tag_sorted = new LinkedList<PosTagObject>();
+		
+		//Over all keys
+		for(String key : keys)
+		{	
+			//initital position for each run
+			int position = 0;
+			
+			//New triple object 
+			PosTagObject pto = new PosTagObject(key, tag_map.get(key));
+			
+			//If we have already some elements in the sorted list
+			if(tag_sorted.size() > 0)
+			{
+				//Sort the triples
+				for(int i = 0; i < tag_sorted.size(); i++)
+				{
+					//find new position of the triple depending on the percentage
+					// position step forward if reach a higher value 
+					if(tag_sorted.get(i).getTag_ouccurrence() > pto.getTag_ouccurrence())
+					{
+						position++;
+					}else if(tag_sorted.get(i).getTag_ouccurrence() ==  pto.getTag_ouccurrence())	//look closer if we get a equal object
+					{
+						// find new position depending of the triple depending on the lexical order
+						//if current triple is lexical lower continue
+						if(tag_sorted.get(i).getPOS_Tag().compareTo(pto.getPOS_Tag()) < 0)
+						{							
+							position++;
+							continue;
+						}
+					}
+				}
+				// finaly add the element at the desired position
+				tag_sorted.add(position, pto);
+			}else{	
+				// otherwise
+				tag_sorted.add(pto);	
+			}
+		}
+		return tag_sorted;
+	}
+	
+	
 	/**
 	 * This method sort a raw annotation distribution map.
 	 * It return a list of sorted integer arrays with the following structure: 
@@ -122,7 +178,4 @@ public class FrequencySorting
 		}
 		return sorted;
 	}
-	
-	
-	
 }

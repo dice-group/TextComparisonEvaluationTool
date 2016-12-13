@@ -27,6 +27,7 @@ import edu.stanford.nlp.process.DocumentPreprocessor;
 public class StanfordSegmentatorTokenizer 
 {
 	private Language language;
+	private List<CoreLabel> tokens = new LinkedList<CoreLabel>();
 	protected StanfordCoreNLP pipeline;
 	protected final String punctutations = "':,.!-()?;\"[]|";
 	
@@ -76,6 +77,8 @@ public class StanfordSegmentatorTokenizer
     	pipeline.annotate(document);
     	        
     	List<CoreLabel> tokens = document.get(TokensAnnotation.class);
+    	this.tokens = tokens; 												//store the tokens for later usage
+    	
     	List<String> words = new ArrayList<String>();
     	int lastEnd = -1;
     	
@@ -130,14 +133,15 @@ public class StanfordSegmentatorTokenizer
     
     
     /**
-     * This method collect all the necessary information from token for the Segment object.
-     * Lemmatize can be added later if needed (need to update Segment and this class then)!
-     * The POS tags are gathered from Penn Treebank Project.
+     * This method use a list of tokens to gather the POS tags of a Text and store the tags inside a Map.
+     * The map also contains a count of the tags occurrence inside the text.
+     * 
+     * The POS tags depend partially on the Penn Treebank Project.
      * Link: http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
      * @param token
-     * @return Segment object
+     * @return Map of POS-Tags as Keys and there occurrence count as value
      */
-    public HashMap<String, Integer> countPosTagsOccourence(LinkedList<CoreLabel> token) 
+    public HashMap<String, Integer> countPosTagsOccourence(List<CoreLabel> token) 
 	{
     	HashMap<String, Integer> POS_tag_distribution = new HashMap<String, Integer>();
     	
@@ -146,7 +150,6 @@ public class StanfordSegmentatorTokenizer
 		{
         	// POS tag of the token
             String pos_tag_key = token.get(i).get(PartOfSpeechAnnotation.class);
-            
 			if(POS_tag_distribution.size() < 1)
 			{
 				//fill empty map
@@ -192,7 +195,21 @@ public class StanfordSegmentatorTokenizer
     }
     
 
-	public Language getLanguage() {return language;}
+	public Language getLanguage() {
+		return language;
+	}
 
-	public void setLanguage(Language language) {this.language = language;}
+	public void setLanguage(Language language) {
+		this.language = language;
+	}
+
+	public List<CoreLabel> getTokens() {
+		return tokens;
+	}
+
+	public void setTokens(List<CoreLabel> tokens) {
+		this.tokens = tokens;
+	}
+	
+	
 }
