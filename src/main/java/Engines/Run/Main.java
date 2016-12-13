@@ -87,8 +87,6 @@ public class Main
 		
 		//get sentences
 		sentences_raw = StanfordSegmentatorTokenizer.gatherSentences(text_raw);
-		
-		/* M2 */
 		text_info.setSentence_count(sentences_raw.size());
 		
 		//gather words

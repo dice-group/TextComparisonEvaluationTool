@@ -40,11 +40,9 @@ public class FrequencySorting
 			//If we have already some elements in the sorted list
 			if(triples_sorted.size() > 0)
 			{
-				
 				//Sort the triples
 				for(int i = 0; i < triples_sorted.size(); i++)
 				{
-					
 					//find new position of the triple depending on the percentage
 					
 					// position step forward if reach a higher value 
@@ -64,7 +62,6 @@ public class FrequencySorting
 						}
 					}
 				}
-				
 				// finaly add the element at the desired position
 				triples_sorted.add(position, t);
 				
@@ -73,7 +70,6 @@ public class FrequencySorting
 				triples_sorted.add(t);	
 			}
 		}
-		
 		return triples_sorted;
 	}
 	
