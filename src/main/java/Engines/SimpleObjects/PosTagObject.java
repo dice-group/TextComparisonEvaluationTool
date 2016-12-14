@@ -9,6 +9,7 @@ public class PosTagObject
 {
 	private String POS_Tag;
 	private int tag_ouccurrence = 0;
+	private double tag_oucc_percentage = 0.0;
 	
 	public PosTagObject(String tag, int occurrence)
 	{
@@ -30,5 +31,13 @@ public class PosTagObject
 
 	public void setTag_ouccurrence(int tag_ouccurrence) {
 		this.tag_ouccurrence = tag_ouccurrence;
+	}
+
+	public double getTag_oucc_percentage() {
+		return tag_oucc_percentage;
+	}
+
+	public void setTag_oucc_percentage(double tag_oucc_percentage) {
+		this.tag_oucc_percentage = tag_oucc_percentage;
 	}	
 }

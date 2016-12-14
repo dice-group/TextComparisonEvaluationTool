@@ -38,6 +38,7 @@ public class TextInformations
 	private LinkedList<String> pos_tags_spread_per_sentence = new LinkedList<String>();
 	private LinkedList<DefinitionObject> all_annotations = new LinkedList<DefinitionObject>();
 	private LinkedList<int[]> sorted_annot_dist = new LinkedList<int[]>();
+	LinkedList<PosTagObject> pos_tag_objs = new LinkedList<PosTagObject>();
 	
 	/**
 	 * This constructor store the original resource file name
@@ -273,6 +274,12 @@ public class TextInformations
 	public void setSorted_annot_dist(LinkedList<int[]> sorted_annot_dist) {
 		this.sorted_annot_dist = sorted_annot_dist;
 	}
-	
-	
+
+	public LinkedList<PosTagObject> getPos_tag_objs() {
+		return pos_tag_objs;
+	}
+
+	public void setPos_tag_objs(LinkedList<PosTagObject> pos_tag_objs) {
+		this.pos_tag_objs = pos_tag_objs;
+	}
 }

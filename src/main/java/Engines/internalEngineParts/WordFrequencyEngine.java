@@ -2,11 +2,13 @@ package Engines.internalEngineParts;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
 import Engines.Enums.Language;
+import Engines.SimpleObjects.PosTagObject;
 import Engines.simpleTextProcessing.*;
 
 /**
@@ -155,6 +157,19 @@ public class WordFrequencyEngine
 		}
 		return perc_map;
 	}
+	
+	/**
+	 * This method calculate and add the occurrence percentage of each POS-Tag object in a list to its local value inside it.
+	 * @param pos_tags
+	 * @param sentence_count
+	 * @return Same list with added percentage
+	 */
+	public LinkedList<PosTagObject> posTagAppearancePercentage(LinkedList<PosTagObject> pos_tags, int sentence_count)
+	{
+		for(PosTagObject tags : pos_tags) tags.setTag_oucc_percentage( (tags.getTag_ouccurrence()*1.0) / (sentence_count*1.0)* 100.0);
+		return pos_tags;
+	}
+	
 	
 	//################### GETTERS AND SETTERS ###################
 	
