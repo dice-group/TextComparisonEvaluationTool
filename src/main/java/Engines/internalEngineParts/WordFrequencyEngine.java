@@ -145,7 +145,7 @@ public class WordFrequencyEngine
 	 * @param hashmap
 	 * @return HashMap with the percentages
 	 */
-	public HashMap<String, Double> wordAppearancePercentage(HashMap<String, Integer> hashmap, int word_count)
+	public HashMap<String, Double> appearancePercentage(HashMap<String, Integer> hashmap, int word_count)
 	{
 		double percantage;
 		HashMap<String, Double> perc_map = new HashMap<String, Double>();
@@ -164,7 +164,7 @@ public class WordFrequencyEngine
 	 * @param sentence_count
 	 * @return Same list with added percentage
 	 */
-	public LinkedList<PosTagObject> posTagAppearancePercentage(LinkedList<PosTagObject> pos_tags, int sentence_count)
+	public LinkedList<PosTagObject> appearancePercentage(LinkedList<PosTagObject> pos_tags, int sentence_count)
 	{
 		for(PosTagObject tags : pos_tags) tags.setTag_oucc_percentage( (tags.getTag_ouccurrence()*1.0) / (sentence_count*1.0)* 100.0);
 		return pos_tags;

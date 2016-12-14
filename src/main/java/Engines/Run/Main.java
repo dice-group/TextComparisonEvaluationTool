@@ -13,7 +13,6 @@ import Engines.internalEngineParts.WordFrequencyEngine;
 import Engines.simpleTextProcessing.DistributionProcessing;
 import Engines.simpleTextProcessing.StanfordSegmentatorTokenizer;
 import Engines.simpleTextProcessing.TextConversion;
-import edu.stanford.nlp.ling.CoreLabel;
 import Engines.Enums.Language;
 
 /**
@@ -44,7 +43,8 @@ public class Main
 		LinkedList<String> sentences_raw;
 		LinkedList<String> sentences_cleaned = new LinkedList<String>();
 		LinkedList<SentenceObject> sos = new LinkedList<SentenceObject>();
-		LinkedList<int[]> sorted = new LinkedList<int[]>();
+		LinkedList<int[]> annotation_sorted = new LinkedList<int[]>();
+		LinkedList<int[]> wps_sorted = new LinkedList<int[]>();
 		LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
 		LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
 		LinkedList<DefinitionObject> text_annotations = new LinkedList<DefinitionObject>();
@@ -64,20 +64,23 @@ public class Main
 		
 		
 		/*
-		 * TODO Verteilung symbolische Fehler pro Satz 			(m2)	auf raw text	 => Errors like words are crossed by non alnum chars or not closed brackets
-		 * TODO Verteilung syntaktischer Fehler pro Satz		(m3)	auf cleaned text => Sentence start is big alphabetic char, sentence end is a punctutations;	
-		 * TODO M4 Verteilung mit class object anstatt average
-		 * TODO M6 class object anstatt int array
-		 * 
+		 * GENERAL
 		 * TODO alle simple Metriken im text_info Objekt speichern und alle von Gerbil (nur) als KL-Div Wert!!!!!
 		 * TODO GERBIL Annotatoren auswählen (4 stk.) und als default GERBIL Metriken nutzen.
 		 * 
+		 * IMPL
+		 * TODO Verteilung symbolische Fehler pro Satz 			(m2)	auf raw text	 => Errors like words are crossed by non alnum chars or not closed brackets
+		 * TODO Verteilung syntaktischer Fehler pro Satz		(m3)	auf cleaned text => Sentence start is big alphabetic char, sentence end is a punctutations;	
+		 * TODO GERBIL an- & einbinden
 		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
+		 * TODO Impl cos abstand 2er Vektoren/arrays 
 		 * TODO Converter für BASE64 zu UTF-8
-		 * TODO Junit Test für Wortzähler und KL-Div
-		 * TODO Impl MSE/Quadratischer Fehler 
-		 * TODO Impl cos abstand 2er Vektoren 
 		 * 
+		 * JUNIT
+		 * TODO Junit Test für Wortzähler
+		 * TODO Junit Test für KL-Div
+		 * TODO Junit Test für quadratischen Fehler/MSE
+		 * TODO Junit Test für cos Abstand
 		 */
 		
 		
@@ -93,7 +96,7 @@ public class Main
 		
 		/* M5: POS-Tags Distribution over all Sentences */
 		//gather, sort and store part of speech labels
-		pos_tags = wfe.posTagAppearancePercentage(FrequencySorting.sortPosTagMap(sst.countPosTagsOccourence(sst.getTokens())), sst.getTokens().size());
+		pos_tags = wfe.appearancePercentage(FrequencySorting.sortPosTagMap(sst.countPosTagsOccourence(sst.getTokens())), sst.getTokens().size());
 		text_info.setPos_tag_objs(pos_tags);
 		
 		for (PosTagObject tag : pos_tags) System.out.println("["+tag.getPOS_Tag()+"]\t\t["+tag.getTag_ouccurrence()+"]\t\t["+tag.getTag_oucc_percentage()+"]");
@@ -119,8 +122,12 @@ public class Main
 		
 		/* M6: Entity Distribution over all Sentence*/
 		//process, sort and store annotation distribution
-		sorted = FrequencySorting.sortAnnotDistSort(DistributionProcessing.getAnnotDist(sos));
-		text_info.setSorted_annot_dist(sorted);
+		annotation_sorted = FrequencySorting.sortDist(DistributionProcessing.getAnnotDist(sos));
+		text_info.setSorted_annot_dist(annotation_sorted);
+		
+		/* M4: Word Distribution over all Sentences */
+		wps_sorted = FrequencySorting.sortDist(DistributionProcessing.getWPSDist(sos, sst, language));
+		text_info.setSorted_wps_dist(wps_sorted);
 		
 		//add annotations to text_info
 		text_info.addSthToAll_Annotations(text_annotations); 
@@ -135,7 +142,7 @@ public class Main
 		text_info.setSymbol_per_sentence_no_ws(text_raw.replaceAll(" ", "").length()/sentences_raw.size());
 		
 		//calculate word frequency percentage
-		percentage = wfe.wordAppearancePercentage(wfe.getMap(), words.size());
+		percentage = wfe.appearancePercentage(wfe.getMap(), words.size());
 		
 		/* M4: Word Distribution over all Sentences */
 		text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_raw.size()));
@@ -143,6 +150,7 @@ public class Main
 		
 		//sort calculation for presentation
 		triples_sorted = FrequencySorting.sortByPTL(percentage, wfe.getMap());
+		text_info.setWord_distribution(triples_sorted);
 		
 //		System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
 //		System.out.println("Resource:\t\t\t"+text_info.getResource_name());

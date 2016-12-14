@@ -68,7 +68,7 @@ public class StanfordSegmentatorTokenizer
      * @param language
      * @return list of words
      */
-    public List<String> gatherWords(String text, Language language)
+    public LinkedList<String> gatherWords(String text, Language language)
 	{
     	//keep the language
     	setLanguage(language);
@@ -79,7 +79,7 @@ public class StanfordSegmentatorTokenizer
     	List<CoreLabel> tokens = document.get(TokensAnnotation.class);
     	this.tokens = tokens; 												//store the tokens for later usage
     	
-    	List<String> words = new ArrayList<String>();
+    	LinkedList<String> words = new LinkedList<String>();
     	int lastEnd = -1;
     	
     	for (CoreLabel token : tokens) 
@@ -189,7 +189,7 @@ public class StanfordSegmentatorTokenizer
      * @param in
      * @return cleaned and trimmed string
      */
-    public static String formatCleaned(String in)
+    public String formatCleaned(String in)
     {
     	return in.replaceAll("-LSB-", "[").replaceAll("-RSB-", "]").replaceAll("LSB", "").replaceAll("RSB", "").replace("[ [ ", "[[").replace(" ] ]", "]]").trim();
     }

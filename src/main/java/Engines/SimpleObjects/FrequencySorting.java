@@ -138,7 +138,7 @@ public class FrequencySorting
 	 * @param distribution
 	 * @return list of sorted integer arrays (by occurrence count)
 	 */
-	public static LinkedList<int[]> sortAnnotDistSort(Map<Integer, Integer> distribution)
+	public static LinkedList<int[]> sortDist(Map<Integer, Integer> distribution)
 	{
 		int[] current = new int[2];
 		ArrayList<Integer> keys = new ArrayList<Integer>(distribution.keySet());
