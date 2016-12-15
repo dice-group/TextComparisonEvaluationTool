@@ -129,27 +129,27 @@ public class Main
 		
 		System.out.println("########  [Entities] / [Sentences] ########");
 		for (int i = 0; i < annotation_sorted.size(); i++) {
-			System.out.println("["+annotation_sorted.get(i)[0]+"]["+annotation_sorted.get(i)[1]+"]");
+			System.out.println("["+annotation_sorted.get(i)[0]+"]\t\t["+annotation_sorted.get(i)[1]+"]");
 		}
+		
 		
 		/* M4: Word Distribution over all Sentences */
 		wps_sorted = FrequencySorting.sortDist(DistributionProcessing.getWPSDist(sos, sst, language));
 		text_info.setSorted_wps_dist(wps_sorted);
 		
-		System.out.println("######## [Words] / [Sentences] ########");
+		System.out.println("######## [Word amount] / [Sentences] ########");
 		for (int i = 0; i < wps_sorted.size(); i++) {
-			System.out.println("["+wps_sorted.get(i)[0]+"]["+wps_sorted.get(i)[1]+"]");
+			System.out.println("["+wps_sorted.get(i)[0]+"]\t\t["+wps_sorted.get(i)[1]+"]");
 		}
+		
 		
 		/*M3: Syntactic error Distribution over all Sentence */
 		syn_err_per_sen = DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language);
+		text_info.setSorted_synerr_per_sen_dist(syn_err_per_sen);
 		
 		System.out.println("######## [Syntaxerrors] / [Sentences] ########");
-		for (int i = 0; i < syn_err_per_sen.size(); i++) {
-			System.out.println("["+syn_err_per_sen.get(i)[0]+"]["+syn_err_per_sen.get(i)[1]+"]");
-		}
+		for (int i = 0; i < syn_err_per_sen.size(); i++) System.out.println("["+syn_err_per_sen.get(i)[0]+"]\t\t["+syn_err_per_sen.get(i)[1]+"]");
 		
-		text_info.setSorted_synerr_per_sen_dist(syn_err_per_sen);
 		
 		//add annotations to text_info
 		text_info.addSthToAll_Annotations(text_annotations); 
@@ -165,25 +165,24 @@ public class Main
 		
 		//calculate word frequency percentage
 		percentage = wfe.appearancePercentage(wfe.getMap(), words.size());
-		
-		/* M4: Word Distribution over all Sentences */
-		text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_raw.size()));
+		text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_cleaned.size()));
 		text_info.setWord_count(words.size());
-		
-		//sort calculation for presentation
 		triples_sorted = FrequencySorting.sortByPTL(percentage, wfe.getMap());
 		text_info.setWord_distribution(triples_sorted);
 		
-//		System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
-//		System.out.println("Resource:\t\t\t"+text_info.getResource_name());
-//		System.out.println("Date and Time:\t\t\t"+text_info.getLocalDateAsString(text_info.getGeneration_date()));
-//		System.out.println("Words count:\t\t\t"+text_info.getWord_count());
-//		System.out.println("Sentence count:\t\t\t"+text_info.getSentence_count());
-//		System.out.println("Symbol count:\t\t\t"+text_info.getSymbol_count());
-//		System.out.println("Symbol count nws:\t\t"+text_info.getSymbol_count_no_ws());
-//		System.out.println("Symbol average / Sentence:\t"+text_info.getSymbol_per_sentence());
-//		System.out.println("Symbol avg nws / Sentence:\t"+text_info.getSymbol_per_sentence_no_ws());
-//		System.out.println("Word per Sentence:\t\t"+text_info.getWord_per_sentence());
+		System.out.println("######## [Word occurrence] / [Sentences] ########");
+		for (int i = 0; i < triples_sorted.size(); i++) System.out.println("["+triples_sorted.get(i).getKey()+"]\t\t["+triples_sorted.get(i).getCount()+"]");
+		
+		System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
+		System.out.println("Resource:\t\t\t"+text_info.getResource_name());
+		System.out.println("Date and Time:\t\t\t"+text_info.getLocalDateAsString(text_info.getGeneration_date()));
+		System.out.println("Words count:\t\t\t"+text_info.getWord_count());
+		System.out.println("Sentence count:\t\t\t"+text_info.getSentence_count());
+		System.out.println("Symbol count:\t\t\t"+text_info.getSymbol_count());
+		System.out.println("Symbol count nws:\t\t"+text_info.getSymbol_count_no_ws());
+		System.out.println("Symbol average / Sentence:\t"+text_info.getSymbol_per_sentence());
+		System.out.println("Symbol avg nws / Sentence:\t"+text_info.getSymbol_per_sentence_no_ws());
+		System.out.println("Word per Sentence:\t\t"+text_info.getWord_per_sentence());
 	}
 
 }
