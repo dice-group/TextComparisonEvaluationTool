@@ -39,6 +39,7 @@ public class TextInformations
 	private LinkedList<DefinitionObject> all_annotations = new LinkedList<DefinitionObject>();
 	private LinkedList<int[]> sorted_annot_dist = new LinkedList<int[]>();
 	private LinkedList<int[]> sorted_wps_dist = new LinkedList<int[]>();
+	private LinkedList<int[]> sorted_synerr_per_sen_dist = new LinkedList<int[]>();
 	private LinkedList<PosTagObject> pos_tag_objs = new LinkedList<PosTagObject>();
 	private LinkedList<Triple> word_distribution = new LinkedList<Triple>();
 	
@@ -300,6 +301,14 @@ public class TextInformations
 
 	public void setSorted_wps_dist(LinkedList<int[]> sorted_wps_dist) {
 		this.sorted_wps_dist = sorted_wps_dist;
+	}
+
+	public LinkedList<int[]> getSorted_synerr_per_sen_dist() {
+		return sorted_synerr_per_sen_dist;
+	}
+
+	public void setSorted_synerr_per_sen_dist(LinkedList<int[]> sorted_synerr_per_sen_dist) {
+		this.sorted_synerr_per_sen_dist = sorted_synerr_per_sen_dist;
 	}
 	
 }

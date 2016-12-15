@@ -7,21 +7,49 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-import AnnotedText2NIF.IOContent.TextReader;
-
 public class TextConversion 
 {
 	public static int error_signs = -1;
 	public static Set<Character> errors;
+	public static final String punctutations = "':,.!-()?;\"[]|";
+	public static final String sentence_separator = ".?!";
 	
 	/**
-	 * This method split a text or sentence by whitespace into words.
+	 * This method split a text or sentence by whitespace into words (for bottom value text creation).
 	 * @param text
 	 * @return a list of words
 	 */
 	public static LinkedList<String> splitIntoWords(String text)
 	{
 		return new LinkedList<String>(Arrays.asList(text.split(" ")));
+	}
+	
+	/**
+	 * This method scores a character by its syn
+	 * @param ch
+	 * @param is_last
+	 * @return
+	 */
+	public static boolean scoreChar(char ch, boolean is_last)
+	{
+		//1st character check up
+		if(Character.isAlphabetic(ch) && !is_last)
+		{
+			if(Character.isUpperCase(ch))
+			{
+				return true;
+			}else{
+				return false;
+			}
+		}else if(Character.isDigit(ch)  && !is_last)
+		{
+			return true;
+		}else if(sentence_separator.contains(""+ch) && is_last) //last character check up
+		{
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	
@@ -38,7 +66,7 @@ public class TextConversion
 	{
 		char[] chars_in = text.toCharArray();
 		String out = "";
-		String punctutations = "':,.!-()?;\"[]|";//add all the ones you want.
+//		String punctutations = "':,.!-()?;\"[]|";//add all the ones you want.
 		char old = ' ';
 		char c = ' ';
 		error_signs = 0;

@@ -46,6 +46,7 @@ public class Main
 		LinkedList<SentenceObject> sos = new LinkedList<SentenceObject>();
 		LinkedList<int[]> annotation_sorted = new LinkedList<int[]>();
 		LinkedList<int[]> wps_sorted = new LinkedList<int[]>();
+		LinkedList<int[]> syn_err_per_sen = new LinkedList<int[]>();
 		LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
 		LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
 		LinkedList<DefinitionObject> text_annotations = new LinkedList<DefinitionObject>();
@@ -62,7 +63,7 @@ public class Main
 		//create set and map
 		WordFrequencyEngine wfe = new WordFrequencyEngine();	
 		
-		
+		System.out.println("DISTRIBUTION ORDERED BY KEYVALUE (most left vertical list)");
 		
 		/*
 		 * GENERAL
@@ -71,7 +72,6 @@ public class Main
 		 * 
 		 * IMPL
 		 * TODO Verteilung symbolische Fehler pro Satz 			(m2)	auf raw text	 => Errors like words are crossed by non alnum chars or not closed brackets
-		 * TODO Verteilung syntaktischer Fehler pro Satz		(m3)	auf cleaned text => Sentence start is big alphabetic char, sentence end is a punctutations;	
 		 * TODO GERBIL an- & einbinden
 		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
 		 * TODO Impl cos abstand 2er Vektoren/arrays 
@@ -105,6 +105,7 @@ public class Main
 		for (int i = 0; i < sentences_raw.size(); i++) 
 		{	
 			//store all cleaned sentences
+			//TODO anzahl Sätze für Bsp1.txt ist 7 aber ich erhalte nur 6
 			sentences_cleaned.add(TextConversion.decompose(sst.formatCleaned(sentences_raw.get(i))));
 			
 			//gather text annotations 
@@ -126,9 +127,29 @@ public class Main
 		annotation_sorted = FrequencySorting.sortDist(DistributionProcessing.getAnnotDist(sos));
 		text_info.setSorted_annot_dist(annotation_sorted);
 		
+		System.out.println("########  [Entities] / [Sentences] ########");
+		for (int i = 0; i < annotation_sorted.size(); i++) {
+			System.out.println("["+annotation_sorted.get(i)[0]+"]["+annotation_sorted.get(i)[1]+"]");
+		}
+		
 		/* M4: Word Distribution over all Sentences */
 		wps_sorted = FrequencySorting.sortDist(DistributionProcessing.getWPSDist(sos, sst, language));
 		text_info.setSorted_wps_dist(wps_sorted);
+		
+		System.out.println("######## [Words] / [Sentences] ########");
+		for (int i = 0; i < wps_sorted.size(); i++) {
+			System.out.println("["+wps_sorted.get(i)[0]+"]["+wps_sorted.get(i)[1]+"]");
+		}
+		
+		/*M3: Syntactic error Distribution over all Sentence */
+		syn_err_per_sen = DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language);
+		
+		System.out.println("######## [Syntaxerrors] / [Sentences] ########");
+		for (int i = 0; i < syn_err_per_sen.size(); i++) {
+			System.out.println("["+syn_err_per_sen.get(i)[0]+"]["+syn_err_per_sen.get(i)[1]+"]");
+		}
+		
+		text_info.setSorted_synerr_per_sen_dist(syn_err_per_sen);
 		
 		//add annotations to text_info
 		text_info.addSthToAll_Annotations(text_annotations); 
