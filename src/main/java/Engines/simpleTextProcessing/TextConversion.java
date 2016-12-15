@@ -28,7 +28,7 @@ public class TextConversion
 	//TODO Error Signs counten und bei bedarf auch gleich eine Art der Information was wo und wie oft auftaucht
 	//TODO einige Leerzeichen und Löschungen sind falsch gesetzt
 	/**
-	 * This method decompose a text into characters and clean the error occurrences.
+	 * This method decompose a text into characters, clean and store the error occurrences.
 	 * The result is a text without error symbols in it. 
 	 * That means no cryptic words. Keep in mind that this method is just for English text!
 	 * @param text

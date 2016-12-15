@@ -36,6 +36,7 @@ public class Main
 		
 		//EDIT HERE for your file name
 		String filename = "Bsp1.txt";
+		final String URL = "http://gerbil.aksw.org/gerbil/execute";
 		String resourceFileAbsolutePath = tr.getResourceFileAbsolutePath(filename);
 		String text_raw = TextReader.fileReader(resourceFileAbsolutePath);
 		
@@ -99,7 +100,7 @@ public class Main
 		pos_tags = wfe.appearancePercentage(FrequencySorting.sortPosTagMap(sst.countPosTagsOccourence(sst.getTokens())), sst.getTokens().size());
 		text_info.setPos_tag_objs(pos_tags);
 		
-		for (PosTagObject tag : pos_tags) System.out.println("["+tag.getPOS_Tag()+"]\t\t["+tag.getTag_ouccurrence()+"]\t\t["+tag.getTag_oucc_percentage()+"]");
+//		for (PosTagObject tag : pos_tags) System.out.println("["+tag.getPOS_Tag()+"]\t\t["+tag.getTag_ouccurrence()+"]\t\t["+tag.getTag_oucc_percentage()+"]");
 		
 		for (int i = 0; i < sentences_raw.size(); i++) 
 		{	
