@@ -62,7 +62,6 @@ public class HttpController
 			//add method and properties
 			con.setRequestMethod("GET");
 			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-			
 
 			if(con.getResponseCode() == 200)
 			{
@@ -122,7 +121,6 @@ public class HttpController
 		{			
 			String elem_name = "body script[type=application/ld+json]";
 			Document doc = Jsoup.connect(http).get();
-			System.out.println(doc);
 			return doc.select(elem_name);
 		}
 		
@@ -153,7 +151,6 @@ public class HttpController
 			
 			System.out.println("STATUS: Running");
 			
-			
 			while(still_running)
 			{
 				System.out.print(".");
@@ -167,7 +164,6 @@ public class HttpController
 			}
 			
 			System.out.println("\nSTATUS: DONE");
-			
 			return !still_running;
 		}
 		
@@ -185,9 +181,15 @@ public class HttpController
 			
 			//Save experiment result url
 			setExperiment_result_url(exp_url);
+			System.out.println("Status des Experiments: "+exp_url);
+			
+			//Check the Experiment status
 			stillRunning(exp_url, exoGERBIL.getExperiment_annotator().size());
+			
+			//If its finished gather the desired element
 			Elements http_elems = sendGetStatus(exp_url);
-			System.out.println(http_elems);
+			
+			//Return the element as JSONObject
 			return getJSON(http_elems);
 		}
 		
@@ -223,7 +225,6 @@ public class HttpController
 			return jsonObject;
 		}
 		
-
 		public void setJsonObject(JSONObject jsonObject) {
 			this.jsonObject = jsonObject;
 		}
@@ -240,13 +241,12 @@ public class HttpController
 			String exe_url = "http://gerbil.aksw.org/gerbil/execute";
 			
 			String[] stray = new String[]{"AIDA","DBpedia Spotlight","FOX"};
-			String[] data = new String[]{"ACE2004"};
+			String[] data = new String[]{"AQUAINT"};
 			
 			//Create the controller
 			HttpController http = new HttpController(exp_type, matching_type, stray, data, exe_url);
 			
 			//Presenting output
-			System.out.println("Status des Experiments: "+http.getExperiment_result_url());
 //			System.out.println(http.getJsonObject().toString());
 
 		}
