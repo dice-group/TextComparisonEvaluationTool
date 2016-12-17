@@ -39,7 +39,7 @@ import AnnotedText2NIF.IOContent.TextWriter;
  *
  */
 @Ignore
-class AnnotedTextToNIFConverter 
+public class AnnotedTextToNIFConverter 
 {
 	
 	/**

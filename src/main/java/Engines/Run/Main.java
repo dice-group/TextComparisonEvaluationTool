@@ -72,10 +72,11 @@ public class Main
 		 * 
 		 * IMPL
 		 * TODO Verteilung symbolische Fehler pro Satz 			(m2)	auf raw text	 => Errors like words are crossed by non alnum chars or not closed brackets
-		 * TODO GERBIL an- & einbinden
+		 * TODO GERBIL upload failed how to solve?
 		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
 		 * TODO Impl cos abstand 2er Vektoren/arrays 
 		 * TODO Converter für BASE64 zu UTF-8
+		 * TODO NIF generation für dataset einbinden
 		 * 
 		 * JUNIT
 		 * TODO Junit Test für Wortzähler
