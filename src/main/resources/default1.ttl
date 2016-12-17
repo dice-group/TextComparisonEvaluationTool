@@ -1,0 +1,83 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/test_document#char=308,350>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "1963 dallas cowboys season|previous output"^^xsd:string ;
+        nif:beginIndex        "308"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "350"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,927> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/previous_output> , <https://en.wikipedia.org/wiki/1963_dallas_cowboys_season> .
+
+<http://example.org/test_document#char=0,927>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "927"^^xsd:nonNegativeInteger ;
+        nif:isString    "she wrote many of her songs for herself and as such made no particular effort to make them easy to sing, melodically, as she herself had [[absolute pitch|perfect pitch]].they set out to create a [[relational database management system]] rdbms that woulted opanating [[banquet]]s.the team improved on their [[1963 dallas cowboys season|previous output]] of 4a10, winning five games.toxaphene was used to treat [[mange]] in cattle in [[california]] in the 1970s and there were reports of cattle deaths following the toxaphene treatment.the making of the film was a component of the [[independent film channel|ifc]] series film school, chronicling the first time filmmaking efforts of four new york university graduate film school students.in an orthodox synagogue, a bema is the raised area around the [[aron kodesh]]<td align and the [[united states]] to australia, where they are offloaded at facilities including point wilson."^^xsd:string .
+
+<http://example.org/test_document#char=835,848>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "united states"^^xsd:string ;
+        nif:beginIndex        "835"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "848"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,927> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/united_states> .
+
+<http://example.org/test_document#char=434,444>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "california"^^xsd:string ;
+        nif:beginIndex        "434"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "444"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,927> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/california> .
+
+<http://example.org/test_document#char=197,234>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "relational database management system"^^xsd:string ;
+        nif:beginIndex        "197"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "234"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,927> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/relational_database_management_system> .
+
+<http://example.org/test_document#char=582,610>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "independent film channel|ifc"^^xsd:string ;
+        nif:beginIndex        "582"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "610"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,927> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/independent_film_channel> , <https://en.wikipedia.org/wiki/ifc> .
+
+<http://example.org/test_document#char=411,416>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "mange"^^xsd:string ;
+        nif:beginIndex        "411"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "416"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,927> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/mange> .
+
+<http://example.org/test_document#char=802,813>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "aron kodesh"^^xsd:string ;
+        nif:beginIndex        "802"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "813"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,927> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/aron_kodesh> .
+
+<http://example.org/test_document#char=139,167>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "absolute pitch|perfect pitch"^^xsd:string ;
+        nif:beginIndex        "139"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "167"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,927> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/absolute_pitch> , <https://en.wikipedia.org/wiki/perfect_pitch> .
+
+<http://example.org/test_document#char=268,275>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "banquet"^^xsd:string ;
+        nif:beginIndex        "268"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "275"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,927> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/banquet> .

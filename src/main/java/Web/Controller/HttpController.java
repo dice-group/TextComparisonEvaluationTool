@@ -14,10 +14,14 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import AnnotedText2NIF.IOContent.TextReader;
+import Engines.Enums.Annotators;
+import Engines.Enums.ExpType;
+import Engines.Enums.Matching;
 import Web.Objects.ExperimentObjectGERBIL;
 
 /**
- * This class contains HTTP requests for interaction with GERBIL.
+ * This class provides HTTP request methods for interaction with GERBIL.
  * @author TTurke
  *
  */
@@ -25,8 +29,16 @@ public class HttpController
 {
 		private String experiment_result_url;
 		private String execute_url;
+		private final String upload_url = "http://gerbil.aksw.org/gerbil/file/upload";
 		private ExperimentObjectGERBIL gerbilExp;
 		private JSONObject jsonObject;
+		
+		/**
+		 * This constructor is only used to get the upload URL
+		 */
+		public HttpController(){
+			
+		}
 		
 		/**
 		 * This constructor starts the whole process (the Experiment) and save all necessary values for further progress.
@@ -40,6 +52,19 @@ public class HttpController
 		public HttpController(String exp_type, String matching_type, String[] annotators, String[] datasets, String exe_url) throws Exception
 		{
 			gerbilExp = new ExperimentObjectGERBIL(exp_type, matching_type, annotators, datasets);
+			this.execute_url = exe_url;
+			this.jsonObject = doExperiment(gerbilExp, exe_url);
+		}
+		
+		/**
+		 * This constructor starts the whole process (the Experiment) and save all necessary values for further progress.
+		 * @param exe_url
+		 * @param exoGERBIL
+		 * @throws Exception
+		 */
+		public HttpController(String exe_url, ExperimentObjectGERBIL exoGERBIL) throws Exception
+		{
+			gerbilExp = exoGERBIL;
 			this.execute_url = exe_url;
 			this.jsonObject = doExperiment(gerbilExp, exe_url);
 		}
@@ -62,6 +87,7 @@ public class HttpController
 			//add method and properties
 			con.setRequestMethod("GET");
 			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+			System.out.println("CONNECTION: "+con);
 
 			if(con.getResponseCode() == 200)
 			{
@@ -74,17 +100,13 @@ public class HttpController
 				}
 				in.close();
 
+				interpretResponseCode(con.getResponseCode());
+				
 				return "http://gerbil.aksw.org/gerbil/experiment?id="+response.toString();
 			}else{
 				System.err.println("RESPONDE CODE ERROR: "+con.getResponseCode());
 				return null;
 			}
-		}
-		
-		//TODO create the file transfer to GERBIL --> return a file name
-		public String sendPostTTLFile()
-		{
-			return null;
 		}
 		
 		/**
@@ -179,10 +201,17 @@ public class HttpController
 			//Send stuff and start experiment
 			String exp_url = sendGetExperiment(exoGERBIL, exe_url);
 			
-			//Save experiment result url
+			//Save experiment result URL
 			setExperiment_result_url(exp_url);
-			System.out.println("Status des Experiments: "+exp_url);
 			
+			if(exp_url != null)
+			{
+				System.out.println("Status des Experiments: "+exp_url);
+			}else{
+				System.err.println("ERROR: No experiment executed!");
+				System.exit(0);
+			}
+
 			//Check the Experiment status
 			stillRunning(exp_url, exoGERBIL.getExperiment_annotator().size());
 			
@@ -191,6 +220,49 @@ public class HttpController
 			
 			//Return the element as JSONObject
 			return getJSON(http_elems);
+		}
+		
+		/**
+		 * This method interpret the response code and alert info string to console
+		 * @param code
+		 */
+		public static void interpretResponseCode(int code)
+		{
+			if(code == 200)
+			{
+				System.out.println("STATUS: OK ["+code+"]");
+			}else{
+				System.out.println("STATUS: ERROR ["+code+"]");
+			}
+		}
+		
+		/**
+		 * This method upload a file and execute the experiment by filename, 
+		 * URL for upload data and execution of the experiment, by given 
+		 * ExperimentObjectGERBIL containing experiment setup.
+		 * 
+		 * @param filename
+		 * @param upload_url
+		 * @param exe_url
+		 * @param exoGERBIL
+		 * @return result as JSONObject
+		 * @throws Exception
+		 */
+		public static JSONObject run(String filename, String upload_url, String exe_url, ExperimentObjectGERBIL exoGERBIL) throws Exception
+		{
+			TextReader tr = new TextReader();
+			String file_location = tr.getResourceFileAbsolutePath(filename);
+			
+			//Process upload
+			System.out.println("UPLOAD:");
+			interpretResponseCode(UploadController.uploadFile(upload_url, file_location));
+			
+			//Create the controller and start experiment
+			System.out.println("EXECUTION:");
+			HttpController http = new HttpController(exe_url, exoGERBIL);
+			
+			//Return result JSON
+			return http.getJsonObject();
 		}
 		
 		//#############################################################################
@@ -229,25 +301,28 @@ public class HttpController
 			this.jsonObject = jsonObject;
 		}
 
-		
-		
+		public String getUpload_url() {
+			return upload_url;
+		}
+
 		/*
 		 * EXAMPLE
 		 */
 		public static void main(String[] args) throws Exception 
 		{
-			String exp_type = "A2KB";
-			String matching_type = "WEAK_ANNOTATION_MATCH";
+			String filename = "default1.ttl";
+			String upload_url = new HttpController().getUpload_url();
+			String exp_type = ExpType.A2KB.name();
+			String matching_type = Matching.WEAK_ANNOTATION_MATCH.name();
 			String exe_url = "http://gerbil.aksw.org/gerbil/execute";
 			
-			String[] stray = new String[]{"AIDA","DBpedia Spotlight","FOX"};
-			String[] data = new String[]{"AQUAINT"};
+			String[] annotators = new String[]{Annotators.AIDA.name(), Annotators.Dexter.name(), Annotators.FOX.name()};
+			String[] datasets = new String[]{filename};
 			
-			//Create the controller
-			HttpController http = new HttpController(exp_type, matching_type, stray, data, exe_url);
+			ExperimentObjectGERBIL exoGERBIL = new ExperimentObjectGERBIL(exp_type, matching_type, annotators, datasets);
+			JSONObject jsobj = run(filename, upload_url, exe_url, exoGERBIL);
 			
 			//Presenting output
-//			System.out.println(http.getJsonObject().toString());
-
+			System.out.println(jsobj.toString());
 		}
 }
