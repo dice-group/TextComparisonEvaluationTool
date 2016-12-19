@@ -37,7 +37,40 @@ public class TextWriter
 			
 		} catch (IOException ioe) { ioe.printStackTrace(); }
 	}
+	
+	/**
+	 * This method create and return a file by given content, path, name and type.
+	 * @param writeable
+	 * @param location
+	 * @param name
+	 * @param type
+	 * @return content file
+	 */
+	public static File createContentFile(String writeable, String location, String name, String type) 
+	{
+		String path = location+"/"+name+"."+type;
+		File file = new File(path);
+		
+		try {
 
+			if (!file.exists()) 
+			{
+				file.createNewFile();
+			}
+			
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+			bw.write(writeable);
+			bw.close();
+			
+			System.out.println(path);
+			System.out.println("FILE CREATED AND FILLED!");
+			
+		} catch (IOException ioe) { ioe.printStackTrace(); }
+		
+		return file;
+	}
+	
+	
 	/**
 	 * This method return the source folder path
 	 * @return path String
@@ -71,13 +104,13 @@ public class TextWriter
 	}
 	
 	/**
-	 * This method create a xml-file path by a given name pointing to the directory of the program
+	 * This method create a turtle file path by a given name pointing to the directory of the program
 	 * @param filename
 	 * @throws IOException 
 	 */
 	public static String createFilePathByName(String filename) throws IOException
 	{
-		return  new File(".").getCanonicalPath()+"\\"+filename+".xml";
+		return  new File(".").getCanonicalPath()+"\\"+filename+".ttl";
 		
 	}
 	

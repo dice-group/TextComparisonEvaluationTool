@@ -18,8 +18,6 @@ public class QuadError
 		return Math.sqrt(Math.abs(Math.pow(a, 2) - Math.pow(b, 2)));
 	}
 	
-	
-	
 	/*
 	 * EXAMPLE
 	 */

@@ -21,11 +21,17 @@ import AnnotedText2NIF.IOContent.TextReader;
 public class UploadController 
 {
 	
+	/**
+	 * This method upload a file to the given GERBIL upload URL
+	 * @param url
+	 * @param path
+	 * @return response code
+	 * @throws IOException
+	 */
 	public static int uploadFile(String url, String path) throws IOException
 	{
 		String charset = "UTF-8";
 		File ttl_file = new File(path);
-//		File binaryFile = new File("/path/to/file.bin");
 		String boundary = Long.toHexString(System.currentTimeMillis()); 		// Just generate some unique random value.
 		String CRLF = "\r\n"; 													// Line separator required by multipart/form-data.
 
@@ -36,49 +42,34 @@ public class UploadController
 		connection.setRequestProperty("Accept-Encoding", "gzip, deflate");
 		connection.setRequestProperty("Accept-Language", "de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4");
 
-		try (
-		    OutputStream output = connection.getOutputStream();
-		    PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true);
-		) {
-
+		try (	OutputStream output = connection.getOutputStream();
+				PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true);) 
+		{
 		    // Send text file.
 		    writer.append("--" + boundary).append(CRLF);
 		    writer.append("Content-Disposition: form-data; name=\"textFile\"; filename=\"" + ttl_file.getName() + "\"").append(CRLF);
-//		    writer.append("Content-Type: text/plain; charset=" + charset).append(CRLF); // Text file itself must be saved in this charset!
 		    writer.append("Content-Type: " + URLConnection.guessContentTypeFromName(ttl_file.getName())).append(CRLF);
 		    writer.append(CRLF).flush();
 		    Files.copy(ttl_file.toPath(), output);
 		    output.flush(); // Important before continuing with writer!
 		    writer.append(CRLF).flush(); // CRLF is important! It indicates end of boundary.
 
-		    // Send binary file.
-//		    writer.append("--" + boundary).append(CRLF);
-//		    writer.append("Content-Disposition: form-data; name=\"binaryFile\"; filename=\"" + binaryFile.getName() + "\"").append(CRLF);
-//		    writer.append("Content-Type: " + URLConnection.guessContentTypeFromName(ttl_file.getName())).append(CRLF);
-//		    writer.append("Content-Transfer-Encoding: binary").append(CRLF);
-//		    writer.append(CRLF).flush();
-//		    Files.copy(binaryFile.toPath(), output);
-//		    output.flush(); // Important before continuing with writer!
-//		    writer.append(CRLF).flush(); // CRLF is important! It indicates end of boundary.
-
 		    // End of multipart/form-data.
 		    writer.append("--" + boundary + "--").append(CRLF).flush();
 		}
-
-		// Request is lazily fired whenever you need to obtain information about response.
 		
-		HttpURLConnection con = (HttpURLConnection) connection;		
-		System.out.println("CONNECTION: "+con);
-		
-		return con.getResponseCode();
+		return ((HttpURLConnection) connection).getResponseCode();
 	}
 	
+	/*
+	 * EXAMPLE of USE
+	 */
 	public static void main(String[] args ) throws IOException
 	{
 		TextReader tr = new TextReader();
 		String upload_url ="http://gerbil.aksw.org/gerbil/file/upload";
 		String file_location = tr.getResourceFileAbsolutePath("default1.ttl");
 		
-		UploadController.uploadFile(upload_url, file_location);
+		System.out.println("Response CODE: "+UploadController.uploadFile(upload_url, file_location));
 	}
 }

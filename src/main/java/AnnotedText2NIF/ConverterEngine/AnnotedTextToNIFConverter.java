@@ -103,58 +103,20 @@ public class AnnotedTextToNIFConverter
 		// Writing our new list of documents to a String
 		NIFWriter writer = new TurtleNIFWriter();
 		String nifString = writer.writeNIF(documents);
-
-		//Content not necessary for my work
-		
-//		// After generating a NIF corpus, it can be helpful to parse the NIF using a `NIFParser` instance.
-//		NIFParser parser = new TurtleNIFParser();
-//		parser.parseNIF(nifString);
-//
-//		// Instead of text containing the NIF information, a jena RDF `Model` can be created.
-//		DocumentListWriter listWriter = new DocumentListWriter();
-//		Model nifModel = ModelFactory.createDefaultModel();
-//		listWriter.writeDocumentsToModel(nifModel, documents);
 		
 		return nifString;
 	}
 	
 
-	/**
-	 * This method starts the program workflow/magic
-	 * @param args
-	 * @throws IOException
+	/*
+	 * EXAMPLE of USE
 	 */
 	public static void main(String[] args) throws IOException 
 	{
-		//For static search of just 1 File
-		String static_path = "";
-		String defaultName = "default-out.xml";
-		int iter = 1;
-		
-		if(args.length > 0)
-		{
-			for(String cur : args)
-			{
-				try 
-				{	
-					System.out.println(iter);
-					TextWriter.writeToProgramFolder(defaultName+"."+iter, doTheMagic(cur));
-					iter++;
-				} catch (IllegalArgumentException iae) { iae.printStackTrace(); }
-			}
-			
-		}else{
-			if(static_path.length() > 0)
-			{
-				try 
-				{
-					TextWriter.writeToProgramFolder(defaultName, doTheMagic(static_path));
-				} catch (IllegalArgumentException iae) { iae.printStackTrace(); }
-
-			}else{
-				System.err.println("No Path given! Program terminate!");
-			}
-		}
+		TextReader tr = new TextReader();
+		String file_location = tr.getResourceFileAbsolutePath("Bsp1.txt");
+		String defaultName = "bsp.ttl";
+		TextWriter.writeToProgramFolder(defaultName, doTheMagic(file_location));
 		
 	}
 }
