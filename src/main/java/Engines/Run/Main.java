@@ -1,9 +1,9 @@
 package Engines.Run;
 
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
+import org.json.JSONObject;
 
 import AnnotedText2NIF.ConverterEngine.DefinitionObject;
 import AnnotedText2NIF.ConverterEngine.GatherAnnotationInformations;
@@ -13,7 +13,12 @@ import Engines.internalEngineParts.WordFrequencyEngine;
 import Engines.simpleTextProcessing.DistributionProcessing;
 import Engines.simpleTextProcessing.StanfordSegmentatorTokenizer;
 import Engines.simpleTextProcessing.TextConversion;
+import Web.Controller.HttpController;
+import Web.Objects.ExperimentObjectGERBIL;
+import Engines.Enums.Annotators;
+import Engines.Enums.ExpType;
 import Engines.Enums.Language;
+import Engines.Enums.Matching;
 
 /**
  * This class start the whole process and return all necessary informations.
@@ -26,21 +31,20 @@ public class Main
 	/**
 	 * Process pipeline
 	 * @param args
-	 * @throws IOException 
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws IOException 
+	public static void main(String[] args) throws Exception 
 	{
-		
+		//################# GENERAL Setup #################
+		//Single items
 		TextReader tr = new TextReader();
 		Language language = Language.EN;
-		
-		//EDIT HERE for your file name
-		String filename = "Bsp1.txt";
-		final String URL = "http://gerbil.aksw.org/gerbil/execute";
+		String filename = "Bsp1.txt";	//TODO do it for various files 
 		String resourceFileAbsolutePath = tr.getResourceFileAbsolutePath(filename);
 		String text_raw = TextReader.fileReader(resourceFileAbsolutePath);
 		
-		List<String> words;
+		//Multiple items
+		LinkedList<String> words;
 		LinkedList<String> sentences_raw;
 		LinkedList<String> sentences_cleaned = new LinkedList<String>();
 		LinkedList<SentenceObject> sos = new LinkedList<SentenceObject>();
@@ -51,17 +55,37 @@ public class Main
 		LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
 		LinkedList<DefinitionObject> text_annotations = new LinkedList<DefinitionObject>();
 		LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
-		
 		TextInformations text_info = new TextInformations(filename);
 		HashMap<String, Double> percentage;
-		
-		
-		
+						
 		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
 		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
-		
+				
 		//create set and map
-		WordFrequencyEngine wfe = new WordFrequencyEngine();	
+		WordFrequencyEngine wfe = new WordFrequencyEngine();
+		
+		
+		//TODO hier NIF-Converter einbauen
+		
+		//################# GERBIL Setup #################
+		//Single item for the experiment
+		String exp_type = ExpType.A2KB.name();
+		String matching_type = Matching.WEAK_ANNOTATION_MATCH.name();
+
+		//Multiple items for the experiment
+		LinkedList<String> filenames = new LinkedList<String>(Arrays.asList("bsp1.ttl"));	//TODO sollte die obere FILE-Liste nach dem NIF konvertieren wiederspiegeln nur halt *.ttl
+		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(Annotators.AIDA.name(), Annotators.Dexter.name(), Annotators.FOX.name()));
+		LinkedList<String> datasets = new LinkedList<String>(Arrays.asList("DBpediaSpotlight"));
+		
+		//Keep in mind that uploaded files need to pre-described see down here
+		for (String file : filenames)  datasets.add(ExperimentObjectGERBIL.createUploadDataDesc(file));
+		
+		//Setup object complete
+		ExperimentObjectGERBIL exoGERBIL = new ExperimentObjectGERBIL(exp_type, matching_type, annotators, datasets);
+		
+		
+		
+			
 		
 		System.out.println("DISTRIBUTION ORDERED BY KEYVALUE (most left vertical list)");
 		
@@ -178,6 +202,18 @@ public class Main
 		
 		System.out.println("######## [Word occurrence] / [Sentences] ########");
 		for (int i = 0; i < triples_sorted.size(); i++) System.out.println("["+triples_sorted.get(i).getKey()+"]\t\t["+triples_sorted.get(i).getCount()+"]");
+		
+		//GERBIL
+		//Start process
+		JSONObject jsobj_with_upload = HttpController.run(filenames, exoGERBIL);	//here you upload your own dataset
+//		JSONObject jsobj_without_upload = run(exoGERBIL);			//here you use a existing dataset from GERBIL
+		
+		//Presenting output
+		System.out.println(jsobj_with_upload.toString());
+//		System.out.println(jsobj_without_upload.toString());
+		
+		
+		//TODO danach die finalen Kalkulationen einbinden und das Ergebnis interpretieren!
 		
 		System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
 		System.out.println("Resource:\t\t\t"+text_info.getResource_name());

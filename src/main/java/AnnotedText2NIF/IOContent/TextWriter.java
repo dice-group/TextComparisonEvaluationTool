@@ -110,7 +110,7 @@ public class TextWriter
 	 */
 	public static String createFilePathByName(String filename) throws IOException
 	{
-		return  new File(".").getCanonicalPath()+"\\"+filename+".ttl";
+		return  new File(".").getCanonicalPath()+"\\"+filename;
 		
 	}
 	

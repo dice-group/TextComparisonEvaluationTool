@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
@@ -28,8 +30,8 @@ import Web.Objects.ExperimentObjectGERBIL;
 public class HttpController 
 {
 		private String experiment_result_url;
-		private String execute_url;
 		public static final String upload_url = "http://gerbil.aksw.org/gerbil/file/upload";
+		public static final String execute_url = "http://gerbil.aksw.org/gerbil/execute";
 		private ExperimentObjectGERBIL gerbilExp;
 		private JSONObject jsonObject;
 		
@@ -43,29 +45,25 @@ public class HttpController
 		 * @param matching_type
 		 * @param annotators
 		 * @param datasets
-		 * @param exe_url
 		 * @throws Exception
 		 */
-		public HttpController(String exp_type, String matching_type, String[] annotators, String[] datasets, String exe_url) throws Exception
+		public HttpController(String exp_type, String matching_type, String[] annotators, String[] datasets) throws Exception
 		{
 			gerbilExp = new ExperimentObjectGERBIL(exp_type, matching_type, annotators, datasets);
-			this.execute_url = exe_url;
-			this.jsonObject = doExperiment(gerbilExp, exe_url);
+			this.jsonObject = doExperiment(gerbilExp, execute_url);
 			System.out.println(this.jsonObject);
 		}
 		
 		
 		/**
 		 * This constructor starts the whole process (the Experiment) and save all necessary values for further progress.
-		 * @param exe_url
 		 * @param exoGERBIL
 		 * @throws Exception
 		 */
-		public HttpController(String exe_url, ExperimentObjectGERBIL exoGERBIL) throws Exception
+		public HttpController(ExperimentObjectGERBIL exoGERBIL) throws Exception
 		{
 			gerbilExp = exoGERBIL;
-			this.execute_url = exe_url;
-			this.jsonObject = doExperiment(gerbilExp, exe_url);
+			this.jsonObject = doExperiment(gerbilExp, execute_url);
 			System.out.println(this.jsonObject);
 		}
 	
@@ -263,26 +261,23 @@ public class HttpController
 		 * @return result as JSONObject
 		 * @throws Exception
 		 */
-		public static JSONObject run(String filename, String upload_url, String exe_url, ExperimentObjectGERBIL exoGERBIL) throws Exception
+		public static JSONObject run(LinkedList<String> filenames, ExperimentObjectGERBIL exoGERBIL) throws Exception
 		{
 			TextReader tr = new TextReader();
-			String file_location = tr.getResourceFileAbsolutePath(filename);
 			
-			//Dataset upload
-			if(upload_url != null)
+			for (String filename : filenames) 
 			{
+				//Dataset upload
 				System.out.println("####### UPLOAD: #######");
-				int code = UploadController.uploadFile(upload_url, file_location);
+				int code = UploadController.uploadFile(upload_url, tr.getResourceFileAbsolutePath(filename));
 				interpretResponseCode(code);
-				
-			}else{
-				System.out.println("####### UPLOAD: #######");
-				interpretResponseCode(UploadController.uploadFile(upload_url, file_location));
 			}
+			
+			
 			
 			//Create the controller and start experiment
 			System.out.println("####### EXECUTION: #######");
-			HttpController http = new HttpController(exe_url, exoGERBIL);
+			HttpController http = new HttpController(exoGERBIL);
 			
 			//Return result JSON
 			return http.getJsonObject();
@@ -298,11 +293,11 @@ public class HttpController
 		 * @return result as JSONObject
 		 * @throws Exception
 		 */
-		public static JSONObject run(String exe_url, ExperimentObjectGERBIL exoGERBIL) throws Exception
+		public static JSONObject run(ExperimentObjectGERBIL exoGERBIL) throws Exception
 		{
 			//Create the controller and start experiment
 			System.out.println("####### EXECUTION: #######");
-			HttpController http = new HttpController(exe_url, exoGERBIL);
+			HttpController http = new HttpController(exoGERBIL);
 			
 			//Return result JSON
 			return http.getJsonObject();
@@ -318,14 +313,6 @@ public class HttpController
 
 		public void setExperiment_result_url(String experiment_result_url) {
 			this.experiment_result_url = experiment_result_url;
-		}
-
-		public String getExecute_url() {
-			return execute_url;
-		}
-
-		public void setExecute_url(String execute_result_url) {
-			this.execute_url = execute_result_url;
 		}
 
 		public ExperimentObjectGERBIL getGerbilExp() {
@@ -349,20 +336,25 @@ public class HttpController
 		 */
 		public static void main(String[] args) throws Exception 
 		{
-			String filename = "default1.ttl";
-			String upload_url = HttpController.upload_url;
+			//Single item for the experiment
 			String exp_type = ExpType.A2KB.name();
 			String matching_type = Matching.WEAK_ANNOTATION_MATCH.name();
-			String exe_url = "http://gerbil.aksw.org/gerbil/execute";
+
+			//Multiple items for the experiment
+			LinkedList<String> filenames = new LinkedList<String>(Arrays.asList("default1.ttl"));
+			LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(Annotators.AIDA.name(), Annotators.Dexter.name(), Annotators.FOX.name()));
+			LinkedList<String> datasets = new LinkedList<String>(Arrays.asList("DBpediaSpotlight"));
 			
-			String[] annotators = new String[]{Annotators.AIDA.name(), Annotators.Dexter.name(), Annotators.FOX.name()};
 			
-			//Keep in mind that uploaded files need to pre described see down here
-			String[] datasets = new String[]{"DBpediaSpotlight", ExperimentObjectGERBIL.createUploadDataDesc(filename)};
+			//Keep in mind that uploaded files need to pre-described see down here
+			for (String filename : filenames)  datasets.add(ExperimentObjectGERBIL.createUploadDataDesc(filename));
+			
+			//Setup object complete
 			ExperimentObjectGERBIL exoGERBIL = new ExperimentObjectGERBIL(exp_type, matching_type, annotators, datasets);
 			
-			JSONObject jsobj_with_upload = run(filename, upload_url, exe_url, exoGERBIL);	//here you upload your own dataset
-//			JSONObject jsobj_without_upload = run(exe_url, exoGERBIL);						//here you use a existing dataset from GERBIL
+			//Start process
+			JSONObject jsobj_with_upload = run(filenames, exoGERBIL);	//here you upload your own dataset
+//			JSONObject jsobj_without_upload = run(exoGERBIL);			//here you use a existing dataset from GERBIL
 			
 			//Presenting output
 			System.out.println(jsobj_with_upload.toString());
