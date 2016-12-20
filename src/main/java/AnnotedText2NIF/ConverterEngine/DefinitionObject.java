@@ -19,12 +19,12 @@ public class DefinitionObject
 	private Set<String> u = new HashSet<String>();
 	
 	
-	public DefinitionObject(int start, int end, String content, Set<String> in_uris)
+	public DefinitionObject(int start, int end, String content, Set<String> in_uri)
 	{
 		this.s = start;
 		this.e = end;
 		this.c = content;
-		this.u = in_uris;
+		this.u = in_uri;
 		this.usz = this.u.size();
 			
 				

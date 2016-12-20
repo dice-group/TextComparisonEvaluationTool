@@ -206,8 +206,8 @@ public class HttpController
 		public JSONObject doExperiment(ExperimentObjectGERBIL exoGERBIL, String exe_url) throws Exception
 		{
 			//Report update value
-			int millis = 5;
-			if(exoGERBIL.getExperiment_annotator().size() > 5) millis = exoGERBIL.getExperiment_annotator().size();
+			int millis = 50;
+			if(exoGERBIL.getExperiment_annotator().size() > 50) millis = exoGERBIL.getExperiment_annotator().size();
 			
 			//Send stuff and start experiment
 			String exp_url = sendGetExperiment(exoGERBIL, exe_url);

@@ -100,7 +100,6 @@ public class Main
 		 * TODO GERBIL Schnittstelle an main anbinden
 		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
 		 * TODO Impl cos abstand 2er Vektoren/arrays 
-		 * TODO Converter für BASE64 zu UTF-8
 		 * TODO NIF genration überarbeiten -> 
 		 * 		1.	itsrdf:taIdentRef	-> 	nur 1 url in   
 		 * 		2.	nif:isString 		-> 	das markup muss aus dem text raus INDIZE ÄNDERN SICH AUCH DADURCH!!! (dann müssen aber auch die  NIF anchor angepasst werden)
