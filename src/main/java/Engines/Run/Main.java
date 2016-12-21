@@ -44,7 +44,7 @@ public class Main
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		String filename = "epoch15.txt";	//TODO do it for various files 
 		String resourceFileAbsolutePath = tr.getResourceFileAbsolutePath(filename);
-		String nameNIFFile = "epoch_15"+".ttl";
+		String nameNIFFile = "epoch15"+".ttl";
 		String text_raw = TextReader.fileReader(resourceFileAbsolutePath);
 		
 		//Multiple items
@@ -69,9 +69,7 @@ public class Main
 		WordFrequencyEngine wfe = new WordFrequencyEngine();
 		
 		
-		//TODO hier NIF-Converter einbauen
-//		LinkedList<String> file_paths
-		System.out.println(resourceFileAbsolutePath);
+		//NIF-Converter einbauen
 		File file = new File(AnnotedTextToNIFConverter.getNIFFile(resourceFileAbsolutePath, nameNIFFile));
 		
 		//################# GERBIL Setup #################
@@ -107,6 +105,7 @@ public class Main
 		 * TODO GERBIL Schnittstelle an main anbinden
 		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
 		 * TODO Impl cos abstand 2er Vektoren/arrays
+		 * TODO das lesen anderer Files bereitet der NIF konvertierung probleme
 		 * 
 		 * JUNIT
 		 * TODO Junit Test für Wortzähler
