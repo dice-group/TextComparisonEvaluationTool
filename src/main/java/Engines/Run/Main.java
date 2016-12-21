@@ -108,8 +108,6 @@ public class Main
 		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
 		 * TODO Impl cos abstand 2er Vektoren/arrays 
 		 * TODO NIF genration überarbeiten -> 
-		 * 		1.	itsrdf:taIdentRef	-> 	nur 1 url in   
-		 * 		2.	nif:isString 		-> 	das markup muss aus dem text raus INDIZE ÄNDERN SICH AUCH DADURCH!!! (dann müssen aber auch die  NIF anchor angepasst werden)
 		 *   	3.	wahrscheinlich muss das https raus und durch http ersetzt werden
 		 * TODO NIF generation für dataset einbinden
 		 * 

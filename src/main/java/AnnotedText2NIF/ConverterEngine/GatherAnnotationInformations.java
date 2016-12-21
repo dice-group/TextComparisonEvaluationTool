@@ -15,6 +15,7 @@ import AnnotedText2NIF.IOContent.TextReader;
 public class GatherAnnotationInformations 
 {
 	private String not_annot_text;
+	public static final String prefix = "https://en.wikipedia.org/wiki/";
 	
 	//#############################################################################
 	//############################ USAGE METHODS ##################################
@@ -54,9 +55,9 @@ public class GatherAnnotationInformations
 				//Handling easy
 				begin = matcher.start();
 				end = matcher.end()-4;
-				url = matcher.group().replace("[[", "").replace("]]", "");
+				url = prefix+matcher.group().replace("[[", "").replace("]]", "");
 				content = url;
-				dobjs.add(new DefinitionObject(begin, end, content, url));
+				dobjs.add(new DefinitionObject(begin, end, content, url.replace(" ", "_")));
 				
 				//Replace text
 				input = input.replace(matcher.group(), matcher.group().replace("[[", "").replace("]]", ""));
@@ -65,9 +66,9 @@ public class GatherAnnotationInformations
 				//Handling complex
 				begin = matcher.start();
 				end = matcher.end()-matcher.group().substring(0, matcher.group().indexOf("|")+1).length()-2;
-				url = matcher.group().substring(2, matcher.group().indexOf("|"));
+				url = prefix+matcher.group().substring(2, matcher.group().indexOf("|"));
 				content = matcher.group().substring(matcher.group().indexOf("|")+1, matcher.group().indexOf("]]"));
-				dobjs.add(new DefinitionObject(begin, end, content, url));
+				dobjs.add(new DefinitionObject(begin, end, content, url.replace(" ", "_")));
 				
 				//Replace text
 				input = input.replace(matcher.group(), matcher.group().substring(matcher.group().indexOf("|")+1, matcher.group().indexOf("]]")));
