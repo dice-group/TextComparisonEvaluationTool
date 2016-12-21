@@ -31,7 +31,6 @@ import org.junit.Ignore;
 import AnnotedText2NIF.IOContent.TextReader;
 import AnnotedText2NIF.IOContent.TextWriter;
 
-
 /**
  * Diese Klasse generiert NIF files aus Texten welche ein Wikimardown fuer Url's haben.
  * Basierend auf einem Beispiel von Michael Roeder (roeder@informatik.uni-leipzig.de)
@@ -41,6 +40,10 @@ import AnnotedText2NIF.IOContent.TextWriter;
 @Ignore
 public class AnnotedTextToNIFConverter 
 {
+	
+	//#############################################################################
+	//############################ USAGE METHODS ##################################
+	//#############################################################################
 	
 	/**
 	 * This method create a text marking as type SpanImpl.
@@ -67,35 +70,21 @@ public class AnnotedTextToNIFConverter
 	 */
 	public static NamedEntity createMarkingNamedEntity (DefinitionObject defObj)
 	{
-		if(defObj.getUrlAmount() > 0)
-		{
-			return new NamedEntity(defObj.getStartPos(), defObj.getContent().length(), defObj.getEngWikiUrls());
-		}
-		
-		return null;
+		return new NamedEntity(defObj.getStartPos(), defObj.getContent().length(), defObj.getEngWikiUrl());
 	}
 	
-	
+	//TODO was ist mit der DocumentImpl(text, http?)
 	/**
 	 * This method calculate and create a NIF file for a given Text with Wikipedia Markup annotations
 	 * @param path
 	 */
 	public static String doTheMagic(String path)
 	{
-		String input = TextReader.fileReader(path);
-		LinkedList<DefinitionObject> DOList = GatherAnnotationInformations.getAnnotationDefs(input);
-		Document document = new DocumentImpl(input, "http://example.org/test_document");
+		GatherAnnotationInformations gai = new GatherAnnotationInformations();
+		LinkedList<DefinitionObject> DOList = gai.getAnnotationsOfFile(path, gai);
+		Document document = new DocumentImpl(gai.getNot_annot_text(), "http://example.org/test_document");
 		
-		for(DefinitionObject dobj : DOList)
-		{		
-			if(dobj.getUrlAmount() > 0)
-			{
-				document.addMarking(createMarkingNamedEntity(dobj));
-			}else{
-				document.addMarking(createMarkingSpanImpl(dobj));
-			}
-			
-		}
+		for(DefinitionObject dobj : DOList) document.addMarking(createMarkingNamedEntity(dobj));
 
 		List<Document> documents = new ArrayList<Document>();
 		documents.add(document);
@@ -107,6 +96,17 @@ public class AnnotedTextToNIFConverter
 		return nifString;
 	}
 	
+	/**
+	 * This method generate a NIF file (type = TURTLE [*.ttl]) by given file path and return its file path.
+	 * @param infile_path
+	 * @param outfile_name
+	 * @return NIF/Turtle file path
+	 * @throws IOException
+	 */
+	public static String getNIFFile(String infile_path, String outfile_name) throws IOException
+	{
+		return TextWriter.fileWriter(doTheMagic(infile_path), TextWriter.createFilePathByName(outfile_name));
+	}
 
 	/*
 	 * EXAMPLE of USE
@@ -114,9 +114,11 @@ public class AnnotedTextToNIFConverter
 	public static void main(String[] args) throws IOException 
 	{
 		TextReader tr = new TextReader();
-		String file_location = tr.getResourceFileAbsolutePath("Bsp1.txt");
-		String defaultName = "bsp.ttl";
-		TextWriter.writeToProgramFolder(defaultName, doTheMagic(file_location));
+		
+		String infile_name = "Bsp1.txt";
+		String outfile_name = "bsp.ttl";
+		String file_location = tr.getResourceFileAbsolutePath(infile_name);
+		System.out.println(getNIFFile(file_location, outfile_name));
 		
 	}
 }

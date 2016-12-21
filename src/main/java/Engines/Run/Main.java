@@ -1,10 +1,12 @@
 package Engines.Run;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import org.json.JSONObject;
 
+import AnnotedText2NIF.ConverterEngine.AnnotedTextToNIFConverter;
 import AnnotedText2NIF.ConverterEngine.DefinitionObject;
 import AnnotedText2NIF.ConverterEngine.GatherAnnotationInformations;
 import AnnotedText2NIF.IOContent.TextReader;
@@ -39,8 +41,10 @@ public class Main
 		//Single items
 		TextReader tr = new TextReader();
 		Language language = Language.EN;
+		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		String filename = "Bsp1.txt";	//TODO do it for various files 
 		String resourceFileAbsolutePath = tr.getResourceFileAbsolutePath(filename);
+		String nameNIFFile = "bsp"+".ttl";
 		String text_raw = TextReader.fileReader(resourceFileAbsolutePath);
 		
 		//Multiple items
@@ -66,6 +70,9 @@ public class Main
 		
 		
 		//TODO hier NIF-Converter einbauen
+//		LinkedList<String> file_paths
+		
+		File file = new File(AnnotedTextToNIFConverter.getNIFFile(resourceFileAbsolutePath, nameNIFFile));
 		
 		//################# GERBIL Setup #################
 		//Single item for the experiment
@@ -73,12 +80,12 @@ public class Main
 		String matching_type = Matching.WEAK_ANNOTATION_MATCH.name();
 
 		//Multiple items for the experiment
-		LinkedList<String> filenames = new LinkedList<String>(Arrays.asList("bsp1.ttl"));	//TODO sollte die obere FILE-Liste nach dem NIF konvertieren wiederspiegeln nur halt *.ttl
+		LinkedList<File> files = new LinkedList<File>(Arrays.asList(file));	//TODO sollte die obere FILE-Liste nach dem NIF konvertieren wiederspiegeln nur halt *.ttl
 		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(Annotators.AIDA.name(), Annotators.Dexter.name(), Annotators.FOX.name()));
 		LinkedList<String> datasets = new LinkedList<String>(Arrays.asList("DBpediaSpotlight"));
 		
 		//Keep in mind that uploaded files need to pre-described see down here
-		for (String file : filenames)  datasets.add(ExperimentObjectGERBIL.createUploadDataDesc(file));
+		datasets.add(ExperimentObjectGERBIL.createUploadDataDesc(filename));
 		
 		//Setup object complete
 		ExperimentObjectGERBIL exoGERBIL = new ExperimentObjectGERBIL(exp_type, matching_type, annotators, datasets);
@@ -138,7 +145,7 @@ public class Main
 			sentences_cleaned.add(TextConversion.decompose(sst.formatCleaned(sentences_raw.get(i))));
 			
 			//gather text annotations 
-			dobjs = GatherAnnotationInformations.getAnnotationDefs(sentences_cleaned.getLast());
+			dobjs = gai.gatherDefinitions(sentences_cleaned.getLast());
 			
 			//store sentence objects and annotations
 			if(dobjs.size() > 0)
@@ -204,7 +211,7 @@ public class Main
 		
 		//GERBIL
 		//Start process
-		JSONObject jsobj_with_upload = HttpController.run(filenames, exoGERBIL);	//here you upload your own dataset
+		JSONObject jsobj_with_upload = HttpController.run(new LinkedList<String>(Arrays.asList(filename)), exoGERBIL);	//here you upload your own dataset
 //		JSONObject jsobj_without_upload = run(exoGERBIL);			//here you use a existing dataset from GERBIL
 		
 		//Presenting output

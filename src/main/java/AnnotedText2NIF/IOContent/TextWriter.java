@@ -13,11 +13,11 @@ import java.io.IOException;
 public class TextWriter 
 {
 	/**
-	 * Simple file writer
+	 * This method write the given text to a xml-file in the parent folder with a given name
 	 * @param writeable
 	 * @param path
 	 */
-	public static void fileWriter(String writeable, String path) 
+	public static String fileWriter(String writeable, String path) 
 	{
 		try {
 			
@@ -32,10 +32,9 @@ public class TextWriter
 			bw.write(writeable);
 			bw.close();
 			
-			System.out.println(path);
-			System.out.println("FILE CREATED AND FILLED!");
-			
 		} catch (IOException ioe) { ioe.printStackTrace(); }
+		
+		return path;
 	}
 	
 	/**
@@ -112,16 +111,5 @@ public class TextWriter
 	{
 		return  new File(".").getCanonicalPath()+"\\"+filename;
 		
-	}
-	
-	/**
-	 * This method write the given text to a xml-file in the parent folder with a given name
-	 * @param name
-	 * @param text
-	 * @throws IOException
-	 */
-	public static void writeToProgramFolder(String name, String text) throws IOException
-	{
-		fileWriter(text,createFilePathByName(name));
 	}
 }

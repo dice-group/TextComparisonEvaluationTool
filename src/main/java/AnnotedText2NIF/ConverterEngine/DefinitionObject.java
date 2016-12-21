@@ -1,6 +1,4 @@
 package AnnotedText2NIF.ConverterEngine;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Klasse definiert eine Annotation in einem Text. Die Url ist ausschlieﬂlich auf en.wiki basierend. 
@@ -14,20 +12,16 @@ public class DefinitionObject
 {
 	private int s = -1;
 	private int e = -1;
-	private int usz = 0;
 	private String c = "";
-	private Set<String> u = new HashSet<String>();
+	private String u = "";
 	
 	
-	public DefinitionObject(int start, int end, String content, Set<String> in_uri)
+	public DefinitionObject(int start, int end, String content, String in_uri)
 	{
 		this.s = start;
 		this.e = end;
 		this.c = content;
 		this.u = in_uri;
-		this.usz = this.u.size();
-			
-				
 	}
 
 	public int getStartPos() {
@@ -37,21 +31,17 @@ public class DefinitionObject
 	public int getEndPos() {
 		return e;
 	}
-	
-	public int getUrlAmount(){
-		return usz;
-	}
 
 	public String getContent() {
 		return c;
 	}
 	
-	public Set<String> getEngWikiUrls(){
+	public String getEngWikiUrl(){
 		return u;
 	}
 	
 	public String showAllContent()
 	{
-		return "[ "+getStartPos()+" ][ "+getEndPos()+" ][ "+getContent()+" ][ "+getEngWikiUrls()+" ]";
+		return "[ "+getStartPos()+" ][ "+getEndPos()+" ][ "+getContent()+" ][ "+getEngWikiUrl()+" ]";
 	}
 }
