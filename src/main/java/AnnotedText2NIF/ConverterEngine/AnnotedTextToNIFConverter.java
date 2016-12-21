@@ -82,6 +82,8 @@ public class AnnotedTextToNIFConverter
 	{
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		LinkedList<DefinitionObject> DOList = gai.getAnnotationsOfFile(path, gai);
+		System.out.println(gai.getNot_annot_text().length());
+		System.out.println(gai.getNot_annot_text().substring(1097, 1097+33));
 		Document document = new DocumentImpl(gai.getNot_annot_text(), "http://example.org/test_document");
 		
 		for(DefinitionObject dobj : DOList) document.addMarking(createMarkingNamedEntity(dobj));

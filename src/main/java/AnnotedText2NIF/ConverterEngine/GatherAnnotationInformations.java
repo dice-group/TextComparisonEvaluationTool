@@ -55,8 +55,8 @@ public class GatherAnnotationInformations
 				//Handling easy
 				begin = matcher.start();
 				end = matcher.end()-4;
-				url = prefix+matcher.group().replace("[[", "").replace("]]", "");
-				content = url;
+				content = matcher.group().replace("[[", "").replace("]]", "");
+				url = prefix+content;
 				dobjs.add(new DefinitionObject(begin, end, content, url.replace(" ", "_")));
 				
 				//Replace text
@@ -98,7 +98,9 @@ public class GatherAnnotationInformations
 	public static void main(String[] args) throws IOException
 	{
 		TextReader tr = new TextReader();
-		String path = tr.getResourceFileAbsolutePath("Bsp1.txt");
+		String infile_name = "epoch15.txt";
+//		String infile_name = "Bsp1.txt";
+		String path = tr.getResourceFileAbsolutePath(infile_name);
 		String input = TextReader.fileReader(path);
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		LinkedList<DefinitionObject> dobjs = gai.gatherDefinitions(input);

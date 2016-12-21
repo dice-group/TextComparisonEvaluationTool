@@ -205,7 +205,6 @@ public class Main
 		
 		//GERBIL
 		//Start process
-//		System.out.println("File_Path: "+file.getCanonicalPath());
 		JSONObject jsobj_with_upload = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);	//here you upload your own dataset
 //		JSONObject jsobj_without_upload = run(exoGERBIL);			//here you use a existing dataset from GERBIL
 		

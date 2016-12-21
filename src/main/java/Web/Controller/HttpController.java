@@ -269,6 +269,8 @@ public class HttpController
 			{
 				//Dataset upload
 				System.out.println("####### UPLOAD: #######");
+				System.out.println("File_Path: "+filename);
+				System.out.println("PATH: "+tr.getResourceFileAbsolutePath(filename));
 				int code = UploadController.uploadFile(upload_url, tr.getResourceFileAbsolutePath(filename));
 				interpretResponseCode(code);
 			}
