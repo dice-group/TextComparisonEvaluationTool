@@ -82,8 +82,6 @@ public class AnnotedTextToNIFConverter
 	{
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		LinkedList<DefinitionObject> DOList = gai.getAnnotationsOfFile(path, gai);
-		System.out.println(gai.getNot_annot_text().length());
-		System.out.println(gai.getNot_annot_text().substring(1097, 1097+33));
 		Document document = new DocumentImpl(gai.getNot_annot_text(), "http://example.org/test_document");
 		
 		for(DefinitionObject dobj : DOList) document.addMarking(createMarkingNamedEntity(dobj));
@@ -106,9 +104,10 @@ public class AnnotedTextToNIFConverter
 	 * @return NIF/Turtle file path
 	 * @throws IOException
 	 */
-	public static String getNIFFile(String infile_path, String outfile_name) throws IOException
+	public static String getNIFFile(String infile_name, String infile_path, String outfile_name) throws IOException
 	{
-		return TextWriter.fileWriter(doTheMagic(infile_path), TextWriter.createFilePathByName(outfile_name));
+		TextReader tr = new TextReader();
+		return TextWriter.fileWriter(doTheMagic(infile_path), tr.getResourceFileAbsolutePath(infile_name).replace(infile_name, outfile_name));
 	}
 
 	/*
@@ -125,7 +124,8 @@ public class AnnotedTextToNIFConverter
 //		String outfile_name = "bsp.ttl";
 		
 		String file_location = tr.getResourceFileAbsolutePath(infile_name);
-		System.out.println(getNIFFile(file_location, outfile_name));
+		System.out.println(file_location);
+		System.out.println(getNIFFile(infile_name, file_location, outfile_name));
 		
 	}
 }

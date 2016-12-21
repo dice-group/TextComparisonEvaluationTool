@@ -43,8 +43,10 @@ public class Main
 		Language language = Language.EN;
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		String filename = "epoch15.txt";	//TODO do it for various files 
+//		String filename = "Bsp1.txt";	//TODO do it for various files 
 		String resourceFileAbsolutePath = tr.getResourceFileAbsolutePath(filename);
 		String nameNIFFile = "epoch15"+".ttl";
+//		String nameNIFFile = "bsp"+".ttl";
 		String text_raw = TextReader.fileReader(resourceFileAbsolutePath);
 		
 		//Multiple items
@@ -70,7 +72,7 @@ public class Main
 		
 		
 		//NIF-Converter einbauen
-		File file = new File(AnnotedTextToNIFConverter.getNIFFile(resourceFileAbsolutePath, nameNIFFile));
+		File file = new File(AnnotedTextToNIFConverter.getNIFFile(filename, resourceFileAbsolutePath, nameNIFFile));
 		
 		//################# GERBIL Setup #################
 		//Single item for the experiment
