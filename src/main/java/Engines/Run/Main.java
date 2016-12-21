@@ -82,10 +82,10 @@ public class Main
 		//Multiple items for the experiment
 		LinkedList<File> files = new LinkedList<File>(Arrays.asList(file));	//TODO sollte die obere FILE-Liste nach dem NIF konvertieren wiederspiegeln nur halt *.ttl
 		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(Annotators.AIDA.name(), Annotators.Dexter.name(), Annotators.FOX.name()));
-		LinkedList<String> datasets = new LinkedList<String>(Arrays.asList("DBpediaSpotlight"));
+		LinkedList<String> datasets = new LinkedList<String>(/*Arrays.asList("DBpediaSpotlight")*/);
 		
 		//Keep in mind that uploaded files need to pre-described see down here
-		datasets.add(ExperimentObjectGERBIL.createUploadDataDesc(filename));
+		datasets.add(ExperimentObjectGERBIL.createUploadDataDesc(nameNIFFile));
 		
 		//Setup object complete
 		ExperimentObjectGERBIL exoGERBIL = new ExperimentObjectGERBIL(exp_type, matching_type, annotators, datasets);
@@ -106,10 +106,7 @@ public class Main
 		 * TODO GERBIL JSON relevanten content erhalten impl
 		 * TODO GERBIL Schnittstelle an main anbinden
 		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
-		 * TODO Impl cos abstand 2er Vektoren/arrays 
-		 * TODO NIF genration überarbeiten -> 
-		 *   	3.	wahrscheinlich muss das https raus und durch http ersetzt werden
-		 * TODO NIF generation für dataset einbinden
+		 * TODO Impl cos abstand 2er Vektoren/arrays
 		 * 
 		 * JUNIT
 		 * TODO Junit Test für Wortzähler
@@ -209,7 +206,8 @@ public class Main
 		
 		//GERBIL
 		//Start process
-		JSONObject jsobj_with_upload = HttpController.run(new LinkedList<String>(Arrays.asList(filename)), exoGERBIL);	//here you upload your own dataset
+//		System.out.println("File_Path: "+file.getCanonicalPath());
+		JSONObject jsobj_with_upload = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);	//here you upload your own dataset
 //		JSONObject jsobj_without_upload = run(exoGERBIL);			//here you use a existing dataset from GERBIL
 		
 		//Presenting output
