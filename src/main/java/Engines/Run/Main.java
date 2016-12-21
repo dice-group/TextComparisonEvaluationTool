@@ -42,10 +42,10 @@ public class Main
 		TextReader tr = new TextReader();
 		Language language = Language.EN;
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
-		String filename = "epoch15.txt";	//TODO do it for various files 
+		String filename = "epoch70Final.txt";	//TODO do it for various files 
 //		String filename = "Bsp1.txt";	//TODO do it for various files 
 		String resourceFileAbsolutePath = tr.getResourceFileAbsolutePath(filename);
-		String nameNIFFile = "epoch15"+".ttl";
+		String nameNIFFile = "epoch70Final"+".ttl";
 //		String nameNIFFile = "bsp"+".ttl";
 		String text_raw = TextReader.fileReader(resourceFileAbsolutePath);
 		
