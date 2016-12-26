@@ -117,8 +117,8 @@ public class AnnotedTextToNIFConverter
 	{
 		TextReader tr = new TextReader();
 		
-		String infile_name = "epoch15.txt";
-		String outfile_name = "epoch15.ttl";
+		String infile_name = "Bsp1.txt";
+		String outfile_name = "bsp.ttl";
 		
 //		String infile_name = "Bsp1.txt";
 //		String outfile_name = "bsp.ttl";
