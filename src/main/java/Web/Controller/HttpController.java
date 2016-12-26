@@ -248,7 +248,7 @@ public class HttpController
 			}
 		}
 		
-		
+		//TODO hier evtl. direkt den path übergeben anstatt den namen
 		/**
 		 * This method upload a file and execute the experiment by filename, 
 		 * URL for upload data and execution of the experiment, by given 
@@ -269,6 +269,7 @@ public class HttpController
 			{
 				//Dataset upload
 				System.out.println("####### UPLOAD: #######");
+				System.out.println("Given path: "+tr.getResourceFileAbsolutePath(filename));
 				int code = UploadController.uploadFile(upload_url, tr.getResourceFileAbsolutePath(filename));
 				interpretResponseCode(code);
 			}

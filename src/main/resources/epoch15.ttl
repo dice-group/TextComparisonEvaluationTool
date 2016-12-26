@@ -1,0 +1,251 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/test_document#char=1051,1091>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "perfin conternation of the fallal savies"^^xsd:string ;
+        nif:beginIndex        "1051"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1091"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/perfin_conternation_of_the_fallal_savies> .
+
+<http://example.org/test_document#char=378,387>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "the manga"^^xsd:string ;
+        nif:beginIndex        "378"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "387"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/the_manga> .
+
+<http://example.org/test_document#char=667,683>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "oricia sa soonce"^^xsd:string ;
+        nif:beginIndex        "667"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "683"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/oricia_sa_soonce> .
+
+<http://example.org/test_document#char=592,617>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "manuar and sora presicted"^^xsd:string ;
+        nif:beginIndex        "592"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "617"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/manuar_and_sora_presicted> .
+
+<http://example.org/test_document#char=261,313>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "penar commanian for order of anganian south sumachal"^^xsd:string ;
+        nif:beginIndex        "261"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "313"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/penar_commanian_for_order_of_anganian_south_sumachal> .
+
+<http://example.org/test_document#char=535,557>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "nover and ganyon party"^^xsd:string ;
+        nif:beginIndex        "535"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "557"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/nover_and_ganyon_party> .
+
+<http://example.org/test_document#char=104,147>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "dease socor sevelation of the historication"^^xsd:string ;
+        nif:beginIndex        "104"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "147"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/dease_socor_sevelation_of_the_historication> .
+
+<http://example.org/test_document#char=475,498>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "randhon of sear legrear"^^xsd:string ;
+        nif:beginIndex        "475"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "498"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/randhon_of_sear_legrear> .
+
+<http://example.org/test_document#char=991,1005>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "engeran county"^^xsd:string ;
+        nif:beginIndex        "991"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1005"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/engeran_county> .
+
+<http://example.org/test_document#char=692,703>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "bania sears"^^xsd:string ;
+        nif:beginIndex        "692"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "703"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/bania_sears> .
+
+<http://example.org/test_document#char=9,90>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "consections of the compete leange and panty for the conseal amron sumplision foos"^^xsd:string ;
+        nif:beginIndex        "9"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "90"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/consections_of_the_compete_leange_and_panty_for_the_conseal_amron_sumplision_foos> .
+
+<http://example.org/test_document#char=236,259>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "anceas maying and party"^^xsd:string ;
+        nif:beginIndex        "236"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "259"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/anceas_maying_and_party> .
+
+<http://example.org/test_document#char=317,346>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "rabering lear presical decile"^^xsd:string ;
+        nif:beginIndex        "317"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "346"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/rabering_lear_presical_decile> .
+
+<http://example.org/test_document#char=506,530>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "filson for accing candan"^^xsd:string ;
+        nif:beginIndex        "506"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "530"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/filson_for_accing_candan> .
+
+<http://example.org/test_document#char=886,923>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "and the company|south have shont show"^^xsd:string ;
+        nif:beginIndex        "886"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "923"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/surt_in_an_deader> .
+
+<http://example.org/test_document#char=574,590>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "englaming dulame"^^xsd:string ;
+        nif:beginIndex        "574"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "590"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/englaming_dulame> .
+
+<http://example.org/test_document#char=351,374>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conserval she pare mate"^^xsd:string ;
+        nif:beginIndex        "351"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "374"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/conserval_she_pare_mate> .
+
+<http://example.org/test_document#char=395,452>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "and of the are suroate of a sange as the canar can panada"^^xsd:string ;
+        nif:beginIndex        "395"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "452"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/and_of_the_are_suroate_of_a_sange_as_the_canar_can_panada> .
+
+<http://example.org/test_document#char=705,754>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "bure decond disu and weln armuning of the bargany"^^xsd:string ;
+        nif:beginIndex        "705"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "754"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/bure_decond_disu_and_weln_armuning_of_the_bargany> .
+
+<http://example.org/test_document#char=152,164>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "par parrence"^^xsd:string ;
+        nif:beginIndex        "152"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "164"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/par_parrence> .
+
+<http://example.org/test_document#char=824,847>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "for concemper contrance"^^xsd:string ;
+        nif:beginIndex        "824"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "847"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/for_concemper_contrance> .
+
+<http://example.org/test_document#char=1097,1130>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sama now states now manner states"^^xsd:string ;
+        nif:beginIndex        "1097"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1130"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/sama_now_states_now_manner_states> .
+
+<http://example.org/test_document#char=1010,1049>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "insoction from the san narle war hon he"^^xsd:string ;
+        nif:beginIndex        "1010"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1049"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/insoction_from_the_san_narle_war_hon_he> .
+
+<http://example.org/test_document#char=852,881>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "pindent company prodoconation"^^xsd:string ;
+        nif:beginIndex        "852"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "881"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/pindent_company_prodoconation> .
+
+<http://example.org/test_document#char=795,818>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "bounte is a socomations"^^xsd:string ;
+        nif:beginIndex        "795"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "818"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/bounte_is_a_socomations> .
+
+<http://example.org/test_document#char=0,1131>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "1131"^^xsd:nonNegativeInteger ;
+        nif:isString    " for the consections of the compete leange and panty for the conseal amron sumplision foos. the fon the dease socor sevelation of the historication and par parrence in may sattern seassing concerned sighter in the parture to one of the anceas maying and party, penar commanian for order of anganian south sumachal in rabering lear presical decile and conserval she pare mate in the manga of the and of the are suroate of a sange as the canar can panada o the reagural of the randhon of sear legrear.to the filson for accing candan and nover and ganyon party, saulan league, englaming dulame, manuar and sora presicted in partar strest and sear secentel to the bange, oricia sa soonce for the bania sears, bure decond disu and weln armuning of the bargany and deconded and and and france was the bounte is a socomations. the for concemper contrance and pindent company prodoconation and and the company|south have shont show on th the fame for san indarmal pear polica and sours in 1999, and engeran county and insoction from the san narle war hon he, perfin conternation of the fallal savies. the sama now states now manner states."^^xsd:string .
+
+<http://example.org/test_document#char=168,206>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "may sattern seassing concerned sighter"^^xsd:string ;
+        nif:beginIndex        "168"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "206"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/may_sattern_seassing_concerned_sighter> .
+
+<http://example.org/test_document#char=972,977>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sours"^^xsd:string ;
+        nif:beginIndex        "972"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "977"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/beces_station> .
+
+<http://example.org/test_document#char=621,665>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "partar strest and sear secentel to the bange"^^xsd:string ;
+        nif:beginIndex        "621"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "665"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/partar_strest_and_sear_secentel_to_the_bange> .
+
+<http://example.org/test_document#char=559,572>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "saulan league"^^xsd:string ;
+        nif:beginIndex        "559"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "572"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/saulan_league> .
+
+<http://example.org/test_document#char=943,967>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san indarmal pear polica"^^xsd:string ;
+        nif:beginIndex        "943"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "967"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/test_document#char=0,1131> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/san_indarmal_pear_polica> .

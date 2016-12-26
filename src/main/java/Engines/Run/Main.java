@@ -73,6 +73,7 @@ public class Main
 		
 		//NIF-Converter einbauen
 		File file = new File(AnnotedTextToNIFConverter.getNIFFile(filename, resourceFileAbsolutePath, nameNIFFile));
+		System.out.println("Turtle file path: "+file.getAbsolutePath());
 		
 		//################# GERBIL Setup #################
 		//Single item for the experiment
