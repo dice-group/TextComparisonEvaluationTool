@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import AnnotedText2NIF.IOContent.TextReader;
+import Engines.simpleTextProcessing.TextConversion;
 
 /**
  * Diese Klasse sammelt alle Informationen bzgl. jeder Annotation aus einem Text, 
@@ -77,6 +78,109 @@ public class GatherAnnotationInformations
 			matcher = Pattern.compile(regex).matcher(input);
 		}
 		setNot_annot_text(input);
+		return dobjs;
+	}
+	
+	
+	
+	/**
+	 * This method return all known informations about the annotations inside the text.
+	 * The url constuction is pre-defined!
+	 * @param input
+	 * @return list of definition objects
+	 */
+	public LinkedList<DefinitionObject> gatherDefs(LinkedList<String> input)
+	{
+		LinkedList<DefinitionObject> dobjs =  new LinkedList<DefinitionObject>();
+		String cleaned_text = "";
+		char[] clean_sentence;
+		char[] entity;
+		int new_cur_index;
+		int new_cur_start_entity;
+		int new_cur_end_entity;
+		
+		
+		for (int k = 0; k < input.size(); k++) //für jeden satz
+		{
+			
+			//text as char array
+			char[] current_sentence = input.get(k).toCharArray();
+			
+			//text verwaltungs objekt
+			Spezification spez = new Spezification();
+			
+			//Zähle neuen index für start und ende einer entity im gesäuberten text
+			new_cur_index = 0;
+			new_cur_start_entity = -1;
+			new_cur_end_entity = -1;
+			
+			//speicher objekt für den gesäuberten text
+			clean_sentence = new char[current_sentence.length];
+			
+			//false eine enity nie geschlossen wurde oder ein separator eingebaut wurde
+			entity = new char[current_sentence.length];			
+			
+			//check für entity processing active
+			boolean isActive = false;
+			
+			
+			
+			for (int i = 0; i < current_sentence.length; i++) 
+			{
+				//actual character
+				char c =  current_sentence[i];
+				
+				if(i > 0 && c == '[' && current_sentence[i-1] == '[')	//report entity reached
+				{
+					if(isActive == true)	//if false entity
+					{
+						//speicher den inhalt der entity als normalen text in den cleaned ein da es keine entity ist
+						//setze entity auf leer  und addiere die länge des hinzugefügten textes aus entity auf den index
+						
+					}else{
+						isActive = true;
+						new_cur_start_entity = new_cur_index;
+					}
+					
+				}
+				
+				
+				
+				if(i > 0 && c == '[' && current_sentence[i-1] == '[' && isActive)	//report entity left
+				{
+					isActive = false;
+					cleaned_text += clean_sentence + "\n";
+				}
+				
+				//Es wird gerade eine entity bearbeitet
+				if(isActive)
+				{
+					if(c == '|')	
+					{				//check for separator
+						
+					}else if(Character.isAlphabetic(c) || 
+							 Character.isDigit(c) || 
+							 Character.isSpaceChar(c))		
+					{				//check for alnum and whitespaces => check is not opposite
+						
+					}else{			//alles andere ignorieren
+						
+					}
+				}
+				
+				
+				
+				
+				
+			}
+			
+			//annotation add
+			
+			//string combine for cleaned annotated text
+		}
+		
+		//add annotated text
+		setNot_annot_text(cleaned_text);
 		return dobjs;
 	}
 	

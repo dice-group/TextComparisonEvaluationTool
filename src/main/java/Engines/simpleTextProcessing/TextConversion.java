@@ -66,7 +66,6 @@ public class TextConversion
 	{
 		char[] chars_in = text.toCharArray();
 		String out = "";
-//		String punctutations = "':,.!-()?;\"[]|";//add all the ones you want.
 		char old = ' ';
 		char c = ' ';
 		error_signs = 0;
