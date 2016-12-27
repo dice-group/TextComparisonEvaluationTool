@@ -5,7 +5,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import AnnotedText2NIF.IOContent.TextReader;
-import Engines.simpleTextProcessing.TextConversion;
 import Engines.SimpleObjects.Specification;
 
 /**
@@ -83,7 +82,7 @@ public class GatherAnnotationInformations
 	}
 	
 	
-	
+	//TODO here we need to focus!!!
 	/**
 	 * This method return all known informations about the annotations inside the text.
 	 * The url constuction is pre-defined!

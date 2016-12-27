@@ -1,6 +1,6 @@
 package Engines.SimpleObjects;
 
-class Specification
+public class Specification
 {
 	private int index = -1;
 	private int start_entity = -1;
@@ -86,10 +86,16 @@ class Specification
 	public void setCleaned(String cleaned) { this.cleaned = cleaned; }
 	
 	/*
+	 * TODO build a test
 	 * EXAMPLE of USE
 	 */
 	public static void main(String [] args)
 	{
+		String test = "[[absolute pitch|perfect pitch]]";
+		String cleaned = "This is the ";
+		
+		Specification spec = new Specification();
+		
 		
 	}
 }
