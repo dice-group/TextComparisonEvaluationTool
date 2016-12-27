@@ -1,6 +1,6 @@
 package Engines.SimpleObjects;
 
-class Spezification
+class Specification
 {
 	private int index = -1;
 	private int start_entity = -1;
@@ -9,9 +9,9 @@ class Spezification
 	private String entity;
 	private String cleaned = "";
 	
-	public Spezification(){};
+	public Specification(){};
 	
-	public Spezification(int i, int s, int e)
+	public Specification(int i, int s, int e)
 	{
 		this.index = i;
 		this.start_entity = s;

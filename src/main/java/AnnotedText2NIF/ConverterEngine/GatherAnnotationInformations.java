@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import AnnotedText2NIF.IOContent.TextReader;
 import Engines.simpleTextProcessing.TextConversion;
+import Engines.SimpleObjects.Specification;
 
 /**
  * Diese Klasse sammelt alle Informationen bzgl. jeder Annotation aus einem Text, 
@@ -107,7 +108,7 @@ public class GatherAnnotationInformations
 			char[] current_sentence = input.get(k).toCharArray();
 			
 			//text verwaltungs objekt
-			Spezification spez = new Spezification();
+			Specification spez = new Specification();
 			
 			//Zähle neuen index für start und ende einer entity im gesäuberten text
 			new_cur_index = 0;
