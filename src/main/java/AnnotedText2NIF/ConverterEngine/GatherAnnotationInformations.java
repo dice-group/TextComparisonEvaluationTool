@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 
 import AnnotedText2NIF.IOContent.TextReader;
 import Engines.SimpleObjects.Specification;
+import Engines.simpleTextProcessing.StanfordSegmentatorTokenizer;
+import Engines.simpleTextProcessing.TextConversion;
 
 /**
  * Diese Klasse sammelt alle Informationen bzgl. jeder Annotation aus einem Text, 
@@ -93,45 +95,44 @@ public class GatherAnnotationInformations
 	{
 		LinkedList<DefinitionObject> dobjs =  new LinkedList<DefinitionObject>();
 		String cleaned_text = "";
-		char[] clean_sentence;
-		char[] entity;
-		int new_cur_index;
+		LinkedList<Character> clean_sentence;
+		LinkedList<Character> entity;
+		int new_cur_index = 0;
 		int new_cur_start_entity;
 		int new_cur_end_entity;
 		
 		
-		for (int k = 0; k < input.size(); k++) //für jeden satz
+		for (int k = 0; k < input.size(); k++) //for each sentence
 		{
 			
 			//text as char array
-			char[] current_sentence = input.get(k).toCharArray();
+			char[] current_sentence = StanfordSegmentatorTokenizer.formatCleaned(input.get(k)).toCharArray();
 			
-			//text verwaltungs objekt
+			//text specification object
 			Specification spez = new Specification();
 			
-			//Zähle neuen index für start und ende einer entity im gesäuberten text
-			new_cur_index = 0;
+			//count index of start and end of an entity in the cleaned text
 			new_cur_start_entity = -1;
 			new_cur_end_entity = -1;
 			
-			//speicher objekt für den gesäuberten text
-			clean_sentence = new char[current_sentence.length];
+			//stores cleaned sentence
+			clean_sentence = new LinkedList<Character>();
 			
-			//false eine enity nie geschlossen wurde oder ein separator eingebaut wurde
-			entity = new char[current_sentence.length];			
+			//need regular and if an entity wouldn't closed or an separator exist
+			entity = new LinkedList<Character>();			
 			
-			//check für entity processing active
+			//check value for entity processing active
 			boolean isActive = false;
 			
 			
 			
-			for (int i = 0; i < current_sentence.length; i++) 
+			for (int i = 0; i < current_sentence.length; i++) //process current sentence
 			{
 				//actual character
 				char c =  current_sentence[i];
 				
-				if(i > 0 && c == '[' && current_sentence[i-1] == '[')	//report entity reached
-				{
+				if(i > 0 && c == '[' && current_sentence[i-1] == '[')	
+				{											//report entity reached
 					if(isActive == true)	//if false entity
 					{
 						//speicher den inhalt der entity als normalen text in den cleaned ein da es keine entity ist
@@ -142,20 +143,17 @@ public class GatherAnnotationInformations
 						new_cur_start_entity = new_cur_index;
 					}
 					
-				}
-				
-				
-				
-				if(i > 0 && c == '[' && current_sentence[i-1] == '[' && isActive)	//report entity left
-				{
-					isActive = false;
-					cleaned_text += clean_sentence + "\n";
-				}
-				
-				//Es wird gerade eine entity bearbeitet
-				if(isActive)
-				{
-					if(c == '|')	
+				}else if(isActive)	
+				{	//Entity still processing
+					
+					if(i > 0 && c == ']' && current_sentence[i-1] == ']' )
+					{				//report entity left
+						
+						isActive = false;
+					}else if(i == current_sentence.length-1)
+					{				//report sentence end
+						if(createSFL(clean_sentence).length() > 0) cleaned_text +=  createSFL(clean_sentence);
+					}else if(c == '|')	
 					{				//check for separator
 						
 					}else if(Character.isAlphabetic(c) || 
@@ -166,22 +164,54 @@ public class GatherAnnotationInformations
 					}else{			//alles andere ignorieren
 						
 					}
-				}
-				
-				
-				
-				
-				
+					
+				}else
+				{											//Default => no entity reached
+					if(c != '[' && c != ']')
+					{
+						spez.addCharToCleaned(c);
+					}
+					
+				}	
 			}
 			
 			//annotation add
+			dobjs.add(new DefinitionObject(spez.getStart_entity(), spez.getEnd_entity(), spez.getEntity(), spez.getUrl()));
 			
 			//string combine for cleaned annotated text
+			if(k < input.size()-1)
+			{
+				cleaned_text += spez.getCleaned()+"\n";
+			}else{
+				cleaned_text += spez.getCleaned();
+			}
+			
+			
+			
+			
+			
+		}
+		System.out.println(TextConversion.cleanMultiSpaces(cleaned_text));
+		//add annotated text
+		setNot_annot_text(TextConversion.cleanMultiSpaces(cleaned_text));
+		return dobjs;
+	}
+	
+	/**
+	 * Simple to String method for char arrays
+	 * @param in
+	 * @return
+	 */
+	public static String createSFL(LinkedList<Character> in)
+	{
+		String out = "";
+		
+		for (int i = 0; i < in.size(); i++) 
+		{
+			out += in.get(i);
 		}
 		
-		//add annotated text
-		setNot_annot_text(cleaned_text);
-		return dobjs;
+		return out;
 	}
 	
 	//#############################################################################
@@ -201,26 +231,33 @@ public class GatherAnnotationInformations
 	 */
 	public static void main(String[] args) throws IOException
 	{
+		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
+		LinkedList<String> sentences;
+		
 		TextReader tr = new TextReader();
 		String infile_name = "epoch15.txt";
 //		String infile_name = "Bsp1.txt";
 		String path = tr.getResourceFileAbsolutePath(infile_name);
 		String input = TextReader.fileReader(path);
+		sentences = StanfordSegmentatorTokenizer.gatherSentences(input);
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
-		LinkedList<DefinitionObject> dobjs = gai.gatherDefinitions(input);
 		
-		System.out.println(input);
-		System.out.println(gai.getNot_annot_text());
+		gai.gatherDefs(sentences);
 		
-		for (int i = 0; i < dobjs.size(); i++) 
-		{
-			System.out.println("T: "+gai.getNot_annot_text().substring(dobjs.get(i).getStartPos(), dobjs.get(i).getEndPos()));
-			System.out.print("S: "+dobjs.get(i).getStartPos()+" | ");
-			System.out.print("E: "+dobjs.get(i).getEndPos()+" | ");
-			System.out.print("L: "+(dobjs.get(i).getEndPos()-dobjs.get(i).getStartPos())+" | ");
-			System.out.print("W: "+dobjs.get(i).getContent()+" | ");
-			System.out.println("U: "+dobjs.get(i).getEngWikiUrl());
-		}
+//		LinkedList<DefinitionObject> dobjs = gai.gatherDefinitions(input);
+//		
+//		System.out.println(input);
+//		System.out.println(gai.getNot_annot_text());
+//		
+//		for (int i = 0; i < dobjs.size(); i++) 
+//		{
+//			System.out.println("T: "+gai.getNot_annot_text().substring(dobjs.get(i).getStartPos(), dobjs.get(i).getEndPos()));
+//			System.out.print("S: "+dobjs.get(i).getStartPos()+" | ");
+//			System.out.print("E: "+dobjs.get(i).getEndPos()+" | ");
+//			System.out.print("L: "+(dobjs.get(i).getEndPos()-dobjs.get(i).getStartPos())+" | ");
+//			System.out.print("W: "+dobjs.get(i).getContent()+" | ");
+//			System.out.println("U: "+dobjs.get(i).getEngWikiUrl());
+//		}
 		
 	}
 }

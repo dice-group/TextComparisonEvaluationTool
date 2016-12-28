@@ -141,6 +141,15 @@ public class TextConversion
 		return new String(out).trim();
 	}	
 	
+	/**
+	 * Just clean up multiple whitespace character in a String
+	 * @param in
+	 * @return
+	 */
+	public static String cleanMultiSpaces(String in)
+	{
+		return in.trim().replaceAll(" +", " ");
+	}
 	
 	/**
 	 * This method normalize a text and replace all non all non alpha numerics with dots.

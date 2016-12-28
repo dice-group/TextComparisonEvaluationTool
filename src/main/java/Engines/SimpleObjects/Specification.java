@@ -59,6 +59,8 @@ public class Specification
 		}
 	}
 	
+	public void addCharToCleaned(char c){ this.cleaned += c; }
+	
 	public void setIxByAdlText(String in) { this.index += in.length(); }
 
 	public int getIndex() { return index; }

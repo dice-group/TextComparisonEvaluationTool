@@ -103,6 +103,7 @@ public class Main
 		 * TODO GERBIL Annotatoren auswählen (4 stk.) und als default GERBIL Metriken nutzen.
 		 * 
 		 * IMPL
+		 * TODO Verteilung syntaktische Fehler pro Satz um Kontrolle bzgl. Zeichenfolge erweitern => bspw "Thts the end , ." oder "and , , , in"
 		 * TODO Verteilung symbolische Fehler pro Satz 			(m2)	auf raw text	 => Errors like words are crossed by non alnum chars or not closed brackets
 		 * TODO GERBIL JSON relevanten content erhalten impl
 		 * TODO GERBIL Schnittstelle an main anbinden

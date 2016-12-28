@@ -189,7 +189,7 @@ public class StanfordSegmentatorTokenizer
      * @param in
      * @return cleaned and trimmed string
      */
-    public String formatCleaned(String in)
+    public static String formatCleaned(String in)
     {
     	return in.replaceAll("-LSB-", "[").replaceAll("-RSB-", "]").replaceAll("LSB", "").replaceAll("RSB", "").replace("[ [ ", "[[").replace(" ] ]", "]]").trim();
     }
