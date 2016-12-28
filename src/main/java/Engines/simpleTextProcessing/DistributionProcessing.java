@@ -67,24 +67,6 @@ public class DistributionProcessing
 			int key = sst.gatherWords(sos.get(i).getSentence(), language).size();
 			
 			calcDist(distribution, key);
-			
-//			if(distribution.size() < 1)
-//			{
-//				//fill empty map
-//				distribution.put(key, 1);
-//			}else{
-//				if(distribution.get(key) == null && key > 0)
-//				{	
-//					//add new object
-//					distribution.put(key, 1);
-//				}else{
-//					if(key > 0)
-//					{
-//						//raise count of known object
-//						distribution.put(key, distribution.get(key) + 1);
-//					}
-//				}
-//			}
 		}
 		
 		return distribution;

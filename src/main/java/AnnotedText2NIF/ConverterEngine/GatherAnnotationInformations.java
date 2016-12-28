@@ -248,7 +248,7 @@ public class GatherAnnotationInformations
 		LinkedList<String> sentences;
 		
 		TextReader tr = new TextReader();
-		String infile_name = "epoch15.txt";
+		String infile_name = "easy check.txt";
 //		String infile_name = "Bsp1.txt";
 		String path = tr.getResourceFileAbsolutePath(infile_name);
 		String input = TextReader.fileReader(path);
