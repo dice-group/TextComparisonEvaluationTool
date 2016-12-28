@@ -178,22 +178,25 @@ public class GatherAnnotationInformations
 			//annotation add
 			dobjs.add(new DefinitionObject(spez.getStart_entity(), spez.getEnd_entity(), spez.getEntity(), spez.getUrl()));
 			
+			//delete last whitespace between last word and sentence end dot
+			spez.setCleaned(spez.getCleaned().substring(0, spez.getCleaned().lastIndexOf(".")-2)+".");
+			
 			//string combine for cleaned annotated text
-			if(k < input.size()-1)
+			if(spez.getCleaned() != null)
 			{
-				cleaned_text += spez.getCleaned()+"\n";
-			}else{
-				cleaned_text += spez.getCleaned();
-			}
-			
-			
-			
-			
-			
+				if(k < input.size()-1)
+				{
+					cleaned_text += spez.getCleaned()+"\n";
+				}else{
+					cleaned_text += spez.getCleaned();
+				}
+			}	
 		}
-		System.out.println(TextConversion.cleanMultiSpaces(cleaned_text));
+		
 		//add annotated text
-		setNot_annot_text(TextConversion.cleanMultiSpaces(cleaned_text));
+		addTo_Not_annot_text(TextConversion.cleanMultiSpaces(cleaned_text));
+		System.out.println(getNot_annot_text());
+		
 		return dobjs;
 	}
 	
@@ -220,6 +223,16 @@ public class GatherAnnotationInformations
 	
 	public String getNot_annot_text() {
 		return not_annot_text;
+	}
+	
+	public void addTo_Not_annot_text(String in){
+		if(this.not_annot_text != null){
+			this.not_annot_text += "\n"+in;
+		}else{
+			this.not_annot_text = "";
+			this.not_annot_text += in;
+		}
+		
 	}
 
 	public void setNot_annot_text(String not_annot_text) {
