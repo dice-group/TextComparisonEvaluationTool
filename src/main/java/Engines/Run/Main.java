@@ -143,7 +143,7 @@ public class Main
 			sentences_cleaned.add(TextConversion.decompose(sst.formatCleaned(sentences_raw.get(i))));
 			
 			//gather text annotations 
-			dobjs = gai.gatherDefinitions(sentences_cleaned.getLast());
+			dobjs = gai.gatherDefsFast(sentences_cleaned.getLast());
 			
 			//store sentence objects and annotations
 			if(dobjs.size() > 0)
