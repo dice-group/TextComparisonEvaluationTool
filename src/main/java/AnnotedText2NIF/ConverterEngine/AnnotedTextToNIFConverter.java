@@ -73,7 +73,6 @@ public class AnnotedTextToNIFConverter
 		return new NamedEntity(defObj.getStartPos(), defObj.getContent().length(), defObj.getEngWikiUrl());
 	}
 	
-	//TODO was ist mit der DocumentImpl(text, http?)
 	/**
 	 * This method calculate and create a NIF file for a given Text with Wikipedia Markup annotations
 	 * @param path
@@ -117,8 +116,8 @@ public class AnnotedTextToNIFConverter
 	{
 		TextReader tr = new TextReader();
 		
-		String infile_name = "epoch15.txt";
-		String outfile_name = "epoch15.ttl";
+		String infile_name = "epoch70Final.txt";
+		String outfile_name = "epoch70Final.ttl";
 		
 //		String infile_name = "Bsp1.txt";
 //		String outfile_name = "bsp.ttl";

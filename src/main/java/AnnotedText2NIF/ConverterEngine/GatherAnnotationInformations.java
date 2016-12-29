@@ -118,7 +118,7 @@ public class GatherAnnotationInformations
 			}
 		}
 		
-		//TODO speichere Doppelklammerfehler
+		//TODO speichere Doppelklammerfehler care bzgl. der indexänderungen
 		if(input.contains("[["))
 		{
 			//report!
