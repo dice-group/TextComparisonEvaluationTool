@@ -5,8 +5,8 @@ public class Specification
 	private int index = -1;
 	private int start_entity = -1;
 	private int end_entity = -1;
-	private String url;
-	private String entity;
+	private String url ="";
+	private String entity ="";
 	private String cleaned = "";
 	
 	public Specification(){};
@@ -61,7 +61,11 @@ public class Specification
 	
 	public void addCharToCleaned(char c){ this.cleaned += c; }
 	
+	public void addStringToCleaned(String s){this.cleaned += s;}
+	
 	public void setIxByAdlText(String in) { this.index += in.length(); }
+	
+	public void count(){this.index++;}
 
 	public int getIndex() { return index; }
 
