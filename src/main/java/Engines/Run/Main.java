@@ -110,6 +110,7 @@ public class Main
 		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
 		 * TODO Impl cos abstand 2er Vektoren/arrays
 		 * TODO das lesen anderer Files bereitet der NIF konvertierung probleme
+		 * TODO Doppelklammerfehler care bzgl. der indexänderungen (report and replace during first step cleaning)
 		 * 
 		 * JUNIT
 		 * TODO Junit Test für Wortzähler

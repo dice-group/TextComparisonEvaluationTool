@@ -21,6 +21,8 @@ public class GatherAnnotationInformations
 	public static final String simpleRex = Pattern.quote("[[") + "(.*?)" + Pattern.quote("]]");				//allow inner brackets => [[outer text [[inner text]]
 	public static final String optimalRex = Pattern.quote("[[") + "([^\\[\\]]*)" + Pattern.quote("]]");		//denie inner brackets => [[url_entity_text]] or [[url_text|entity_text]]
 	
+	private int error_occur = 0;
+	
 	//#############################################################################
 	//############################ USAGE METHODS ##################################
 	//#############################################################################
@@ -38,10 +40,9 @@ public class GatherAnnotationInformations
 	}
 	
 	//TODO store url error if we need to create a dummy
-	//TODO store error if entity has to much separator
-	//TODO ermögliche das nicht dauernd der text mehrfach durchlaufen werden muss
 	/**
 	 * This method return all known informations about the annotations inside the text.
+	 * It also report separator error at false entity constructions.
 	 * The URL construction is pre-defined!
 	 * @param input
 	 * @return list of definition objects
@@ -51,6 +52,10 @@ public class GatherAnnotationInformations
 		LinkedList<DefinitionObject> dobjs =  new LinkedList<DefinitionObject>();
 		String url = "",content = "", url_part = "";
 		int begin = -1, end = -1, new_start = 0;
+		String[] entity_container = null;
+		
+		//clear error counter
+		setError_occur(0);
 		
 		Matcher matcher = Pattern.compile(optimalRex).matcher(input);
 		
@@ -83,12 +88,19 @@ public class GatherAnnotationInformations
 				
 			}else{
 				
-				if(matcher.group().split("\\|").length > 2)
+				entity_container = matcher.group().split("\\|");
+				
+				if(entity_container.length > 2)
 				{
 					
-					//TODO report error about to much separator entity
-					//TODO delete or insert the entity as cleaned
-					System.out.println("CALLED FOR ERROR ENTITY! => "+matcher.group());
+					//report error about to much separator entity
+					addOneToErrOcc();
+
+					//Replace text
+					input = input.replace(matcher.group(), entity_container[1]);
+					
+					//edit index down grade values
+					new_start += matcher.group().replace(entity_container[1], "").length();
 					
 				}else{
 					
@@ -118,19 +130,6 @@ public class GatherAnnotationInformations
 			}
 		}
 		
-		//TODO speichere Doppelklammerfehler care bzgl. der indexänderungen
-		if(input.contains("[["))
-		{
-			//report!
-			//replace
-		}
-		
-		if(input.contains("]]"))
-		{
-			//report!
-			//replace
-		}
-		
 		setNot_annot_text(input);
 		return dobjs;
 	}
@@ -154,7 +153,7 @@ public class GatherAnnotationInformations
 	}
 	
 	//#############################################################################
-	//########################## GETTERS & SETTERS ################################
+	//###################### GETTERS, SETTERS & EDITS #############################
 	//#############################################################################
 	
 	public String getNot_annot_text() {
@@ -173,6 +172,18 @@ public class GatherAnnotationInformations
 
 	public void setNot_annot_text(String not_annot_text) {
 		this.not_annot_text = not_annot_text;
+	}
+	
+	public int getError_occur() {
+		return error_occur;
+	}
+
+	public void setError_occur(int error_occur) {
+		this.error_occur = error_occur;
+	}
+	
+	public void addOneToErrOcc(){
+		this.error_occur++;
 	}
 	
 	//#############################################################################
@@ -194,6 +205,7 @@ public class GatherAnnotationInformations
 		
 		System.out.println(input);
 		System.out.println(gai.getNot_annot_text());
+		System.out.println("Separator Error: "+gai.getError_occur()+"\n");
 		
 		for (int i = 0; i < dobjs.size(); i++) 
 		{
