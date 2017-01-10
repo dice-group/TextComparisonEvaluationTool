@@ -1,6 +1,7 @@
 package Engines.Run;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -30,6 +31,71 @@ import Engines.Enums.Matching;
  */
 public class Main 
 {
+	
+	public static void pipeline(Language language, LinkedList<String> filenames) throws IOException
+	{
+		
+		//*************************************************************************************************
+		//*************************************************************************************************
+		//****************************************** PIPELINE *********************************************
+		//*************************************************************************************************
+		//*************************************************************************************************
+		
+		//GENERAL SETUP (VARIABLES)
+		
+		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
+		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
+		
+		TextReader tr = new TextReader();
+		GatherAnnotationInformations gai = new GatherAnnotationInformations();
+		
+		LinkedList<String> nameNIFFile = new LinkedList<String>();
+		LinkedList<String> resourceFilesAbsolutePaths = new LinkedList<String>();
+		LinkedList<String> texts_raws = new LinkedList<String>();
+		
+		//For each file
+		for(String filename : filenames)
+		{
+			nameNIFFile.add(filename.replace(".txt", ".ttl"));
+			resourceFilesAbsolutePaths.add(tr.getResourceFileAbsolutePath(filename));
+			texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
+			
+			//Multiple items
+			LinkedList<String> words;
+			LinkedList<String> sentences_raw;
+			LinkedList<String> sentences_cleaned = new LinkedList<String>();
+			LinkedList<SentenceObject> sos = new LinkedList<SentenceObject>();
+			LinkedList<int[]> annotation_sorted = new LinkedList<int[]>();
+			LinkedList<int[]> wps_sorted = new LinkedList<int[]>();
+			LinkedList<int[]> syn_err_per_sen = new LinkedList<int[]>();
+			LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
+			LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
+			LinkedList<DefinitionObject> text_annotations = new LinkedList<DefinitionObject>();
+			LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
+			TextInformations text_info = new TextInformations(filename);
+			HashMap<String, Double> percentage;
+			
+			//create set and map
+			WordFrequencyEngine wfe = new WordFrequencyEngine();
+			
+			//CLEANING
+			
+			
+			//PROCESSING
+			
+			
+			//CALCULATION
+			
+			
+			//STORE ALL RESULTS
+			
+		}
+		
+		//PRESENTATION
+	}
+	
+	
+	
 	/**
 	 * Process pipeline
 	 * @param args
@@ -38,15 +104,16 @@ public class Main
 	public static void main(String[] args) throws Exception 
 	{
 		//################# GENERAL Setup #################
+		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
+		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
+		
 		//Single items
 		TextReader tr = new TextReader();
 		Language language = Language.EN;
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		String filename = "epoch70Final.txt";	//TODO do it for various files 
-//		String filename = "Bsp1.txt";	//TODO do it for various files 
 		String resourceFileAbsolutePath = tr.getResourceFileAbsolutePath(filename);
-		String nameNIFFile = "epoch70Final"+".ttl";
-//		String nameNIFFile = "bsp"+".ttl";
+		String nameNIFFile = filename.replace(".txt", ".ttl");
 		String text_raw = TextReader.fileReader(resourceFileAbsolutePath);
 		
 		//Multiple items
@@ -64,14 +131,14 @@ public class Main
 		TextInformations text_info = new TextInformations(filename);
 		HashMap<String, Double> percentage;
 						
-		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
-		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
+		
 				
 		//create set and map
 		WordFrequencyEngine wfe = new WordFrequencyEngine();
 		
 		
 		//NIF-Converter einbauen
+		//TODO create a class to get NIF only by text because the text need to be cleaned 1st
 		File file = new File(AnnotedTextToNIFConverter.getNIFFile(filename, resourceFileAbsolutePath, nameNIFFile));
 		System.out.println("Turtle file path: "+file.getAbsolutePath());
 		
@@ -118,6 +185,13 @@ public class Main
 		 * TODO Junit Test für quadratischen Fehler/MSE
 		 * TODO Junit Test für cos Abstand
 		 */
+		
+		
+		
+		
+		
+
+		
 		
 		
 		
@@ -210,11 +284,11 @@ public class Main
 		
 		//GERBIL
 		//Start process
-		JSONObject jsobj_with_upload = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);	//here you upload your own dataset
+//		JSONObject jsobj_with_upload = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);	//here you upload your own dataset
 //		JSONObject jsobj_without_upload = run(exoGERBIL);			//here you use a existing dataset from GERBIL
 		
 		//Presenting output
-		System.out.println(jsobj_with_upload.toString());
+//		System.out.println(jsobj_with_upload.toString());
 //		System.out.println(jsobj_without_upload.toString());
 		
 		
