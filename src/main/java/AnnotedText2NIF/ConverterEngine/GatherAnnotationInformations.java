@@ -47,12 +47,22 @@ public class GatherAnnotationInformations
 	 * @param input
 	 * @return list of definition objects
 	 */
-	public LinkedList<DefinitionObject> gatherDefsFast(String input)
+	public LinkedList<DefinitionObject> gatherDefsFast(String resource)
 	{
 		LinkedList<DefinitionObject> dobjs =  new LinkedList<DefinitionObject>();
 		String url = "",content = "", url_part = "";
 		int begin = -1, end = -1, new_start = 0;
 		String[] entity_container = null;
+		
+		String input;
+		
+		//delete whitespace at 0
+		if(resource.indexOf(" ") == 0)
+		{
+			input = resource.substring(1);
+		}else{
+			input = resource;
+		}
 		
 		//clear error counter
 		setError_occur(0);
