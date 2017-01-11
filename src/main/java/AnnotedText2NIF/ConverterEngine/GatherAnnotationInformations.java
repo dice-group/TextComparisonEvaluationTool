@@ -31,7 +31,7 @@ public class GatherAnnotationInformations
 	 * This method return all known informations about the annotations 
 	 * inside the text of the given path for text file.
 	 * @param path
-	 * @return
+	 * @return List of Definition objects containing entities informations
 	 */
 	public LinkedList<DefinitionObject> getAnnotationsOfFile(String path, GatherAnnotationInformations gai)
 	{

@@ -74,13 +74,23 @@ public class AnnotedTextToNIFConverter
 	}
 	
 	/**
-	 * This method calculate and create a NIF file for a given Text with Wikipedia Markup annotations
-	 * @param path
+	 * This method calculate and create a NIF file for a given direct text or text from file with Wikipedia Markup annotations.
+	 * Attention GERBIL annotators need little documents to work optimal.
+	 * @param input
+	 * @param isText
+	 * @return NIF structure String
 	 */
-	public static String doTheMagic(String path)
+	public static String createNIFString(String input, boolean isText)
 	{
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
-		LinkedList<DefinitionObject> DOList = gai.getAnnotationsOfFile(path, gai);
+		LinkedList<DefinitionObject> DOList = new LinkedList<DefinitionObject>();
+		
+		if(isText){
+			DOList = gai.gatherDefsFast(input);
+		}else{
+			DOList = gai.getAnnotationsOfFile(input, gai);
+		}
+		
 		Document document = new DocumentImpl(gai.getNot_annot_text(), "http://example.org/test_document");
 		
 		for(DefinitionObject dobj : DOList) document.addMarking(createMarkingNamedEntity(dobj));
@@ -97,16 +107,47 @@ public class AnnotedTextToNIFConverter
 	}
 	
 	/**
-	 * This method generate a NIF file (type = TURTLE [*.ttl]) by given file path and return its file path.
-	 * @param infile_path
-	 * @param outfile_name
-	 * @return NIF/Turtle file path
+	 * This method calculate and create a NIF file for a given direct text as sentence list with Wikipedia Markup annotations.
+	 * @param input
+	 * @param isText
+	 * @return NIF structure String
+	 */
+	public static String createNIFStringByList(LinkedList<String> input)
+	{
+		GatherAnnotationInformations gai = new GatherAnnotationInformations();
+		LinkedList<DefinitionObject> DOList = new LinkedList<DefinitionObject>();
+		List<Document> documents = new ArrayList<Document>();
+		Document document;
+		
+		for(int k = 0; k < input.size(); k++)
+		{
+			DOList = gai.gatherDefsFast(input.get(k));
+			document = new DocumentImpl(gai.getNot_annot_text(), "http://example.org/document_"+(k+1));
+			
+			for(DefinitionObject dobj : DOList) document.addMarking(createMarkingNamedEntity(dobj));
+			
+			documents.add(document);
+		}
+		
+		// Writing our new list of documents to a String
+		NIFWriter writer = new TurtleNIFWriter();
+		System.out.println(documents);
+		String nifString = writer.writeNIF(documents);
+		
+		return nifString;
+	}
+	
+	/**
+	 *  This method generate a NIF file (type = TURTLE [*.ttl]) by given text and return its file path.
+	 * @param input
+	 * @param out_file_path
+	 * @param isText
+	 * @return path of the nif file
 	 * @throws IOException
 	 */
-	public static String getNIFFile(String infile_name, String infile_path, String outfile_name) throws IOException
+	public static String getNIFFile(String input, String out_file_path, boolean isText) throws IOException
 	{
-		TextReader tr = new TextReader();
-		return TextWriter.fileWriter(doTheMagic(infile_path), tr.getResourceFileAbsolutePath(infile_name).replace(infile_name, outfile_name));
+		return TextWriter.fileWriter(createNIFString(input, isText), out_file_path);
 	}
 
 	/*
@@ -116,15 +157,16 @@ public class AnnotedTextToNIFConverter
 	{
 		TextReader tr = new TextReader();
 		
-		String infile_name = "epoch70Final.txt";
-		String outfile_name = "epoch70Final.ttl";
 		
-//		String infile_name = "Bsp1.txt";
-//		String outfile_name = "bsp.ttl";
+//		String infile_name = "epoch70Final.txt";
+//		String outfile_name = "epoch70Final.ttl";
+		
+		String infile_name = "Bsp1.txt";
+		String outfile_name = "bsp.ttl";
 		
 		String file_location = tr.getResourceFileAbsolutePath(infile_name);
 		System.out.println(file_location);
-		System.out.println(getNIFFile(infile_name, file_location, outfile_name));
+		System.out.println(getNIFFile(file_location, tr.getResourceFileAbsolutePath(infile_name).replace(infile_name, outfile_name), false));
 		
 	}
 }

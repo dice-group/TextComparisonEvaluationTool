@@ -1,11 +1,14 @@
 package Engines.simpleTextProcessing;
 
+import java.io.IOException;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
+
+import AnnotedText2NIF.IOContent.TextReader;
 
 public class TextConversion 
 {
@@ -159,5 +162,23 @@ public class TextConversion
 	public static String normalizer(String text)
 	{
 		return Normalizer.normalize(text, Form.NFD).replaceAll("[^A-Za-z0-9]", ".").replaceAll("\\.+", " ").replace(" .", ".");
+	}
+	
+	
+	public static void main(String[] args) throws IOException
+	{
+		TextReader tr = new TextReader();
+		String name = "Bsp1.txt"/*"epoch70Final.txt"*/;
+		String input = tr.fileReader(tr.getResourceFileAbsolutePath(name));
+		String result = decompose(input);
+		System.out.println(result);
+		System.out.println(Normalizer.normalize(result, Form.NFD).replaceAll("[^A-Za-z0-9\\s]", ".")+"\n");
+		
+		String[] results_Sentences = result.split("\\.");
+		
+//		for (String str : results_Sentences) 
+//		{
+//			System.out.println(str);
+//		}
 	}
 }

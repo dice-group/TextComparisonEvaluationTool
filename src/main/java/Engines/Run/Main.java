@@ -46,6 +46,10 @@ public class Main
 		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
 		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
 		
+		//All file experiment informations and there NIF files 
+		LinkedList<TextInformations> experiments_results = new LinkedList<TextInformations>();
+		LinkedList<File> experiments_NifFiles = new LinkedList<File>();
+		
 		TextReader tr = new TextReader();
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		
@@ -59,6 +63,8 @@ public class Main
 			nameNIFFile.add(filename.replace(".txt", ".ttl"));
 			resourceFilesAbsolutePaths.add(tr.getResourceFileAbsolutePath(filename));
 			texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
+			
+			String out_file_path = tr.getResourceFileAbsolutePath(filename).replace(filename, nameNIFFile.getLast());
 			
 			//Multiple items
 			LinkedList<String> words;
@@ -81,17 +87,28 @@ public class Main
 			//CLEANING
 			
 			
-			//PROCESSING
 			
+			
+			
+			//PROCESSING
+//			File file = new File(AnnotedTextToNIFConverter.getNIFFile(filename, resourceFilesAbsolutePaths.getLast(), nameNIFFile, isText));
+			//tr.getResourceFileAbsolutePath(infile_name).replace(infile_name, outfile_name)
+			File file = new File(AnnotedTextToNIFConverter.getNIFFile(/*hier muss entweder der filepath oder der cleaned text rein*/, out_file_path, false));
+			
+			experiments_NifFiles.add(file);
 			
 			//CALCULATION
 			
 			
 			//STORE ALL RESULTS
-			
+//			experiments_results.add(arg0);
 		}
 		
 		//PRESENTATION
+		/* TODO 	
+		 * hier werden alle inhalte zu Vektoren umgewandelt und dann schrittweise via KL-Div oder QuadError verarbeitet 
+		 * am ende erhält man eine Zahl welche mit dem Cosinus abstand über dem ergebnisvektor berechnet wird.
+		 */ 
 	}
 	
 	
@@ -111,6 +128,7 @@ public class Main
 		TextReader tr = new TextReader();
 		Language language = Language.EN;
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
+		boolean isText = false;	//because we read a file not a direct text
 		String filename = "epoch70Final.txt";	//TODO do it for various files 
 		String resourceFileAbsolutePath = tr.getResourceFileAbsolutePath(filename);
 		String nameNIFFile = filename.replace(".txt", ".ttl");
@@ -139,8 +157,11 @@ public class Main
 		
 		//NIF-Converter einbauen
 		//TODO create a class to get NIF only by text because the text need to be cleaned 1st
-		File file = new File(AnnotedTextToNIFConverter.getNIFFile(filename, resourceFileAbsolutePath, nameNIFFile));
+		File file = new File(AnnotedTextToNIFConverter.getNIFFile(resourceFileAbsolutePath, tr.getResourceFileAbsolutePath(filename).replace(filename, nameNIFFile), isText));
 		System.out.println("Turtle file path: "+file.getAbsolutePath());
+		
+		
+		
 		
 		//################# GERBIL Setup #################
 		//Single item for the experiment
@@ -173,7 +194,6 @@ public class Main
 		 * TODO Verteilung syntaktische Fehler pro Satz um Kontrolle bzgl. Zeichenfolge erweitern => bspw "Thts the end , ." oder "and , , , in"
 		 * TODO Verteilung symbolische Fehler pro Satz 			(m2)	auf raw text	 => Errors like words are crossed by non alnum chars or not closed brackets
 		 * TODO GERBIL JSON relevanten content erhalten impl
-		 * TODO GERBIL Schnittstelle an main anbinden
 		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
 		 * TODO Impl cos abstand 2er Vektoren/arrays
 		 * TODO das lesen anderer Files bereitet der NIF konvertierung probleme
