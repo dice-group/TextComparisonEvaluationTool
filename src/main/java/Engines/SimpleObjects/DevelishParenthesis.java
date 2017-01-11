@@ -9,6 +9,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import AnnotedText2NIF.IOContent.TextReader;
 
+/**
+ * This class if for the text cleaning at the beginning of the whole text processing.
+ * @author TTurke
+ *
+ */
 public class DevelishParenthesis 
 {
 	
@@ -17,16 +22,18 @@ public class DevelishParenthesis
 	public static final String punctutations = "':,.!-?;\"|";
 	private int error_count = 0;
 
-
+	//#############################################################################
+	//############################ USAGE METHODS ##################################
+	//#############################################################################
+	
 	/**
 	 * This method take a text and clean all errors and false opened or never closed square and round brackets.
 	 * The error occurrence count will be stored as simple integer inside the error_count value.
 	 * @param content
 	 * @return cleaned String
 	 */
-	public static String cleanErrorsAndParenthesis(String content)
+	public String cleanErrorsAndParenthesis(String content)
 	{
-		
 		if(!content.isEmpty())
 		{	
 			Stack<Integer> index_stack = new Stack<Integer>();
@@ -40,7 +47,6 @@ public class DevelishParenthesis
 			matcher = Pattern.compile(optimalRexRDBR).matcher(input);
 			while (matcher.find()) input = input.replace(matcher.group(), StringUtils.leftPad("", matcher.group().length(), '*'));
 			
-			
 			//now sort all into stack and clean them up
 			input_chars = input.toCharArray();
 			
@@ -48,8 +54,10 @@ public class DevelishParenthesis
 			{
 				char current = input_chars[i];
 				
-				if(!Character.isAlphabetic(current) && !Character.isDigit(current) && !Character.isWhitespace(current) && current != '*' && !punctutations.contains(""+current))
+				if(!Character.isAlphabetic(current) && !Character.isDigit(current) && !Character.isWhitespace(current) && current != '*' && !punctutations.contains(""+current)){
+					addOneToErrorCount();
 					index_stack.push(i); 
+				}	
 			}
 			
 			while(!index_stack.isEmpty())
@@ -59,14 +67,13 @@ public class DevelishParenthesis
 			}
 
 			return content;
-			
 		}
 		return content;
 	}
 	
-	
-	
-	
+	//#############################################################################
+	//###################### GETTERS, SETTERS & EDITS #############################
+	//#############################################################################
 	
 	public int getErrorCount() {
 		return error_count;
@@ -80,17 +87,21 @@ public class DevelishParenthesis
 		this.error_count++;
 	}
 
-
+	//#############################################################################
+	//############################### EXAMPLE #####################################
+	//#############################################################################
 
 	public static void main(String[] args) throws IOException 
 	{
 		TextReader tr = new TextReader();
 		String name = "epoch70Final.txt";
 		String input = tr.fileReader(tr.getResourceFileAbsolutePath(name));
+		DevelishParenthesis dp = new DevelishParenthesis();
 		
 		String text = "she ]]wrote many [[of her songs for) herself ((and as such made)) no (particular) effor<t (to make them easy to sing, melodically, as she < herself had [[absolute pitch|perfect pitch]] aha ]].";
 		System.out.println("INPUT: \n "+input);
-		System.out.println("RESULT: \n"+DevelishParenthesis.cleanErrorsAndParenthesis(input));
+		System.out.println("RESULT: \n"+dp.cleanErrorsAndParenthesis(input));
+		System.out.println("ERRORS: \n"+dp.getErrorCount());
 	}
 
 }
