@@ -1,6 +1,5 @@
 package Engines.simpleTextProcessing;
 
-import java.io.IOException;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.Arrays;
@@ -8,14 +7,21 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-import AnnotedText2NIF.IOContent.TextReader;
-
+/**
+ * This class contain a text decomposer which try to filter all not desired types of characters out of a String.
+ * @author TTurke
+ *
+ */
 public class TextConversion 
 {
-	public static int error_signs = -1;
+	public static int error_signs = 0;
 	public static Set<Character> errors;
 	public static final String punctutations = "':,.!-()?;\"[]|";
 	public static final String sentence_separator = ".?!";
+	
+	//#############################################################################
+	//############################ USAGE METHODS ##################################
+	//#############################################################################
 	
 	/**
 	 * This method split a text or sentence by whitespace into words (for bottom value text creation).
@@ -55,9 +61,6 @@ public class TextConversion
 		}
 	}
 	
-	
-	//TODO Error Signs counten und bei bedarf auch gleich eine Art der Information was wo und wie oft auftaucht
-	//TODO einige Leerzeichen und Löschungen sind falsch gesetzt
 	/**
 	 * This method decompose a text into characters, clean and store the error occurrences.
 	 * The result is a text without error symbols in it. 
@@ -127,17 +130,14 @@ public class TextConversion
 					}else{																							// DEFAUL add space+nonAlnum+space
 						error_signs++;
 						errors.add(c);
-//						out += ' ';
 					}
 					
 				}else{																								// DEFAUL add space+nonAlnum+space
 					out += c;
-//					out += ' ';
 				}
 			}else{																									// Ignore all other signs
 				error_signs++;
 				errors.add(c);
-//				out += ' ';
 			}
 			old = c;
 		}
@@ -162,23 +162,5 @@ public class TextConversion
 	public static String normalizer(String text)
 	{
 		return Normalizer.normalize(text, Form.NFD).replaceAll("[^A-Za-z0-9]", ".").replaceAll("\\.+", " ").replace(" .", ".");
-	}
-	
-	
-	public static void main(String[] args) throws IOException
-	{
-		TextReader tr = new TextReader();
-		String name = "Bsp1.txt"/*"epoch70Final.txt"*/;
-		String input = tr.fileReader(tr.getResourceFileAbsolutePath(name));
-		String result = decompose(input);
-		System.out.println(result);
-		System.out.println(Normalizer.normalize(result, Form.NFD).replaceAll("[^A-Za-z0-9\\s]", ".")+"\n");
-		
-		String[] results_Sentences = result.split("\\.");
-		
-//		for (String str : results_Sentences) 
-//		{
-//			System.out.println(str);
-//		}
 	}
 }

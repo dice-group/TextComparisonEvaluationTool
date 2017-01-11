@@ -1,7 +1,6 @@
 package Engines.Run;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -31,8 +30,27 @@ import Engines.Enums.Matching;
  */
 public class Main 
 {
+	/*
+	 * GENERAL
+	 * TODO alle simple Metriken im text_info Objekt speichern und alle von Gerbil (nur) als KL-Div Wert!!!!!
+	 * 
+	 * IMPL
+	 * TODO GERBIL JSON relevanten content erhalten impl
+	 * TODO Impl cos abstand 2er Vektoren/arrays
+	 * 
+	 * JUNIT
+	 * TODO Junit Test für Wortzähler
+	 * TODO Junit Test für KL-Div
+	 * TODO Junit Test für quadratischen Fehler/MSE
+	 * TODO Junit Test für cos Abstand
+	 * 
+	 * SIMPLE STUFF
+	 * TODO delete useless vars in TextInformations
+	 * TODO control all necesarry informations are stored
+	 * TODO check documentations about correctness (author, description, param, return)
+	 */
 	
-	public static void pipeline(Language language, LinkedList<String> filenames) throws IOException
+	public static void pipeline(Language language, LinkedList<String> filenames, LinkedList<String> annotators, String exp_type, String matching_type) throws Exception
 	{
 		
 		//*************************************************************************************************
@@ -42,6 +60,7 @@ public class Main
 		//*************************************************************************************************
 		
 		//GENERAL SETUP (VARIABLES)
+		//TODO GoldText laden und bottom value text generieren
 		
 		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
 		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
@@ -51,13 +70,15 @@ public class Main
 		LinkedList<File> experiments_NifFiles = new LinkedList<File>();
 		
 		TextReader tr = new TextReader();
-		GatherAnnotationInformations gai = new GatherAnnotationInformations();
+		DevelishParenthesis dp = new DevelishParenthesis();
+		GatherAnnotationInformations gai = new GatherAnnotationInformations();	
 		
 		LinkedList<String> nameNIFFile = new LinkedList<String>();
 		LinkedList<String> resourceFilesAbsolutePaths = new LinkedList<String>();
 		LinkedList<String> texts_raws = new LinkedList<String>();
 		
-		//For each file
+		//*************************************************************************************************************************************************
+		//FOR EACH FILE
 		for(String filename : filenames)
 		{
 			nameNIFFile.add(filename.replace(".txt", ".ttl"));
@@ -65,10 +86,10 @@ public class Main
 			texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
 			
 			String out_file_path = tr.getResourceFileAbsolutePath(filename).replace(filename, nameNIFFile.getLast());
+			String text_cleaned;
 			
 			//Multiple items
 			LinkedList<String> words;
-			LinkedList<String> sentences_raw;
 			LinkedList<String> sentences_cleaned = new LinkedList<String>();
 			LinkedList<SentenceObject> sos = new LinkedList<SentenceObject>();
 			LinkedList<int[]> annotation_sorted = new LinkedList<int[]>();
@@ -76,39 +97,156 @@ public class Main
 			LinkedList<int[]> syn_err_per_sen = new LinkedList<int[]>();
 			LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
 			LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
-			LinkedList<DefinitionObject> text_annotations = new LinkedList<DefinitionObject>();
 			LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
 			TextInformations text_info = new TextInformations(filename);
 			HashMap<String, Double> percentage;
 			
 			//create set and map
 			WordFrequencyEngine wfe = new WordFrequencyEngine();
+
+			//Multiple items for the experiment
+			LinkedList<String> datasets = new LinkedList<String>(/*Arrays.asList("DBpediaSpotlight")*/);
 			
+			//Keep in mind that uploaded files need to pre-described see down here
+			datasets.add(ExperimentObjectGERBIL.createUploadDataDesc(nameNIFFile.getLast()));
+			
+			//Setup object complete
+			ExperimentObjectGERBIL exoGERBIL = new ExperimentObjectGERBIL(exp_type, matching_type, annotators, datasets);
+			
+			
+			//*************************************************************************************************************************************************
 			//CLEANING
+			/* M2: symbolische Fehler im Text [STORED] */ 
+			text_cleaned = TextConversion.decompose(StanfordSegmentatorTokenizer.formatCleaned(dp.cleanErrorsAndParenthesis(texts_raws.getLast())));
+			System.out.println("Cleaned TEXT: \n"+text_cleaned);
+			text_info.setError_symbol_count(dp.getErrorCount()+TextConversion.error_signs);
+			System.out.println("ERROR SIGNS: \n"+text_info.getError_symbol_count());
 			
-			
-			
-			
-			
+			//*************************************************************************************************************************************************
 			//PROCESSING
-//			File file = new File(AnnotedTextToNIFConverter.getNIFFile(filename, resourceFilesAbsolutePaths.getLast(), nameNIFFile, isText));
-			//tr.getResourceFileAbsolutePath(infile_name).replace(infile_name, outfile_name)
-			File file = new File(AnnotedTextToNIFConverter.getNIFFile(/*hier muss entweder der filepath oder der cleaned text rein*/, out_file_path, false));
+			System.out.println("DISTRIBUTION ORDERED BY KEYVALUE (most left vertical list)");
 			
-			experiments_NifFiles.add(file);
+			//get sentences [STORED]
+			sentences_cleaned = StanfordSegmentatorTokenizer.gatherSentences(text_cleaned);
+			text_info.setSentence_count(sentences_cleaned.size());
 			
+			//gather words [NOT STORED]
+			words = sst.gatherWords(text_cleaned, language);
+			
+			/* M5: POS-Tags Distribution over all Sentences [STORED] */
+			//gather, sort and store part of speech labels
+			pos_tags = wfe.appearancePercentage(FrequencySorting.sortPosTagMap(sst.countPosTagsOccourence(sst.getTokens())), sst.getTokens().size());
+			text_info.setPos_tag_objs(pos_tags);
+			
+//			for (PosTagObject tag : pos_tags) System.out.println("["+tag.getPOS_Tag()+"]\t\t["+tag.getTag_ouccurrence()+"]\t\t["+tag.getTag_oucc_percentage()+"]");
+			
+			
+			for (int i = 0; i < sentences_cleaned.size(); i++) 
+			{	
+				//gather text annotations and store sentence objects
+				dobjs = gai.gatherDefsFast(StanfordSegmentatorTokenizer.formatCleaned(sentences_cleaned.get(i)));
+				if(dobjs.size() > 0) sos.add(new SentenceObject(sentences_cleaned.get(i), dobjs.size()));
+			}
+			
+			
+			/* M6: Entity Distribution over all Sentence [STORED] */
+			//process, sort and store annotation distribution
+			annotation_sorted = FrequencySorting.sortDist(DistributionProcessing.getAnnotDist(sos));
+			text_info.setSorted_annot_dist(annotation_sorted);
+			
+//			System.out.println("########  [Entities] / [Sentences] ########");
+//			for (int i = 0; i < annotation_sorted.size(); i++) {
+//				System.out.println("["+annotation_sorted.get(i)[0]+"]\t\t["+annotation_sorted.get(i)[1]+"]");
+//			}
+			
+			/* M4: Word Distribution over all Sentences */
+			wps_sorted = FrequencySorting.sortDist(DistributionProcessing.getWPSDist(sos, sst, language));
+			text_info.setSorted_wps_dist(wps_sorted);
+			
+//			System.out.println("######## [Word amount] / [Sentences] ########");
+//			for (int i = 0; i < wps_sorted.size(); i++) {
+//				System.out.println("["+wps_sorted.get(i)[0]+"]\t\t["+wps_sorted.get(i)[1]+"]");
+//			}
+			
+			
+			/*M3: Syntactic error Distribution over all Sentence */
+			syn_err_per_sen = DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language);
+			text_info.setSorted_synerr_per_sen_dist(syn_err_per_sen);
+			
+//			System.out.println("######## [Syntaxerrors] / [Sentences] ########");
+//			for (int i = 0; i < syn_err_per_sen.size(); i++) System.out.println("["+syn_err_per_sen.get(i)[0]+"]\t\t["+syn_err_per_sen.get(i)[1]+"]");
+			
+			//calculate word frequency
+			wfe.gatherWordFrequencyByList(words);
+			
+			/* M1: Symbol Average over all Sentences */
+			text_info.setSymbol_count(text_cleaned.length());
+			text_info.setSymbol_count_no_ws(text_cleaned.replaceAll(" ", "").length());
+			text_info.setSymbol_per_sentence(text_cleaned.length()/sentences_cleaned.size());
+			text_info.setSymbol_per_sentence_no_ws(text_cleaned.replaceAll(" ", "").length()/sentences_cleaned.size());
+			
+			//calculate word frequency percentage
+			percentage = wfe.appearancePercentage(wfe.getMap(), words.size());
+			text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_cleaned.size()));
+			text_info.setWord_count(words.size());
+			triples_sorted = FrequencySorting.sortByPTL(percentage, wfe.getMap());
+			text_info.setWord_distribution(triples_sorted);
+			
+//			System.out.println("######## [Word occurrence] / [Sentences] ########");
+//			for (int i = 0; i < triples_sorted.size(); i++) System.out.println("["+triples_sorted.get(i).getKey()+"]\t\t["+triples_sorted.get(i).getCount()+"]");
+			
+			
+			//Generate NIF file and store it
+			File file = new File(AnnotedTextToNIFConverter.getNIFFileBySentences(sentences_cleaned, out_file_path));
+			
+			//GERBIL
+			//Start process
+			JSONObject jsobj_with_upload = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
+			
+			//Presenting output
+			System.out.println(jsobj_with_upload.toString());
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//*************************************************************************************************************************************************
 			//CALCULATION
 			
-			
+			//*************************************************************************************************************************************************
 			//STORE ALL RESULTS
-//			experiments_results.add(arg0);
+			experiments_results.add(text_info);
+			experiments_NifFiles.add(file);
+			
+			System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
+			System.out.println("Resource:\t\t\t"+text_info.getResource_name());
+			System.out.println("Date and Time:\t\t\t"+text_info.getLocalDateAsString(text_info.getGeneration_date()));
+			System.out.println("Words count:\t\t\t"+text_info.getWord_count());
+			System.out.println("Sentence count:\t\t\t"+text_info.getSentence_count());
+			System.out.println("Symbol count:\t\t\t"+text_info.getSymbol_count());
+			System.out.println("Symbol count nws:\t\t"+text_info.getSymbol_count_no_ws());
+			System.out.println("Symbol average / Sentence:\t"+text_info.getSymbol_per_sentence());
+			System.out.println("Symbol avg nws / Sentence:\t"+text_info.getSymbol_per_sentence_no_ws());
+			System.out.println("Word per Sentence:\t\t"+text_info.getWord_per_sentence());
 		}
 		
+		//*************************************************************************************************************************************************
 		//PRESENTATION
 		/* TODO 	
 		 * hier werden alle inhalte zu Vektoren umgewandelt und dann schrittweise via KL-Div oder QuadError verarbeitet 
 		 * am ende erhält man eine Zahl welche mit dem Cosinus abstand über dem ergebnisvektor berechnet wird.
-		 */ 
+		 */ 	
 	}
 	
 	
@@ -119,211 +257,14 @@ public class Main
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception 
-	{
-		//################# GENERAL Setup #################
-		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
-		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
-		
-		//Single items
-		TextReader tr = new TextReader();
+	{	
 		Language language = Language.EN;
-		GatherAnnotationInformations gai = new GatherAnnotationInformations();
-		boolean isText = false;	//because we read a file not a direct text
-		String filename = "epoch70Final.txt";	//TODO do it for various files 
-		String resourceFileAbsolutePath = tr.getResourceFileAbsolutePath(filename);
-		String nameNIFFile = filename.replace(".txt", ".ttl");
-		String text_raw = TextReader.fileReader(resourceFileAbsolutePath);
-		
-		//Multiple items
-		LinkedList<String> words;
-		LinkedList<String> sentences_raw;
-		LinkedList<String> sentences_cleaned = new LinkedList<String>();
-		LinkedList<SentenceObject> sos = new LinkedList<SentenceObject>();
-		LinkedList<int[]> annotation_sorted = new LinkedList<int[]>();
-		LinkedList<int[]> wps_sorted = new LinkedList<int[]>();
-		LinkedList<int[]> syn_err_per_sen = new LinkedList<int[]>();
-		LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
-		LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
-		LinkedList<DefinitionObject> text_annotations = new LinkedList<DefinitionObject>();
-		LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
-		TextInformations text_info = new TextInformations(filename);
-		HashMap<String, Double> percentage;
-						
-		
-				
-		//create set and map
-		WordFrequencyEngine wfe = new WordFrequencyEngine();
-		
-		
-		//NIF-Converter einbauen
-		//TODO create a class to get NIF only by text because the text need to be cleaned 1st
-		File file = new File(AnnotedTextToNIFConverter.getNIFFile(resourceFileAbsolutePath, tr.getResourceFileAbsolutePath(filename).replace(filename, nameNIFFile), isText));
-		System.out.println("Turtle file path: "+file.getAbsolutePath());
-		
-		
-		
-		
-		//################# GERBIL Setup #################
-		//Single item for the experiment
 		String exp_type = ExpType.A2KB.name();
 		String matching_type = Matching.WEAK_ANNOTATION_MATCH.name();
-
-		//Multiple items for the experiment
-		LinkedList<File> files = new LinkedList<File>(Arrays.asList(file));	//TODO sollte die obere FILE-Liste nach dem NIF konvertieren wiederspiegeln nur halt *.ttl
+		LinkedList<String> filenames = new LinkedList<String>(Arrays.asList("epoch70Final.txt"));
 		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(Annotators.AIDA.name(), Annotators.Dexter.name(), Annotators.FOX.name()));
-		LinkedList<String> datasets = new LinkedList<String>(/*Arrays.asList("DBpediaSpotlight")*/);
 		
-		//Keep in mind that uploaded files need to pre-described see down here
-		datasets.add(ExperimentObjectGERBIL.createUploadDataDesc(nameNIFFile));
-		
-		//Setup object complete
-		ExperimentObjectGERBIL exoGERBIL = new ExperimentObjectGERBIL(exp_type, matching_type, annotators, datasets);
-		
-		
-		
-			
-		
-		System.out.println("DISTRIBUTION ORDERED BY KEYVALUE (most left vertical list)");
-		
-		/*
-		 * GENERAL
-		 * TODO alle simple Metriken im text_info Objekt speichern und alle von Gerbil (nur) als KL-Div Wert!!!!!
-		 * TODO GERBIL Annotatoren auswählen (4 stk.) und als default GERBIL Metriken nutzen.
-		 * 
-		 * IMPL
-		 * TODO Verteilung syntaktische Fehler pro Satz um Kontrolle bzgl. Zeichenfolge erweitern => bspw "Thts the end , ." oder "and , , , in"
-		 * TODO Verteilung symbolische Fehler pro Satz 			(m2)	auf raw text	 => Errors like words are crossed by non alnum chars or not closed brackets
-		 * TODO GERBIL JSON relevanten content erhalten impl
-		 * TODO Word splitter bauen um full random text zu generieren! Dient als bottom value geg. Gold und NN Texte
-		 * TODO Impl cos abstand 2er Vektoren/arrays
-		 * TODO das lesen anderer Files bereitet der NIF konvertierung probleme
-		 * TODO Doppelklammerfehler care bzgl. der indexänderungen (report and replace during first step cleaning)
-		 * 
-		 * JUNIT
-		 * TODO Junit Test für Wortzähler
-		 * TODO Junit Test für KL-Div
-		 * TODO Junit Test für quadratischen Fehler/MSE
-		 * TODO Junit Test für cos Abstand
-		 */
-		
-		
-		
-		
-		
-
-		
-		
-		
-		
-		
-		
-		//get sentences
-		sentences_raw = StanfordSegmentatorTokenizer.gatherSentences(text_raw);
-		text_info.setSentence_count(sentences_raw.size());
-		
-		//gather words
-		words = sst.gatherWords(text_raw, language);
-		
-		/* M5: POS-Tags Distribution over all Sentences */
-		//gather, sort and store part of speech labels
-		pos_tags = wfe.appearancePercentage(FrequencySorting.sortPosTagMap(sst.countPosTagsOccourence(sst.getTokens())), sst.getTokens().size());
-		text_info.setPos_tag_objs(pos_tags);
-		
-//		for (PosTagObject tag : pos_tags) System.out.println("["+tag.getPOS_Tag()+"]\t\t["+tag.getTag_ouccurrence()+"]\t\t["+tag.getTag_oucc_percentage()+"]");
-		
-		for (int i = 0; i < sentences_raw.size(); i++) 
-		{	
-			//store all cleaned sentences
-			//TODO anzahl Sätze für Bsp1.txt ist 7 aber ich erhalte nur 6
-			sentences_cleaned.add(TextConversion.decompose(sst.formatCleaned(sentences_raw.get(i))));
-			
-			//gather text annotations 
-			dobjs = gai.gatherDefsFast(sentences_cleaned.getLast());
-			
-			//store sentence objects and annotations
-			if(dobjs.size() > 0)
-			{
-				sos.add(new SentenceObject(sentences_cleaned.getLast(), dobjs.size()));	
-				text_annotations.addAll(dobjs);
-			}
-			
-			//additional output
-//			System.out.println("ERRC: "+TextConversion.error_signs+" | ERRS: "+TextConversion.errors+"\n");
-		}
-		
-		/* M6: Entity Distribution over all Sentence*/
-		//process, sort and store annotation distribution
-		annotation_sorted = FrequencySorting.sortDist(DistributionProcessing.getAnnotDist(sos));
-		text_info.setSorted_annot_dist(annotation_sorted);
-		
-		System.out.println("########  [Entities] / [Sentences] ########");
-		for (int i = 0; i < annotation_sorted.size(); i++) {
-			System.out.println("["+annotation_sorted.get(i)[0]+"]\t\t["+annotation_sorted.get(i)[1]+"]");
-		}
-		
-		
-		/* M4: Word Distribution over all Sentences */
-		wps_sorted = FrequencySorting.sortDist(DistributionProcessing.getWPSDist(sos, sst, language));
-		text_info.setSorted_wps_dist(wps_sorted);
-		
-		System.out.println("######## [Word amount] / [Sentences] ########");
-		for (int i = 0; i < wps_sorted.size(); i++) {
-			System.out.println("["+wps_sorted.get(i)[0]+"]\t\t["+wps_sorted.get(i)[1]+"]");
-		}
-		
-		
-		/*M3: Syntactic error Distribution over all Sentence */
-		syn_err_per_sen = DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language);
-		text_info.setSorted_synerr_per_sen_dist(syn_err_per_sen);
-		
-		System.out.println("######## [Syntaxerrors] / [Sentences] ########");
-		for (int i = 0; i < syn_err_per_sen.size(); i++) System.out.println("["+syn_err_per_sen.get(i)[0]+"]\t\t["+syn_err_per_sen.get(i)[1]+"]");
-		
-		
-		//add annotations to text_info
-		text_info.addSthToAll_Annotations(text_annotations); 
-		
-		//calculate word frequency
-		wfe.gatherWordFrequencyByList(words);
-		
-		/* M1: Symbol Average over all Sentences */
-		text_info.setSymbol_count(text_raw.length());
-		text_info.setSymbol_count_no_ws(text_raw.replaceAll(" ", "").length());
-		text_info.setSymbol_per_sentence(text_raw.length()/sentences_raw.size());
-		text_info.setSymbol_per_sentence_no_ws(text_raw.replaceAll(" ", "").length()/sentences_raw.size());
-		
-		//calculate word frequency percentage
-		percentage = wfe.appearancePercentage(wfe.getMap(), words.size());
-		text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_cleaned.size()));
-		text_info.setWord_count(words.size());
-		triples_sorted = FrequencySorting.sortByPTL(percentage, wfe.getMap());
-		text_info.setWord_distribution(triples_sorted);
-		
-		System.out.println("######## [Word occurrence] / [Sentences] ########");
-		for (int i = 0; i < triples_sorted.size(); i++) System.out.println("["+triples_sorted.get(i).getKey()+"]\t\t["+triples_sorted.get(i).getCount()+"]");
-		
-		//GERBIL
-		//Start process
-//		JSONObject jsobj_with_upload = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);	//here you upload your own dataset
-//		JSONObject jsobj_without_upload = run(exoGERBIL);			//here you use a existing dataset from GERBIL
-		
-		//Presenting output
-//		System.out.println(jsobj_with_upload.toString());
-//		System.out.println(jsobj_without_upload.toString());
-		
-		
-		//TODO danach die finalen Kalkulationen einbinden und das Ergebnis interpretieren!
-		
-		System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
-		System.out.println("Resource:\t\t\t"+text_info.getResource_name());
-		System.out.println("Date and Time:\t\t\t"+text_info.getLocalDateAsString(text_info.getGeneration_date()));
-		System.out.println("Words count:\t\t\t"+text_info.getWord_count());
-		System.out.println("Sentence count:\t\t\t"+text_info.getSentence_count());
-		System.out.println("Symbol count:\t\t\t"+text_info.getSymbol_count());
-		System.out.println("Symbol count nws:\t\t"+text_info.getSymbol_count_no_ws());
-		System.out.println("Symbol average / Sentence:\t"+text_info.getSymbol_per_sentence());
-		System.out.println("Symbol avg nws / Sentence:\t"+text_info.getSymbol_per_sentence_no_ws());
-		System.out.println("Word per Sentence:\t\t"+text_info.getWord_per_sentence());
+		Main.pipeline(language, filenames, annotators, exp_type, matching_type);
 	}
 
 }

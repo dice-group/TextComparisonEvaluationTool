@@ -7,15 +7,15 @@ import java.util.regex.Pattern;
 import AnnotedText2NIF.IOContent.TextReader;
 
 /**
- * Diese Klasse sammelt alle Informationen bzgl. jeder Annotation aus einem Text, 
- * und Speichert diese in einer Liste von DefinitionObject(s).
+ * This class gather all informations about every annotations inside a text 
+ * and store it in a list of definition objects.
  * @author TTurke
  *
  */
 public class GatherAnnotationInformations 
 {
 	private String not_annot_text;
-	public static final String real_prefix = "http://en.wikipedia.org/wiki/";
+	public static final String real_prefix = "https://en.wikipedia.org/wiki/";
 	public static final String dummy_prefix = "http://aksw.org/NOTINWIKI";
 	
 	public static final String simpleRex = Pattern.quote("[[") + "(.*?)" + Pattern.quote("]]");				//allow inner brackets => [[outer text [[inner text]]

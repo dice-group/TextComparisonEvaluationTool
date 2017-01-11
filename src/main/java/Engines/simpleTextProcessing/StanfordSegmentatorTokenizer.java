@@ -2,7 +2,6 @@ package Engines.simpleTextProcessing;
 
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -126,7 +125,7 @@ public class StanfordSegmentatorTokenizer
     	DocumentPreprocessor dp = new DocumentPreprocessor(reader);
     	LinkedList<String> sentenceList = new LinkedList<String>();
     	
-    	for (List<HasWord> sentence : dp) sentenceList.add(Sentence.listToString(sentence).toString());
+    	for (List<HasWord> sentence : dp) sentenceList.add(StanfordSegmentatorTokenizer.formatCleaned(Sentence.listToString(sentence).toString()));
     	
     	return sentenceList;
     }        

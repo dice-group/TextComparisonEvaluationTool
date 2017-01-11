@@ -32,8 +32,8 @@ import AnnotedText2NIF.IOContent.TextReader;
 import AnnotedText2NIF.IOContent.TextWriter;
 
 /**
- * Diese Klasse generiert NIF files aus Texten welche ein Wikimardown fuer Url's haben.
- * Basierend auf einem Beispiel von Michael Roeder (roeder@informatik.uni-leipzig.de)
+ * This class generates NIF files from a given text containing wiki markdown.
+ * The construction is base on the example from Michael Roeder (roeder@informatik.uni-leipzig.de)
  * @author TTurke
  *
  */
@@ -145,11 +145,27 @@ public class AnnotedTextToNIFConverter
 	 * @return path of the nif file
 	 * @throws IOException
 	 */
-	public static String getNIFFile(String input, String out_file_path, boolean isText) throws IOException
+	public static String getNIFFileByText(String input, String out_file_path, boolean isText) throws IOException
 	{
 		return TextWriter.fileWriter(createNIFString(input, isText), out_file_path);
 	}
 
+	/**
+	 *  This method generate a NIF file (type = TURTLE [*.ttl]) by given sentence list and return its file path.
+	 * @param input
+	 * @param out_file_path
+	 * @return path of the nif file
+	 * @throws IOException
+	 */
+	public static String getNIFFileBySentences(LinkedList<String> input, String out_file_path) throws IOException
+	{
+		return TextWriter.fileWriter(createNIFStringByList(input), out_file_path);
+	}
+	
+	//#############################################################################
+	//############################### EXAMPLE #####################################
+	//#############################################################################
+	
 	/*
 	 * EXAMPLE of USE
 	 */
@@ -166,7 +182,7 @@ public class AnnotedTextToNIFConverter
 		
 		String file_location = tr.getResourceFileAbsolutePath(infile_name);
 		System.out.println(file_location);
-		System.out.println(getNIFFile(file_location, tr.getResourceFileAbsolutePath(infile_name).replace(infile_name, outfile_name), false));
+		System.out.println(getNIFFileByText(file_location, tr.getResourceFileAbsolutePath(infile_name).replace(infile_name, outfile_name), false));
 		
 	}
 }

@@ -34,6 +34,8 @@ public class DevelishParenthesis
 	 */
 	public String cleanErrorsAndParenthesis(String content)
 	{
+		error_count = 0;
+		
 		if(!content.isEmpty())
 		{	
 			Stack<Integer> index_stack = new Stack<Integer>();
@@ -91,14 +93,16 @@ public class DevelishParenthesis
 	//############################### EXAMPLE #####################################
 	//#############################################################################
 
+	/*
+	 * EXAMPLE of USE
+	 */
 	public static void main(String[] args) throws IOException 
 	{
 		TextReader tr = new TextReader();
 		String name = "epoch70Final.txt";
-		String input = tr.fileReader(tr.getResourceFileAbsolutePath(name));
+		String input = TextReader.fileReader(tr.getResourceFileAbsolutePath(name));
 		DevelishParenthesis dp = new DevelishParenthesis();
 		
-		String text = "she ]]wrote many [[of her songs for) herself ((and as such made)) no (particular) effor<t (to make them easy to sing, melodically, as she < herself had [[absolute pitch|perfect pitch]] aha ]].";
 		System.out.println("INPUT: \n "+input);
 		System.out.println("RESULT: \n"+dp.cleanErrorsAndParenthesis(input));
 		System.out.println("ERRORS: \n"+dp.getErrorCount());
