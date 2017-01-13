@@ -10,7 +10,7 @@
       "@id" : "qb:Dataset"
     } ],
     "rdfs:label" : "Experiment 201701130002"
-  }, {
+    }, {
     "@id" : "http://gerbil.aksw.org/gerbil/experimentTask_28356",
     "qb:dataset" : "http://gerbil.aksw.org/gerbil/experiment?id=201701130002",
     "gerbil:EE_Macro_F1_score" : {

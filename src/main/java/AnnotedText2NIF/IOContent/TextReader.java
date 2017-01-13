@@ -2,6 +2,7 @@ package AnnotedText2NIF.IOContent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URLDecoder;
 	
 /**
  * Simple file Reader for text files.
@@ -18,7 +19,7 @@ public class TextReader
 	 */
 	public String getResourceFileAbsolutePath(String path) throws IOException 
 	{
-		return getClass().getClassLoader().getResource(path).getPath();
+		return URLDecoder.decode(getClass().getClassLoader().getResource(path).getPath());
 	}
 	
 	/**

@@ -16,6 +16,7 @@ import Engines.simpleTextProcessing.DistributionProcessing;
 import Engines.simpleTextProcessing.StanfordSegmentatorTokenizer;
 import Engines.simpleTextProcessing.TextConversion;
 import Web.Controller.HttpController;
+import Web.Controller.JSONCollector;
 import Web.Objects.ExperimentObjectGERBIL;
 import Engines.Enums.Annotators;
 import Engines.Enums.ExpType;
@@ -82,13 +83,13 @@ public class Main
 		
 		//*************************************************************************************************************************************************
 		//FOR EACH FILE
-		for(String filename : filenames)
-		{
-			nameNIFFile.add(filename.replace(".txt", ".ttl"));
-			resourceFilesAbsolutePaths.add(tr.getResourceFileAbsolutePath(filename));
+		for(int k = 0; k < filenames.size(); k++)
+		{	
+			nameNIFFile.add(filenames.get(k).replace(".txt", ".ttl"));
+			resourceFilesAbsolutePaths.add(tr.getResourceFileAbsolutePath(filenames.get(k)));
 			texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
 			
-			String out_file_path = tr.getResourceFileAbsolutePath(filename).replace(filename, nameNIFFile.getLast());
+			String out_file_path = tr.getResourceFileAbsolutePath(filenames.get(k)).replace(filenames.get(k), nameNIFFile.getLast());
 			String text_cleaned;
 			
 			//Multiple items
@@ -101,8 +102,8 @@ public class Main
 			LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
 			LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
 			LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
-			TextInformations text_info = new TextInformations(filename);
-			HashMap<String, Double> percentage;
+			TextInformations text_info = new TextInformations(filenames.get(k));
+			HashMap<String, Double> percentage, metrics_GERBIL;
 			
 			//create set and map
 			WordFrequencyEngine wfe = new WordFrequencyEngine();
@@ -121,9 +122,9 @@ public class Main
 			//CLEANING
 			/* M2: symbolische Fehler im Text [STORED] */ 
 			text_cleaned = TextConversion.decompose(StanfordSegmentatorTokenizer.formatCleaned(dp.cleanErrorsAndParenthesis(texts_raws.getLast())));
-			System.out.println("Cleaned TEXT: \n"+text_cleaned);
+//			System.out.println("Cleaned TEXT: \n"+text_cleaned);
 			
-			// TODO als map abspeichern besser für die auswertung (klammer_fehler, symbolische_fehler)
+			// TODO store as map better to compare (klammer_fehler, symbolische_fehler)
 			text_info.setError_symbol_count(dp.getErrorCount()+TextConversion.error_signs);
 			System.out.println("ERROR SIGNS: \n"+text_info.getError_symbol_count());
 			
@@ -140,7 +141,7 @@ public class Main
 			
 			/* M5: POS-Tags Distribution over all Sentences [STORED] */
 			//gather, sort and store part of speech labels
-			//TODO als map abspeichern besser für die auswertung
+			//TODO store as map better to compare
 			pos_tags = wfe.appearancePercentage(FrequencySorting.sortPosTagMap(sst.countPosTagsOccourence(sst.getTokens())), sst.getTokens().size());
 			text_info.setPos_tag_objs(pos_tags);
 			
@@ -157,7 +158,7 @@ public class Main
 			
 			/* M6: Entity Distribution over all Sentence [STORED] */
 			//process, sort and store annotation distribution
-			//TODO als map abspeichern besser für die auswertung
+			//TODO store as map better to compare
 			annotation_sorted = FrequencySorting.sortDist(DistributionProcessing.getAnnotDist(sos));
 			text_info.setSorted_annot_dist(annotation_sorted);
 			
@@ -167,7 +168,7 @@ public class Main
 //			}
 			
 			/* M4: Word Distribution over all Sentences */
-			//TODO als map abspeichern besser für die auswertung
+			//TODO store as map better to compare
 			wps_sorted = FrequencySorting.sortDist(DistributionProcessing.getWPSDist(sos, sst, language));
 			text_info.setSorted_wps_dist(wps_sorted);
 			
@@ -178,7 +179,7 @@ public class Main
 			
 			
 			/*M3: Syntactic error Distribution over all Sentence */
-			//TODO als map abspeichern besser für die auswertung (url, entity_separator, sentence_start_big_char)
+			//TODO store as map better to compare (url, entity_separator, sentence_start_big_char)
 			syn_err_per_sen = DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language);
 			text_info.setSorted_synerr_per_sen_dist(syn_err_per_sen);
 			
@@ -195,7 +196,7 @@ public class Main
 			text_info.setSymbol_per_sentence_no_ws(text_cleaned.replaceAll(" ", "").length()/sentences_cleaned.size());
 			
 			//calculate word frequency percentage
-			//TODO als map abspeichern besser für die auswertung
+			//TODO store as map better to compare
 			percentage = wfe.appearancePercentage(wfe.getMap(), words.size());
 			text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_cleaned.size()));
 			text_info.setWord_count(words.size());
@@ -211,14 +212,9 @@ public class Main
 			
 			//GERBIL
 			//Start process
-			JSONObject jsobj_with_upload = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
-			
-			//Presenting output
-			System.out.println(jsobj_with_upload.toString());
-			
-			//TODO get infos from JSON and create a map for it
-			
-			System.out.println(jsobj_with_upload.getDouble("microF1"));
+			//TODO store as map better to compare
+			JSONObject jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
+			metrics_GERBIL = JSONCollector.collectMetrics(jsobj);
 			
 			
 			
@@ -234,7 +230,14 @@ public class Main
 			//*************************************************************************************************************************************************
 			//CALCULATION
 			
-			//TODO compare current to gold standart
+			//Comparing gold and gold give back 1 so we can skip it 
+			if(k > 0)
+			{
+				//TODO compare current to gold standard and store the final value
+			}else{
+				//TODO store a 1 for the gold case
+			}
+			
 			
 			//*************************************************************************************************************************************************
 			//STORE ALL RESULTS
@@ -273,8 +276,19 @@ public class Main
 		Language language = Language.EN;
 		String exp_type = ExpType.A2KB.name();
 		String matching_type = Matching.WEAK_ANNOTATION_MATCH.name();
+		
+		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
 		LinkedList<String> filenames = new LinkedList<String>(Arrays.asList("epoch70Final.txt"));
-		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(Annotators.AIDA.name(), Annotators.Dexter.name(), Annotators.FOX.name()));
+		
+		//The 4 default annotators
+		String[] default_annotators = new String[4/*5*/];
+		default_annotators[0] = Annotators.AIDA.name();
+		default_annotators[1] = Annotators.WAT.name();
+		default_annotators[2] = Annotators.FOX.name();
+		default_annotators[3] = "DBpedia Spotlight";
+//		default_annotators[3] = "TagMe 2";
+		
+		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(default_annotators));
 		
 		Main.pipeline(language, filenames, annotators, exp_type, matching_type);
 	}
