@@ -74,14 +74,12 @@ public class DistributionProcessing
 	
 	
 	/**
-	 * This class return a sorted list of integer array where each list element contain a key and a count value;
-	 * The key is the number of errors inside a single sentence and the count value 
-	 * is the occurrence of this error count over all sentences.
+	 * This class return a map of integer where each list element contain a key and a count value;
 	 * @param sentences_raw
 	 * @param language
-	 * @return Sorted List of the syntactic error per sentence distribution
+	 * @return Map of the syntactic error per sentence distribution
 	 */
-	public static LinkedList<int[]> calcSimpleSynErrorDist(LinkedList<String> sentences_raw, Language language)
+	public static HashMap<Integer, Integer> calcSimpleSynErrorDist(LinkedList<String> sentences_raw, Language language)
 	{
 		HashMap<Integer, Integer> syn_err_dist = new HashMap<Integer, Integer>(); 
 		
@@ -97,7 +95,7 @@ public class DistributionProcessing
 			
 			calcDist(syn_err_dist, key);	
 		}
-		return FrequencySorting.sortDist(syn_err_dist);
+		return syn_err_dist;
 	}
 	
 	/**

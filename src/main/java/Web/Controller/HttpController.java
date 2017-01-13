@@ -51,7 +51,7 @@ public class HttpController
 		{
 			gerbilExp = new ExperimentObjectGERBIL(exp_type, matching_type, annotators, datasets);
 			this.jsonObject = doExperiment(gerbilExp, execute_url);
-			System.out.println(this.jsonObject);
+//			System.out.println(this.jsonObject);
 		}
 		
 		
@@ -64,7 +64,7 @@ public class HttpController
 		{
 			gerbilExp = exoGERBIL;
 			this.jsonObject = doExperiment(gerbilExp, execute_url);
-			System.out.println(this.jsonObject);
+//			System.out.println(this.jsonObject);
 		}
 	
 		//#############################################################################

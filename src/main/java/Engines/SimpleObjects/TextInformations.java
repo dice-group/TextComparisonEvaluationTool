@@ -2,6 +2,7 @@ package Engines.SimpleObjects;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import AnnotedText2NIF.ConverterEngine.DefinitionObject;
@@ -14,34 +15,35 @@ import AnnotedText2NIF.ConverterEngine.DefinitionObject;
  */
 public class TextInformations 
 {
+	//Store creation and resource info
 	private String resource_name = "";
 	private LocalDateTime generation_date;
 	
 	private double symbol_per_sentence = 0.0;		//USED
-	private double symbol_per_sentence_no_ws = 0.0;	//no whitespace's		//USED
-	private double error_symbol_per_sentence = 0.0;
-	private double syntax_error_per_sentence = 0.0;
-	private double word_per_sentence = 0.0;		//USED
-	private double entity_per_sentence = 0.0;
-	private double occurrence_single_annots = 0.0;
-	private double occurrence_dual_annots = 0.0;
+	private double symbol_per_sentence_no_ws = 0.0;	//USED
+	private double error_symbol_per_sentence = 0.0;	//
+	private double syntax_error_per_sentence = 0.0;	//
+	private double word_per_sentence = 0.0;			//USED
+	private double entity_per_sentence = 0.0;		//
+	private double occurrence_single_annots = 0.0;	//
+	private double occurrence_dual_annots = 0.0;	//
 	
-	private int sentence_count = 0;		//USED
-	private int word_count = 0;		//USED
-	private int symbol_count = 0;		//USED
-	private int symbol_count_no_ws = 0;		//USED
-	private int error_symbol_count = 0;		//USED
-	private int syntax_error_count = 0;
-	private int entity_count = 0;
+	private int sentence_count = 0;					//USED
+	private int word_count = 0;						//USED
+	private int symbol_count = 0;					//USED
+	private int symbol_count_no_ws = 0;				//USED
+	private int error_symbol_count = 0;				//USED
 	
-	private LinkedList<Character> error_symbols = new LinkedList<Character>();
-	private LinkedList<String> pos_tags_spread_per_sentence = new LinkedList<String>();
-	private LinkedList<DefinitionObject> all_annotations = new LinkedList<DefinitionObject>();
-	private LinkedList<int[]> sorted_annot_dist = new LinkedList<int[]>();		//USED
-	private LinkedList<int[]> sorted_wps_dist = new LinkedList<int[]>();		//USED
-	private LinkedList<int[]> sorted_synerr_per_sen_dist = new LinkedList<int[]>();		//USED
-	private LinkedList<PosTagObject> pos_tag_objs = new LinkedList<PosTagObject>();		//USED
-	private LinkedList<Triple> word_distribution = new LinkedList<Triple>();		//USED
+	private LinkedList<int[]> sorted_annot_dist = new LinkedList<int[]>();						//USED
+	private LinkedList<int[]> sorted_wps_dist = new LinkedList<int[]>();						//USED
+	private LinkedList<int[]> sorted_synerr_per_sen_dist = new LinkedList<int[]>();				//USED
+	private LinkedList<PosTagObject> pos_tag_objs = new LinkedList<PosTagObject>();				//USED
+	
+	private HashMap<String, Double> metrics_GERBIL = new HashMap<String, Double>();
+	private HashMap<String, Integer> words_distribution = new HashMap<String, Integer>();
+	private HashMap<Integer, Integer> words_occurr_distr = new HashMap<Integer, Integer>();
+	private HashMap<Integer, Integer> annotation_dist = new HashMap<Integer, Integer>();
+	private HashMap<Integer, Integer> syn_error_dist = new HashMap<Integer, Integer>();
 	
 	
 	/**
@@ -183,66 +185,8 @@ public class TextInformations
 		this.error_symbol_count = error_symbol_count;
 	}
 
-
-	public int getSyntax_error_count() {
-		return syntax_error_count;
-	}
-
-
-	public void setSyntax_error_count(int syntax_error_count) {
-		this.syntax_error_count = syntax_error_count;
-	}
-
-
-	public int getEntity_count() {
-		return entity_count;
-	}
-
-
-	public void setEntity_count(int entity_count) {
-		this.entity_count = entity_count;
-	}
-
-
-	public LinkedList<Character> getError_symbols() {
-		return error_symbols;
-	}
-
-
-	public void setError_symbols(LinkedList<Character> error_symbols) {
-		this.error_symbols = error_symbols;
-	}
-
-
-	public LinkedList<String> getPos_tags_spread_per_sentence() {
-		return pos_tags_spread_per_sentence;
-	}
-
-
-	public void setPos_tags_spread_per_sentence(LinkedList<String> pos_tags_spread_per_sentence) {
-		this.pos_tags_spread_per_sentence = pos_tags_spread_per_sentence;
-	}
-
-
 	public String getResource_name() {
 		return resource_name;
-	}
-
-	public LinkedList<DefinitionObject> getAll_Annotations() {
-		return all_annotations;
-	}
-
-	public void setAll_Annotations(LinkedList<DefinitionObject> all_annotations) {
-		this.all_annotations = all_annotations;
-	}
-	
-	/**
-	 * This method add the input to the existing list
-	 * @param all_annotations
-	 */
-	public void addSthToAll_Annotations(LinkedList<DefinitionObject> all_annotations)
-	{
-		this.all_annotations.addAll(all_annotations);
 	}
 
 	public double getOccurrence_single_annots() {
@@ -277,14 +221,6 @@ public class TextInformations
 		this.pos_tag_objs = pos_tag_objs;
 	}
 
-	public LinkedList<Triple> getWord_distribution() {
-		return word_distribution;
-	}
-
-	public void setWord_distribution(LinkedList<Triple> word_distribution) {
-		this.word_distribution = word_distribution;
-	}
-
 	public LinkedList<int[]> getSorted_wps_dist() {
 		return sorted_wps_dist;
 	}
@@ -300,5 +236,51 @@ public class TextInformations
 	public void setSorted_synerr_per_sen_dist(LinkedList<int[]> sorted_synerr_per_sen_dist) {
 		this.sorted_synerr_per_sen_dist = sorted_synerr_per_sen_dist;
 	}
+	
+	//#############################################################################
+	//############################### METRICS #####################################
+	//#############################################################################
+	
+
+	public HashMap<String, Double> getMetrics_GERBIL() {
+		return metrics_GERBIL;
+	}
+
+	public HashMap<Integer, Integer> getAnnotation_dist() {
+		return annotation_dist;
+	}
+
+	public void setAnnotation_dist(HashMap<Integer, Integer> annotation_dist) {
+		this.annotation_dist = annotation_dist;
+	}
+
+	public void setMetrics_GERBIL(HashMap<String, Double> metrics_GERBIL) {
+		this.metrics_GERBIL = metrics_GERBIL;
+	}
+
+	public HashMap<String, Integer> getWords_distribution() {
+		return words_distribution;
+	}
+
+	public void setWords_distribution(HashMap<String, Integer> words_distribution) {
+		this.words_distribution = words_distribution;
+	}
+
+	public HashMap<Integer, Integer> getWords_occurr_distr() {
+		return words_occurr_distr;
+	}
+
+	public void setWords_occurr_distr(HashMap<Integer, Integer> words_occurr_distr) {
+		this.words_occurr_distr = words_occurr_distr;
+	}
+
+	public HashMap<Integer, Integer> getSyn_error_dist() {
+		return syn_error_dist;
+	}
+
+	public void setSyn_error_dist(HashMap<Integer, Integer> syn_error_dist) {
+		this.syn_error_dist = syn_error_dist;
+	}
+	
 	
 }
