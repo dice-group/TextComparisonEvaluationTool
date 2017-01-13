@@ -79,8 +79,9 @@ public class AnnotedTextToNIFConverter
 	 * @param input
 	 * @param isText
 	 * @return NIF structure String
+	 * @throws IOException 
 	 */
-	public static String createNIFString(String input, boolean isText)
+	public static String createNIFString(String input, boolean isText) throws IOException
 	{
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		LinkedList<DefinitionObject> DOList = new LinkedList<DefinitionObject>();
@@ -111,8 +112,9 @@ public class AnnotedTextToNIFConverter
 	 * @param input
 	 * @param isText
 	 * @return NIF structure String
+	 * @throws IOException 
 	 */
-	public static String createNIFStringByList(LinkedList<String> input)
+	public static String createNIFStringByList(LinkedList<String> input) throws IOException
 	{
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		LinkedList<DefinitionObject> DOList = new LinkedList<DefinitionObject>();

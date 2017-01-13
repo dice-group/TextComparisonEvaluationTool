@@ -11,7 +11,7 @@ import java.net.URL;
  */
 public class URLControl 
 {
-	/**#
+	/**
 	 * This method allow to check the existence of an URL
 	 * @param url_string
 	 * @return boolean for existence
@@ -19,6 +19,7 @@ public class URLControl
 	 */
 	public static boolean existURL(String url_string) throws IOException
 	{
+		//TODO controll the url is an entity not a placeholder or a page with a list of entities
 		URL url = new URL(url_string);
 		HttpURLConnection huc = (HttpURLConnection) url.openConnection();
 		huc.setRequestMethod("HEAD");
@@ -27,12 +28,10 @@ public class URLControl
 		
 		if (responseCode == 200) 
 		{
-			System.out.println("GOOD: "+responseCode);
 			return true;
 			
 		} else 
 		{
-			System.out.println("BAD: "+responseCode);
 			return false;
 		}
 	}
@@ -49,7 +48,7 @@ public class URLControl
 		
 		String url1 = "https://en.wikipedia.org/wiki/trade_political_democratic_provincial_site";
 		String url2 = "https://en.wikipedia.org/wiki/south_africa";
-		String url3 = "https://en.wikipedia.org/wiki/South_Africa";
+		String url3 = "https://en.wikipedia.org/wiki/Nassau";
 		String url4 = "https://en.wikipedia.org/wiki/archaeo_grace_season";
 		
 		String[] uris = new String[]{url1, url2, url3, url4};

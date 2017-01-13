@@ -32,11 +32,13 @@ public class Main
 {
 	/*
 	 * GENERAL
-	 * TODO alle simple Metriken im text_info Objekt speichern und alle von Gerbil (nur) als KL-Div Wert!!!!!
+	 * TODO (Vektor = )alle simple Metriken im text_info Objekt speichern und alle von Gerbil (nur) als KL-Div Wert!!!!!
 	 * 
 	 * IMPL
 	 * TODO GERBIL JSON relevanten content erhalten impl
 	 * TODO Impl cos abstand 2er Vektoren/arrays
+	 * TODO unterscheide die url und entity structure errors
+	 * TODO unterscheide die symbolischen errors
 	 * 
 	 * JUNIT
 	 * TODO Junit Test für Wortzähler
@@ -61,6 +63,7 @@ public class Main
 		
 		//GENERAL SETUP (VARIABLES)
 		//TODO GoldText laden und bottom value text generieren
+		//TODO bottom value text und gold text first
 		
 		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
 		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
@@ -119,6 +122,8 @@ public class Main
 			/* M2: symbolische Fehler im Text [STORED] */ 
 			text_cleaned = TextConversion.decompose(StanfordSegmentatorTokenizer.formatCleaned(dp.cleanErrorsAndParenthesis(texts_raws.getLast())));
 			System.out.println("Cleaned TEXT: \n"+text_cleaned);
+			
+			// TODO als map abspeichern besser für die auswertung (klammer_fehler, symbolische_fehler)
 			text_info.setError_symbol_count(dp.getErrorCount()+TextConversion.error_signs);
 			System.out.println("ERROR SIGNS: \n"+text_info.getError_symbol_count());
 			
@@ -135,6 +140,7 @@ public class Main
 			
 			/* M5: POS-Tags Distribution over all Sentences [STORED] */
 			//gather, sort and store part of speech labels
+			//TODO als map abspeichern besser für die auswertung
 			pos_tags = wfe.appearancePercentage(FrequencySorting.sortPosTagMap(sst.countPosTagsOccourence(sst.getTokens())), sst.getTokens().size());
 			text_info.setPos_tag_objs(pos_tags);
 			
@@ -151,6 +157,7 @@ public class Main
 			
 			/* M6: Entity Distribution over all Sentence [STORED] */
 			//process, sort and store annotation distribution
+			//TODO als map abspeichern besser für die auswertung
 			annotation_sorted = FrequencySorting.sortDist(DistributionProcessing.getAnnotDist(sos));
 			text_info.setSorted_annot_dist(annotation_sorted);
 			
@@ -160,6 +167,7 @@ public class Main
 //			}
 			
 			/* M4: Word Distribution over all Sentences */
+			//TODO als map abspeichern besser für die auswertung
 			wps_sorted = FrequencySorting.sortDist(DistributionProcessing.getWPSDist(sos, sst, language));
 			text_info.setSorted_wps_dist(wps_sorted);
 			
@@ -170,6 +178,7 @@ public class Main
 			
 			
 			/*M3: Syntactic error Distribution over all Sentence */
+			//TODO als map abspeichern besser für die auswertung (url, entity_separator, sentence_start_big_char)
 			syn_err_per_sen = DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language);
 			text_info.setSorted_synerr_per_sen_dist(syn_err_per_sen);
 			
@@ -186,6 +195,7 @@ public class Main
 			text_info.setSymbol_per_sentence_no_ws(text_cleaned.replaceAll(" ", "").length()/sentences_cleaned.size());
 			
 			//calculate word frequency percentage
+			//TODO als map abspeichern besser für die auswertung
 			percentage = wfe.appearancePercentage(wfe.getMap(), words.size());
 			text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_cleaned.size()));
 			text_info.setWord_count(words.size());
@@ -206,9 +216,9 @@ public class Main
 			//Presenting output
 			System.out.println(jsobj_with_upload.toString());
 			
+			//TODO get infos from JSON and create a map for it
 			
-			
-			
+			System.out.println(jsobj_with_upload.getDouble("microF1"));
 			
 			
 			
@@ -223,6 +233,8 @@ public class Main
 			
 			//*************************************************************************************************************************************************
 			//CALCULATION
+			
+			//TODO compare current to gold standart
 			
 			//*************************************************************************************************************************************************
 			//STORE ALL RESULTS

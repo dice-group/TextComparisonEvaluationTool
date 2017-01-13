@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import AnnotedText2NIF.IOContent.TextReader;
+import Web.Controller.URLControl;
 
 /**
  * This class gather all informations about every annotations inside a text 
@@ -16,7 +17,7 @@ public class GatherAnnotationInformations
 {
 	private String not_annot_text;
 	public static final String real_prefix = "https://en.wikipedia.org/wiki/";
-	public static final String dummy_prefix = "http://aksw.org/NOTINWIKI";
+	public static final String dummy_prefix = "http://aksw.org/NOTINWIKI/";
 	
 	public static final String simpleRex = Pattern.quote("[[") + "(.*?)" + Pattern.quote("]]");				//allow inner brackets => [[outer text [[inner text]]
 	public static final String optimalRex = Pattern.quote("[[") + "([^\\[\\]]*)" + Pattern.quote("]]");		//denie inner brackets => [[url_entity_text]] or [[url_text|entity_text]]
@@ -32,22 +33,23 @@ public class GatherAnnotationInformations
 	 * inside the text of the given path for text file.
 	 * @param path
 	 * @return List of Definition objects containing entities informations
+	 * @throws IOException 
 	 */
-	public LinkedList<DefinitionObject> getAnnotationsOfFile(String path, GatherAnnotationInformations gai)
+	public LinkedList<DefinitionObject> getAnnotationsOfFile(String path, GatherAnnotationInformations gai) throws IOException
 	{
 		String input = TextReader.fileReader(path);
 		return gai.gatherDefsFast(input);
 	}
 	
-	//TODO store url error if we need to create a dummy
 	/**
 	 * This method return all known informations about the annotations inside the text.
 	 * It also report separator error at false entity constructions.
 	 * The URL construction is pre-defined!
 	 * @param input
 	 * @return list of definition objects
+	 * @throws IOException 
 	 */
-	public LinkedList<DefinitionObject> gatherDefsFast(String resource)
+	public LinkedList<DefinitionObject> gatherDefsFast(String resource) throws IOException
 	{
 		LinkedList<DefinitionObject> dobjs =  new LinkedList<DefinitionObject>();
 		String url = "",content = "", url_part = "";
@@ -83,9 +85,15 @@ public class GatherAnnotationInformations
 				
 				//Url
 				url_part = content.replace(" ", "_");
-				url = real_prefix+url_part;
 				
-				//TODO check url exist then create object => if exist set prefix with content if not set dummy with content
+				
+				if(URLControl.existURL(real_prefix+url_part))
+				{
+					url = real_prefix+url_part;
+				}else{
+					url = dummy_prefix+url_part;
+					addOneToErrOcc();
+				}
 				
 				//Definition object
 				dobjs.add(new DefinitionObject(begin, end-4, content, url));
@@ -120,12 +128,17 @@ public class GatherAnnotationInformations
 					
 					//Url
 					url_part = matcher.group().substring(2, matcher.group().indexOf("|")).replace(" ", "_");
-					url = real_prefix+url_part;
+					
+					if(URLControl.existURL(real_prefix+url_part))
+					{
+						url = real_prefix+url_part;
+					}else{
+						url = dummy_prefix+url_part;
+						addOneToErrOcc();
+					}
 					
 					//Entity
 					content = matcher.group().substring(matcher.group().indexOf("|")+1, matcher.group().indexOf("]]"));
-					
-					//TODO check url exist then create object => if exist set prefix with content if not set dummy with content
 					
 					//Definition object
 					dobjs.add(new DefinitionObject(begin, end, content, url));

@@ -17,31 +17,31 @@ public class TextInformations
 	private String resource_name = "";
 	private LocalDateTime generation_date;
 	
-	private double symbol_per_sentence = 0.0;
-	private double symbol_per_sentence_no_ws = 0.0;	//no whitespace's
+	private double symbol_per_sentence = 0.0;		//USED
+	private double symbol_per_sentence_no_ws = 0.0;	//no whitespace's		//USED
 	private double error_symbol_per_sentence = 0.0;
 	private double syntax_error_per_sentence = 0.0;
-	private double word_per_sentence = 0.0;
+	private double word_per_sentence = 0.0;		//USED
 	private double entity_per_sentence = 0.0;
 	private double occurrence_single_annots = 0.0;
 	private double occurrence_dual_annots = 0.0;
 	
-	private int sentence_count = 0;
-	private int word_count = 0;
-	private int symbol_count = 0;
-	private int symbol_count_no_ws = 0;
-	private int error_symbol_count = 0;
+	private int sentence_count = 0;		//USED
+	private int word_count = 0;		//USED
+	private int symbol_count = 0;		//USED
+	private int symbol_count_no_ws = 0;		//USED
+	private int error_symbol_count = 0;		//USED
 	private int syntax_error_count = 0;
 	private int entity_count = 0;
 	
 	private LinkedList<Character> error_symbols = new LinkedList<Character>();
 	private LinkedList<String> pos_tags_spread_per_sentence = new LinkedList<String>();
 	private LinkedList<DefinitionObject> all_annotations = new LinkedList<DefinitionObject>();
-	private LinkedList<int[]> sorted_annot_dist = new LinkedList<int[]>();
-	private LinkedList<int[]> sorted_wps_dist = new LinkedList<int[]>();
-	private LinkedList<int[]> sorted_synerr_per_sen_dist = new LinkedList<int[]>();
-	private LinkedList<PosTagObject> pos_tag_objs = new LinkedList<PosTagObject>();
-	private LinkedList<Triple> word_distribution = new LinkedList<Triple>();
+	private LinkedList<int[]> sorted_annot_dist = new LinkedList<int[]>();		//USED
+	private LinkedList<int[]> sorted_wps_dist = new LinkedList<int[]>();		//USED
+	private LinkedList<int[]> sorted_synerr_per_sen_dist = new LinkedList<int[]>();		//USED
+	private LinkedList<PosTagObject> pos_tag_objs = new LinkedList<PosTagObject>();		//USED
+	private LinkedList<Triple> word_distribution = new LinkedList<Triple>();		//USED
 	
 	
 	/**
@@ -51,17 +51,7 @@ public class TextInformations
 	public TextInformations(String resource_name)
 	{
 		this.resource_name = resource_name;
-		this.generation_date = getCurrentTime();
-	}
-	
-	/**
-	 * Simply return generation date of the class object
-	 * @return LoclaDateTime
-	 */
-	public LocalDateTime getCurrentTime()
-	{
-		LocalDateTime localDate = LocalDateTime.now();
-		return localDate;
+		this.generation_date = Timestamp.getCurrentTime();
 	}
 	
 	/**
