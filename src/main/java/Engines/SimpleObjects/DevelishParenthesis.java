@@ -1,6 +1,9 @@
 package Engines.SimpleObjects;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Set;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,6 +11,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 import AnnotedText2NIF.IOContent.TextReader;
+import Engines.simpleTextProcessing.DistributionProcessing;
 
 /**
  * This class if for the text cleaning at the beginning of the whole text processing.
@@ -20,7 +24,7 @@ public class DevelishParenthesis
 	public static final String optimalRexSQBR = Pattern.quote("[[") + "([^\\[\\]]*)" + Pattern.quote("]]");
 	public static final String optimalRexRDBR = Pattern.quote("(") + "([^\\(\\)]*)" + Pattern.quote(")");
 	public static final String punctutations = "':,.!-?;\"|";
-	private int error_count = 0;
+	private HashMap<Character, Integer> errors = new HashMap<Character, Integer>();
 
 	//#############################################################################
 	//############################ USAGE METHODS ##################################
@@ -34,10 +38,11 @@ public class DevelishParenthesis
 	 */
 	public String cleanErrorsAndParenthesis(String content)
 	{
-		error_count = 0;
+		errors = new HashMap<Character, Integer>();
 		
 		if(!content.isEmpty())
 		{	
+			LinkedList<Integer> out_ix = new LinkedList<Integer>();
 			Stack<Integer> index_stack = new Stack<Integer>();
 			String input = content;
 			char[] input_chars;
@@ -56,9 +61,11 @@ public class DevelishParenthesis
 			{
 				char current = input_chars[i];
 				
-				if(!Character.isAlphabetic(current) && !Character.isDigit(current) && !Character.isWhitespace(current) && current != '*' && !punctutations.contains(""+current)){
-					addOneToErrorCount();
+				if(!Character.isAlphabetic(current) && !Character.isDigit(current) && !Character.isWhitespace(current) && current != '*' && !punctutations.contains(""+current))
+				{
+					DistributionProcessing.calcDistChar(errors, current);
 					index_stack.push(i); 
+					out_ix.add(i);
 				}	
 			}
 			
@@ -77,16 +84,12 @@ public class DevelishParenthesis
 	//###################### GETTERS, SETTERS & EDITS #############################
 	//#############################################################################
 	
-	public int getErrorCount() {
-		return error_count;
-	}
-	
-	public void setErrorCount(int error_count) {
-		this.error_count = error_count;
+	public HashMap<Character, Integer> getErrors() {
+		return errors;
 	}
 
-	public void addOneToErrorCount() {
-		this.error_count++;
+	public void setErrors(HashMap<Character, Integer> errors) {
+		this.errors = errors;
 	}
 
 	//#############################################################################
@@ -103,9 +106,14 @@ public class DevelishParenthesis
 		String input = TextReader.fileReader(tr.getResourceFileAbsolutePath(name));
 		DevelishParenthesis dp = new DevelishParenthesis();
 		
-		System.out.println("INPUT: \n "+input);
+		System.out.println("INPUT: \n"+input);
 		System.out.println("RESULT: \n"+dp.cleanErrorsAndParenthesis(input));
-		System.out.println("ERRORS: \n"+dp.getErrorCount());
+		System.out.println("ERRORS: \n"+dp.getErrors().keySet());
+		System.out.println();
+		for (char c : dp.getErrors().keySet())
+		{
+			System.out.println("ERROR SYMBOL >"+c+"<");
+			System.out.println("VALUE: "+dp.getErrors().get(c));
+		}
 	}
-
 }

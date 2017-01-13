@@ -104,7 +104,9 @@ public class Main
 			LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
 			TextInformations text_info = new TextInformations(filenames.get(k));
 //			HashMap<String, Double> percentage;
-			HashMap<Integer, Integer> word_occurr_dist, annotation_dist, syn_error_dist;
+			HashMap<String, Integer> pos_tags_dist, syntax_error_dist;
+			HashMap<Integer, Integer> word_occurr_dist, annotation_dist;
+			HashMap<Character, Integer> symbol_error_dist;
 			
 			//create set and map
 			WordFrequencyEngine wfe = new WordFrequencyEngine();
@@ -123,38 +125,35 @@ public class Main
 			//CLEANING
 			/* M_2: symbolische Fehler im Text [STORED] */ 
 			text_cleaned = TextConversion.decompose(StanfordSegmentatorTokenizer.formatCleaned(dp.cleanErrorsAndParenthesis(texts_raws.getLast())));
-//			System.out.println("Cleaned TEXT: \n"+text_cleaned);
 			
 			// TODO store as map better to compare (klammer_fehler, symbolische_fehler)
-			text_info.setError_symbol_count(dp.getErrorCount()+TextConversion.error_signs);
-			System.out.println("ERROR SIGNS: \n"+text_info.getError_symbol_count());
+			
+			symbol_error_dist = dp.getErrors();
+//			TextConversion
+			
+			text_info.setSymbol_error_dist(symbol_error_dist);
+			System.out.println("ERROR SIGNS: \n"+text_info.getSymbol_error_dist().size());
 			
 			//*************************************************************************************************************************************************
 			//PROCESSING
 			System.out.println("DISTRIBUTION ORDERED BY KEYVALUE (most left vertical list)");
 			
-			//get sentences [STORED]
+			//get sentences and gather words
 			sentences_cleaned = StanfordSegmentatorTokenizer.gatherSentences(text_cleaned);
-			text_info.setSentence_count(sentences_cleaned.size());
+			words = sst.gatherWords(text_cleaned, language);
 			
 			//Generate NIF file and store it
 			File file = new File(AnnotedTextToNIFConverter.getNIFFileBySentences(sentences_cleaned, out_file_path));
-			
-			//gather words [NOT STORED]
-			words = sst.gatherWords(text_cleaned, language);
 			
 			//calculate word frequency
 			wfe.gatherWordFrequencyByList(words);
 			
 			/* M_5: POS-Tags Distribution over all Sentences [STORED] */
-			//gather, sort and store part of speech labels
-			//TODO store as map better to compare
-			pos_tags = wfe.appearancePercentage(FrequencySorting.sortPosTagMap(sst.countPosTagsOccourence(sst.getTokens())), sst.getTokens().size());
-			text_info.setPos_tag_objs(pos_tags);
-			
-//			for (PosTagObject tag : pos_tags) System.out.println("["+tag.getPOS_Tag()+"]\t\t["+tag.getTag_ouccurrence()+"]\t\t["+tag.getTag_oucc_percentage()+"]");
+			pos_tags_dist = sst.countPosTagsOccourence(sst.getTokens());
+			text_info.setPos_tags_dist(pos_tags_dist);
 			
 			
+			//This part takes some times
 			for (int i = 0; i < sentences_cleaned.size(); i++) 
 			{	
 				//gather text annotations and store sentence objects
@@ -164,46 +163,35 @@ public class Main
 			
 			
 			/* M_6: Entity Distribution over all Sentence [STORED] */
-			//process, sort and store annotation distribution
-			//TODO store as map better to compare
-			
 			annotation_dist = DistributionProcessing.getAnnotDist(sos);
 			text_info.setAnnotation_dist(annotation_dist);
 			
-			//local presentation
-//			annotation_sorted = FrequencySorting.sortDist(DistributionProcessing.getAnnotDist(sos));
-//			System.out.println("########  [Entities] / [Sentences] ########");
-//			for (int i = 0; i < annotation_sorted.size(); i++) {
-//				System.out.println("["+annotation_sorted.get(i)[0]+"]\t\t["+annotation_sorted.get(i)[1]+"]");
-//			}
-			
-			/* M_4: Word Distribution over all Sentences */
+			/* M_4: Word Distribution over all Sentences [STORED] */
 			word_occurr_dist = DistributionProcessing.getWPSDist(sos, sst, language);
 			text_info.setWords_occurr_distr(word_occurr_dist);
 			
-			/* M_3: Syntactic error Distribution over all Sentence */
-			//TODO map setup about => url, entity_separator, sentence_start_big_char
-			syn_error_dist = DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language);
-			text_info.setSyn_error_dist(syn_error_dist);
-			
-			/* M_1: Symbol Average over all Sentences */
+			/* M_1: Symbol Average over all Sentences [STORED] */
 			text_info.setSymbol_count(text_cleaned.length());
+			
+			/* General Informations [STORED] */
 			text_info.setSymbol_count_no_ws(text_cleaned.replaceAll(" ", "").length());
 			text_info.setSymbol_per_sentence(text_cleaned.length()/sentences_cleaned.size());
 			text_info.setSymbol_per_sentence_no_ws(text_cleaned.replaceAll(" ", "").length()/sentences_cleaned.size());
 			
-			/* M_7: Word Distribution over the text */
+			/* M_7: Word Distribution over the text [STORED] */
 			text_info.setWord_count(words.size());
 			text_info.setWords_distribution(wfe.getMap());	//Storing
 			text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_cleaned.size()));
-						
 
 			
-
-			
-			/* M_GERBIL */
+			/* M_GERBIL [STORED] */
 			JSONObject jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
 			text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
+			
+			/* M_3: Syntactic error Distribution over all Sentence [STORED] */
+			//TODO map setup about => url, entity_separator, sentence_start_big_char
+			syntax_error_dist = DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language);
+			text_info.setSyn_error_dist(syntax_error_dist);
 			
 			
 			//*************************************************************************************************************************************************
@@ -228,8 +216,16 @@ public class Main
 			//LOCAL PRESENTATION
 			
 			
+			//M_5
+//			pos_tags = wfe.appearancePercentage(FrequencySorting.sortPosTagMap(pos_tags_dist), sst.getTokens().size());
+//			for (PosTagObject tag : pos_tags) System.out.println("["+tag.getPOS_Tag()+"]\t\t["+tag.getTag_ouccurrence()+"]\t\t["+tag.getTag_oucc_percentage()+"]");
 			
-			
+			//M_6
+//			annotation_sorted = FrequencySorting.sortDist(DistributionProcessing.getAnnotDist(sos));
+//			System.out.println("########  [Entities] / [Sentences] ########");
+//			for (int i = 0; i < annotation_sorted.size(); i++) {
+//				System.out.println("["+annotation_sorted.get(i)[0]+"]\t\t["+annotation_sorted.get(i)[1]+"]");
+//			}
 			
 			//M_4
 //			wps_sorted = FrequencySorting.sortDist(word_occurr_dist);

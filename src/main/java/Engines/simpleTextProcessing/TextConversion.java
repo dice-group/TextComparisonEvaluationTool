@@ -3,6 +3,7 @@ package Engines.simpleTextProcessing;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -14,10 +15,11 @@ import java.util.Set;
  */
 public class TextConversion 
 {
-	public static int error_signs = 0;
-	public static Set<Character> errors;
+//	public static int error_signs = 0;
+//	public static Set<Character> error;
 	public static final String punctutations = "':,.!-()?;\"[]|";
 	public static final String sentence_separator = ".?!";
+	private static HashMap<Character, Integer> errors = new HashMap<Character, Integer>();
 	
 	//#############################################################################
 	//############################ USAGE METHODS ##################################
@@ -74,8 +76,8 @@ public class TextConversion
 		String out = "";
 		char old = ' ';
 		char c = ' ';
-		error_signs = 0;
-		errors = new HashSet<Character>();
+//		error_signs = 0;
+//		error = new HashSet<Character>();
 		
 		for (int k = 0 ; k < chars_in.length; k++) 
 		{
@@ -97,8 +99,9 @@ public class TextConversion
 								Character.isLowerCase(old) && Character.isAlphabetic(old) && 						// Check previous and next value is a lower case letter to fix cases like rai.se => raise
 								Character.isLowerCase(chars_in[k+1]) && Character.isAlphabetic(chars_in[k+1]))
 					{
-						error_signs++;
-						errors.add(c);
+//						error_signs++;
+						DistributionProcessing.calcDistChar(errors, c);
+//						error.add(c);
 					}else{																							// DEFAUL add space+nonAlnum+space
 						out += c;
 						out += ' ';
@@ -114,8 +117,9 @@ public class TextConversion
 							Character.isLowerCase(old) && Character.isAlphabetic(old) && 							// Check previous and next value is a lower case letter to fix cases like rai.se => raise
 							Character.isLowerCase(chars_in[k+1]) && Character.isAlphabetic(chars_in[k+1]))
 					{
-					error_signs++;
-					errors.add(c);
+//					error_signs++;
+					DistributionProcessing.calcDistChar(errors, c);
+//					error.add(c);
 					}else{																							// DEFAUL add space+nonAlnum+space
 						out += ' ';
 						out += c;
@@ -128,16 +132,18 @@ public class TextConversion
 					{
 						out += c;
 					}else{																							// DEFAUL add space+nonAlnum+space
-						error_signs++;
-						errors.add(c);
+//						error_signs++;
+						DistributionProcessing.calcDistChar(errors, c);
+//						error.add(c);
 					}
 					
 				}else{																								// DEFAUL add space+nonAlnum+space
 					out += c;
 				}
 			}else{																									// Ignore all other signs
-				error_signs++;
-				errors.add(c);
+//				error_signs++;
+				DistributionProcessing.calcDistChar(errors, c);
+//				error.add(c);
 			}
 			old = c;
 		}
@@ -162,5 +168,17 @@ public class TextConversion
 	public static String normalizer(String text)
 	{
 		return Normalizer.normalize(text, Form.NFD).replaceAll("[^A-Za-z0-9]", ".").replaceAll("\\.+", " ").replace(" .", ".");
+	}
+	
+	//##################################################################################
+	//########################### GETTERS AND SETTERS ##################################
+	//##################################################################################
+	
+	public HashMap<Character, Integer> getErrors() {
+		return errors;
+	}
+
+	public void setErrors(HashMap<Character, Integer> errors) {
+		this.errors = errors;
 	}
 }

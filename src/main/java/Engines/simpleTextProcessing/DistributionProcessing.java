@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import Engines.Enums.Language;
-import Engines.SimpleObjects.FrequencySorting;
 import Engines.SimpleObjects.SentenceObject;
 
 /**
@@ -25,29 +24,7 @@ public class DistributionProcessing
 	{
 		HashMap<Integer, Integer> distribution = new HashMap<Integer, Integer>();
 		
-		for (int i = 0; i < sos.size(); i++) 
-		{
-			int key = sos.get(i).getAnnot_count();
-			
-			if(distribution.size() < 1)
-			{
-				//fill empty map
-				distribution.put(key, 1);
-			}else{
-				if(distribution.get(key) == null && key > 0)
-				{	
-					//add new object
-					distribution.put(key, 1);
-				}else{
-					if(key > 0)
-					{
-						//raise count of known object
-						distribution.put(key, distribution.get(key) + 1);
-					}
-				}
-			}
-		}
-		
+		for (int i = 0; i < sos.size(); i++) calcDistInteger(distribution, sos.get(i).getAnnot_count());
 		return distribution;
 	}
 	
@@ -62,13 +39,7 @@ public class DistributionProcessing
 	{
 		HashMap<Integer, Integer> distribution = new HashMap<Integer, Integer>();
 		
-		for (int i = 0; i < sos.size(); i++) 
-		{
-			int key = sst.gatherWords(sos.get(i).getSentence(), language).size();
-			
-			calcDist(distribution, key);
-		}
-		
+		for (int i = 0; i < sos.size(); i++) calcDistInteger(distribution, sst.gatherWords(sos.get(i).getSentence(), language).size());
 		return distribution;
 	}
 	
@@ -79,21 +50,15 @@ public class DistributionProcessing
 	 * @param language
 	 * @return Map of the syntactic error per sentence distribution
 	 */
-	public static HashMap<Integer, Integer> calcSimpleSynErrorDist(LinkedList<String> sentences_raw, Language language)
+	public static HashMap<String, Integer> calcSimpleSynErrorDist(LinkedList<String> sentences_raw, Language language)
 	{
-		HashMap<Integer, Integer> syn_err_dist = new HashMap<Integer, Integer>(); 
+		HashMap<String, Integer> syn_err_dist = new HashMap<String, Integer>(); 
 		
 		for (int i = 0; i < sentences_raw.size(); i++) 
 		{
 			char[] chars_in = sentences_raw.get(i).toCharArray();
 			boolean first_char = TextConversion.scoreChar(chars_in[0], false);
-			boolean last_char = TextConversion.scoreChar(chars_in[chars_in.length-1], true);
-			int key = 0;
-			
-			if(!first_char) key++;
-			if(!last_char) key++;
-			
-			calcDist(syn_err_dist, key);	
+			if(!first_char) calcDistString(syn_err_dist, "StartIsBig");	
 		}
 		return syn_err_dist;
 	}
@@ -103,25 +68,70 @@ public class DistributionProcessing
 	 * @param dist
 	 * @param key
 	 */
-	public static void calcDist(HashMap<Integer, Integer> dist, int key)
+	public static void calcDistInteger(HashMap<Integer, Integer> dist, int key)
 	{
 		if(dist.size() < 1)
 		{
 			//fill empty map
 			dist.put(key, 1);
 		}else{
-			if(dist.get(key) == null && key > 0)
+			if(dist.get(key) == null)
 			{	
 				//add new object
 				dist.put(key, 1);
 			}else{
-				if(key > 0)
-				{
-					//raise count of known object
-					dist.put(key, dist.get(key) + 1);
-				}
+				//raise count of known object
+				dist.put(key, dist.get(key) + 1);
 			}
 		}
 	}
+	
+	/**
+	 * This method simply add a key to a given map and edit or create an entry into the map. 
+	 * @param dist
+	 * @param key
+	 */
+	public static void calcDistString(HashMap<String, Integer> dist, String key)
+	{
+		if(dist.size() < 1)
+		{
+			//fill empty map
+			dist.put(key, 1);
+		}else{
+			if(dist.get(key) == null)
+			{	
+				//add new object
+				dist.put(key, 1);
+			}else{
+				//raise count of known object
+				dist.put(key, dist.get(key) + 1);
+			}
+		}
+	}
+	
+	
+	/**
+	 * This method simply add a key to a given map and edit or create an entry into the map. 
+	 * @param dist
+	 * @param key
+	 */
+	public static void calcDistChar(HashMap<Character, Integer> dist, char key)
+	{
+		if(dist.size() < 1)
+		{
+			//fill empty map
+			dist.put(key, 1);
+		}else{
+			if(dist.get(key) == null)
+			{	
+				//add new object
+				dist.put(key, 1);
+			}else{
+				//raise count of known object
+				dist.put(key, dist.get(key) + 1);
+			}
+		}
+	}
+	
 	
 }
