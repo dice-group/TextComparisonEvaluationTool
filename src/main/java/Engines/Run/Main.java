@@ -36,7 +36,6 @@ public class Main
 	 * 
 	 * IMPL
 	 * TODO Impl cos abstand 2er Vektoren/arrays
-	 * TODO unterscheide die url und entity structure errors
 	 * 
 	 * JUNIT
 	 * TODO Junit Test für Wortzähler
@@ -45,7 +44,6 @@ public class Main
 	 * TODO Junit Test für cos Abstand
 	 * 
 	 * SIMPLE STUFF
-	 * TODO control all necessary informations are stored
 	 * TODO check documentations about correctness (author, description, parameters, return)
 	 */
 	
