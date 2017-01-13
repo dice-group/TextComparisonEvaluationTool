@@ -114,9 +114,8 @@ public class AnnotedTextToNIFConverter
 	 * @return NIF structure String
 	 * @throws IOException 
 	 */
-	public static String createNIFStringByList(LinkedList<String> input) throws IOException
+	public static String createNIFStringByList(LinkedList<String> input, GatherAnnotationInformations gai) throws IOException
 	{
-		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		LinkedList<DefinitionObject> DOList = new LinkedList<DefinitionObject>();
 		List<Document> documents = new ArrayList<Document>();
 		Document document;
@@ -159,9 +158,9 @@ public class AnnotedTextToNIFConverter
 	 * @return path of the nif file
 	 * @throws IOException
 	 */
-	public static String getNIFFileBySentences(LinkedList<String> input, String out_file_path) throws IOException
+	public static String getNIFFileBySentences(LinkedList<String> input, String out_file_path, GatherAnnotationInformations gai) throws IOException
 	{
-		return TextWriter.fileWriter(createNIFStringByList(input), out_file_path);
+		return TextWriter.fileWriter(createNIFStringByList(input, gai), out_file_path);
 	}
 	
 	//#############################################################################

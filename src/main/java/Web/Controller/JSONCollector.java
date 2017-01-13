@@ -37,7 +37,7 @@ public class JSONCollector
 				separator = -1;
 				value = -1;
 				
-				//TODO if the informations about dataset and annotator will be corrected in GERBIL just replace "gerbil:dataset" by "gerbil:annotator"!
+				//TODO ATTENTION: if the informations about dataset and annotator will be corrected in GERBIL just replace "gerbil:dataset" by "gerbil:annotator"!
 				if(jsa.getJSONObject(i).has("gerbil:microF1") && !jsa.getJSONObject(i).has("subExperimentOf"))
 				{
 //					System.out.println(jsa.getJSONObject(i).get("gerbil:dataset"));

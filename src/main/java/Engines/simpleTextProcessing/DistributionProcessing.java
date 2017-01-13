@@ -58,7 +58,7 @@ public class DistributionProcessing
 		{
 			char[] chars_in = sentences_raw.get(i).toCharArray();
 			boolean first_char = TextConversion.scoreChar(chars_in[0], false);
-			if(!first_char) calcDistString(syn_err_dist, "StartIsBig");	
+			if(!first_char) calcDistString(syn_err_dist, "START_CHAR_ERROR");	
 		}
 		return syn_err_dist;
 	}

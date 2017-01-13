@@ -1,10 +1,12 @@
 package AnnotedText2NIF.ConverterEngine;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import AnnotedText2NIF.IOContent.TextReader;
+import Engines.simpleTextProcessing.DistributionProcessing;
 import Web.Controller.URLControl;
 
 /**
@@ -22,7 +24,7 @@ public class GatherAnnotationInformations
 	public static final String simpleRex = Pattern.quote("[[") + "(.*?)" + Pattern.quote("]]");				//allow inner brackets => [[outer text [[inner text]]
 	public static final String optimalRex = Pattern.quote("[[") + "([^\\[\\]]*)" + Pattern.quote("]]");		//denie inner brackets => [[url_entity_text]] or [[url_text|entity_text]]
 	
-	private int error_occur = 0;
+	private HashMap<String, Integer> syntax_error_dist = new HashMap<String, Integer>();
 	
 	//#############################################################################
 	//############################ USAGE METHODS ##################################
@@ -66,9 +68,6 @@ public class GatherAnnotationInformations
 			input = resource;
 		}
 		
-		//clear error counter
-		setError_occur(0);
-		
 		Matcher matcher = Pattern.compile(optimalRex).matcher(input);
 		
 		while (matcher.find())
@@ -92,7 +91,7 @@ public class GatherAnnotationInformations
 					url = real_prefix+url_part;
 				}else{
 					url = dummy_prefix+url_part;
-					addOneToErrOcc();
+					DistributionProcessing.calcDistString(syntax_error_dist, "URL_NOT_EX_ERROR");
 				}
 				
 				//Definition object
@@ -112,7 +111,7 @@ public class GatherAnnotationInformations
 				{
 					
 					//report error about to much separator entity
-					addOneToErrOcc();
+					DistributionProcessing.calcDistString(syntax_error_dist, "ENTITY_SEPA_ERROR");
 
 					//Replace text
 					input = input.replace(matcher.group(), entity_container[1]);
@@ -134,7 +133,7 @@ public class GatherAnnotationInformations
 						url = real_prefix+url_part;
 					}else{
 						url = dummy_prefix+url_part;
-						addOneToErrOcc();
+						DistributionProcessing.calcDistString(syntax_error_dist, "URL_NOT_EX");
 					}
 					
 					//Entity
@@ -197,16 +196,12 @@ public class GatherAnnotationInformations
 		this.not_annot_text = not_annot_text;
 	}
 	
-	public int getError_occur() {
-		return error_occur;
+	public HashMap<String, Integer> getSyntax_error_dist() {
+		return syntax_error_dist;
 	}
 
-	public void setError_occur(int error_occur) {
-		this.error_occur = error_occur;
-	}
-	
-	public void addOneToErrOcc(){
-		this.error_occur++;
+	public void setSyntax_error_dist(HashMap<String, Integer> syntax_error_dist) {
+		this.syntax_error_dist = syntax_error_dist;
 	}
 	
 	//#############################################################################
@@ -228,7 +223,7 @@ public class GatherAnnotationInformations
 		
 		System.out.println(input);
 		System.out.println(gai.getNot_annot_text());
-		System.out.println("Separator Error: "+gai.getError_occur()+"\n");
+		System.out.println("Separator Error: "+gai.getSyntax_error_dist().keySet()+"\n");
 		
 		for (int i = 0; i < dobjs.size(); i++) 
 		{

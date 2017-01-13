@@ -19,7 +19,7 @@ public class URLControl
 	 */
 	public static boolean existURL(String url_string) throws IOException
 	{
-		//TODO controll the url is an entity not a placeholder or a page with a list of entities
+		//TODO ATTENTION: control the url is an entity not a placeholder or a page with a list of entities
 		URL url = new URL(url_string);
 		HttpURLConnection huc = (HttpURLConnection) url.openConnection();
 		huc.setRequestMethod("HEAD");

@@ -10,8 +10,10 @@ import AnnotedText2NIF.ConverterEngine.AnnotedTextToNIFConverter;
 import AnnotedText2NIF.ConverterEngine.DefinitionObject;
 import AnnotedText2NIF.ConverterEngine.GatherAnnotationInformations;
 import AnnotedText2NIF.IOContent.TextReader;
+import AnnotedText2NIF.IOContent.TextWriter;
 import Engines.SimpleObjects.*;
 import Engines.internalEngineParts.WordFrequencyEngine;
+import Engines.simpleTextProcessing.CruelTextGenerator;
 import Engines.simpleTextProcessing.DistributionProcessing;
 import Engines.simpleTextProcessing.StanfordSegmentatorTokenizer;
 import Engines.simpleTextProcessing.TextConversion;
@@ -57,9 +59,7 @@ public class Main
 		//*************************************************************************************************
 		
 		//GENERAL SETUP (VARIABLES)
-		//TODO GoldText laden und bottom value text generieren
-		//TODO bottom value text und gold text first
-		
+
 		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
 		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
 		TextConversion tc = new TextConversion();
@@ -76,32 +76,37 @@ public class Main
 		LinkedList<String> resourceFilesAbsolutePaths = new LinkedList<String>();
 		LinkedList<String> texts_raws = new LinkedList<String>();
 		
+		
 		//*************************************************************************************************************************************************
 		//FOR EACH FILE
 		for(int k = 0; k < filenames.size(); k++)
 		{	
 			nameNIFFile.add(filenames.get(k).replace(".txt", ".ttl"));
 			resourceFilesAbsolutePaths.add(tr.getResourceFileAbsolutePath(filenames.get(k)));
+			
+			//TODO maybe get a snippet from Gold text because it is to huge to proceed
 			texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
 			
 			String out_file_path = tr.getResourceFileAbsolutePath(filenames.get(k)).replace(filenames.get(k), nameNIFFile.getLast());
 			String text_cleaned, text_half_cleaned;
+			File file;
 			
 			//Multiple items
 			LinkedList<String> words;
 			LinkedList<String> sentences_cleaned = new LinkedList<String>();
 			LinkedList<SentenceObject> sos = new LinkedList<SentenceObject>();
+			LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
+			TextInformations text_info = new TextInformations(filenames.get(k));
+			HashMap<String, Integer> pos_tags_dist;
+			HashMap<Integer, Integer> word_occurr_dist, annotation_dist;
+			HashMap<Character, Integer> symbol_error_dist;
+			
+//			HashMap<String, Double> percentage;
 //			LinkedList<int[]> annotation_sorted = new LinkedList<int[]>();
 //			LinkedList<int[]> wps_sorted = new LinkedList<int[]>();
 //			LinkedList<int[]> syn_err_per_sen = new LinkedList<int[]>();
-			LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
 //			LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
 //			LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
-			TextInformations text_info = new TextInformations(filenames.get(k));
-//			HashMap<String, Double> percentage;
-			HashMap<String, Integer> pos_tags_dist, syntax_error_dist;
-			HashMap<Integer, Integer> word_occurr_dist, annotation_dist;
-			HashMap<Character, Integer> symbol_error_dist;
 			
 			//create set and map
 			WordFrequencyEngine wfe = new WordFrequencyEngine();
@@ -133,8 +138,10 @@ public class Main
 			sentences_cleaned = StanfordSegmentatorTokenizer.gatherSentences(text_cleaned);
 			words = sst.gatherWords(text_cleaned, language);
 			
-			//Generate NIF file and store it
-			File file = new File(AnnotedTextToNIFConverter.getNIFFileBySentences(sentences_cleaned, out_file_path));
+			/* M_3: Syntactic error Distribution over all Sentence [STORED] */
+			gai.setSyntax_error_dist(DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language));
+			file = new File(AnnotedTextToNIFConverter.getNIFFileBySentences(sentences_cleaned, out_file_path, gai));
+			text_info.setSyn_error_dist(gai.getSyntax_error_dist());
 			
 			//calculate word frequency
 			wfe.gatherWordFrequencyByList(words);
@@ -144,7 +151,7 @@ public class Main
 			text_info.setPos_tags_dist(pos_tags_dist);
 			
 			
-			//This part takes some times
+			//ATTENTIO: This part takes time because of the URL real time control
 			for (int i = 0; i < sentences_cleaned.size(); i++) 
 			{	
 				//gather text annotations and store sentence objects
@@ -178,24 +185,6 @@ public class Main
 			/* M_GERBIL [STORED] */
 			JSONObject jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
 			text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
-			
-			/* M_3: Syntactic error Distribution over all Sentence [STORED] */
-			//TODO map setup about => url, entity_separator, sentence_start_big_char
-			syntax_error_dist = DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language);
-			text_info.setSyn_error_dist(syntax_error_dist);
-			
-			
-			//*************************************************************************************************************************************************
-			//CALCULATION
-			
-			//Comparing gold and gold give back 1 so we can skip it 
-			if(k > 0)
-			{
-				//TODO compare current to gold standard and store the final value
-			}else{
-				//TODO store a 1 for the gold case
-			}
-			
 			
 			//*************************************************************************************************************************************************
 			//STORE ALL RESULTS
@@ -237,17 +226,34 @@ public class Main
 //			for (int i = 0; i < triples_sorted.size(); i++) System.out.println("["+triples_sorted.get(i).getKey()+"]\t\t["+triples_sorted.get(i).getCount()+"]");
 			
 			//General
-			System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
-			System.out.println("Resource:\t\t\t"+text_info.getResource_name());
-			System.out.println("Date and Time:\t\t\t"+text_info.getLocalDateAsString(text_info.getGeneration_date()));
-			System.out.println("Words count:\t\t\t"+text_info.getWord_count());
-			System.out.println("Sentence count:\t\t\t"+text_info.getSentence_count());
-			System.out.println("Symbol count:\t\t\t"+text_info.getSymbol_count());
-			System.out.println("Symbol count nws:\t\t"+text_info.getSymbol_count_no_ws());
-			System.out.println("Symbol average / Sentence:\t"+text_info.getSymbol_per_sentence());
-			System.out.println("Symbol avg nws / Sentence:\t"+text_info.getSymbol_per_sentence_no_ws());
-			System.out.println("Word per Sentence:\t\t"+text_info.getWord_per_sentence());
+//			System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
+//			System.out.println("Resource:\t\t\t"+text_info.getResource_name());
+//			System.out.println("Date and Time:\t\t\t"+text_info.getLocalDateAsString(text_info.getGeneration_date()));
+//			System.out.println("Words count:\t\t\t"+text_info.getWord_count());
+//			System.out.println("Sentence count:\t\t\t"+text_info.getSentence_count());
+//			System.out.println("Symbol count:\t\t\t"+text_info.getSymbol_count());
+//			System.out.println("Symbol count nws:\t\t"+text_info.getSymbol_count_no_ws());
+//			System.out.println("Symbol average / Sentence:\t"+text_info.getSymbol_per_sentence());
+//			System.out.println("Symbol avg nws / Sentence:\t"+text_info.getSymbol_per_sentence_no_ws());
+//			System.out.println("Word per Sentence:\t\t"+text_info.getWord_per_sentence());
 		}
+		
+		//*************************************************************************************************************************************************
+		//CALCULATION
+		
+		//TODO create final calculation maybe as separate method
+		TextInformations gold_info = experiments_results.get(0);
+		
+		for(int cal = 1; cal < experiments_results.size(); cal++)
+		{
+			//calculate the differences between gold's and the vector's elements (kl-div and quad error)
+			
+			//then do cos_distance
+			
+			//maybe store the results
+		}
+		
+		
 		
 		//*************************************************************************************************************************************************
 		//PRESENTATION
@@ -260,7 +266,6 @@ public class Main
 	}
 	
 	
-	
 	/**
 	 * Process pipeline
 	 * @param args
@@ -269,19 +274,42 @@ public class Main
 	public static void main(String[] args) throws Exception 
 	{	
 		Language language = Language.EN;
+		TextReader tr = new TextReader();
+		
 		String exp_type = ExpType.A2KB.name();
 		String matching_type = Matching.WEAK_ANNOTATION_MATCH.name();
+		String gold_name = "GoldTextWikipedia.txt";								//Gold standard text
+		String fragment_name = "BVFragment.txt";								//Bottom value text
+		String gold_path = tr.getResourceFileAbsolutePath(gold_name);
+		String fragment_path = gold_path.replace(gold_name, fragment_name);
+		
+		//If file is not created, just create a new one!
+		if (!new File(fragment_path).exists()) 
+		{
+			System.out.println("the file do not exist!");
+			TextWriter.fileWriter(CruelTextGenerator.createRandomFragment(TextReader.fileReader(gold_path)), fragment_path);
+		}else{
+			System.out.println("the file already exist!");
+		}
+
+		
+		String[] additional_files = new String[5];
+		additional_files[0] = gold_name;
+		additional_files[1] = fragment_name;
+		additional_files[2] = "epoch15.txt";
+		additional_files[3] = "epoch30.txt";
+		additional_files[4] = "epoch70Final.txt";
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
-		LinkedList<String> filenames = new LinkedList<String>(Arrays.asList("epoch70Final.txt"));
+		LinkedList<String> filenames = new LinkedList<String>(Arrays.asList(additional_files));
 		
 		//The 4 default annotators
 		String[] default_annotators = new String[4/*5*/];
 		default_annotators[0] = Annotators.AIDA.name();
 		default_annotators[1] = Annotators.WAT.name();
-		default_annotators[2] = Annotators.FOX.name();
+//		default_annotators[2] = Annotators.FOX.name();
+		default_annotators[2] = "TagMe 2";
 		default_annotators[3] = "DBpedia Spotlight";
-//		default_annotators[3] = "TagMe 2";
 		
 		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(default_annotators));
 		
