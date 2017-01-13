@@ -3,7 +3,6 @@ package Engines.SimpleObjects;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Set;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,7 +22,7 @@ public class DevelishParenthesis
 	
 	public static final String optimalRexSQBR = Pattern.quote("[[") + "([^\\[\\]]*)" + Pattern.quote("]]");
 	public static final String optimalRexRDBR = Pattern.quote("(") + "([^\\(\\)]*)" + Pattern.quote(")");
-	public static final String punctutations = "':,.!-?;\"|";
+	public static final String punctutations = "':,.!-?;\"";
 	private HashMap<Character, Integer> errors = new HashMap<Character, Integer>();
 
 	//#############################################################################

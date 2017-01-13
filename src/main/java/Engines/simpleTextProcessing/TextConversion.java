@@ -4,9 +4,7 @@ import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
 
 /**
  * This class contain a text decomposer which try to filter all not desired types of characters out of a String.
@@ -17,9 +15,9 @@ public class TextConversion
 {
 //	public static int error_signs = 0;
 //	public static Set<Character> error;
-	public static final String punctutations = "':,.!-()?;\"[]|";
+	public static final String punctutations = "':,.!-()?;\"[]\\|";
 	public static final String sentence_separator = ".?!";
-	private static HashMap<Character, Integer> errors = new HashMap<Character, Integer>();
+	private HashMap<Character, Integer> errors = new HashMap<Character, Integer>();
 	
 	//#############################################################################
 	//############################ USAGE METHODS ##################################
@@ -70,7 +68,7 @@ public class TextConversion
 	 * @param text
 	 * @return cleaned text
 	 */
-	public static String decompose(String text)
+	public String decompose(String text)
 	{
 		char[] chars_in = text.toCharArray();
 		String out = "";
@@ -100,6 +98,7 @@ public class TextConversion
 								Character.isLowerCase(chars_in[k+1]) && Character.isAlphabetic(chars_in[k+1]))
 					{
 //						error_signs++;
+						System.out.println("Call_1: "+c);
 						DistributionProcessing.calcDistChar(errors, c);
 //						error.add(c);
 					}else{																							// DEFAUL add space+nonAlnum+space
@@ -118,6 +117,7 @@ public class TextConversion
 							Character.isLowerCase(chars_in[k+1]) && Character.isAlphabetic(chars_in[k+1]))
 					{
 //					error_signs++;
+					System.out.println("Call_2: "+c);
 					DistributionProcessing.calcDistChar(errors, c);
 //					error.add(c);
 					}else{																							// DEFAUL add space+nonAlnum+space
@@ -128,13 +128,12 @@ public class TextConversion
 					
 				}else if(c == '|'&& (k+1) < chars_in.length)														// Check annotation separator [1st_Annot | 2nd_Annot]
 				{
-					if(!Character.isAlphabetic(old) && !Character.isAlphabetic(chars_in[k+1]))						// Check previous and next character is alphabetic depending on current
+					if(	(Character.isAlphabetic(old) || Character.isSpaceChar(old) || Character.isDigit(old)) && 
+						(Character.isAlphabetic(chars_in[k+1])|| Character.isSpaceChar(chars_in[k+1])) || Character.isDigit(chars_in[k+1]))
 					{
 						out += c;
-					}else{																							// DEFAUL add space+nonAlnum+space
-//						error_signs++;
+					}else{
 						DistributionProcessing.calcDistChar(errors, c);
-//						error.add(c);
 					}
 					
 				}else{																								// DEFAUL add space+nonAlnum+space
@@ -142,6 +141,7 @@ public class TextConversion
 				}
 			}else{																									// Ignore all other signs
 //				error_signs++;
+				System.out.println("Call_4: "+c);
 				DistributionProcessing.calcDistChar(errors, c);
 //				error.add(c);
 			}

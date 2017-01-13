@@ -3,9 +3,6 @@ package Engines.SimpleObjects;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.LinkedList;
-
-import AnnotedText2NIF.ConverterEngine.DefinitionObject;
 
 /**
  * This class contain all relevant informations about a processed text.

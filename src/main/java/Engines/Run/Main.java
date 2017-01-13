@@ -33,13 +33,10 @@ public class Main
 {
 	/*
 	 * GENERAL
-	 * TODO (Vektor = )alle simple Metriken im text_info Objekt speichern und alle von Gerbil (nur) als KL-Div Wert!!!!!
 	 * 
 	 * IMPL
-	 * TODO GERBIL JSON relevanten content erhalten impl
 	 * TODO Impl cos abstand 2er Vektoren/arrays
 	 * TODO unterscheide die url und entity structure errors
-	 * TODO unterscheide die symbolischen errors
 	 * 
 	 * JUNIT
 	 * TODO Junit Test für Wortzähler
@@ -48,9 +45,8 @@ public class Main
 	 * TODO Junit Test für cos Abstand
 	 * 
 	 * SIMPLE STUFF
-	 * TODO delete useless vars in TextInformations
-	 * TODO control all necesarry informations are stored
-	 * TODO check documentations about correctness (author, description, param, return)
+	 * TODO control all necessary informations are stored
+	 * TODO check documentations about correctness (author, description, parameters, return)
 	 */
 	
 	public static void pipeline(Language language, LinkedList<String> filenames, LinkedList<String> annotators, String exp_type, String matching_type) throws Exception
@@ -68,6 +64,7 @@ public class Main
 		
 		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
 		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
+		TextConversion tc = new TextConversion();
 		
 		//All file experiment informations and there NIF files 
 		LinkedList<TextInformations> experiments_results = new LinkedList<TextInformations>();
@@ -90,7 +87,7 @@ public class Main
 			texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
 			
 			String out_file_path = tr.getResourceFileAbsolutePath(filenames.get(k)).replace(filenames.get(k), nameNIFFile.getLast());
-			String text_cleaned;
+			String text_cleaned, text_half_cleaned;
 			
 			//Multiple items
 			LinkedList<String> words;
@@ -101,7 +98,7 @@ public class Main
 //			LinkedList<int[]> syn_err_per_sen = new LinkedList<int[]>();
 			LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
 //			LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
-			LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
+//			LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
 			TextInformations text_info = new TextInformations(filenames.get(k));
 //			HashMap<String, Double> percentage;
 			HashMap<String, Integer> pos_tags_dist, syntax_error_dist;
@@ -124,15 +121,11 @@ public class Main
 			//*************************************************************************************************************************************************
 			//CLEANING
 			/* M_2: symbolische Fehler im Text [STORED] */ 
-			text_cleaned = TextConversion.decompose(StanfordSegmentatorTokenizer.formatCleaned(dp.cleanErrorsAndParenthesis(texts_raws.getLast())));
-			
-			// TODO store as map better to compare (klammer_fehler, symbolische_fehler)
-			
-			symbol_error_dist = dp.getErrors();
-//			TextConversion
-			
-			text_info.setSymbol_error_dist(symbol_error_dist);
-			System.out.println("ERROR SIGNS: \n"+text_info.getSymbol_error_dist().size());
+			text_half_cleaned = StanfordSegmentatorTokenizer.formatCleaned(dp.cleanErrorsAndParenthesis(texts_raws.getLast()));	//Clean Step 1
+			tc.setErrors(dp.getErrors());	//collect errors
+			text_cleaned = tc.decompose(text_half_cleaned);	//Clean Step 2
+			symbol_error_dist = tc.getErrors();	//collect errors
+			text_info.setSymbol_error_dist(symbol_error_dist);	//store errors
 			
 			//*************************************************************************************************************************************************
 			//PROCESSING
