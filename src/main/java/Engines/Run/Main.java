@@ -37,7 +37,7 @@ public class Main
 	 * GENERAL
 	 * 
 	 * IMPL
-	 * TODO Impl cos abstand 2er Vektoren/arrays
+	 * TODO Calc cos abstand 2er Vektoren
 	 * 
 	 * JUNIT
 	 * TODO Junit Test für Wortzähler
@@ -64,6 +64,8 @@ public class Main
 		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
 		TextConversion tc = new TextConversion();
 		
+		//TODO create Zero vector with correct size for cosine distance calculation
+		
 		//All file experiment informations and there NIF files 
 		LinkedList<TextInformations> experiments_results = new LinkedList<TextInformations>();
 		LinkedList<File> experiments_NifFiles = new LinkedList<File>();
@@ -84,7 +86,7 @@ public class Main
 			nameNIFFile.add(filenames.get(k).replace(".txt", ".ttl"));
 			resourceFilesAbsolutePaths.add(tr.getResourceFileAbsolutePath(filenames.get(k)));
 			
-			//TODO maybe get a snippet from Gold text because it is to huge to proceed
+			//TODO get a snippet (40 sentences random picked) from Gold text because it is to huge to proceed
 			texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
 			
 			String out_file_path = tr.getResourceFileAbsolutePath(filenames.get(k)).replace(filenames.get(k), nameNIFFile.getLast());
