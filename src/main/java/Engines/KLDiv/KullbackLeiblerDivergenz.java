@@ -9,6 +9,8 @@ import java.util.Set;
 
 public class KullbackLeiblerDivergenz 
 {	
+	static double epsilon = 0.00000001;
+	
 	/**
 	 * This method takes 2 Maps (for exam. HashMap) of comparable distributions of 2 texts and a set of key names depending on 
 	 * for exam. distribution step labels.
@@ -28,10 +30,6 @@ public class KullbackLeiblerDivergenz
 				if(s1.get(key) == null || s2.get(key) == null) {continue;}
 				if (s1.get(key) == 0) {continue;}
 		        if (s2.get(key) == 0.0000) {continue;}
-
-//		        System.out.println("From: "+s1.get(key));
-//		        System.out.println("To: "+s2.get(key));
-//		        System.out.println("KL = "+(s1.get(key) * Math.log((s1.get(key)/s2.get(key)))));
 		        
 		        kld += (s1.get(key) * Math.log((s1.get(key)/s2.get(key))));
 			}
@@ -68,6 +66,64 @@ public class KullbackLeiblerDivergenz
 		return Double.NaN;
 	}
 	
+	
+	//TODO KL Div kritisch => value kicken oder halten?
+	public static double KLDivergenceMSIN(Map<String,Integer> s1, Map<String,Integer> s2)
+	{
+		Set<String> all_keys = new HashSet<String>(); 
+				
+		for(String key : s1.keySet()) all_keys.add(key);
+		for(String key : s2.keySet()) all_keys.add(key);
+		
+		double kld = 0.0, v1 = Double.NaN, v2 = Double.NaN;
+		
+		for(String key : all_keys)
+		{
+	        if(s1.containsKey(key))
+	        {
+	        	if (s1.get(key) == 0) 
+	        	{
+	        		v1 = epsilon;
+	        	}else
+	        	{
+	        		v1 = s1.get(key);
+	        	}
+	        	
+	        }else{
+	        	v1 = epsilon;
+	        }
+	        
+	        if(s2.containsKey(key))
+	        {
+	        	 if (s2.get(key) == 0) 
+	        	 {
+	        		 v2 = epsilon;
+	        	 }else
+	        	 {
+	        		 v2 = s2.get(key);
+	        	 }
+	        	
+	        }else{
+	        	v2 = epsilon;
+	        }
+
+	        System.out.println("Key: "+key);
+	        System.out.println("From: "+v1);
+	        System.out.println("To: "+v2);
+	        System.out.println("KL = "+(v1 * Math.log(v1/v2)));
+	        System.out.println();
+	        
+	        kld += (v1 * Math.log(v1/v2));
+	        
+	        //Reset
+	        v1 = Double.NaN;
+	        v2 = Double.NaN;
+		}
+		
+		return kld;
+	}
+	
+	
 	/*
 	 * EXAMPLES [WORKS]
 	 */
@@ -76,16 +132,27 @@ public class KullbackLeiblerDivergenz
 		Set<String> textKeys = new HashSet<String>();
 		Map<String, Double> text1Values = new HashMap<String, Double>();
 		Map<String, Double> text2Values = new HashMap<String, Double>();
+		Map<String, Integer> textValuesA = new HashMap<String, Integer>();
+		Map<String, Integer> textValuesB = new HashMap<String, Integer>();
 
 		//EXAMPLE 1
 		textKeys.addAll(Arrays.asList("av", "occ", "wc", "len", "err"));
-		text1Values.put("av", 0.5);			text2Values.put("av", 0.5);
-		text1Values.put("occ", 0.3);		text2Values.put("occ", 0.4);
-		text1Values.put("wc", 0.3);			text2Values.put("wc", 0.3);
-		text1Values.put("len", 0.7);		text2Values.put("len", 0.5);
-		text1Values.put("err", 0.8);		text2Values.put("err", 0.9);
+		text1Values.put("av", 5.0);			text2Values.put("av", 5.0);
+		text1Values.put("occ", 3.0);		text2Values.put("occ", 4.0);
+		text1Values.put("wc", 3.0);			text2Values.put("wc", 3.0);
+		text1Values.put("len", 7.0);		text2Values.put("len", 0.0);
+		text1Values.put("err", 8.0);		text2Values.put("err", 9.0);
 		
-		System.out.println("Die KL-Divergenz beträgt: "+KLDivergenceMS(textKeys, text1Values, text2Values));
+		//EXAMPLE 1
+		textValuesA.put("av", 5);		textValuesB.put("av", 5);
+		textValuesA.put("occ", 3);		textValuesB.put("occ", 4);
+		textValuesA.put("wc", 3);		textValuesB.put("wc", 3);
+		textValuesA.put("len", 0);		textValuesB.put("len", 0);
+		textValuesA.put("err", 8);		textValuesB.put("err", 9);
+		
+		System.out.println("Die KL-Divergenz SDO beträgt: "+KLDivergenceMS(textKeys, text1Values, text2Values));
+		System.out.println();
+		System.out.println("Die KL-Divergenz SIN beträgt: "+KLDivergenceMSIN(textValuesA, textValuesB));
 		
 		
 		//NEW EXAMPLE 2

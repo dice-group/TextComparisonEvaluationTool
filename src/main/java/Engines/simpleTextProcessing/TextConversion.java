@@ -13,8 +13,6 @@ import java.util.LinkedList;
  */
 public class TextConversion 
 {
-//	public static int error_signs = 0;
-//	public static Set<Character> error;
 	public static final String punctutations = "':,.!-()?;\"[]\\|";
 	public static final String sentence_separator = ".?!";
 	private HashMap<Character, Integer> errors = new HashMap<Character, Integer>();
@@ -74,8 +72,6 @@ public class TextConversion
 		String out = "";
 		char old = ' ';
 		char c = ' ';
-//		error_signs = 0;
-//		error = new HashSet<Character>();
 		
 		for (int k = 0 ; k < chars_in.length; k++) 
 		{
@@ -97,10 +93,8 @@ public class TextConversion
 								Character.isLowerCase(old) && Character.isAlphabetic(old) && 						// Check previous and next value is a lower case letter to fix cases like rai.se => raise
 								Character.isLowerCase(chars_in[k+1]) && Character.isAlphabetic(chars_in[k+1]))
 					{
-//						error_signs++;
 						System.out.println("Call_1: "+c);
 						DistributionProcessing.calcDistChar(errors, c);
-//						error.add(c);
 					}else{																							// DEFAUL add space+nonAlnum+space
 						out += c;
 						out += ' ';
@@ -116,10 +110,8 @@ public class TextConversion
 							Character.isLowerCase(old) && Character.isAlphabetic(old) && 							// Check previous and next value is a lower case letter to fix cases like rai.se => raise
 							Character.isLowerCase(chars_in[k+1]) && Character.isAlphabetic(chars_in[k+1]))
 					{
-//					error_signs++;
 					System.out.println("Call_2: "+c);
 					DistributionProcessing.calcDistChar(errors, c);
-//					error.add(c);
 					}else{																							// DEFAUL add space+nonAlnum+space
 						out += ' ';
 						out += c;
@@ -140,10 +132,8 @@ public class TextConversion
 					out += c;
 				}
 			}else{																									// Ignore all other signs
-//				error_signs++;
 				System.out.println("Call_4: "+c);
 				DistributionProcessing.calcDistChar(errors, c);
-//				error.add(c);
 			}
 			old = c;
 		}

@@ -12,6 +12,10 @@ import java.util.List;
  */
 public class CosDistance 
 {
+	//##################################################################################
+	//################################# USAGE METHODS ##################################
+	//##################################################################################
+	
 	/**
 	 * Cosine distance between 2 double values containing vectors
 	 * @param v1
@@ -33,17 +37,30 @@ public class CosDistance
 				lower_right += Math.pow(Math.abs(v2.get(i)), 2);	
 			}
 			
-			//calc cosin similarity 
-			similarity = upper_value/(Math.sqrt(lower_left)*(Math.sqrt(lower_right)));
+			//evade a dividing 0
+			if(Math.sqrt(lower_left)*Math.sqrt(lower_right) > 0)
+			{
+				//calc cosin similarity 
+				similarity = upper_value/(Math.sqrt(lower_left)*(Math.sqrt(lower_right)));
+				
+				//return cosin dist
+				return 1.0 -similarity;
+			}else{
+				System.out.println("Cant devide 0!");
+				return Double.NaN;
+			}
 			
-			//return cosin dist
-			return 1.0 -similarity;
+			
 			
 		}else{
-			System.err.println("Vector size equality miss match!");
+			System.out.println("Vector size equality miss match!");
 			return Double.NaN;
 		}
 	}
+	
+	//##################################################################################
+	//#################################### EXAMPLE #####################################
+	//##################################################################################
 	
 	/*
 	 * EXAMPLE of USE
@@ -59,6 +76,11 @@ public class CosDistance
 		v2 = new ArrayList<Double>(Arrays.asList(3.0, 0.0, 2.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0));
 		
 		System.out.println(CosDistance.cosineDistanceDecimal(v1, v2));	//Desired round about 0.064399
+		
+		v1 = new ArrayList<Double>(Arrays.asList(0.0,0.0,0.0));
+		v2 = new ArrayList<Double>(Arrays.asList(3.0,5.0,7.0));
+		
+		System.out.println(CosDistance.cosineDistanceDecimal(v1, v2));	//Should cause an ERROR => NaN
 	}
 
 }

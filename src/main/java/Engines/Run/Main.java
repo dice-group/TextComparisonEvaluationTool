@@ -1,6 +1,7 @@
 package Engines.Run;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -63,8 +64,6 @@ public class Main
 		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
 		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
 		TextConversion tc = new TextConversion();
-		
-		//TODO create Zero vector with correct size for cosine distance calculation
 		
 		//All file experiment informations and there NIF files 
 		LinkedList<TextInformations> experiments_results = new LinkedList<TextInformations>();
@@ -153,7 +152,10 @@ public class Main
 			text_info.setPos_tags_dist(pos_tags_dist);
 			
 			
-			//ATTENTIO: This part takes time because of the URL real time control
+			/*
+			 * ATTENTION: 
+			 * This part takes time because of the URL real time control
+			 */
 			for (int i = 0; i < sentences_cleaned.size(); i++) 
 			{	
 				//gather text annotations and store sentence objects
@@ -170,6 +172,7 @@ public class Main
 			word_occurr_dist = DistributionProcessing.getWPSDist(sos, sst, language);
 			text_info.setWords_occurr_distr(word_occurr_dist);
 			
+			//TODO soll das auch eine Distribution werden?
 			/* M_1: Symbol Average over all Sentences [STORED] */
 			text_info.setSymbol_count(text_cleaned.length());
 			
@@ -178,7 +181,10 @@ public class Main
 			text_info.setSymbol_per_sentence(text_cleaned.length()/sentences_cleaned.size());
 			text_info.setSymbol_per_sentence_no_ws(text_cleaned.replaceAll(" ", "").length()/sentences_cleaned.size());
 			
-			/* M_7: Word Distribution over the text [STORED] */
+			/* 
+			 * [NOT in USE currently because to BIG for big files]
+			 * M_7: Word Distribution over the text [STORED] 
+			 */
 			text_info.setWord_count(words.size());
 			text_info.setWords_distribution(wfe.getMap());	//Storing
 			text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_cleaned.size()));
@@ -244,10 +250,44 @@ public class Main
 		//CALCULATION
 		
 		//TODO create final calculation maybe as separate method
-		TextInformations gold_info = experiments_results.get(0);
+		TextInformations gold_info = experiments_results.get(0), current_text;
+		HashMap<String, Double> gerbil_gold, gerbil_current;
 		
 		for(int cal = 1; cal < experiments_results.size(); cal++)
 		{
+			current_text = experiments_results.get(cal);
+			
+			// get M_1 Symbol Average over all Sentences
+			current_text.getSymbol_count();
+			
+			// get M_2 Error symbol distribution in the text
+			current_text.getSymbol_error_dist();			
+			
+			// get M_3 Syntactic error Distribution over all Sentence
+			current_text.getSyn_error_dist();
+			
+			// get M_4 Word Distribution over all Sentences
+			current_text.getWords_occurr_distr();
+			
+			// get M_5 POS-Tags Distribution over all Sentences
+			current_text.getPos_tags_dist();
+			
+			// get M_6 Entity Distribution over all Sentence
+			current_text.getAnnotation_dist();
+			
+			
+			/**/
+			// get M_GERBIL
+			gerbil_current = current_text.getMetrics_GERBIL();
+			
+			//Get GERBIL key values
+			ArrayList<String> keys = new ArrayList<String>(gerbil_current.keySet());
+			
+			for (String key : keys) 
+			{
+				gerbil_current.get(key);
+			}
+			
 			//calculate the differences between gold's and the vector's elements (kl-div and quad error)
 			
 			//then do cos_distance
@@ -268,10 +308,14 @@ public class Main
 	}
 	
 	
+	//##################################################################################
+	//#################################### EXAMPLE #####################################
+	//##################################################################################
+	
 	/**
-	 * Process pipeline
+	 * RUN IT!
 	 * @param args
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception 
 	{	

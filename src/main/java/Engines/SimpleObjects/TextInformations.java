@@ -25,13 +25,13 @@ public class TextInformations
 	private int symbol_count = 0;					//USED
 	private int symbol_count_no_ws = 0;				//USED
 	
-	private HashMap<String, Double> metrics_GERBIL = new HashMap<String, Double>();
-	private HashMap<String, Integer> words_distribution = new HashMap<String, Integer>();
-	private HashMap<Integer, Integer> words_occurr_distr = new HashMap<Integer, Integer>();
-	private HashMap<Integer, Integer> annotation_dist = new HashMap<Integer, Integer>();
-	private HashMap<String, Integer> syn_error_dist = new HashMap<String, Integer>();
-	private HashMap<String, Integer> pos_tags_dist = new HashMap<String, Integer>();
-	HashMap<Character, Integer> symbol_error_dist = new HashMap<Character, Integer>();
+	private HashMap<String, Double> metrics_GERBIL = new HashMap<String, Double>();			//USED
+	private HashMap<String, Integer> words_distribution = new HashMap<String, Integer>();	//USED
+	private HashMap<Integer, Integer> words_occurr_distr = new HashMap<Integer, Integer>();	//USED
+	private HashMap<Integer, Integer> annotation_dist = new HashMap<Integer, Integer>();	//USED
+	private HashMap<String, Integer> syn_error_dist = new HashMap<String, Integer>();		//USED
+	private HashMap<String, Integer> pos_tags_dist = new HashMap<String, Integer>();		//USED
+	HashMap<Character, Integer> symbol_error_dist = new HashMap<Character, Integer>();		//USED
 	
 	/**
 	 * This constructor store the original resource file name
@@ -198,4 +198,6 @@ public class TextInformations
 	public void setSymbol_error_dist(HashMap<Character, Integer> symbol_error_dist) {
 		this.symbol_error_dist = symbol_error_dist;
 	}
+	
+	
 }
