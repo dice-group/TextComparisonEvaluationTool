@@ -40,6 +40,16 @@ import AnnotedText2NIF.IOContent.TextWriter;
 @Ignore
 public class AnnotedTextToNIFConverter 
 {
+	static LinkedList<DefinitionObject> defObjList = new LinkedList<DefinitionObject>();
+	
+	//#############################################################################
+	//############################# CONSTRUCTORS ##################################
+	//#############################################################################
+	
+	public AnnotedTextToNIFConverter()
+	{
+		defObjList = new LinkedList<DefinitionObject>();
+	}
 	
 	//#############################################################################
 	//############################ USAGE METHODS ##################################
@@ -83,6 +93,7 @@ public class AnnotedTextToNIFConverter
 	 */
 	public static String createNIFString(String input, boolean isText) throws IOException
 	{
+		resetDefObjList();
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		LinkedList<DefinitionObject> DOList = new LinkedList<DefinitionObject>();
 		
@@ -91,6 +102,8 @@ public class AnnotedTextToNIFConverter
 		}else{
 			DOList = gai.getAnnotationsOfFile(input, gai);
 		}
+		
+		setDefObjList(DOList);
 		
 		Document document = new DocumentImpl(gai.getNot_annot_text(), "http://example.org/test_document");
 		
@@ -116,6 +129,7 @@ public class AnnotedTextToNIFConverter
 	 */
 	public static String createNIFStringByList(LinkedList<String> input, GatherAnnotationInformations gai) throws IOException
 	{
+		resetDefObjList();
 		LinkedList<DefinitionObject> DOList = new LinkedList<DefinitionObject>();
 		List<Document> documents = new ArrayList<Document>();
 		Document document;
@@ -123,6 +137,7 @@ public class AnnotedTextToNIFConverter
 		for(int k = 0; k < input.size(); k++)
 		{
 			DOList = gai.gatherDefsFast(input.get(k));
+			addToDefObjList(DOList);
 			document = new DocumentImpl(gai.getNot_annot_text(), "http://example.org/document_"+(k+1));
 			
 			for(DefinitionObject dobj : DOList) document.addMarking(createMarkingNamedEntity(dobj));
@@ -158,9 +173,25 @@ public class AnnotedTextToNIFConverter
 	 * @return path of the nif file
 	 * @throws IOException
 	 */
-	public static String getNIFFileBySentences(LinkedList<String> input, String out_file_path, GatherAnnotationInformations gai) throws IOException
+	public String getNIFFileBySentences(LinkedList<String> input, String out_file_path, GatherAnnotationInformations gai) throws IOException
 	{
 		return TextWriter.fileWriter(createNIFStringByList(input, gai), out_file_path);
+	}
+	
+	//#############################################################################
+	//###################### GETTERS, SETTERS & EDITS #############################
+	//#############################################################################
+
+	public static void setDefObjList(LinkedList<DefinitionObject> defObjList) {
+		AnnotedTextToNIFConverter.defObjList = defObjList;
+	}
+	
+	public static void addToDefObjList(LinkedList<DefinitionObject> defObjList) {
+		defObjList.addAll(defObjList);
+	}
+	
+	public static void resetDefObjList() {
+		AnnotedTextToNIFConverter.defObjList = new LinkedList<DefinitionObject>();
 	}
 	
 	//#############################################################################

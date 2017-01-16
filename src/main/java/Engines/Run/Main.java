@@ -106,6 +106,9 @@ public class Main
 			
 			//create set and map
 			WordFrequencyEngine wfe = new WordFrequencyEngine();
+			
+			//init NIF class
+			AnnotedTextToNIFConverter attnifc = new AnnotedTextToNIFConverter();
 
 			//Multiple items for the experiment
 			LinkedList<String> datasets = new LinkedList<String>(/*Arrays.asList("DBpediaSpotlight")*/);
@@ -119,6 +122,8 @@ public class Main
 			
 			//*************************************************************************************************************************************************
 			//CLEANING
+			System.out.println("CLEANING STARTED!");
+			
 			/* M_2: symbolische Fehler im Text [STORED] */ 
 			text_half_cleaned = StanfordSegmentatorTokenizer.formatCleaned(dp.cleanErrorsAndParenthesis(texts_raws.getLast()));	//Clean Step 1
 			tc.setErrors(dp.getErrors());	//collect errors
@@ -128,6 +133,7 @@ public class Main
 			
 			//*************************************************************************************************************************************************
 			//PROCESSING
+			System.out.println("PROCESSING STARTED!");
 			System.out.println("DISTRIBUTION ORDERED BY KEYVALUE (most left vertical list)");
 			
 			//get sentences and gather words
@@ -136,7 +142,7 @@ public class Main
 			
 			/* M_3: Syntactic error Distribution over all Sentence [STORED] */
 			gai.setSyntax_error_dist(DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language));
-			file = new File(AnnotedTextToNIFConverter.getNIFFileBySentences(sentences_cleaned, out_file_path, gai));
+			file = new File(attnifc.getNIFFileBySentences(sentences_cleaned, out_file_path, gai));
 			text_info.setSyn_error_dist(gai.getSyntax_error_dist());
 			
 			//calculate word frequency
@@ -146,7 +152,7 @@ public class Main
 			pos_tags_dist = sst.countPosTagsOccourence(sst.getTokens());
 			text_info.setPos_tags_dist(pos_tags_dist);
 			
-			
+			System.out.println("URL CONTROL STARTED!");
 			/*
 			 * ATTENTION: 
 			 * This part takes time because of the URL real time control

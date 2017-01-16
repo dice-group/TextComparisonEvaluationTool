@@ -93,7 +93,6 @@ public class TextConversion
 								Character.isLowerCase(old) && Character.isAlphabetic(old) && 						// Check previous and next value is a lower case letter to fix cases like rai.se => raise
 								Character.isLowerCase(chars_in[k+1]) && Character.isAlphabetic(chars_in[k+1]))
 					{
-						System.out.println("Call_1: "+c);
 						DistributionProcessing.calcDistChar(errors, c);
 					}else{																							// DEFAUL add space+nonAlnum+space
 						out += c;
@@ -110,7 +109,6 @@ public class TextConversion
 							Character.isLowerCase(old) && Character.isAlphabetic(old) && 							// Check previous and next value is a lower case letter to fix cases like rai.se => raise
 							Character.isLowerCase(chars_in[k+1]) && Character.isAlphabetic(chars_in[k+1]))
 					{
-					System.out.println("Call_2: "+c);
 					DistributionProcessing.calcDistChar(errors, c);
 					}else{																							// DEFAUL add space+nonAlnum+space
 						out += ' ';
@@ -132,7 +130,6 @@ public class TextConversion
 					out += c;
 				}
 			}else{																									// Ignore all other signs
-				System.out.println("Call_4: "+c);
 				DistributionProcessing.calcDistChar(errors, c);
 			}
 			old = c;
