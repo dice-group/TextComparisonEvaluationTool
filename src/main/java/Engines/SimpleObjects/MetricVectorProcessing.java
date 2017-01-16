@@ -12,6 +12,7 @@ import java.util.Set;
 
 import Engines.Distances.CosDistance;
 import Engines.Distances.QuadError;
+import Engines.KLDiv.KullbackLeiblerDivergenz;
 
 /**
  * This class gather all informations for a the necessary vector type by a given TextInformations object.
@@ -64,7 +65,7 @@ public class MetricVectorProcessing
 		
 		// 10 value = 6 non-gerbil metrics + 4 gerbil metrics 
 		zero_vector = new ArrayList<Double>(
-				Collections.nCopies(ngm_count+insertion.getMetrics_GERBIL().keySet().size(), 0.0));
+				Collections.nCopies(ngm_count+insertion.getMetrics_GERBIL().keySet().size(), epsilon));
 	}
 	
 	//##################################################################################
@@ -85,16 +86,13 @@ public class MetricVectorProcessing
 		ArrayList<Double> distance_vector = new ArrayList<Double>();
 		double[] gm;
 		
-		//TODO wenn ein key nicht auftaucht wie behandel ich das? Weil 0 values verboten sind? 
-		
 		// Gerbil metrics (6 metrics currently) ATTENTION add more right here if you need them
 		distance_vector.add(QuadError.calcQE(v1.symbol_average, v2.symbol_average));
-		distance_vector.add(c);
-		distance_vector.add(c);
-		distance_vector.add(c);
-		distance_vector.add(c);
-		distance_vector.add(c);
-		
+		distance_vector.add(KullbackLeiblerDivergenz.KLDivergenceTI(v1.symbol_error_dist, v2.symbol_error_dist));
+		distance_vector.add(KullbackLeiblerDivergenz.KLDivergenceTI(v1.syntactic_error_dist, v2.syntactic_error_dist));
+		distance_vector.add(KullbackLeiblerDivergenz.KLDivergenceTI(v1.word_occurrence_dist, v2.word_occurrence_dist));
+		distance_vector.add(KullbackLeiblerDivergenz.KLDivergenceTI(v1.pos_tags_dist, v2.pos_tags_dist));
+		distance_vector.add(KullbackLeiblerDivergenz.KLDivergenceTI(v1.annotated_entity_dist, v2.annotated_entity_dist));
 		
 		// Gerbil metrics (4 metrics currently)
 		ArrayList<String> keys = new ArrayList<String>(v1.gerbil_metrics.keySet());

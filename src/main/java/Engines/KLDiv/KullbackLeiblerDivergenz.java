@@ -3,21 +3,29 @@ package Engines.KLDiv;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * This class calculate the Kullback-Leibler divergence in various ways.
+ * @author TTurke
+ *
+ */
 public class KullbackLeiblerDivergenz 
 {	
 	static double epsilon = 0.00000001;
 	
+	//##################################################################################
+	//################################# USAGE METHODS ##################################
+	//##################################################################################
+	
 	/**
 	 * This method takes 2 Maps (for exam. HashMap) of comparable distributions of 2 texts and a set of key names depending on 
-	 * for exam. distribution step labels.
+	 * for exam. distribution step labels and calculate the Kullback-Leibler divergence 
 	 * @param sharedKeys
 	 * @param s1
 	 * @param s2
-	 * @return kl divergence
+	 * @return divergence decimal
 	 */
 	public static double KLDivergenceMS(Set<String> sharedKeys, Map<String,Double> s1, Map<String,Double> s2)
 	{
@@ -40,80 +48,48 @@ public class KullbackLeiblerDivergenz
 	}
 	
 	/**
-	 * This method takes 2 lists of comparable distributions of 2 texts.
+	 * This method takes 2 Maps <T, Integer> of comparable distributions of 2 texts 
+	 * and calculate the Kullback-Leibler divergence 
 	 * @param s1
 	 * @param s2
-	 * @return the kl divergence
+	 * @return divergence decimal
 	 */
-	public static double KLDivergencePreOrderedLists(List<Double> s1, List<Double> s2)
+	public static <T> double KLDivergenceTI(Map<T,Integer> s1, Map<T,Integer> s2)
 	{
-		// both lists have the containing values sorted the same like having 
-		// a invisible shared key list over both of them
+		Set<T> all_keys = new HashSet<T>(); 
 		
-		if(s2.size() >=  s1.size())
-		{			
-			double kld = 0.0;
-			
-			for(int i = 0; i < s1.size(); i++)
-			{
-				if (s1.get(i) == 0) {continue;}
-		        if (s2.get(i) == 0.0) {continue;}
-		        
-		        kld += s1.get(i) * Math.log((s1.get(i)/s2.get(i)));
-			}
-			return kld;
-		}
-		return Double.NaN;
-	}
-	
-	
-	//TODO KL Div kritisch => value kicken oder halten?
-	public static double KLDivergenceMSIN(Map<String,Integer> s1, Map<String,Integer> s2)
-	{
-		Set<String> all_keys = new HashSet<String>(); 
-				
-		for(String key : s1.keySet()) all_keys.add(key);
-		for(String key : s2.keySet()) all_keys.add(key);
+		all_keys = createFullKeySetT2I(s1, s2);
+		
 		
 		double kld = 0.0, v1 = Double.NaN, v2 = Double.NaN;
 		
-		for(String key : all_keys)
+		for(T key : all_keys)
 		{
-	        if(s1.containsKey(key))
+			//check up key 1
+	        if(s1.containsKey(key) && s1.get(key) != 0)
 	        {
-	        	if (s1.get(key) == 0) 
-	        	{
-	        		v1 = epsilon;
-	        	}else
-	        	{
-	        		v1 = s1.get(key);
-	        	}
+	        	v1 = s1.get(key);
 	        	
 	        }else{
 	        	v1 = epsilon;
 	        }
 	        
-	        if(s2.containsKey(key))
+	        //check up key 2
+	        if(s2.containsKey(key) && s2.get(key) != 0)
 	        {
-	        	 if (s2.get(key) == 0) 
-	        	 {
-	        		 v2 = epsilon;
-	        	 }else
-	        	 {
-	        		 v2 = s2.get(key);
-	        	 }
+	        	v2 = s2.get(key);
 	        	
 	        }else{
-	        	v2 = epsilon;
+	        	v2 = 0;
 	        }
-
-	        System.out.println("Key: "+key);
-	        System.out.println("From: "+v1);
-	        System.out.println("To: "+v2);
-	        System.out.println("KL = "+(v1 * Math.log(v1/v2)));
-	        System.out.println();
 	        
-	        kld += (v1 * Math.log(v1/v2));
+	        //care dividing with zero
+	        if(v2 == 0)
+	        {
+	        	kld += (v1 * (Math.log(v1)/Math.log(v2)));
+	        }else{
+	        	kld += (v1 * Math.log(v1/v2));
+	        }
 	        
 	        //Reset
 	        v1 = Double.NaN;
@@ -123,6 +99,93 @@ public class KullbackLeiblerDivergenz
 		return kld;
 	}
 	
+	/**
+	 * This method takes 2 Maps <T, Double> of comparable distributions of 2 texts 
+	 * and calculate the Kullback-Leibler divergence 
+	 * @param s1
+	 * @param s2
+	 * @return divergence decimal
+	 */
+	public static <T> double KLDivergenceTD(Map<T,Double> s1, Map<T,Double> s2)
+	{
+		Set<T> all_keys = new HashSet<T>(); 
+		
+		all_keys = createFullKeySetT2D(s1, s2);
+		
+		
+		double kld = 0.0, v1 = Double.NaN, v2 = Double.NaN;
+		
+		for(T key : all_keys)
+		{
+			//check up key 1
+	        if(s1.containsKey(key) && s1.get(key) != 0)
+	        {
+	        	v1 = s1.get(key);
+	        	
+	        }else{
+	        	v1 = epsilon;
+	        }
+	        
+	        //check up key 2
+	        if(s2.containsKey(key) && s2.get(key) != 0)
+	        {
+	        	v2 = s2.get(key);
+	        	
+	        }else{
+	        	v2 = 0;
+	        }
+	        
+	        //care dividing with zero
+	        if(v2 == 0)
+	        {
+	        	kld += (v1 * (Math.log(v1)/Math.log(v2)));
+	        }else{
+	        	kld += (v1 * Math.log(v1/v2));
+	        }
+	        
+	        //Reset
+	        v1 = Double.NaN;
+	        v2 = Double.NaN;
+		}
+		
+		return kld;
+	}
+	
+	/**
+	 * This method calculate the full key set for 2 Maps <T, Integer>
+	 * @param s1
+	 * @param s2
+	 * @return key set <T>
+	 */
+	public static <T> Set<T> createFullKeySetT2I(Map<T,Integer> s1, Map<T,Integer> s2)
+	{
+		Set<T> all_keys = new HashSet<T>(); 
+		
+		for(T key : s1.keySet()) all_keys.add(key);
+		for(T key : s2.keySet()) all_keys.add(key);
+		
+		return all_keys;
+	}
+	
+	/**
+	 * This method calculate the full key set for 2 Maps <T, Double>
+	 * @param s1
+	 * @param s2
+	 * @return key set <T>
+	 */
+	public static <T> Set<T> createFullKeySetT2D(Map<T,Double> s1, Map<T,Double> s2)
+	{
+		Set<T> all_keys = new HashSet<T>(); 
+		
+		for(T key : s1.keySet()) all_keys.add(key);
+		for(T key : s2.keySet()) all_keys.add(key);
+		
+		return all_keys;
+	}
+	
+	//##################################################################################
+	//#################################### EXAMPLE #####################################
+	//##################################################################################
 	
 	/*
 	 * EXAMPLES [WORKS]
@@ -151,8 +214,8 @@ public class KullbackLeiblerDivergenz
 		textValuesA.put("err", 8);		textValuesB.put("err", 9);
 		
 		System.out.println("Die KL-Divergenz SDO beträgt: "+KLDivergenceMS(textKeys, text1Values, text2Values));
-		System.out.println();
-		System.out.println("Die KL-Divergenz SIN beträgt: "+KLDivergenceMSIN(textValuesA, textValuesB));
+		System.out.println("Die KL-Divergenz TD beträgt: "+KLDivergenceTD(text1Values, text2Values));
+		System.out.println("Die KL-Divergenz TI beträgt: "+KLDivergenceTI(textValuesA, textValuesB));
 		
 		
 		//NEW EXAMPLE 2
@@ -165,7 +228,8 @@ public class KullbackLeiblerDivergenz
 		text1Values.put("a", 0.2);		text2Values.put("a", 0.5);
 		text1Values.put("b", 0.8);		text2Values.put("b", 0.5);
 		
-		System.out.println("Die KL-Divergenz beträgt: "+KLDivergenceMS(textKeys, text1Values, text2Values));
+		System.out.println("Die KL-Divergenz SDO beträgt: "+KLDivergenceMS(textKeys, text1Values, text2Values));
+		System.out.println("Die KL-Divergenz TD beträgt: "+KLDivergenceTD(text1Values, text2Values));
 		
 		//NEW EXAMPLE 3
 		textKeys = new HashSet<String>();
@@ -177,7 +241,8 @@ public class KullbackLeiblerDivergenz
 		text1Values.put("a", 0.005);		text2Values.put("a", 0.01);
 		text1Values.put("b", 0.995);		text2Values.put("b", 0.99);
 		
-		System.out.println("Die KL-Divergenz beträgt: "+KLDivergenceMS(textKeys, text1Values, text2Values));
+		System.out.println("Die KL-Divergenz SDO beträgt: "+KLDivergenceMS(textKeys, text1Values, text2Values));
+		System.out.println("Die KL-Divergenz TD beträgt: "+KLDivergenceTD(text1Values, text2Values));
 		
 		//0.15293250129808114
 	}
