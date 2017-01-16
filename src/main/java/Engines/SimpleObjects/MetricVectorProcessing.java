@@ -1,15 +1,9 @@
 package Engines.SimpleObjects;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
-
 import Engines.Distances.CosDistance;
 import Engines.Distances.QuadError;
 import Engines.KLDiv.KullbackLeiblerDivergenz;
@@ -72,17 +66,21 @@ public class MetricVectorProcessing
 	//################################# USAGE METHODS ##################################
 	//##################################################################################
 	
-	
+	/*
+	 * TODO FURTHER PROGRAMMING:
+	 * implement separated list for non GERBIL metrics and the opposite, 
+	 * because you can add easier add more metrics for both list 
+	 * and calculate the distance vector later.
+	 * => list1.add(list2); 
+	 */
+	/**
+	 * This method allow tho generate the distance vector by 
+	 * @param v1
+	 * @param v2
+	 * @return
+	 */
 	public static ArrayList<Double> calcDistanceVector(MetricVectorProcessing v1, MetricVectorProcessing v2)
 	{
-		/*
-		 * TODO FURTHER PROGRAMMING:
-		 * implement separated list for non GERBIL metrics and the opposite, 
-		 * because you can add easier add more metrics for both list 
-		 * and calculate the distance vector later.
-		 * => list1.add(list2); 
-		 */
-		
 		ArrayList<Double> distance_vector = new ArrayList<Double>();
 		double[] gm;
 		
@@ -111,7 +109,6 @@ public class MetricVectorProcessing
 	 * Find a way to merge useOrRepalceDouble and useOrRepalceInteger class,
 	 * because they are similar in general.
 	 */
-	
 	/**
 	 * This method check 2 maps about a key is existing and return there values, 
 	 * and if some map hasn't the key it set a zero for it.
@@ -186,7 +183,6 @@ public class MetricVectorProcessing
 		}
 	}
 	
-	
 	/**
 	 * This method rate a distance vector towards the zero vector by calculation the cosine distance between them.
 	 * @param dist_vec
@@ -198,11 +194,13 @@ public class MetricVectorProcessing
 		return CosDistance.cosineDistanceDecimal(dist_vec, zero_vec);
 	}
 	
-	
 	//##################################################################################
 	//############################## GETTERS AND SETTERS ###############################
 	//##################################################################################
 	
+	public ArrayList<Double> getZero_vector() {
+		return zero_vector;
+	}
 	
 	//##################################################################################
 	//#################################### EXAMPLE #####################################
@@ -213,5 +211,4 @@ public class MetricVectorProcessing
 		
 		
 	}
-
 }

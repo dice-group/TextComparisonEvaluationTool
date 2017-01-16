@@ -35,11 +35,6 @@ import Engines.Enums.Matching;
 public class Main 
 {
 	/*
-	 * GENERAL
-	 * 
-	 * IMPL
-	 * TODO Calc cos abstand 2er Vektoren
-	 * 
 	 * JUNIT
 	 * TODO Junit Test für Wortzähler
 	 * TODO Junit Test für KL-Div
@@ -190,6 +185,7 @@ public class Main
 			text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_cleaned.size()));
 
 			
+			//TODO später für gold text ausschließen da wir den aus Zeitgründen separat vorher berechnen müssen
 			/* M_GERBIL [STORED] */
 			JSONObject jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
 			text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
@@ -249,62 +245,31 @@ public class Main
 		//*************************************************************************************************************************************************
 		//CALCULATION
 		
-		//TODO create final calculation maybe as separate method
-		TextInformations gold_info = experiments_results.get(0), current_text;
-		HashMap<String, Double> gerbil_gold, gerbil_current;
+		TextInformations gold_info = experiments_results.get(0);
+		MetricVectorProcessing gold_nvp = new MetricVectorProcessing(gold_info, 6);
+		MetricVectorProcessing current_nvp;
+		ArrayList<Double> current_dist_vec;
 		
 		for(int cal = 1; cal < experiments_results.size(); cal++)
 		{
-			current_text = experiments_results.get(cal);
+			//get current metrics
+			current_nvp = new MetricVectorProcessing(experiments_results.get(cal), 6);
 			
-			// get M_1 Symbol Average over all Sentences
-			current_text.getSymbol_count();
-			
-			// get M_2 Error symbol distribution in the text
-			current_text.getSymbol_error_dist();			
-			
-			// get M_3 Syntactic error Distribution over all Sentence
-			current_text.getSyn_error_dist();
-			
-			// get M_4 Word Distribution over all Sentences
-			current_text.getWords_occurr_distr();
-			
-			// get M_5 POS-Tags Distribution over all Sentences
-			current_text.getPos_tags_dist();
-			
-			// get M_6 Entity Distribution over all Sentence
-			current_text.getAnnotation_dist();
-			
-			
-			/**/
-			// get M_GERBIL
-			gerbil_current = current_text.getMetrics_GERBIL();
-			
-			//Get GERBIL key values
-			ArrayList<String> keys = new ArrayList<String>(gerbil_current.keySet());
-			
-			for (String key : keys) 
-			{
-				gerbil_current.get(key);
-			}
-			
-			//calculate the differences between gold's and the vector's elements (kl-div and quad error)
+			//calculate the differences between gold's and the vector's metrics
+			current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_nvp, current_nvp);
 			
 			//then do cos_distance
+			MetricVectorProcessing.rate(current_dist_vec, gold_nvp.getZero_vector());
 			
-			//maybe store the results
+			//TODO store the results into files: (f1) metrics vector and (f2) the rating!
 		}
 		
 		
 		
 		//*************************************************************************************************************************************************
 		//PRESENTATION
-		/* TODO 	
-		 * hier werden alle inhalte zu Vektoren umgewandelt und dann schrittweise via KL-Div oder QuadError verarbeitet 
-		 * am ende erhält man eine Zahl welche mit dem Cosinus abstand über dem ergebnisvektor berechnet wird.
-		 */ 	
 		
-		//TODO store all results and the other content excepting the texts inside a textfile!
+		
 	}
 	
 	
@@ -339,12 +304,13 @@ public class Main
 		}
 
 		
-		String[] additional_files = new String[5];
+//		String[] additional_files = new String[5];
+		String[] additional_files = new String[1];
 		additional_files[0] = gold_name;
-		additional_files[1] = fragment_name;
-		additional_files[2] = "epoch15.txt";
-		additional_files[3] = "epoch30.txt";
-		additional_files[4] = "epoch70Final.txt";
+//		additional_files[1] = fragment_name;
+//		additional_files[2] = "epoch15.txt";
+//		additional_files[3] = "epoch30.txt";
+//		additional_files[4] = "epoch70Final.txt";
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
 		LinkedList<String> filenames = new LinkedList<String>(Arrays.asList(additional_files));
@@ -353,7 +319,7 @@ public class Main
 		String[] default_annotators = new String[4/*5*/];
 		default_annotators[0] = Annotators.AIDA.name();
 		default_annotators[1] = Annotators.WAT.name();
-//		default_annotators[2] = Annotators.FOX.name();
+		default_annotators[2] = Annotators.FOX.name();
 		default_annotators[2] = "TagMe 2";
 		default_annotators[3] = "DBpedia Spotlight";
 		

@@ -2,6 +2,7 @@ package Engines.Distances;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -67,8 +68,11 @@ public class CosDistance
 	 */
 	public static void main(String[] args) 
 	{
+		double epsilon = 0.00000001;
 		ArrayList<Double> v1 = new ArrayList<Double>(Arrays.asList(1.0,2.0,3.0));
 		ArrayList<Double> v2 = new ArrayList<Double>(Arrays.asList(3.0,5.0,7.0));
+		ArrayList<Double> zero_vector = new ArrayList<Double>(
+				Collections.nCopies(3, epsilon));
 		
 		System.out.println(CosDistance.cosineDistanceDecimal(v1, v2));	//Desired round about 0.002585
 		
@@ -81,6 +85,12 @@ public class CosDistance
 		v2 = new ArrayList<Double>(Arrays.asList(3.0,5.0,7.0));
 		
 		System.out.println(CosDistance.cosineDistanceDecimal(v1, v2));	//Should cause an ERROR => NaN
+		
+		v1 = new ArrayList<Double>(Arrays.asList(3.0,5.0,7.0));
+		v2 = new ArrayList<Double>(Arrays.asList(0.0,0.0,0.0));
+		
+		
+		System.out.println(CosDistance.cosineDistanceDecimal(v1, zero_vector));	//Should be okay
 	}
 
 }
