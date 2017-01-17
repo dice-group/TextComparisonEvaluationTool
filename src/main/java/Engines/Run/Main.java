@@ -79,8 +79,6 @@ public class Main
 		{	
 			nameNIFFile.add(filenames.get(k).replace(".txt", ".ttl"));
 			resourceFilesAbsolutePaths.add(tr.getResourceFileAbsolutePath(filenames.get(k)));
-			
-			//TODO get a snippet (40 sentences random picked) from Gold text because it is to huge to proceed
 			texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
 			
 			String out_file_path = tr.getResourceFileAbsolutePath(filenames.get(k)).replace(filenames.get(k), nameNIFFile.getLast());
@@ -125,8 +123,10 @@ public class Main
 			System.out.println("CLEANING STARTED!");
 			
 			/* M_2: symbolische Fehler im Text [STORED] */ 
+			System.out.println("Part 1");
 			text_half_cleaned = StanfordSegmentatorTokenizer.formatCleaned(dp.cleanErrorsAndParenthesis(texts_raws.getLast()));	//Clean Step 1
 			tc.setErrors(dp.getErrors());	//collect errors
+			System.out.println("Part 2");
 			text_cleaned = tc.decompose(text_half_cleaned);	//Clean Step 2
 			symbol_error_dist = tc.getErrors();	//collect errors
 			text_info.setSymbol_error_dist(symbol_error_dist);	//store errors
