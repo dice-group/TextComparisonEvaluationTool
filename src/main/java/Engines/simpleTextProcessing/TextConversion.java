@@ -135,7 +135,7 @@ public class TextConversion
 			}
 			old = c;
 			
-			if((k % 100000) == 0 ) System.out.println("Chars Passed: "+(k+1));
+			if((k % 100000) == 0 ) System.out.println("Chars Passed: "+k);
 		}
 		return new String(out).trim();
 	}	
