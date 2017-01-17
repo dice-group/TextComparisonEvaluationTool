@@ -69,6 +69,7 @@ public class TextConversion
 	public String decompose(String text)
 	{
 		char[] chars_in = text.toCharArray();
+		System.out.println("Chars to pass: "+chars_in.length);
 		String out = "";
 		char old = ' ';
 		char c = ' ';
@@ -133,6 +134,8 @@ public class TextConversion
 				DistributionProcessing.calcDistChar(errors, c);
 			}
 			old = c;
+			
+			if((k % 100000) == 0 ) System.out.println("Chars Passed: "+(k+1));
 		}
 		return new String(out).trim();
 	}	

@@ -56,6 +56,7 @@ public class DevelishParenthesis
 			//now sort all into stack and clean them up
 			input_chars = input.toCharArray();
 			
+			System.out.println("Start error collecting!");
 			for (int i = 0; i < input_chars.length; i++) 
 			{
 				char current = input_chars[i];
@@ -68,6 +69,7 @@ public class DevelishParenthesis
 				}	
 			}
 			
+			System.out.println("Start error cleaning!");
 			while(!index_stack.isEmpty())
 			{
 				index = index_stack.pop();
