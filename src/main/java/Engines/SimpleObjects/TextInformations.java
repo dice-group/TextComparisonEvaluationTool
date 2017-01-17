@@ -43,17 +43,6 @@ public class TextInformations
 		this.generation_date = Timestamp.getCurrentTime();
 	}
 	
-	/**
-	 * Simply return a String of a given local date object
-	 * @param ld
-	 * @return Date as String
-	 */
-	public String getLocalDateAsString(LocalDateTime ld)
-	{
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-		return dtf.format(ld);
-	}
-	
 	//##################################################################################
 	//################## GETTERS, SETTERS, ADDERS and EDITS ############################
 	//##################################################################################

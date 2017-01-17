@@ -4,6 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.LinkedList;
+
+import Engines.SimpleObjects.ResultObject;
 
 /**
  * This class handle all file creation and filling for the program
@@ -13,7 +16,7 @@ import java.io.IOException;
 public class TextWriter 
 {
 	/**
-	 * This method write the given text to a xml-file in the parent folder with a given name
+	 * This method write the given text to a file in the parent folder with a given name
 	 * @param writeable
 	 * @param path
 	 */
@@ -69,14 +72,45 @@ public class TextWriter
 		return file;
 	}
 	
-	
 	/**
-	 * This method return the source folder path
-	 * @return path String
+	 * This method write all ratings to separate files!
+	 * @param ros
 	 */
-	public static String programFolderPath()
+	public static void writeRating(LinkedList<ResultObject> ros)
 	{
-		return TextWriter.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		int m = 0;
+		
+		for (ResultObject ro : ros) 
+		{
+			m = 1;
+			try {
+				
+				File file = new File(ro.getRatingPath());
+
+				if (!file.exists()) 
+				{
+					file.createNewFile();
+				}
+				
+				BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+				
+				for (int k = 0; k < ro.getDistance_vector().size(); k++) 
+				{
+					if(k < 6){
+						bw.write("M_"+(k+1)+": "+ro.getDistance_vector().get(k));
+					}else{
+						bw.write("GERBIL_"+m+": "+ro.getDistance_vector().get(k));
+						m++;
+					}
+					
+				}
+				bw.write("\nRating: "+ro.getRating());
+				bw.close();
+				
+				System.out.println(file.getAbsolutePath());
+				
+			} catch (IOException ioe) { ioe.printStackTrace(); }
+		}
 	}
 	
 	/**
@@ -100,16 +134,5 @@ public class TextWriter
     		e.printStackTrace();
 
     	}
-	}
-	
-	/**
-	 * This method create a turtle file path by a given name pointing to the directory of the program
-	 * @param filename
-	 * @throws IOException 
-	 */
-	public static String createFilePathByName(String filename) throws IOException
-	{
-		return  new File(".").getCanonicalPath()+"\\"+filename;
-		
 	}
 }

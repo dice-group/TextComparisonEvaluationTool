@@ -45,9 +45,8 @@ public class Main
 	 * TODO check documentations about correctness (author, description, parameters, return)
 	 */
 	
-	public static void pipeline(Language language, LinkedList<String> filenames, LinkedList<String> annotators, String exp_type, String matching_type) throws Exception
+	public static void pipeline(Language language, LinkedList<String> filenames, LinkedList<String> annotators, String exp_type, String matching_type, String rating_path) throws Exception
 	{
-		
 		//*************************************************************************************************
 		//*************************************************************************************************
 		//****************************************** PIPELINE *********************************************
@@ -71,6 +70,13 @@ public class Main
 		LinkedList<String> nameNIFFile = new LinkedList<String>();
 		LinkedList<String> resourceFilesAbsolutePaths = new LinkedList<String>();
 		LinkedList<String> texts_raws = new LinkedList<String>();
+		TextInformations gold_info;
+		MetricVectorProcessing gold_nvp;
+		MetricVectorProcessing current_nvp;
+		ArrayList<Double> current_dist_vec;
+		LinkedList<ResultObject> ros = new LinkedList<ResultObject>();
+		double rating = Double.NaN;
+		
 		
 		
 		//*************************************************************************************************************************************************
@@ -251,12 +257,11 @@ public class Main
 		//*************************************************************************************************************************************************
 		//CALCULATION
 		
-		TextInformations gold_info = experiments_results.get(0);
-		MetricVectorProcessing gold_nvp = new MetricVectorProcessing(gold_info, 6);
-		MetricVectorProcessing current_nvp;
-		ArrayList<Double> current_dist_vec;
+		gold_info = experiments_results.get(0);
+		gold_nvp = new MetricVectorProcessing(gold_info, 6);
 		
-		for(int cal = 1; cal < experiments_results.size(); cal++)
+		
+		for(int cal = 0; cal < experiments_results.size(); cal++)
 		{
 			//get current metrics
 			current_nvp = new MetricVectorProcessing(experiments_results.get(cal), 6);
@@ -265,17 +270,11 @@ public class Main
 			current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_nvp, current_nvp);
 			
 			//then do cos_distance
-			MetricVectorProcessing.rate(current_dist_vec, gold_nvp.getZero_vector());
-			
-			//TODO store the results into files: (f1) metrics vector and (f2) the rating!
+			rating = MetricVectorProcessing.rate(current_dist_vec, gold_nvp.getZero_vector());
+			ros.add(new ResultObject(rating, current_dist_vec, rating_path+"_"+(cal+1)+".txt"));
 		}
 		
-		
-		
-		//*************************************************************************************************************************************************
-		//PRESENTATION
-		
-		
+		TextWriter.writeRating(ros);
 	}
 	
 	
@@ -299,6 +298,7 @@ public class Main
 		String fragment_name = "BVFragment.txt";								//Bottom value text
 		String gold_path = tr.getResourceFileAbsolutePath(gold_name);
 		String fragment_path = gold_path.replace(gold_name, fragment_name);
+		String rating_out_path = gold_path.replace(gold_name, Timestamp.getLocalDateAsString(Timestamp.getCurrentTime())+"_rating");
 		
 		//If file is not created, just create a new one!
 		if (!new File(fragment_path).exists()) 
@@ -331,7 +331,8 @@ public class Main
 		
 		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(default_annotators));
 		
-		Main.pipeline(language, filenames, annotators, exp_type, matching_type);
+		
+		Main.pipeline(language, filenames, annotators, exp_type, matching_type, rating_out_path);
 	}
 
 }
