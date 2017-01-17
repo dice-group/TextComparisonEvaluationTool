@@ -86,11 +86,11 @@ public class MetricVectorProcessing
 		
 		// Gerbil metrics (6 metrics currently) ATTENTION add more right here if you need them
 		distance_vector.add(QuadError.calcQE(v1.symbol_average, v2.symbol_average));
-		distance_vector.add(KullbackLeiblerDivergenz.KLDivergenceTI(v1.symbol_error_dist, v2.symbol_error_dist));
-		distance_vector.add(KullbackLeiblerDivergenz.KLDivergenceTI(v1.syntactic_error_dist, v2.syntactic_error_dist));
-		distance_vector.add(KullbackLeiblerDivergenz.KLDivergenceTI(v1.word_occurrence_dist, v2.word_occurrence_dist));
-		distance_vector.add(KullbackLeiblerDivergenz.KLDivergenceTI(v1.pos_tags_dist, v2.pos_tags_dist));
-		distance_vector.add(KullbackLeiblerDivergenz.KLDivergenceTI(v1.annotated_entity_dist, v2.annotated_entity_dist));
+		distance_vector.add(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.symbol_error_dist, v2.symbol_error_dist));
+		distance_vector.add(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.syntactic_error_dist, v2.syntactic_error_dist));
+		distance_vector.add(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.word_occurrence_dist, v2.word_occurrence_dist));
+		distance_vector.add(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.pos_tags_dist, v2.pos_tags_dist));
+		distance_vector.add(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.annotated_entity_dist, v2.annotated_entity_dist));
 		
 		// Gerbil metrics (4 metrics currently)
 		ArrayList<String> keys = new ArrayList<String>(v1.gerbil_metrics.keySet());
