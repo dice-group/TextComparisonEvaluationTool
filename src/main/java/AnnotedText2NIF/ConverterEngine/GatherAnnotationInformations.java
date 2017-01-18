@@ -24,6 +24,7 @@ public class GatherAnnotationInformations
 	public static final String simpleRex = Pattern.quote("[[") + "(.*?)" + Pattern.quote("]]");				//allow inner brackets => [[outer text [[inner text]]
 	public static final String optimalRex = Pattern.quote("[[") + "([^\\[\\]]*)" + Pattern.quote("]]");		//denie inner brackets => [[url_entity_text]] or [[url_text|entity_text]]
 	
+	private HashMap<String, String> urls = new HashMap<String, String>(); 
 	private HashMap<String, Integer> syntax_error_dist = new HashMap<String, Integer>();
 	
 	//#############################################################################
@@ -85,13 +86,18 @@ public class GatherAnnotationInformations
 				//Url
 				url_part = content.replace(" ", "_");
 				
-				
-				if(URLControl.existURL(real_prefix+url_part))
+				if(hasUrl(url_part))
 				{
-					url = real_prefix+url_part;
+					url = getUrls().get(url_part);
 				}else{
-					url = dummy_prefix+url_part;
-					DistributionProcessing.calcDistString(syntax_error_dist, "URL_NOT_EX_ERROR");
+					if(URLControl.existURL(real_prefix+url_part))
+					{
+						url = real_prefix+url_part;
+					}else{
+						url = dummy_prefix+url_part;
+						DistributionProcessing.calcDistString(syntax_error_dist, "URL_NOT_EX_ERROR");
+					}
+					addUrl(url_part, url);
 				}
 				
 				//Definition object
@@ -128,12 +134,19 @@ public class GatherAnnotationInformations
 					//Url
 					url_part = matcher.group().substring(2, matcher.group().indexOf("|")).replace(" ", "_");
 					
-					if(URLControl.existURL(real_prefix+url_part))
+					
+					if(hasUrl(url_part))
 					{
-						url = real_prefix+url_part;
+						url = getUrls().get(url_part);
 					}else{
-						url = dummy_prefix+url_part;
-						DistributionProcessing.calcDistString(syntax_error_dist, "URL_NOT_EX");
+						if(URLControl.existURL(real_prefix+url_part))
+						{
+							url = real_prefix+url_part;
+						}else{
+							url = dummy_prefix+url_part;
+							DistributionProcessing.calcDistString(syntax_error_dist, "URL_NOT_EX_ERROR");
+						}
+						addUrl(url_part, url);
 					}
 					
 					//Entity
@@ -204,10 +217,28 @@ public class GatherAnnotationInformations
 		this.syntax_error_dist = syntax_error_dist;
 	}
 	
+	public HashMap<String, String> getUrls() {
+		return urls;
+	}
+
+	public void setUrls(HashMap<String, String> urls) {
+		this.urls = urls;
+	}
+	
+	public void addUrl(String key, String url) 
+	{
+		this.urls.put(key, url);
+	}
+	
+	public boolean hasUrl(String key)
+	{
+		return urls.containsKey(key);
+	}
+	
 	//#############################################################################
 	//############################### EXAMPLE #####################################
 	//#############################################################################
-	
+
 	/*
 	 * EXAMPLE of USE
 	 */
