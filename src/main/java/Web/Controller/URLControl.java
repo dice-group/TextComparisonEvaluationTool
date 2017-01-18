@@ -1,13 +1,11 @@
 package Web.Controller;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
-
-import org.jsoup.Jsoup;
 
 /**
  * This class is used to control the existence of an URL.
@@ -23,49 +21,47 @@ public class URLControl
 	 * @throws InterruptedException 
 	 * @throws IOException
 	 */
-	public static boolean existURL(String url_string) throws InterruptedException
-	{
-		// TODO to catch java.net.ConnectException: Connection timed out: connect
-		
+	public static boolean existURL(String url_string) throws IOException, InterruptedException
+	{	
 		/*
 		 * TODO ATTENTION: 
 		 * control the url is an entity not a placeholder or a page with a list of entities
 		 */
 		URL url;
-		boolean conExCeptionThrown = true;
+		int responseCode;
+		boolean conExCeptionThrown = true, exist = false;
 		
 		while(conExCeptionThrown)
 		{
-			
-			
-			try {
+			try 
+			{
 				url = new URL(url_string);
 				HttpURLConnection huc = (HttpURLConnection) url.openConnection();
 				huc.setRequestMethod("HEAD");
-
-				//TODO catch exception for url conn error
-				int responseCode = huc.getResponseCode();
+				responseCode = huc.getResponseCode();
 				
 				if (responseCode == 200) 
 				{
 					huc.disconnect();
-					return true;
+					exist = true;
 					
 				} else 
 				{
 					huc.disconnect();
-					return false;
+					exist = false;
 				}
-			} catch (SocketTimeoutException exception) 
+				
+				conExCeptionThrown = false;
+				
+			} catch (SocketTimeoutException | ConnectException exception) 
 			{
-				Thread.sleep(TimeUnit.MINUTES.toMillis(30));
+				Thread.sleep(TimeUnit.MINUTES.toMillis(2));
+				System.out.println("Socket or Connect Timeout Exception was thrown!");
 				continue;
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 		
+		return exist;
 	}
 	
 	//#############################################################################
@@ -75,7 +71,7 @@ public class URLControl
 	/*
 	 * EXAMPLE of USE
 	 */
-	public static void main(String[] args) throws IOException 
+	public static void main(String[] args) throws IOException, InterruptedException 
 	{
 		
 		String url1 = "https://en.wikipedia.org/wiki/trade_political_democratic_provincial_site";

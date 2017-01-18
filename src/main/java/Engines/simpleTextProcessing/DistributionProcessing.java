@@ -35,11 +35,11 @@ public class DistributionProcessing
 	 * @param language
 	 * @return Map of word count and the occurrence of this count value
 	 */
-	public static HashMap<Integer, Integer> getWPSDist(LinkedList<SentenceObject> sos, StanfordSegmentatorTokenizer sst, Language language)
+	public static HashMap<Integer, Integer> getWPSDist(LinkedList<SentenceObject> sos, Language language)
 	{
 		HashMap<Integer, Integer> distribution = new HashMap<Integer, Integer>();
 		
-		for (int i = 0; i < sos.size(); i++) calcDistInteger(distribution, sst.gatherWords(sos.get(i).getSentence(), language).size());
+		for (int i = 0; i < sos.size(); i++) calcDistInteger(distribution, StanfordTokenizer.gatherWords(sos.get(i).getSentence()).size());
 		return distribution;
 	}
 	

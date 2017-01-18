@@ -7,9 +7,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import Engines.Enums.Language;
 import Engines.SimpleObjects.PosTagObject;
-import Engines.simpleTextProcessing.*;
 
 /**
  * This class handle the word occurrence, frequency and the frequency percentage calculation. 
@@ -26,45 +24,6 @@ public class WordFrequencyEngine
 	{
 		map = new HashMap<String, Integer>();
 		set = new HashSet<String>();
-	}
-
-	/**
-	 * This method count word frequency inside a given text and store the informations inside the objects
-	 * global map variable.
-	 * @param text
-	 * @param sst
-	 * @param language
-	 */
-	public void gatherWordFrequencyByText(String text, StanfordSegmentatorTokenizer sst, Language language)
-	{
-		List<String> words = sst.gatherWords(text, language);
-		
-		boolean was_added = false;
-		
-		if(words.isEmpty() && words.size() < 1)
-		{
-			System.err.println("No text given! NullPointer in class WordFrequencyEngine.gatherWordFrequency(input)!");
-			System.exit(0);
-		}
-		
-		for(String current : words)
-		{
-			if(!StringUtils.isBlank(current) && !current.contains("RSB") && !current.contains("LSB"))
-			{
-				was_added = set.add(current); 
-			}
-			
-			if(was_added && !StringUtils.isBlank(current) && !current.contains("RSB") && !current.contains("LSB"))
-			{
-				map.put(current, 1);
-			}else{
-				
-				if(!StringUtils.isBlank(current) && !current.contains("RSB") && !current.contains("LSB"))
-				{
-					map.put(current, map.getOrDefault(current, 0) + 1);
-				}
-			}
-		}	
 	}
 	
 	/**

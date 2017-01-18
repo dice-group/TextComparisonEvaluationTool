@@ -30,29 +30,42 @@ public class CosDistance
 			double upper_value = 0.0;
 			double lower_left = 0.0, lower_right= 0.0;
 			double similarity, divider;
+			boolean bothAreZeroVec = true;
 			
-			for (int i = 0; i < v1.size(); i++)
+			for(int ix = 0; ix < v1.size(); ix++)
 			{
-				upper_value += (v1.get(i) * v2.get(i));
-				lower_left  += Math.pow(Math.abs(v1.get(i)), 2);
-				lower_right += Math.pow(Math.abs(v2.get(i)), 2);	
+				if(!(v1.get(ix).equals(0.0) && v1.get(ix).equals(v2.get(ix))))
+				{
+					bothAreZeroVec = false;
+				}
 			}
 			
-			divider = Math.sqrt(lower_left)*Math.sqrt(lower_right);
-			
-			//evade a dividing 0
-			if(divider > 0)
-			{
-				//calc cosin similarity 
-				similarity = upper_value/divider;
+			if(bothAreZeroVec){
+				return 0;
 			}else{
-				//set similarity 0 for 0 dividing 
-				similarity = 0;
+				
+				for (int i = 0; i < v1.size(); i++)
+				{
+					upper_value += (v1.get(i) * v2.get(i));
+					lower_left  += Math.pow(Math.abs(v1.get(i)), 2);
+					lower_right += Math.pow(Math.abs(v2.get(i)), 2);	
+				}
+				
+				divider = Math.sqrt(lower_left)*Math.sqrt(lower_right);
+				
+				//evade a dividing 0
+				if(divider > 0)
+				{
+					//calc cosin similarity 
+					similarity = upper_value/divider;
+				}else{
+					//set similarity 0 for 0 dividing 
+					similarity = 0;
+				}
+				
+				//return cosin dist
+				return 1.0 -similarity;
 			}
-			
-			//return cosin dist
-			return 1.0 -similarity;
-			
 		}else{
 			System.out.println("Vector size equality miss match!");
 			return Double.NaN;

@@ -43,9 +43,6 @@ public class JSONCollector
 				 */
 				if(jsa.getJSONObject(i).has("gerbil:microF1") && !jsa.getJSONObject(i).has("subExperimentOf"))
 				{
-//					System.out.println(jsa.getJSONObject(i).get("gerbil:dataset"));
-//					System.out.println(jsa.getJSONObject(i).get("gerbil:microF1"));
-					
 					value = SimpleRounding.round(jsa.getJSONObject(i).getJSONObject("gerbil:microF1").getDouble("@value"));
 					separator = jsa.getJSONObject(i).get("gerbil:dataset").toString().lastIndexOf("/")+1;
 					map.put(jsa.getJSONObject(i).get("gerbil:dataset").toString().substring(separator), value);
@@ -65,6 +62,12 @@ public class JSONCollector
 	public static void main(String[] args) throws JSONException, IOException 
 	{
 		JSONObject js = new JSONObject(TextReader.fileReader(new TextReader().getResourceFileAbsolutePath("Example JSON.txt")));
-		JSONCollector.collectMetrics(js);
+		HashMap<String, Double> collection = JSONCollector.collectMetrics(js);
+		
+		
+		for(String key : collection.keySet()){
+			System.out.println(collection.get(key));
+		}
+		
 	}
 }

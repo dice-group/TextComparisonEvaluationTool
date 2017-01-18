@@ -37,8 +37,9 @@ public class GatherAnnotationInformations
 	 * @param path
 	 * @return List of Definition objects containing entities informations
 	 * @throws IOException 
+	 * @throws InterruptedException 
 	 */
-	public LinkedList<DefinitionObject> getAnnotationsOfFile(String path, GatherAnnotationInformations gai) throws IOException
+	public LinkedList<DefinitionObject> getAnnotationsOfFile(String path, GatherAnnotationInformations gai) throws IOException, InterruptedException
 	{
 		String input = TextReader.fileReader(path);
 		return gai.gatherDefsFast(input);
@@ -51,8 +52,9 @@ public class GatherAnnotationInformations
 	 * @param input
 	 * @return list of definition objects
 	 * @throws IOException 
+	 * @throws InterruptedException 
 	 */
-	public LinkedList<DefinitionObject> gatherDefsFast(String resource) throws IOException
+	public LinkedList<DefinitionObject> gatherDefsFast(String resource) throws IOException, InterruptedException
 	{
 		LinkedList<DefinitionObject> dobjs =  new LinkedList<DefinitionObject>();
 		String url = "",content = "", url_part = "";
@@ -242,7 +244,7 @@ public class GatherAnnotationInformations
 	/*
 	 * EXAMPLE of USE
 	 */
-	public static void main(String[] args) throws IOException
+	public static void main(String[] args) throws IOException, InterruptedException
 	{
 		TextReader tr = new TextReader();
 		String infile_name = "epoch15.txt";

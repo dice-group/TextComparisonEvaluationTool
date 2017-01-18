@@ -90,8 +90,9 @@ public class AnnotedTextToNIFConverter
 	 * @param isText
 	 * @return NIF structure String
 	 * @throws IOException 
+	 * @throws InterruptedException 
 	 */
-	public static String createNIFString(String input, boolean isText) throws IOException
+	public static String createNIFString(String input, boolean isText) throws IOException, InterruptedException
 	{
 		resetDefObjList();
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
@@ -126,8 +127,9 @@ public class AnnotedTextToNIFConverter
 	 * @param isText
 	 * @return NIF structure String
 	 * @throws IOException 
+	 * @throws InterruptedException 
 	 */
-	public static String createNIFStringByList(LinkedList<String> input, GatherAnnotationInformations gai) throws IOException
+	public static String createNIFStringByList(LinkedList<String> input, GatherAnnotationInformations gai) throws IOException, InterruptedException
 	{
 		resetDefObjList();
 		LinkedList<DefinitionObject> DOList = new LinkedList<DefinitionObject>();
@@ -160,8 +162,9 @@ public class AnnotedTextToNIFConverter
 	 * @param isText
 	 * @return path of the nif file
 	 * @throws IOException
+	 * @throws InterruptedException 
 	 */
-	public static String getNIFFileByText(String input, String out_file_path, boolean isText) throws IOException
+	public static String getNIFFileByText(String input, String out_file_path, boolean isText) throws IOException, InterruptedException
 	{
 		return TextWriter.fileWriter(createNIFString(input, isText), out_file_path);
 	}
@@ -172,8 +175,9 @@ public class AnnotedTextToNIFConverter
 	 * @param out_file_path
 	 * @return path of the nif file
 	 * @throws IOException
+	 * @throws InterruptedException 
 	 */
-	public String getNIFFileBySentences(LinkedList<String> input, String out_file_path, GatherAnnotationInformations gai) throws IOException
+	public String getNIFFileBySentences(LinkedList<String> input, String out_file_path, GatherAnnotationInformations gai) throws IOException, InterruptedException
 	{
 		return TextWriter.fileWriter(createNIFStringByList(input, gai), out_file_path);
 	}
@@ -201,7 +205,7 @@ public class AnnotedTextToNIFConverter
 	/*
 	 * EXAMPLE of USE
 	 */
-	public static void main(String[] args) throws IOException 
+	public static void main(String[] args) throws IOException, InterruptedException 
 	{
 		TextReader tr = new TextReader();
 		

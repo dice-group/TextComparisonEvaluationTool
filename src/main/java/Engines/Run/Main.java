@@ -16,11 +16,12 @@ import Engines.SimpleObjects.*;
 import Engines.internalEngineParts.WordFrequencyEngine;
 import Engines.simpleTextProcessing.CruelTextGenerator;
 import Engines.simpleTextProcessing.DistributionProcessing;
-import Engines.simpleTextProcessing.StanfordSegmentatorTokenizer;
+import Engines.simpleTextProcessing.StanfordTokenizer;
 import Engines.simpleTextProcessing.TextConversion;
 import Web.Controller.HttpController;
 import Web.Controller.JSONCollector;
 import Web.Objects.ExperimentObjectGERBIL;
+import edu.stanford.nlp.simple.Sentence;
 import Engines.Enums.Annotators;
 import Engines.Enums.ExpType;
 import Engines.Enums.Language;
@@ -56,7 +57,6 @@ public class Main
 		//GENERAL SETUP (VARIABLES)
 
 		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
-		StanfordSegmentatorTokenizer sst = StanfordSegmentatorTokenizer.create();
 		TextConversion tc = new TextConversion();
 		
 		//All file experiment informations and there NIF files 
@@ -95,6 +95,7 @@ public class Main
 			//Multiple items
 			LinkedList<String> words;
 			LinkedList<String> sentences_cleaned = new LinkedList<String>();
+			ArrayList<Sentence> sentence_objects;
 			LinkedList<SentenceObject> sos = new LinkedList<SentenceObject>();
 			LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
 			TextInformations text_info = new TextInformations(filenames.get(k));
@@ -131,7 +132,7 @@ public class Main
 			
 			/* M_2: symbolische Fehler im Text [STORED] */ 
 			System.out.println("Part 1");
-			text_half_cleaned = StanfordSegmentatorTokenizer.formatCleaned(dp.cleanErrorsAndParenthesis(texts_raws.getLast()));	//Clean Step 1
+			text_half_cleaned = dp.cleanErrorsAndParenthesis(texts_raws.getLast());	//Clean Step 1
 			tc.setErrors(dp.getErrors());	//collect errors
 			System.out.println("Part 2");
 			text_cleaned = tc.decompose(text_half_cleaned);	//Clean Step 2
@@ -144,8 +145,9 @@ public class Main
 //			System.out.println("DISTRIBUTION ORDERED BY KEYVALUE (most left vertical list)");
 			
 			//get sentences and gather words
-			sentences_cleaned = StanfordSegmentatorTokenizer.gatherSentences(text_cleaned);
-			words = sst.gatherWords(text_cleaned, language);
+			sentence_objects = StanfordTokenizer.gatherSentences(text_cleaned);
+			sentences_cleaned = StanfordTokenizer.sentencesAsStrings(sentence_objects);
+			words = StanfordTokenizer.gatherWords(sentence_objects);
 			
 			System.out.print("GENERATING NIF FILE ");
 			System.out.println("AND CALCULATION SYN ERR DIST STARTED!");
@@ -160,7 +162,7 @@ public class Main
 			
 			System.out.println("CALCULATION POS DIST STARTED!");
 			/* M_5: POS-Tags Distribution over all Sentences [STORED] */
-			pos_tags_dist = sst.countPosTagsOccourence(sst.getTokens());
+			pos_tags_dist = StanfordTokenizer.countPosTagsOccourence(sentence_objects);
 			text_info.setPos_tags_dist(pos_tags_dist);
 			
 			System.out.println("URL CONTROL STARTED!");
@@ -168,11 +170,11 @@ public class Main
 			 * ATTENTION: 
 			 * This part takes time because of the URL real time control
 			 */
-			for (int i = 0; i < sentences_cleaned.size(); i++) 
+			for (int i = 0; i < sentence_objects.size(); i++) 
 			{	
 				//gather text annotations and store sentence objects
-				dobjs = gai.gatherDefsFast(StanfordSegmentatorTokenizer.formatCleaned(sentences_cleaned.get(i)));
-				if(dobjs.size() > 0) sos.add(new SentenceObject(sentences_cleaned.get(i), dobjs.size()));
+				dobjs = gai.gatherDefsFast(sentence_objects.get(i).text());
+				if(dobjs.size() > 0) sos.add(new SentenceObject(sentence_objects.get(i), dobjs.size()));
 			}
 			
 			System.out.println("CALCULATION ENTITY DIST STARTED!");
@@ -182,7 +184,7 @@ public class Main
 			
 			System.out.println("CALCULATION WPS DIST STARTED!");
 			/* M_4: Word Distribution over all Sentences [STORED] */
-			word_occurr_dist = DistributionProcessing.getWPSDist(sos, sst, language);
+			word_occurr_dist = DistributionProcessing.getWPSDist(sos, language);
 			text_info.setWords_occurr_distr(word_occurr_dist);
 			
 			//TODO soll das auch eine Distribution werden?
@@ -320,7 +322,8 @@ public class Main
 		
 //		String[] additional_files = new String[5];
 		String[] additional_files = new String[1];
-		additional_files[0] = gold_name;
+//		additional_files[0] = gold_name;
+		additional_files[0] = "BeispielCheck.txt";
 //		additional_files[1] = fragment_name;
 //		additional_files[2] = "epoch15.txt";
 //		additional_files[3] = "epoch30.txt";
@@ -330,12 +333,12 @@ public class Main
 		LinkedList<String> filenames = new LinkedList<String>(Arrays.asList(additional_files));
 		
 		//The 4 default annotators
-		String[] default_annotators = new String[4/*5*/];
+		String[] default_annotators = new String[5];
 		default_annotators[0] = Annotators.AIDA.name();
 		default_annotators[1] = Annotators.WAT.name();
 		default_annotators[2] = Annotators.FOX.name();
-		default_annotators[2] = "TagMe 2";
-		default_annotators[3] = "DBpedia Spotlight";
+		default_annotators[3] = "TagMe 2";
+		default_annotators[4] = "DBpedia Spotlight";
 		
 		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(default_annotators));
 		

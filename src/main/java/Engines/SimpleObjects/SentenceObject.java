@@ -2,6 +2,8 @@ package Engines.SimpleObjects;
 
 import java.util.LinkedList;
 
+import edu.stanford.nlp.simple.Sentence;
+
 /**
  * This simple class store a sentence, its count of containing annotations 
  * and the annotations as list if desired.
@@ -11,10 +13,10 @@ import java.util.LinkedList;
 public class SentenceObject 
 {
 	private int annot_count = 0;
-	private String sentence;
+	private Sentence sentence;
 	private LinkedList<String> raw_annotations = new LinkedList<String>();
 	
-	public SentenceObject(String sentence, int annot_count)
+	public SentenceObject(Sentence sentence, int annot_count)
 	{
 		this.sentence = sentence;
 		this.annot_count = annot_count;
@@ -28,11 +30,11 @@ public class SentenceObject
 		this.annot_count = annot_count;
 	}
 
-	public String getSentence() {
+	public Sentence getSentence() {
 		return sentence;
 	}
 
-	public void setSentence(String sentence) {
+	public void setSentence(Sentence sentence) {
 		this.sentence = sentence;
 	}
 
