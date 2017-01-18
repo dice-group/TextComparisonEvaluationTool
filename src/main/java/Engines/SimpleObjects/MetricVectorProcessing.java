@@ -101,10 +101,7 @@ public class MetricVectorProcessing
 		
 		for (String key :  keys) 
 		{
-			System.out.println("V1: "+v1.gerbil_metrics+" | V2: "+v2.gerbil_metrics+" | Key: "+key);
 			gm = useOrRepalceDouble(v1.gerbil_metrics, v2.gerbil_metrics, key);
-			
-			System.out.println("V1: "+gm[0]+" | V2: "+gm[1]+" | QE: "+QuadError.calcQE(gm[0], gm[1]));
 			distance_vector.add(QuadError.calcQE(gm[0], gm[1]));
 		}
 		

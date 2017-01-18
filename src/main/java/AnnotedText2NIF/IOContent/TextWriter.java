@@ -105,7 +105,15 @@ public class TextWriter
 					bw.newLine();
 					
 				}
-				bw.write("\nRating: "+ro.getRating());
+				
+				if(ro.getRating() == 0.0){
+					bw.write("Rating: "+ro.getRating());
+					bw.newLine();
+					bw.write("THIS IS A PERFECT MATCH!");
+				}else{
+					bw.write("\nRating: "+ro.getRating());
+				}
+				
 				bw.close();
 				
 				System.out.println(file.getAbsolutePath());
