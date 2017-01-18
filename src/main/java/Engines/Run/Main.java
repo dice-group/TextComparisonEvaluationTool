@@ -83,7 +83,9 @@ public class Main
 		//FOR EACH FILE
 		for(int k = 0; k < filenames.size(); k++)
 		{	
+			System.out.println("\n\n###############################################");
 			System.out.println("FILE ["+filenames.get(k)+"] STARTED!");
+			System.out.println("###############################################");
 			nameNIFFile.add(filenames.get(k).replace(".txt", ".ttl"));
 			resourceFilesAbsolutePaths.add(tr.getResourceFileAbsolutePath(filenames.get(k)));
 			texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
@@ -311,18 +313,15 @@ public class Main
 		{
 			System.out.println("the file do not exist!");
 			TextWriter.fileWriter(CruelTextGenerator.createRandomFragment(TextReader.fileReader(gold_path)), fragment_path);
-		}else{
-			System.out.println("the file already exist!");
 		}
-
 		
 //		String[] additional_files = new String[5];
-		String[] additional_files = new String[1];
+		String[] additional_files = new String[4];
 //		additional_files[0] = gold_name;
 		additional_files[0] = "epoch70Final.txt";
-//		additional_files[1] = fragment_name;
-//		additional_files[2] = "epoch15.txt";
-//		additional_files[3] = "epoch30.txt";
+		additional_files[1] = fragment_name;
+		additional_files[2] = "epoch15.txt";
+		additional_files[3] = "epoch30.txt";
 //		additional_files[4] = "epoch70Final.txt";
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
