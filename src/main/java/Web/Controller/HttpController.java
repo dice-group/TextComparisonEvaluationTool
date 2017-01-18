@@ -51,7 +51,6 @@ public class HttpController
 		{
 			gerbilExp = new ExperimentObjectGERBIL(exp_type, matching_type, annotators, datasets);
 			this.jsonObject = doExperiment(gerbilExp, execute_url);
-//			System.out.println(this.jsonObject);
 		}
 		
 		
@@ -64,7 +63,6 @@ public class HttpController
 		{
 			gerbilExp = exoGERBIL;
 			this.jsonObject = doExperiment(gerbilExp, execute_url);
-//			System.out.println(this.jsonObject);
 		}
 	
 		//#############################################################################
@@ -89,7 +87,6 @@ public class HttpController
 			//add method and properties
 			con.setRequestMethod("GET");
 			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-			System.out.println("CONNECTION: "+con);
 
 			if(con.getResponseCode() == 200)
 			{
@@ -217,7 +214,7 @@ public class HttpController
 			
 			if(exp_url != null)
 			{
-				System.out.println("Status des Experiments: "+exp_url);
+				System.out.println("Experiment-URL: "+exp_url);
 			}else{
 				System.err.println("ERROR: No experiment executed!");
 				System.exit(0);
@@ -268,7 +265,7 @@ public class HttpController
 			{
 				//Dataset upload
 				System.out.println("####### UPLOAD: #######");
-				System.out.println("Given path: "+tr.getResourceFileAbsolutePath(filename));
+				System.out.println("File: "+tr.getResourceFileAbsolutePath(filename));
 				int code = UploadController.uploadFile(upload_url, tr.getResourceFileAbsolutePath(filename));
 				interpretResponseCode(code);
 			}

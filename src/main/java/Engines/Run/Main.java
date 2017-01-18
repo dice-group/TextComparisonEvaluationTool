@@ -131,26 +131,21 @@ public class Main
 			System.out.println("CLEANING STARTED!");
 			
 			/* M_2: symbolische Fehler im Text [STORED] */ 
-			System.out.println("Part 1");
 			text_half_cleaned = dp.cleanErrorsAndParenthesis(texts_raws.getLast());	//Clean Step 1
 			tc.setErrors(dp.getErrors());	//collect errors
-			System.out.println("Part 2");
 			text_cleaned = tc.decompose(text_half_cleaned);	//Clean Step 2
 			symbol_error_dist = tc.getErrors();	//collect errors
 			text_info.setSymbol_error_dist(symbol_error_dist);	//store errors
 			
 			//*************************************************************************************************************************************************
 			//PROCESSING
-			System.out.println("PROCESSING STARTED!");
-//			System.out.println("DISTRIBUTION ORDERED BY KEYVALUE (most left vertical list)");
-			
+			System.out.println("PROCESSING STARTED!");			
 			//get sentences and gather words
 			sentence_objects = StanfordTokenizer.gatherSentences(text_cleaned);
 			sentences_cleaned = StanfordTokenizer.sentencesAsStrings(sentence_objects);
 			words = StanfordTokenizer.gatherWords(sentence_objects);
 			
-			System.out.print("GENERATING NIF FILE ");
-			System.out.println("AND CALCULATION SYN ERR DIST STARTED!");
+			System.out.println("GENERATING NIF FILE AND CALCULATION SYN ERR DIST STARTED!");
 			/* M_3: Syntactic error Distribution over all Sentence [STORED] */
 			gai.setSyntax_error_dist(DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language));
 			file = new File(attnifc.getNIFFileBySentences(sentences_cleaned, out_file_path, gai));

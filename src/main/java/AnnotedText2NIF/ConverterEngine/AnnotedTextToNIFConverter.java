@@ -115,7 +115,6 @@ public class AnnotedTextToNIFConverter
 
 		// Writing our new list of documents to a String
 		NIFWriter writer = new TurtleNIFWriter();
-		System.out.println(documents);
 		String nifString = writer.writeNIF(documents);
 		
 		return nifString;
@@ -149,7 +148,6 @@ public class AnnotedTextToNIFConverter
 		
 		// Writing our new list of documents to a String
 		NIFWriter writer = new TurtleNIFWriter();
-		System.out.println(documents);
 		String nifString = writer.writeNIF(documents);
 		
 		return nifString;
