@@ -2,7 +2,12 @@ package Web.Controller;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
+import org.jsoup.Jsoup;
 
 /**
  * This class is used to control the existence of an URL.
@@ -15,29 +20,52 @@ public class URLControl
 	 * This method allow to check the existence of an URL
 	 * @param url_string
 	 * @return boolean for existence
+	 * @throws InterruptedException 
 	 * @throws IOException
 	 */
-	public static boolean existURL(String url_string) throws IOException
+	public static boolean existURL(String url_string) throws InterruptedException
 	{
+		// TODO to catch java.net.ConnectException: Connection timed out: connect
+		
 		/*
 		 * TODO ATTENTION: 
 		 * control the url is an entity not a placeholder or a page with a list of entities
 		 */
-		URL url = new URL(url_string);
-		HttpURLConnection huc = (HttpURLConnection) url.openConnection();
-		huc.setRequestMethod("HEAD");
-
-		//TODO catch exception for url conn error
-		int responseCode = huc.getResponseCode();
+		URL url;
+		boolean conExCeptionThrown = true;
 		
-		if (responseCode == 200) 
+		while(conExCeptionThrown)
 		{
-			return true;
 			
-		} else 
-		{
-			return false;
+			
+			try {
+				url = new URL(url_string);
+				HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+				huc.setRequestMethod("HEAD");
+
+				//TODO catch exception for url conn error
+				int responseCode = huc.getResponseCode();
+				
+				if (responseCode == 200) 
+				{
+					huc.disconnect();
+					return true;
+					
+				} else 
+				{
+					huc.disconnect();
+					return false;
+				}
+			} catch (SocketTimeoutException exception) 
+			{
+				Thread.sleep(TimeUnit.MINUTES.toMillis(30));
+				continue;
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 	}
 	
 	//#############################################################################
