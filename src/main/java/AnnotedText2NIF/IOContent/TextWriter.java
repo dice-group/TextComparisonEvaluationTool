@@ -96,7 +96,6 @@ public class TextWriter
 				
 				for (int k = 0; k < ro.getDistance_vector().size(); k++) 
 				{
-					System.out.println("SIZE Metrics: "+ro.getDistance_vector().size());
 					if(k < 6){
 						bw.write("M_"+(k+1)+": "+ro.getDistance_vector().get(k));
 					}else{

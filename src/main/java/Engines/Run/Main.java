@@ -323,7 +323,7 @@ public class Main
 //		String[] additional_files = new String[5];
 		String[] additional_files = new String[1];
 //		additional_files[0] = gold_name;
-		additional_files[0] = "BeispielCheck.txt";
+		additional_files[0] = "epoch70Final.txt";
 //		additional_files[1] = fragment_name;
 //		additional_files[2] = "epoch15.txt";
 //		additional_files[3] = "epoch30.txt";

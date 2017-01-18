@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class CosDistance 
 {
+	static double epsilon = 0.00000001;
+	
 	//##################################################################################
 	//################################# USAGE METHODS ##################################
 	//##################################################################################
@@ -30,17 +32,19 @@ public class CosDistance
 			double upper_value = 0.0;
 			double lower_left = 0.0, lower_right= 0.0;
 			double similarity, divider;
-			boolean bothAreZeroVec = true;
+			boolean identicVecs = true;
+			
 			
 			for(int ix = 0; ix < v1.size(); ix++)
 			{
-				if(!(v1.get(ix).equals(0.0) && v1.get(ix).equals(v2.get(ix))))
-				{
-					bothAreZeroVec = false;
-				}
+				System.out.println("V1: "+v1.get(ix)+" | V2: "+v2.get(ix));
+				if(!(v1.get(ix).equals(v2.get(ix)))) identicVecs = false;
 			}
 			
-			if(bothAreZeroVec){
+			
+			
+			if(identicVecs){
+				System.out.println("Identical vectors appeared!");
 				return 0;
 			}else{
 				
@@ -84,26 +88,33 @@ public class CosDistance
 		double epsilon = 0.00000001;
 		ArrayList<Double> v1 = new ArrayList<Double>(Arrays.asList(1.0,2.0,3.0));
 		ArrayList<Double> v2 = new ArrayList<Double>(Arrays.asList(3.0,5.0,7.0));
-		ArrayList<Double> zero_vector = new ArrayList<Double>(
+		ArrayList<Double> zv = new ArrayList<Double>(
 				Collections.nCopies(3, epsilon));
 		
-		System.out.println(CosDistance.cosineDistanceDecimal(v1, v2));	//Desired round about 0.002585
+		System.out.println(CosDistance.cosineDistanceDecimal(v1, v2)+"\n");	//Desired round about 0.002585
 		
 		v1 = new ArrayList<Double>(Arrays.asList(5.0, 0.0, 3.0, 0.0, 2.0, 0.0, 0.0, 2.0, 0.0, 0.0));
 		v2 = new ArrayList<Double>(Arrays.asList(3.0, 0.0, 2.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0));
 		
-		System.out.println(CosDistance.cosineDistanceDecimal(v1, v2));	//Desired round about 0.064399
+		System.out.println(CosDistance.cosineDistanceDecimal(v1, v2)+"\n");	//Desired round about 0.064399
 		
 		v1 = new ArrayList<Double>(Arrays.asList(0.0,0.0,0.0));
 		v2 = new ArrayList<Double>(Arrays.asList(3.0,5.0,7.0));
 		
-		System.out.println(CosDistance.cosineDistanceDecimal(v1, v2));	//Should cause an ERROR => NaN
+		System.out.println(CosDistance.cosineDistanceDecimal(v1, v2)+"\n");	//Should be okay 0.0
 		
 		v1 = new ArrayList<Double>(Arrays.asList(3.0,5.0,7.0));
 		v2 = new ArrayList<Double>(Arrays.asList(0.0,0.0,0.0));
 		
 		
-		System.out.println(CosDistance.cosineDistanceDecimal(v1, zero_vector));	//Should be okay
+		System.out.println(CosDistance.cosineDistanceDecimal(v1, v2)+"\n");	//Should be okay 0.0
+		
+		v1 = new ArrayList<Double>(Arrays.asList(0.0,0.0,0.0));
+		v2 = new ArrayList<Double>(Arrays.asList(0.0,0.0,0.0));
+		
+		
+		System.out.println(CosDistance.cosineDistanceDecimal(v1, v2)+"\n");	//Should be okay identical 0.0
+		System.out.println(CosDistance.cosineDistanceDecimal(zv, zv)+"\n");	//Should be okay identical 0.0
 	}
 
 }
