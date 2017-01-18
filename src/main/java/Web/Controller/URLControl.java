@@ -27,6 +27,7 @@ public class URLControl
 		HttpURLConnection huc = (HttpURLConnection) url.openConnection();
 		huc.setRequestMethod("HEAD");
 
+		//TODO catch exception for url conn error
 		int responseCode = huc.getResponseCode();
 		
 		if (responseCode == 200) 

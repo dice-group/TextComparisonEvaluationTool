@@ -83,6 +83,7 @@ public class Main
 		//FOR EACH FILE
 		for(int k = 0; k < filenames.size(); k++)
 		{	
+			System.out.println("FILE ["+filenames.get(k)+"] STARTED!");
 			nameNIFFile.add(filenames.get(k).replace(".txt", ".ttl"));
 			resourceFilesAbsolutePaths.add(tr.getResourceFileAbsolutePath(filenames.get(k)));
 			texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
@@ -140,20 +141,24 @@ public class Main
 			//*************************************************************************************************************************************************
 			//PROCESSING
 			System.out.println("PROCESSING STARTED!");
-			System.out.println("DISTRIBUTION ORDERED BY KEYVALUE (most left vertical list)");
+//			System.out.println("DISTRIBUTION ORDERED BY KEYVALUE (most left vertical list)");
 			
 			//get sentences and gather words
 			sentences_cleaned = StanfordSegmentatorTokenizer.gatherSentences(text_cleaned);
 			words = sst.gatherWords(text_cleaned, language);
 			
+			System.out.print("GENERATING NIF FILE ");
+			System.out.println("AND CALCULATION SYN ERR DIST STARTED!");
 			/* M_3: Syntactic error Distribution over all Sentence [STORED] */
 			gai.setSyntax_error_dist(DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language));
 			file = new File(attnifc.getNIFFileBySentences(sentences_cleaned, out_file_path, gai));
 			text_info.setSyn_error_dist(gai.getSyntax_error_dist());
 			
+			System.out.println("CALCULATION WF STARTED!");
 			//calculate word frequency
 			wfe.gatherWordFrequencyByList(words);
 			
+			System.out.println("CALCULATION POS DIST STARTED!");
 			/* M_5: POS-Tags Distribution over all Sentences [STORED] */
 			pos_tags_dist = sst.countPosTagsOccourence(sst.getTokens());
 			text_info.setPos_tags_dist(pos_tags_dist);
@@ -170,11 +175,12 @@ public class Main
 				if(dobjs.size() > 0) sos.add(new SentenceObject(sentences_cleaned.get(i), dobjs.size()));
 			}
 			
-			
+			System.out.println("CALCULATION ENTITY DIST STARTED!");
 			/* M_6: Entity Distribution over all Sentence [STORED] */
 			annotation_dist = DistributionProcessing.getAnnotDist(sos);
 			text_info.setAnnotation_dist(annotation_dist);
 			
+			System.out.println("CALCULATION WPS DIST STARTED!");
 			/* M_4: Word Distribution over all Sentences [STORED] */
 			word_occurr_dist = DistributionProcessing.getWPSDist(sos, sst, language);
 			text_info.setWords_occurr_distr(word_occurr_dist);
@@ -196,7 +202,7 @@ public class Main
 			text_info.setWords_distribution(wfe.getMap());	//Storing
 			text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_cleaned.size()));
 
-			
+			System.out.println("CALCULATION GERBIL METRICS STARTED!");
 			//TODO später für gold text ausschließen da wir den aus Zeitgründen separat vorher berechnen müssen
 			/* M_GERBIL [STORED] */
 			JSONObject jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
@@ -257,6 +263,7 @@ public class Main
 		//*************************************************************************************************************************************************
 		//CALCULATION
 		
+		System.out.println("FINAL CALCULATION STARTED!");
 		gold_info = experiments_results.get(0);
 		gold_nvp = new MetricVectorProcessing(gold_info, 6);
 		
@@ -274,6 +281,7 @@ public class Main
 			ros.add(new ResultObject(rating, current_dist_vec, rating_path+"_"+(cal+1)+".txt"));
 		}
 		
+		System.out.println("STORING RESULTS\n");
 		TextWriter.writeRating(ros);
 	}
 	
