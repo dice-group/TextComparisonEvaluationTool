@@ -46,6 +46,7 @@ public class JSONCollector
 					value = SimpleRounding.round(jsa.getJSONObject(i).getJSONObject("gerbil:microF1").getDouble("@value"));
 					separator = jsa.getJSONObject(i).get("gerbil:dataset").toString().lastIndexOf("/")+1;
 					map.put(jsa.getJSONObject(i).get("gerbil:dataset").toString().substring(separator), value);
+					System.out.println("Key: "+jsa.getJSONObject(i).get("gerbil:dataset").toString().substring(separator)+" | Value "+value);
 				}
 			}
 		}
@@ -66,7 +67,7 @@ public class JSONCollector
 		
 		
 		for(String key : collection.keySet()){
-			System.out.println(collection.get(key));
+			System.out.println("Key: "+key+" | Val.: "+collection.get(key));
 		}
 		
 	}

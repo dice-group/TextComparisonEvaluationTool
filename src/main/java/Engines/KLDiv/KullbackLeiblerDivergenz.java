@@ -1,6 +1,5 @@
 package Engines.KLDiv;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -13,7 +12,6 @@ import java.util.Set;
  */
 public class KullbackLeiblerDivergenz 
 {	
-	static double epsilon = 0.00000001;
 	
 	//##################################################################################
 	//################################# USAGE METHODS ##################################
@@ -104,14 +102,12 @@ public class KullbackLeiblerDivergenz
 	 */
 	public static void main(String[] args) 
 	{
-		Set<String> textKeys = new HashSet<String>();
 		Map<String, Double> text1Values = new HashMap<String, Double>();
 		Map<String, Double> text2Values = new HashMap<String, Double>();
 		Map<String, Integer> textValuesA = new HashMap<String, Integer>();
 		Map<String, Integer> textValuesB = new HashMap<String, Integer>();
 
 		//EXAMPLE 1
-		textKeys.addAll(Arrays.asList("av", "occ", "wc", "len", "err"));
 		text1Values.put("av", 5.0);			text2Values.put("av", 5.0);
 		text1Values.put("occ", 3.0);		text2Values.put("occ", 4.0);
 		text1Values.put("wc", 3.0);			text2Values.put("wc", 3.0);
@@ -131,29 +127,32 @@ public class KullbackLeiblerDivergenz
 		
 		
 		//NEW EXAMPLE 2
-		textKeys = new HashSet<String>();
 		text1Values = new HashMap<String, Double>();
 		text2Values = new HashMap<String, Double>();
 		
 		//Bsp result ist 0.19 und mein result ist 0.19274475702175753 [WORKS]
-		textKeys.addAll(Arrays.asList("a", "b"));
 		text1Values.put("a", 0.2);		text2Values.put("a", 0.5);
 		text1Values.put("b", 0.8);		text2Values.put("b", 0.5);
 		
 		System.out.println("Die KL-Divergenz Easy TD beträgt:\t"+EasyKLDivergenceTD(text1Values, text2Values));
 		
 		//NEW EXAMPLE 3
-		textKeys = new HashSet<String>();
 		text1Values = new HashMap<String, Double>();
 		text2Values = new HashMap<String, Double>();
 		
 		//Bsp result ist 0.001547 und mein result ist 0.0015468691570075686 [WORKS]
-		textKeys.addAll(Arrays.asList("a", "b"));
 		text1Values.put("a", 0.005);		text2Values.put("a", 0.01);
 		text1Values.put("b", 0.995);		text2Values.put("b", 0.99);
 		
 		System.out.println("Die KL-Divergenz Easy TD beträgt:\t"+EasyKLDivergenceTD(text1Values, text2Values));
 		
-		//0.15293250129808114
+		//Bsp result ist 0.001547 und mein result ist 0.0015468691570075686 [WORKS]
+		text1Values.put("a", 0.000);		text2Values.put("a", 0.000);
+		text1Values.put("b", 0.000);		text2Values.put("b", 0.000);
+				
+		System.out.println("Die KL-Divergenz Easy TD beträgt:\t"+EasyKLDivergenceTD(text1Values, text2Values));
+				
+				
+		
 	}
 }
