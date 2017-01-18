@@ -278,6 +278,10 @@ public class Main
 			//calculate the differences between gold's and the vector's metrics
 			current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_nvp, current_nvp);
 			
+			for(Double d : current_dist_vec){
+				System.out.println(d);
+			}
+			
 			//then do cos_distance
 			rating = MetricVectorProcessing.rate(current_dist_vec, gold_nvp.getZero_vector());
 			ros.add(new ResultObject(rating, current_dist_vec, rating_path+"_"+(cal+1)+".txt"));
