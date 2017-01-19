@@ -324,6 +324,8 @@ public class Main
 			TextWriter.fileWriter(CruelTextGenerator.createRandomFragment(TextReader.fileReader(gold_path)), fragment_path);
 		}
 		
+		System.exit(0);
+		
 //		String[] additional_files = new String[5];
 		String[] additional_files = new String[2];
 //		additional_files[0] = gold_name;
