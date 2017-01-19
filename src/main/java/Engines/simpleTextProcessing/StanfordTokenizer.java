@@ -101,21 +101,7 @@ public class StanfordTokenizer
         return POS_tag_distribution;
     }	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+    
 	/**
 	 * This method normalize a text and replace all non all non alpha numerics with dots.
 	 * @param text
@@ -127,24 +113,9 @@ public class StanfordTokenizer
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/*
+	 * EXAMPLE of USE
+	 */
 	public static void main(String[] args) throws IOException 
 	{ 
 		

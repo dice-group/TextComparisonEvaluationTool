@@ -13,7 +13,7 @@ import java.util.LinkedList;
  */
 public class TextConversion 
 {
-	public static final String punctutations = "':,.!-()?;\"[]\\|";
+	public static final String punctutations = "':,.!-()?;[]\\|";
 	public static final String sentence_separator = ".?!";
 	private HashMap<Character, Integer> errors = new HashMap<Character, Integer>();
 	
@@ -32,7 +32,7 @@ public class TextConversion
 	}
 	
 	/**
-	 * This method scores a character by its syn
+	 * This method scores a character by its char type
 	 * @param ch
 	 * @param is_last
 	 * @return

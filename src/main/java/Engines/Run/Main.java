@@ -144,9 +144,14 @@ public class Main
 			//PROCESSING
 			System.out.println("PROCESSING STARTED!");			
 			//get sentences and gather words
+			System.out.println("GESÄUBERTER TEXT: \n"+text_cleaned);
+			//TODO kontrolle auf geschlossene Klammern und ob Satz entität enthält + adden falls irgend etwas failed
+			//TODO kontrolle ob entitäten korrekt also nur alnum, komma, pipe, whitespace und brackets.
 			sentence_objects = StanfordTokenizer.gatherSentences(text_cleaned);
 			sentences_cleaned = StanfordTokenizer.sentencesAsStrings(sentence_objects);
 			words = StanfordTokenizer.gatherWords(sentence_objects);
+			
+			System.exit(0);
 			
 			System.out.println("GENERATING NIF FILE AND CALCULATION SYN ERR DIST STARTED!");
 			/* M_3: Syntactic error Distribution over all Sentence [STORED] */
@@ -318,9 +323,9 @@ public class Main
 		
 //		String[] additional_files = new String[5];
 		String[] additional_files = new String[2];
-		additional_files[0] = gold_name;
-		additional_files[1] = fragment_name;
-//		additional_files[2] = "epoch15.txt";
+//		additional_files[0] = gold_name;
+		additional_files[0] = fragment_name;
+		additional_files[1] = "epoch15.txt";
 //		additional_files[3] = "epoch30.txt";
 //		additional_files[4] = "epoch70Final.txt";
 		

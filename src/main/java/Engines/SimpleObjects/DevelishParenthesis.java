@@ -22,7 +22,8 @@ public class DevelishParenthesis
 	
 	public static final String optimalRexSQBR = Pattern.quote("[[") + "([^\\[\\]]*)" + Pattern.quote("]]");
 	public static final String optimalRexRDBR = Pattern.quote("(") + "([^\\(\\)]*)" + Pattern.quote(")");
-	public static final String punctutations = "':,.!-?;\"";
+	public static final String optimalREXEntity = Pattern.quote("[[") + "([a-zA-Z0-9(),| ]*)" + Pattern.quote("]]");
+	public static final String punctutations = "':,.!-?;";
 	private HashMap<Character, Integer> errors = new HashMap<Character, Integer>();
 
 	//#############################################################################
@@ -103,7 +104,7 @@ public class DevelishParenthesis
 	public static void main(String[] args) throws IOException 
 	{
 		TextReader tr = new TextReader();
-		String name = "epoch70Final.txt";
+		String name = "BVFragment.txt";
 		String input = TextReader.fileReader(tr.getResourceFileAbsolutePath(name));
 		DevelishParenthesis dp = new DevelishParenthesis();
 		
@@ -116,5 +117,7 @@ public class DevelishParenthesis
 			System.out.println("ERROR SYMBOL >"+c+"<");
 			System.out.println("VALUE: "+dp.getErrors().get(c));
 		}
+
+		
 	}
 }
