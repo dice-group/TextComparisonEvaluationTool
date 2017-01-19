@@ -14,15 +14,7 @@ public class TextInformations
 	//Store creation and resource info
 	private String resource_name = "";
 	private LocalDateTime generation_date;
-	
-	private double symbol_per_sentence = 0.0;		//USED
-	private double symbol_per_sentence_no_ws = 0.0;	//USED
-	private double word_per_sentence = 0.0;			//USED
-	
-	private int sentence_count = 0;					//USED
-	private int word_count = 0;						//USED
 	private int symbol_count = 0;					//USED
-	private int symbol_count_no_ws = 0;				//USED
 	
 	private HashMap<String, Double> metrics_GERBIL = new HashMap<String, Double>();			//USED
 	private HashMap<String, Integer> words_distribution = new HashMap<String, Integer>();	//USED
@@ -45,16 +37,6 @@ public class TextInformations
 	//##################################################################################
 	//################## GETTERS, SETTERS, ADDERS and EDITS ############################
 	//##################################################################################
-
-	public double getSymbol_per_sentence() {
-		return symbol_per_sentence;
-	}
-
-
-	public double getSymbol_per_sentence_no_ws() {
-		return symbol_per_sentence_no_ws;
-	}
-	
 	
 	public int getSymbol_count() {
 		return symbol_count;
@@ -64,62 +46,10 @@ public class TextInformations
 	public void setSymbol_count(int symbol_count) {
 		this.symbol_count = symbol_count;
 	}
-
-	
-	public int getSymbol_count_no_ws() {
-		return symbol_count_no_ws;
-	}
-
-	
-	public void setSymbol_count_no_ws(int symbol_count_no_ws) {
-		this.symbol_count_no_ws = symbol_count_no_ws;
-	}
-
-	
-	public void setSymbol_per_sentence_no_ws(double symbol_per_sentence_no_ws) {
-		this.symbol_per_sentence_no_ws = symbol_per_sentence_no_ws;
-	}
-
 	
 	public LocalDateTime getGeneration_date() {
 		return generation_date;
 	}
-
-
-	public void setSymbol_per_sentence(double symbol_per_sentence) {
-		this.symbol_per_sentence = symbol_per_sentence;
-	}
-
-	
-	public double getWord_per_sentence() {
-		return word_per_sentence;
-	}
-
-
-	public void setWord_per_sentence(double word_per_sentence) {
-		this.word_per_sentence = word_per_sentence;
-	}
-
-
-	public int getSentence_count() {
-		return sentence_count;
-	}
-
-
-	public void setSentence_count(int sentence_count) {
-		this.sentence_count = sentence_count;
-	}
-
-
-	public int getWord_count() {
-		return word_count;
-	}
-
-
-	public void setWord_count(int word_count) {
-		this.word_count = word_count;
-	}
-	
 
 	public String getResource_name() {
 		return resource_name;
@@ -185,7 +115,5 @@ public class TextInformations
 
 	public void setSymbol_error_dist(HashMap<Character, Integer> symbol_error_dist) {
 		this.symbol_error_dist = symbol_error_dist;
-	}
-	
-	
+	}	
 }

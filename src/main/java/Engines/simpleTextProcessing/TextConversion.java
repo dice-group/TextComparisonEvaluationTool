@@ -13,10 +13,17 @@ import java.util.LinkedList;
  */
 public class TextConversion 
 {
-	public static final String punctutations = "':,.!-()?;[]\\|";
+	//punctutations = ",;.!?-'";
+	public static final String punctutations = "',.!-()?;[]\\|";
 	public static final String sentence_separator = ".?!";
-	private HashMap<Character, Integer> errors = new HashMap<Character, Integer>();
+	private HashMap<Character, Integer> errors;
 	
+	/**
+	 * Constructor
+	 */
+	public TextConversion(){
+		errors = new HashMap<Character, Integer>();
+	}
 	//#############################################################################
 	//############################ USAGE METHODS ##################################
 	//#############################################################################
@@ -69,7 +76,6 @@ public class TextConversion
 	public String decompose(String text)
 	{
 		char[] chars_in = text.toCharArray();
-		System.out.println("Chars to pass: "+chars_in.length);
 		String out = "";
 		char old = ' ';
 		char c = ' ';
@@ -80,7 +86,13 @@ public class TextConversion
 			
 			if(Character.isAlphabetic(c) || Character.isDigit(c) || Character.isSpaceChar(c))						// Check Letter, Digit and Whitespace
 			{
-				out += c;
+				if(!(Character.isSpaceChar(c) && chars_in[k+1] == '.'))
+				{
+					out += c;
+				}else{
+					DistributionProcessing.calcDistChar(errors, c);
+				}
+				
 			}else if(punctutations.contains(""+c))																	// Check punctuation 
 			{
 				if(c == '.')																						// Check previous is a letter and current is a dot
@@ -134,8 +146,6 @@ public class TextConversion
 				DistributionProcessing.calcDistChar(errors, c);
 			}
 			old = c;
-			
-			if((k % 100000) == 0 && k > 0) System.out.println("Chars Passed: "+k);
 		}
 		return new String(out).trim();
 	}	

@@ -24,8 +24,17 @@ public class GatherAnnotationInformations
 	public static final String simpleRex = Pattern.quote("[[") + "(.*?)" + Pattern.quote("]]");				//allow inner brackets => [[outer text [[inner text]]
 	public static final String optimalRex = Pattern.quote("[[") + "([^\\[\\]]*)" + Pattern.quote("]]");		//denie inner brackets => [[url_entity_text]] or [[url_text|entity_text]]
 	
-	private HashMap<String, String> urls = new HashMap<String, String>(); 
-	private HashMap<String, Integer> syntax_error_dist = new HashMap<String, Integer>();
+	private HashMap<String, String> urls; 
+	private HashMap<String, Integer> syntax_error_dist;
+	
+	/**
+	 * Constructor
+	 */
+	public GatherAnnotationInformations()
+	{
+		urls = new HashMap<String, String>();
+		syntax_error_dist = new HashMap<String, Integer>();
+	}
 	
 	//#############################################################################
 	//############################ USAGE METHODS ##################################

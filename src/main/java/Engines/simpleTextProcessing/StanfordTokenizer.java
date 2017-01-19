@@ -6,33 +6,55 @@ import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-
 import AnnotedText2NIF.IOContent.TextReader;
+import Engines.SimpleObjects.DevelishParenthesis;
 import edu.stanford.nlp.simple.*;
 
 public class StanfordTokenizer 
 {
-	private static HashMap<String, Integer> syn_error_dist = new HashMap<String, Integer>();
+	private static HashMap<String, Integer> syn_error_dist;
+
+	/**
+	 * Constructor
+	 */
+	public StanfordTokenizer(){
+		syn_error_dist = new HashMap<String, Integer>();
+	}
 	
 	/**
 	 * This method split a given text into sentences and store only these who contain annotation entities.
 	 * If an sentences does not contain annotation entities here we store an syntax error. 
 	 * @param paragraph
+	 * @param dp 
+	 * @param tc 
 	 * @return List of Sentence objects
 	 */
-	public ArrayList<Sentence> gatherSentences(String paragraph)
+	public ArrayList<Sentence> gatherSentences(String paragraph, DevelishParenthesis dp, TextConversion tc)
     {
 		 Document doc = new Document(paragraph);
 		 ArrayList<Sentence> sentenceList = new ArrayList<Sentence>();
 		 
 		 for(Sentence s : doc.sentences())
 		 {
-			 if(s.text().contains("[[") && s.text().contains("]]"))
+			 String c1 = dp.cleanErrorsAndParenthesis(s.text());
+			 tc.setErrors(dp.getErrors());
+			 String c2 = tc.decompose(c1);
+			 dp.setErrors(tc.getErrors());
+			 
+			 
+			 if(c2.contains("[[") && c2.contains("]]"))
 			 {
-				 sentenceList.add(s);
+				 //English sentences in general has subject, predicate and object => min. 3 words
+				 if(gatherWords(s).size() > 2)
+				 {
+					 sentenceList.add(new Sentence(c2));
+				 }else{
+					 //filter to short sequences
+					 DistributionProcessing.calcDistString(syn_error_dist, "LESS_THAN_2_WORDS_SEQUENCE");
+				 }
 			 }else{
-				 DistributionProcessing.calcDistString(syn_error_dist, "NOT_ANNOT_SENTENCE");
+				 //filter not annotated sentences
+				 DistributionProcessing.calcDistString(syn_error_dist, "NOT_ANNOTATED_SENTENCE");
 			 } 
 		 }
 		 return sentenceList;
@@ -43,7 +65,7 @@ public class StanfordTokenizer
 	 * @param sentences
 	 * @return List of words as String
 	 */
-	public LinkedList<String> gatherWords(ArrayList<Sentence> sentences)
+	public static LinkedList<String> gatherWords(ArrayList<Sentence> sentences)
 	{
 		LinkedList<String> words = new LinkedList<String>();
 		
@@ -137,39 +159,22 @@ public class StanfordTokenizer
 		
 		TextReader tr = new TextReader();
 		StanfordTokenizer st = new StanfordTokenizer();
-		String file_location = tr.getResourceFileAbsolutePath("BeispielCheck.txt");
-		ArrayList<Sentence> sentenceList = st.gatherSentences(TextReader.fileReader(file_location));
+		DevelishParenthesis dp = new DevelishParenthesis();
+		TextConversion tc = new TextConversion();
+		String file_location = tr.getResourceFileAbsolutePath("BVFragment.txt");
+		ArrayList<Sentence> sentenceList = st.gatherSentences(TextReader.fileReader(file_location), dp, tc);
 		
-		int check = 0;
 		
+		System.out.println("ERRORS: "+dp.getErrors().size());
+		System.out.println("TYPES: "+dp.getErrors().keySet());
+		System.out.println("OCCU: "+dp.getErrors().values());
 		System.out.println("SIZE: "+sentenceList.size()+"\n");
 		
 		for (Sentence s : sentenceList) 
 		{
-			List<String> words = s.words();
-			System.out.println("TEXT: "+s.text());
-			System.out.println("WORDS: "+words);
-			System.out.println("TAGS: "+s.posTags());
-			System.out.println();
-			check += words.size();
+			System.out.println(s.text());
 		}
 		
-		LinkedList<String> word_list = st.gatherWords(sentenceList);
-		
-		System.out.println("Check: "+check);
-		System.out.println("Other: "+word_list.size());
-		System.out.println("Difference: "+(check -word_list.size()));
-		
-//        // Create a document. No computation is done yet.
-//        Document doc = new Document("add your text here! It can contain multiple sentences.");
-//        for (Sentence sent : doc.sentences()) {  // Will iterate over two sentences
-//            // We're only asking for words -- no need to load any models yet
-//            System.out.println("The second word of the sentence '" + sent + "' is " + sent.word(1));
-//            // When we ask for the lemma, it will load and run the part of speech tagger
-//            System.out.println("The third lemma of the sentence '" + sent + "' is " + sent.lemma(2));
-//            // When we ask for the parse, it will load and run the parser
-//            System.out.println("The parse of the sentence '" + sent + "' is " + sent.parse());
-//            // ...
-//        }
+		System.out.println("SIZE: "+sentenceList.size());
     }
 }

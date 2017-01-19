@@ -63,7 +63,7 @@ public class Main
 		DevelishParenthesis dp;
 		GatherAnnotationInformations gai;	
 		TextInformations gold_info;
-		MetricVectorProcessing gold_mvp,current_nvp;
+		MetricVectorProcessing gold_mvp,current_mvp = null;
 		StanfordTokenizer st;
 		ArrayList<Double> current_dist_vec;
 		TextReader tr = new TextReader();
@@ -81,10 +81,10 @@ public class Main
 		//FOR EACH FILE
 		for(int k = 0; k < filenames.size(); k++)
 		{	
-			String text_cleaned, text_half_cleaned;
 			File file;
 			String out_file_path;
 			TextInformations text_info;
+			JSONObject jsobj;
 			
 			dp = new DevelishParenthesis();
 			gai = new GatherAnnotationInformations();
@@ -106,14 +106,6 @@ public class Main
 			LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
 			HashMap<String, Integer> pos_tags_dist;
 			HashMap<Integer, Integer> word_occurr_dist, annotation_dist;
-			HashMap<Character, Integer> symbol_error_dist;
-			
-			HashMap<String, Double> percentage;
-			LinkedList<int[]> annotation_sorted = new LinkedList<int[]>();
-			LinkedList<int[]> wps_sorted = new LinkedList<int[]>();
-			LinkedList<int[]> syn_err_per_sen = new LinkedList<int[]>();
-			LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
-			LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
 			
 			//create set and map
 			WordFrequencyEngine wfe = new WordFrequencyEngine();
@@ -140,21 +132,19 @@ public class Main
 			System.out.println("CLEANING STARTED!");
 			
 			/* M_2: symbolische Fehler im Text [STORED] */ 
-			text_half_cleaned = dp.cleanErrorsAndParenthesis(texts_raws.getLast());	//Clean Step 1
-			tc.setErrors(dp.getErrors());	//collect errors
-			text_cleaned = tc.decompose(text_half_cleaned);	//Clean Step 2
-			symbol_error_dist = tc.getErrors();	//collect errors
-			text_info.setSymbol_error_dist(symbol_error_dist);	//store errors
+			sentence_objects = st.gatherSentences(texts_raws.getLast(), dp, tc);				//Clean Step 3
+			text_info.setSymbol_error_dist(tc.getErrors());							//store errors
 			
 			//*************************************************************************************************************************************************
 			//PROCESSING
 			System.out.println("PROCESSING STARTED!");			
 			//get sentences and gather words
-			sentence_objects = st.gatherSentences(text_cleaned);
 			sentences_cleaned = st.sentencesAsStrings(sentence_objects);
 			for(String s : sentences_cleaned) System.out.println(s);
 			
-			words = st.gatherWords(sentence_objects);
+			//TODO eine zahl welche festhält wieviele Sätze valide sind nach der reinigung ist evtl auch ganz nett!
+			
+			words = StanfordTokenizer.gatherWords(sentence_objects);
 			
 			System.out.println("GENERATING NIF FILE AND CALCULATION SYN ERR DIST STARTED!");
 			/* M_3: Syntactic error Distribution over all Sentence [STORED] */
@@ -195,27 +185,19 @@ public class Main
 			text_info.setWords_occurr_distr(word_occurr_dist);
 			
 			//TODO soll das auch eine Distribution werden?
-			/* M_1: Symbol Average over all Sentences [STORED] */
-			text_info.setSymbol_count(text_cleaned.length());
-			
-			/* General Informations [STORED] */
-			text_info.setSymbol_count_no_ws(text_cleaned.replaceAll(" ", "").length());
-			text_info.setSymbol_per_sentence(text_cleaned.length()/sentences_cleaned.size());
-			text_info.setSymbol_per_sentence_no_ws(text_cleaned.replaceAll(" ", "").length()/sentences_cleaned.size());
+			/* M_1: Symbol Average over text (all Sentences) [STORED] */
+			text_info.setSymbol_count(texts_raws.getLast().length());
 			
 			/* 
 			 * [NOT in USE currently because to BIG for big files]
 			 * M_7: Word Distribution over the text [STORED] 
 			 */
-			text_info.setWord_count(words.size());
-			text_info.setWords_distribution(wfe.getMap());	//Storing
-			text_info.setWord_per_sentence(SimpleRounding.round((1.0*words.size())/sentences_cleaned.size()));
+			text_info.setWords_distribution(wfe.getMap());	//For the whole text
 
 			System.out.println("CALCULATION GERBIL METRICS STARTED!");
-			//TODO später für gold text ausschließen da wir den aus Zeitgründen separat vorher berechnen müssen
 			/* M_GERBIL [STORED] */
-			JSONObject jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
-			text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
+//			jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
+//			text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
 			
 			//*************************************************************************************************************************************************
 			//STORE ALL RESULTS
@@ -226,47 +208,11 @@ public class Main
 			//*************************************************************************************************************************************************
 			//LOCAL PRESENTATION
 			
-			
-			//M_5
-//			pos_tags = wfe.appearancePercentage(FrequencySorting.sortPosTagMap(pos_tags_dist), sst.getTokens().size());
-//			for (PosTagObject tag : pos_tags) System.out.println("["+tag.getPOS_Tag()+"]\t\t["+tag.getTag_ouccurrence()+"]\t\t["+tag.getTag_oucc_percentage()+"]");
-			
-			//M_6
-//			annotation_sorted = FrequencySorting.sortDist(DistributionProcessing.getAnnotDist(sos));
-//			System.out.println("########  [Entities] / [Sentences] ########");
-//			for (int i = 0; i < annotation_sorted.size(); i++) {
-//				System.out.println("["+annotation_sorted.get(i)[0]+"]\t\t["+annotation_sorted.get(i)[1]+"]");
-//			}
-			
-			//M_4
-//			wps_sorted = FrequencySorting.sortDist(word_occurr_dist);
-//			System.out.println("######## [Word amount] / [Sentences] ########");
-//			for (int i = 0; i < wps_sorted.size(); i++) {
-//				System.out.println("["+wps_sorted.get(i)[0]+"]\t\t["+wps_sorted.get(i)[1]+"]");
-//			}
-			
-			//M_3
-//			syn_err_per_sen = FrequencySorting.sortDist(syn_error_dist);
-//			System.out.println("######## [Syntaxerrors] / [Sentences] ########");
-//			for (int i = 0; i < syn_err_per_sen.size(); i++) System.out.println("["+syn_err_per_sen.get(i)[0]+"]\t\t["+syn_err_per_sen.get(i)[1]+"]");
-			
-			//M_7 calculate word frequency percentage
-//			percentage = wfe.appearancePercentage(wfe.getMap(), words.size());
-//			triples_sorted = FrequencySorting.sortByPTL(percentage, wfe.getMap());
-//			System.out.println("######## [Word occurrence] / [Sentences] ########");
-//			for (int i = 0; i < triples_sorted.size(); i++) System.out.println("["+triples_sorted.get(i).getKey()+"]\t\t["+triples_sorted.get(i).getCount()+"]");
-			
 			//General
-//			System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
-//			System.out.println("Resource:\t\t\t"+text_info.getResource_name());
-//			System.out.println("Date and Time:\t\t\t"+text_info.getLocalDateAsString(text_info.getGeneration_date()));
-//			System.out.println("Words count:\t\t\t"+text_info.getWord_count());
-//			System.out.println("Sentence count:\t\t\t"+text_info.getSentence_count());
-//			System.out.println("Symbol count:\t\t\t"+text_info.getSymbol_count());
-//			System.out.println("Symbol count nws:\t\t"+text_info.getSymbol_count_no_ws());
-//			System.out.println("Symbol average / Sentence:\t"+text_info.getSymbol_per_sentence());
-//			System.out.println("Symbol avg nws / Sentence:\t"+text_info.getSymbol_per_sentence_no_ws());
-//			System.out.println("Word per Sentence:\t\t"+text_info.getWord_per_sentence());
+			System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
+			System.out.println("Resource:\t\t\t"+text_info.getResource_name());
+			System.out.println("Date and Time:\t\t\t"+text_info.getGeneration_date());
+			System.out.println("Symbol count:\t\t\t"+text_info.getSymbol_count());
 		}
 		
 		//*************************************************************************************************************************************************
@@ -279,19 +225,23 @@ public class Main
 		for(int cal = 0; cal < experiments_results.size(); cal++)
 		{
 			//get current metrics
-			current_nvp = new MetricVectorProcessing(experiments_results.get(cal), 6);
+			if(cal == 0){
+				current_mvp = gold_mvp;
+			}else{
+				current_mvp = new MetricVectorProcessing(experiments_results.get(cal), 6);
+			}
 			
 			//calculate the differences between gold's and the vector's metrics
-			current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, current_nvp);
+			current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, current_mvp);
 			
 			//then do cos_distance
 			rating = MetricVectorProcessing.rate(current_dist_vec, gold_mvp.getZero_vector());
 			ros.add(new ResultObject(rating, current_dist_vec, rating_path+"_"+(cal+1)+".txt", experiments_results.get(cal).getResource_name()));
-			if(ros.getLast().getRating() == 0.0) System.out.println("PERFECT MATCH!");
 		}
 		
 		System.out.println("STORING RESULTS\n");
 		TextWriter.writeGoldMVP(gold_mvp, rating_path.replace("_rating", "_gold_nvp")+".content.prop");
+		TextWriter.writeGoldMVP(current_mvp, rating_path.replace("_rating", "_current_nvp")+".content.prop");
 		TextWriter.writeRating(ros);
 	}
 	
@@ -323,9 +273,6 @@ public class Main
 			System.out.println("the file do not exist!");
 			TextWriter.fileWriter(CruelTextGenerator.createRandomFragment(TextReader.fileReader(gold_path)), fragment_path);
 		}
-		
-		System.exit(0);
-		
 //		String[] additional_files = new String[5];
 		String[] additional_files = new String[2];
 //		additional_files[0] = gold_name;

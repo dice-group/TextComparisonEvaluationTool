@@ -21,11 +21,20 @@ public class DevelishParenthesis
 {
 	
 	public static final String optimalRexSQBR = Pattern.quote("[[") + "([^\\[\\]]*)" + Pattern.quote("]]");
-	public static final String optimalRexRDBR = Pattern.quote("(") + "([^\\(\\)]*)" + Pattern.quote(")");
-	public static final String optimalREXEntity = Pattern.quote("[[") + "([a-zA-Z0-9(),| ]*)" + Pattern.quote("]]");
+	public static final String optimalRexRDBR = Pattern.quote("(") + "([a-zA-Z0-9, ]*)" + Pattern.quote(")");
+	public static final String optimalREXEntity = Pattern.quote("[[") + "([a-zA-Z0-9,| ]*)"+"(([(])([a-zA-Z0-9, ]*)([)])|([a-zA-Z0-9,| ]*))"+"([a-zA-Z0-9,| ]*)" + Pattern.quote("]]");
+	
 	public static final String punctutations = ",;.!?-'";
-	private HashMap<Character, Integer> errors = new HashMap<Character, Integer>();
+	private HashMap<Character, Integer> errors;
 
+	/**
+	 * Constructor
+	 */
+	public DevelishParenthesis(){
+		 errors = new HashMap<Character, Integer>();
+	}
+	
+	
 	//#############################################################################
 	//############################ USAGE METHODS ##################################
 	//#############################################################################
@@ -55,7 +64,6 @@ public class DevelishParenthesis
 			//now sort all into stack and clean them up
 			input_chars = input.toCharArray();
 			
-			System.out.println("Start error collecting!");
 			for (int i = 0; i < input_chars.length; i++) 
 			{
 				char current = input_chars[i];
@@ -68,7 +76,6 @@ public class DevelishParenthesis
 				}	
 			}
 			
-			System.out.println("Start error cleaning!");
 			while(!index_stack.isEmpty())
 			{
 				index = index_stack.pop();
@@ -104,6 +111,15 @@ public class DevelishParenthesis
 		TextReader tr = new TextReader();
 		String name = "BVFragment.txt";
 		String input = TextReader.fileReader(tr.getResourceFileAbsolutePath(name));
+		input = 	"I like town bath [[[[Field|Heinesen]]]]. "							
+				+ 	"It was 1962, the Militaryhistory was [[acquired]]. "
+				+ 	"And in [[Brenntwood ((south (Carolina))) in the USA]] we found Gold. " 	
+				+	"I saw a lot of [[Crows (black birds) | bird]] fly. "
+				+ 	"I was in [[Afar | a young country]] it was hot. "
+				+ 	"The been [[Melton by( Secret (Dutch hands hydrogen of with due the) Mexico]]. " 	//error
+				+ 	"And [[the big (wood|tree) house )in georgia]].";									//error
+		
+		
 		DevelishParenthesis dp = new DevelishParenthesis();
 		
 		System.out.println("INPUT: \n"+input);

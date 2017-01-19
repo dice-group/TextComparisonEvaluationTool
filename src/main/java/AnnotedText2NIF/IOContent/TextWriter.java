@@ -2,8 +2,11 @@ package AnnotedText2NIF.IOContent;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.LinkedList;
 
 import Engines.SimpleObjects.MetricVectorProcessing;
@@ -198,26 +201,29 @@ public class TextWriter
 					file.createNewFile();
 				}
 				
-				BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+
+
+				Writer bw = new BufferedWriter(new OutputStreamWriter( new FileOutputStream(file.getAbsoluteFile()), "UTF-8"));
 				
 				bw.write(ro.getResource());
-				bw.newLine();
+				((BufferedWriter) bw).newLine();
 				
 				for (int k = 0; k < ro.getDistance_vector().size(); k++) 
 				{
 					if(k < 6){
+						if(k == 0) System.out.println("Average: "+ro.getDistance_vector().get(k));
 						bw.write("M_"+(k+1)+": "+ro.getDistance_vector().get(k));
 					}else{
 						bw.write("GERBIL_"+m+": "+ro.getDistance_vector().get(k));
 						m++;
 					}
-					bw.newLine();
+					((BufferedWriter) bw).newLine();
 					
 				}
 				
 				if(ro.getRating() == 0.0){
 					bw.write("Rating: "+ro.getRating());
-					bw.newLine();
+					((BufferedWriter) bw).newLine();
 					bw.write("THIS IS A PERFECT MATCH!");
 				}else{
 					bw.write("\nRating: "+ro.getRating());
