@@ -281,7 +281,7 @@ public class Main
 		}
 		
 		System.out.println("STORING RESULTS\n");
-		TextWriter.writeGoldMVP(gold_mvp, rating_path.replace("_rating", "_gold_nvp")+".txt");
+		TextWriter.writeGoldMVP(gold_mvp, rating_path.replace("_rating", "_gold_nvp")+".content.prop");
 		TextWriter.writeRating(ros);
 	}
 	
