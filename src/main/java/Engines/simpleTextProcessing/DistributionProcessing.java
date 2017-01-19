@@ -3,7 +3,6 @@ package Engines.simpleTextProcessing;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import Engines.Enums.Language;
 import Engines.SimpleObjects.SentenceObject;
 
 /**
@@ -32,14 +31,13 @@ public class DistributionProcessing
 	 * This method calculate the distribution of words per sentence.
 	 * @param sos
 	 * @param sst
-	 * @param language
 	 * @return Map of word count and the occurrence of this count value
 	 */
-	public static HashMap<Integer, Integer> getWPSDist(LinkedList<SentenceObject> sos, Language language)
+	public static HashMap<Integer, Integer> getWPSDist(LinkedList<SentenceObject> sos, StanfordTokenizer st)
 	{
 		HashMap<Integer, Integer> distribution = new HashMap<Integer, Integer>();
 		
-		for (int i = 0; i < sos.size(); i++) calcDistInteger(distribution, StanfordTokenizer.gatherWords(sos.get(i).getSentence()).size());
+		for (int i = 0; i < sos.size(); i++) calcDistInteger(distribution, st.gatherWords(sos.get(i).getSentence()).size());
 		return distribution;
 	}
 	
@@ -47,10 +45,9 @@ public class DistributionProcessing
 	/**
 	 * This class return a map of integer where each list element contain a key and a count value;
 	 * @param sentences_raw
-	 * @param language
 	 * @return Map of the syntactic error per sentence distribution
 	 */
-	public static HashMap<String, Integer> calcSimpleSynErrorDist(LinkedList<String> sentences_raw, Language language)
+	public static HashMap<String, Integer> calcSimpleSynErrorDist(LinkedList<String> sentences_raw)
 	{
 		HashMap<String, Integer> syn_err_dist = new HashMap<String, Integer>(); 
 		

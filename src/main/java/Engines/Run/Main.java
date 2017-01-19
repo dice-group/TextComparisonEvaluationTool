@@ -24,7 +24,6 @@ import Web.Objects.ExperimentObjectGERBIL;
 import edu.stanford.nlp.simple.Sentence;
 import Engines.Enums.Annotators;
 import Engines.Enums.ExpType;
-import Engines.Enums.Language;
 import Engines.Enums.Matching;
 
 /**
@@ -47,7 +46,7 @@ public class Main
 	 * TODO check documentations about correctness (author, description, parameters, return)
 	 */
 	
-	public static void pipeline(Language language, LinkedList<String> filenames, LinkedList<String> annotators, String exp_type, String matching_type, String rating_path) throws Exception
+	public static void pipeline(LinkedList<String> filenames, LinkedList<String> annotators, String exp_type, String matching_type, String rating_path) throws Exception
 	{
 		//*************************************************************************************************
 		//*************************************************************************************************
@@ -58,42 +57,46 @@ public class Main
 		//GENERAL SETUP (VARIABLES)
 
 		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
-		TextConversion tc = new TextConversion();
 		
-		//All file experiment informations and there NIF files 
-		LinkedList<TextInformations> experiments_results = new LinkedList<TextInformations>();
-		LinkedList<File> experiments_NifFiles = new LinkedList<File>();
-		
+		double rating = Double.NaN;
+		TextConversion tc;
+		DevelishParenthesis dp;
+		GatherAnnotationInformations gai;	
+		TextInformations gold_info;
+		MetricVectorProcessing gold_mvp,current_nvp;
+		StanfordTokenizer st;
+		ArrayList<Double> current_dist_vec;
 		TextReader tr = new TextReader();
-		DevelishParenthesis dp = new DevelishParenthesis();
-		GatherAnnotationInformations gai = new GatherAnnotationInformations();	
 		
 		LinkedList<String> nameNIFFile = new LinkedList<String>();
 		LinkedList<String> resourceFilesAbsolutePaths = new LinkedList<String>();
 		LinkedList<String> texts_raws = new LinkedList<String>();
-		TextInformations gold_info;
-		MetricVectorProcessing gold_mvp;
-		MetricVectorProcessing current_nvp;
-		ArrayList<Double> current_dist_vec;
+		
+		//All file experiment informations and there NIF files 
+		LinkedList<TextInformations> experiments_results = new LinkedList<TextInformations>();
+		LinkedList<File> experiments_NifFiles = new LinkedList<File>();
 		LinkedList<ResultObject> ros = new LinkedList<ResultObject>();
-		double rating = Double.NaN;
-		
-		
 		
 		//*************************************************************************************************************************************************
 		//FOR EACH FILE
 		for(int k = 0; k < filenames.size(); k++)
 		{	
-			System.out.println("\n\n###############################################");
-			System.out.println("FILE ["+filenames.get(k)+"] STARTED!");
-			System.out.println("###############################################");
+			String text_cleaned, text_half_cleaned;
+			File file;
+			String out_file_path;
+			TextInformations text_info;
+			
+			dp = new DevelishParenthesis();
+			gai = new GatherAnnotationInformations();
+			tc = new TextConversion();
+			st = new StanfordTokenizer();
+			
 			nameNIFFile.add(filenames.get(k).replace(".txt", ".ttl"));
 			resourceFilesAbsolutePaths.add(tr.getResourceFileAbsolutePath(filenames.get(k)));
 			texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
 			
-			String out_file_path = tr.getResourceFileAbsolutePath(filenames.get(k)).replace(filenames.get(k), nameNIFFile.getLast());
-			String text_cleaned, text_half_cleaned;
-			File file;
+			out_file_path = tr.getResourceFileAbsolutePath(filenames.get(k)).replace(filenames.get(k), nameNIFFile.getLast());
+			text_info = new TextInformations(filenames.get(k));
 			
 			//Multiple items
 			LinkedList<String> words;
@@ -101,17 +104,16 @@ public class Main
 			ArrayList<Sentence> sentence_objects;
 			LinkedList<SentenceObject> sos = new LinkedList<SentenceObject>();
 			LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
-			TextInformations text_info = new TextInformations(filenames.get(k));
 			HashMap<String, Integer> pos_tags_dist;
 			HashMap<Integer, Integer> word_occurr_dist, annotation_dist;
 			HashMap<Character, Integer> symbol_error_dist;
 			
-//			HashMap<String, Double> percentage;
-//			LinkedList<int[]> annotation_sorted = new LinkedList<int[]>();
-//			LinkedList<int[]> wps_sorted = new LinkedList<int[]>();
-//			LinkedList<int[]> syn_err_per_sen = new LinkedList<int[]>();
-//			LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
-//			LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
+			HashMap<String, Double> percentage;
+			LinkedList<int[]> annotation_sorted = new LinkedList<int[]>();
+			LinkedList<int[]> wps_sorted = new LinkedList<int[]>();
+			LinkedList<int[]> syn_err_per_sen = new LinkedList<int[]>();
+			LinkedList<Triple> triples_sorted = new LinkedList<Triple>();
+			LinkedList<PosTagObject> pos_tags = new LinkedList<PosTagObject>();
 			
 			//create set and map
 			WordFrequencyEngine wfe = new WordFrequencyEngine();
@@ -129,6 +131,10 @@ public class Main
 			ExperimentObjectGERBIL exoGERBIL = new ExperimentObjectGERBIL(exp_type, matching_type, annotators, datasets);
 			
 			
+			System.out.println("\n\n###############################################");
+			System.out.println("FILE ["+filenames.get(k)+"] STARTED!");
+			System.out.println("###############################################");
+			
 			//*************************************************************************************************************************************************
 			//CLEANING
 			System.out.println("CLEANING STARTED!");
@@ -144,18 +150,16 @@ public class Main
 			//PROCESSING
 			System.out.println("PROCESSING STARTED!");			
 			//get sentences and gather words
-			System.out.println("GESÄUBERTER TEXT: \n"+text_cleaned);
-			//TODO kontrolle auf geschlossene Klammern und ob Satz entität enthält + adden falls irgend etwas failed
-			//TODO kontrolle ob entitäten korrekt also nur alnum, komma, pipe, whitespace und brackets.
-			sentence_objects = StanfordTokenizer.gatherSentences(text_cleaned);
-			sentences_cleaned = StanfordTokenizer.sentencesAsStrings(sentence_objects);
-			words = StanfordTokenizer.gatherWords(sentence_objects);
+			sentence_objects = st.gatherSentences(text_cleaned);
+			sentences_cleaned = st.sentencesAsStrings(sentence_objects);
+			for(String s : sentences_cleaned) System.out.println(s);
 			
-			System.exit(0);
+			words = st.gatherWords(sentence_objects);
 			
 			System.out.println("GENERATING NIF FILE AND CALCULATION SYN ERR DIST STARTED!");
 			/* M_3: Syntactic error Distribution over all Sentence [STORED] */
-			gai.setSyntax_error_dist(DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned, language));
+			gai.setSyntax_error_dist(st.getSyn_error_dist());
+			gai.addSEDMap(DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned));
 			file = new File(attnifc.getNIFFileBySentences(sentences_cleaned, out_file_path, gai));
 			text_info.setSyn_error_dist(gai.getSyntax_error_dist());
 			
@@ -165,7 +169,7 @@ public class Main
 			
 			System.out.println("CALCULATION POS DIST STARTED!");
 			/* M_5: POS-Tags Distribution over all Sentences [STORED] */
-			pos_tags_dist = StanfordTokenizer.countPosTagsOccourence(sentence_objects);
+			pos_tags_dist = st.countPosTagsOccourence(sentence_objects);
 			text_info.setPos_tags_dist(pos_tags_dist);
 			
 			System.out.println("URL CONTROL STARTED!");
@@ -187,7 +191,7 @@ public class Main
 			
 			System.out.println("CALCULATION WPS DIST STARTED!");
 			/* M_4: Word Distribution over all Sentences [STORED] */
-			word_occurr_dist = DistributionProcessing.getWPSDist(sos, language);
+			word_occurr_dist = DistributionProcessing.getWPSDist(sos,st);
 			text_info.setWords_occurr_distr(word_occurr_dist);
 			
 			//TODO soll das auch eine Distribution werden?
@@ -303,7 +307,6 @@ public class Main
 	 */
 	public static void main(String[] args) throws Exception 
 	{	
-		Language language = Language.EN;
 		TextReader tr = new TextReader();
 		
 		String exp_type = ExpType.A2KB.name();
@@ -343,7 +346,7 @@ public class Main
 		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(default_annotators));
 		
 		
-		Main.pipeline(language, filenames, annotators, exp_type, matching_type, rating_out_path);
+		Main.pipeline(filenames, annotators, exp_type, matching_type, rating_out_path);
 	}
 
 }

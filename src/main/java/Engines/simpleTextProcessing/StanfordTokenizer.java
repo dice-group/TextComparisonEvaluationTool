@@ -13,15 +13,28 @@ import edu.stanford.nlp.simple.*;
 
 public class StanfordTokenizer 
 {
+	private static HashMap<String, Integer> syn_error_dist = new HashMap<String, Integer>();
+	
 	/**
-	 * This method split a given text into sentences.
+	 * This method split a given text into sentences and store only these who contain annotation entities.
+	 * If an sentences does not contain annotation entities here we store an syntax error. 
 	 * @param paragraph
 	 * @return List of Sentence objects
 	 */
-	public static ArrayList<Sentence> gatherSentences(String paragraph)
+	public ArrayList<Sentence> gatherSentences(String paragraph)
     {
 		 Document doc = new Document(paragraph);
-		 ArrayList<Sentence> sentenceList = (ArrayList<Sentence>) doc.sentences();
+		 ArrayList<Sentence> sentenceList = new ArrayList<Sentence>();
+		 
+		 for(Sentence s : doc.sentences())
+		 {
+			 if(s.text().contains("[[") && s.text().contains("]]"))
+			 {
+				 sentenceList.add(s);
+			 }else{
+				 DistributionProcessing.calcDistString(syn_error_dist, "NOT_ANNOT_SENTENCE");
+			 } 
+		 }
 		 return sentenceList;
     }
 	
@@ -30,7 +43,7 @@ public class StanfordTokenizer
 	 * @param sentences
 	 * @return List of words as String
 	 */
-	public static LinkedList<String> gatherWords(ArrayList<Sentence> sentences)
+	public LinkedList<String> gatherWords(ArrayList<Sentence> sentences)
 	{
 		LinkedList<String> words = new LinkedList<String>();
 		
@@ -53,7 +66,7 @@ public class StanfordTokenizer
 	 * @param sentence
 	 * @return List of words as String
 	 */
-	public static LinkedList<String> gatherWords(Sentence sentence)
+	public LinkedList<String> gatherWords(Sentence sentence)
 	{
 		LinkedList<String> words = new LinkedList<String>();
 		
@@ -73,7 +86,7 @@ public class StanfordTokenizer
 	 * @param sents
 	 * @return List of Sentences as String
 	 */
-	public static LinkedList<String> sentencesAsStrings(ArrayList<Sentence> sents)
+	public LinkedList<String> sentencesAsStrings(ArrayList<Sentence> sents)
 	{
 		LinkedList<String> sentences = new LinkedList<String>();
 		for(Sentence s : sents) sentences.add(s.text());
@@ -89,7 +102,7 @@ public class StanfordTokenizer
      * @param token
      * @return Map of POS-Tags as Keys and there occurrence count as value
      */
-    public static HashMap<String, Integer> countPosTagsOccourence(ArrayList<Sentence> sentenceList) 
+    public HashMap<String, Integer> countPosTagsOccourence(ArrayList<Sentence> sentenceList) 
 	{
     	HashMap<String, Integer> POS_tag_distribution = new HashMap<String, Integer>();
     	
@@ -112,7 +125,10 @@ public class StanfordTokenizer
 		return Normalizer.normalize(text, Form.NFD).replaceAll("[^A-Za-z0-9-]", "");
 	}
 	
-	
+	public HashMap<String, Integer> getSyn_error_dist() {
+		return syn_error_dist;
+	}
+
 	/*
 	 * EXAMPLE of USE
 	 */
@@ -120,8 +136,9 @@ public class StanfordTokenizer
 	{ 
 		
 		TextReader tr = new TextReader();
+		StanfordTokenizer st = new StanfordTokenizer();
 		String file_location = tr.getResourceFileAbsolutePath("BeispielCheck.txt");
-		ArrayList<Sentence> sentenceList = gatherSentences(TextReader.fileReader(file_location));
+		ArrayList<Sentence> sentenceList = st.gatherSentences(TextReader.fileReader(file_location));
 		
 		int check = 0;
 		
@@ -137,7 +154,7 @@ public class StanfordTokenizer
 			check += words.size();
 		}
 		
-		LinkedList<String> word_list = gatherWords(sentenceList);
+		LinkedList<String> word_list = st.gatherWords(sentenceList);
 		
 		System.out.println("Check: "+check);
 		System.out.println("Other: "+word_list.size());

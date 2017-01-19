@@ -219,6 +219,10 @@ public class GatherAnnotationInformations
 		this.syntax_error_dist = syntax_error_dist;
 	}
 	
+	public void addSEDMap(HashMap<String, Integer> map) {
+		this.syntax_error_dist.putAll(map);
+	}
+	
 	public HashMap<String, String> getUrls() {
 		return urls;
 	}

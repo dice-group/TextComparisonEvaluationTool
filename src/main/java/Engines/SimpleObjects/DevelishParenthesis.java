@@ -23,7 +23,7 @@ public class DevelishParenthesis
 	public static final String optimalRexSQBR = Pattern.quote("[[") + "([^\\[\\]]*)" + Pattern.quote("]]");
 	public static final String optimalRexRDBR = Pattern.quote("(") + "([^\\(\\)]*)" + Pattern.quote(")");
 	public static final String optimalREXEntity = Pattern.quote("[[") + "([a-zA-Z0-9(),| ]*)" + Pattern.quote("]]");
-	public static final String punctutations = "':,.!-?;";
+	public static final String punctutations = ",;.!?-'";
 	private HashMap<Character, Integer> errors = new HashMap<Character, Integer>();
 
 	//#############################################################################
@@ -37,9 +37,7 @@ public class DevelishParenthesis
 	 * @return cleaned String
 	 */
 	public String cleanErrorsAndParenthesis(String content)
-	{
-		errors = new HashMap<Character, Integer>();
-		
+	{		
 		if(!content.isEmpty())
 		{	
 			LinkedList<Integer> out_ix = new LinkedList<Integer>();
@@ -48,7 +46,7 @@ public class DevelishParenthesis
 			char[] input_chars;
 			int index;
 			
-			Matcher matcher = Pattern.compile(optimalRexSQBR).matcher(input);
+			Matcher matcher = Pattern.compile(optimalREXEntity).matcher(input);
 			while (matcher.find()) input = input.replace(matcher.group(), StringUtils.leftPad("", matcher.group().length(), '*'));
 			
 			matcher = Pattern.compile(optimalRexRDBR).matcher(input);
@@ -109,7 +107,8 @@ public class DevelishParenthesis
 		DevelishParenthesis dp = new DevelishParenthesis();
 		
 		System.out.println("INPUT: \n"+input);
-		System.out.println("RESULT: \n"+dp.cleanErrorsAndParenthesis(input));
+		input = dp.cleanErrorsAndParenthesis(input);
+		System.out.println("RESULT: \n"+input);
 		System.out.println("ERRORS: \n"+dp.getErrors().keySet());
 		System.out.println();
 		for (char c : dp.getErrors().keySet())
@@ -118,6 +117,5 @@ public class DevelishParenthesis
 			System.out.println("VALUE: "+dp.getErrors().get(c));
 		}
 
-		
 	}
 }
