@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import Engines.SimpleObjects.MetricVectorProcessing;
 import Engines.SimpleObjects.ResultObject;
 
 /**
@@ -38,6 +39,111 @@ public class TextWriter
 		} catch (IOException ioe) { ioe.printStackTrace(); }
 		
 		return path;
+	}
+	
+	/**
+	 * This method stores the raw content of the Gold Standard Text
+	 * @param mvp
+	 * @param path
+	 * @return content file path
+	 */
+	public static String writeGoldMVP(MetricVectorProcessing mvp, String path)
+	{
+		try {
+			
+			File file = new File(path);
+
+			if (!file.exists()) 
+			{
+				file.createNewFile();
+			}
+			
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+			
+			bw.write("M_1");
+			bw.newLine();
+			bw.write(mvp.symbol_average);
+			bw.newLine();
+			bw.newLine();
+			
+			//####################################################################
+			
+			bw.write("M_2");
+			bw.newLine();
+			for(Character key: mvp.symbol_error_dist.keySet())
+			{
+				bw.write("["+key+"]["+mvp.symbol_error_dist.get(key)+"]");
+				bw.newLine();
+			}
+			bw.newLine();
+			bw.newLine();
+			
+			//####################################################################
+			
+			bw.write("M_3");
+			bw.newLine();
+			for(String key: mvp.syntactic_error_dist.keySet())
+			{
+				bw.write("["+key+"]["+mvp.syntactic_error_dist.get(key)+"]");
+				bw.newLine();
+			}
+			bw.newLine();
+			bw.newLine();
+			
+			//####################################################################
+			
+			bw.write("M_4");
+			bw.newLine();
+			for(Integer key: mvp.word_occurrence_dist.keySet())
+			{
+				bw.write("["+key+"]["+mvp.word_occurrence_dist.get(key)+"]");
+				bw.newLine();
+			}
+			bw.newLine();
+			bw.newLine();
+			
+			//####################################################################
+			
+			bw.write("M_5");
+			bw.newLine();
+			for(String key: mvp.pos_tags_dist.keySet())
+			{
+				bw.write("["+key+"]["+mvp.pos_tags_dist.get(key)+"]");
+				bw.newLine();
+			}
+			bw.newLine();
+			bw.newLine();
+			
+			//####################################################################
+			
+			bw.write("M_6");
+			bw.newLine();
+			
+			for(Integer key: mvp.annotated_entity_dist.keySet())
+			{
+				bw.write("["+key+"]["+mvp.annotated_entity_dist.get(key)+"]");
+				bw.newLine();
+			}
+			bw.newLine();
+			bw.newLine();
+			
+			//####################################################################
+			
+			bw.write("M_GERBIL");
+			bw.newLine();
+			for(String key: mvp.gerbil_metrics.keySet())
+			{
+				bw.write("["+key+"]["+mvp.gerbil_metrics.get(key)+"]");
+				bw.newLine();
+			}
+			bw.newLine();
+
+			//close the buffered writer
+			bw.close();
+			
+		} catch (IOException ioe) { ioe.printStackTrace(); }
+		
+		return path;	
 	}
 	
 	/**

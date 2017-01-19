@@ -71,7 +71,7 @@ public class Main
 		LinkedList<String> resourceFilesAbsolutePaths = new LinkedList<String>();
 		LinkedList<String> texts_raws = new LinkedList<String>();
 		TextInformations gold_info;
-		MetricVectorProcessing gold_nvp;
+		MetricVectorProcessing gold_mvp;
 		MetricVectorProcessing current_nvp;
 		ArrayList<Double> current_dist_vec;
 		LinkedList<ResultObject> ros = new LinkedList<ResultObject>();
@@ -264,8 +264,7 @@ public class Main
 		
 		System.out.println("FINAL CALCULATION STARTED!");
 		gold_info = experiments_results.get(0);
-		gold_nvp = new MetricVectorProcessing(gold_info, 6);
-		
+		gold_mvp = new MetricVectorProcessing(gold_info, 6);
 		
 		for(int cal = 0; cal < experiments_results.size(); cal++)
 		{
@@ -273,15 +272,16 @@ public class Main
 			current_nvp = new MetricVectorProcessing(experiments_results.get(cal), 6);
 			
 			//calculate the differences between gold's and the vector's metrics
-			current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_nvp, current_nvp);
+			current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, current_nvp);
 			
 			//then do cos_distance
-			rating = MetricVectorProcessing.rate(current_dist_vec, gold_nvp.getZero_vector());
+			rating = MetricVectorProcessing.rate(current_dist_vec, gold_mvp.getZero_vector());
 			ros.add(new ResultObject(rating, current_dist_vec, rating_path+"_"+(cal+1)+".txt", experiments_results.get(cal).getResource_name()));
 			if(ros.getLast().getRating() == 0.0) System.out.println("PERFECT MATCH!");
 		}
 		
 		System.out.println("STORING RESULTS\n");
+		TextWriter.writeGoldMVP(gold_mvp, rating_path.replace("_rating", "_gold_nvp")+".txt");
 		TextWriter.writeRating(ros);
 	}
 	
@@ -316,12 +316,11 @@ public class Main
 		}
 		
 //		String[] additional_files = new String[5];
-		String[] additional_files = new String[4];
-//		additional_files[0] = gold_name;
-		additional_files[0] = "epoch70Final.txt";
+		String[] additional_files = new String[2];
+		additional_files[0] = gold_name;
 		additional_files[1] = fragment_name;
-		additional_files[2] = "epoch15.txt";
-		additional_files[3] = "epoch30.txt";
+//		additional_files[2] = "epoch15.txt";
+//		additional_files[3] = "epoch30.txt";
 //		additional_files[4] = "epoch70Final.txt";
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 

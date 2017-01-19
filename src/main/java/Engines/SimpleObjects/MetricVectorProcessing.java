@@ -20,18 +20,18 @@ public class MetricVectorProcessing
 	static double epsilon = 0.00000001;
 	
 	//Non_Gerbil metrics
-	int symbol_average;
-	HashMap<Character, Integer> symbol_error_dist;
-	HashMap<String, Integer> syntactic_error_dist;
-	HashMap<Integer, Integer> word_occurrence_dist;
-	HashMap<String, Integer> pos_tags_dist;
-	HashMap<Integer, Integer> annotated_entity_dist;
+	public int symbol_average;
+	public HashMap<Character, Integer> symbol_error_dist;
+	public HashMap<String, Integer> syntactic_error_dist;
+	public HashMap<Integer, Integer> word_occurrence_dist;
+	public HashMap<String, Integer> pos_tags_dist;
+	public HashMap<Integer, Integer> annotated_entity_dist;
 	
 	//Gerbil metrics
-	HashMap<String, Double> gerbil_metrics;
+	public HashMap<String, Double> gerbil_metrics;
 	
-	ArrayList<Double> distanceVector;
-	ArrayList<Double> zero_vector;
+	public ArrayList<Double> distanceVector;
+	private ArrayList<Double> zero_vector;
 	
 	//##################################################################################
 	//################################## CONSTRUCTOR ###################################
