@@ -46,10 +46,6 @@ public class MetricVectorProcessing
 	 */
 	public MetricVectorProcessing(TextInformations insertion, int ngm_count)
 	{
-		System.out.println();
-		
-		
-		
 		this.symbol_average = insertion.getSymbol_count();				/*M_1*/
 		this.symbol_error_dist = insertion.getSymbol_error_dist();		/*M_2*/
 		this.syntactic_error_dist = insertion.getSyn_error_dist();		/*M_3*/

@@ -277,7 +277,7 @@ public class Main
 			
 			//then do cos_distance
 			rating = MetricVectorProcessing.rate(current_dist_vec, gold_nvp.getZero_vector());
-			ros.add(new ResultObject(rating, current_dist_vec, rating_path+"_"+(cal+1)+".txt"));
+			ros.add(new ResultObject(rating, current_dist_vec, rating_path+"_"+(cal+1)+".txt", experiments_results.get(cal).getResource_name()));
 			if(ros.getLast().getRating() == 0.0) System.out.println("PERFECT MATCH!");
 		}
 		

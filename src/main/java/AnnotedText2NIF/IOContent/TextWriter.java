@@ -94,6 +94,9 @@ public class TextWriter
 				
 				BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 				
+				bw.write(ro.getResource());
+				bw.newLine();
+				
 				for (int k = 0; k < ro.getDistance_vector().size(); k++) 
 				{
 					if(k < 6){
