@@ -15,6 +15,7 @@ import AnnotedText2NIF.IOContent.TextWriter;
 import Engines.SimpleObjects.*;
 import Engines.internalEngineParts.WordFrequencyEngine;
 import Engines.simpleTextProcessing.CruelTextGenerator;
+import Engines.simpleTextProcessing.DevelishParenthesis;
 import Engines.simpleTextProcessing.DistributionProcessing;
 import Engines.simpleTextProcessing.StanfordTokenizer;
 import Engines.simpleTextProcessing.TextConversion;
@@ -76,6 +77,7 @@ public class Main
 		LinkedList<TextInformations> experiments_results = new LinkedList<TextInformations>();
 		LinkedList<File> experiments_NifFiles = new LinkedList<File>();
 		LinkedList<ResultObject> ros = new LinkedList<ResultObject>();
+		LinkedList<MetricVectorProcessing> mvps = new LinkedList<MetricVectorProcessing>();
 		
 		//*************************************************************************************************************************************************
 		//FOR EACH FILE
@@ -131,23 +133,22 @@ public class Main
 			//CLEANING
 			System.out.println("CLEANING STARTED!");
 			
-			/* M_2: symbolische Fehler im Text [STORED] */ 
-			sentence_objects = st.gatherSentences(texts_raws.getLast(), dp, tc);				//Clean Step 3
+			/* M_2 */ 
+			sentence_objects = st.gatherSentences(texts_raws.getLast(), dp, tc);	//Clean Step 3
 			text_info.setSymbol_error_dist(tc.getErrors());							//store errors
+			System.out.println("===> ["+sentence_objects.size()+" sentences to check!]");
 			
 			//*************************************************************************************************************************************************
 			//PROCESSING
-			System.out.println("PROCESSING STARTED!");			
+			System.out.println("PROCESSING STARTED!");
+			
+			//TODO eine zahl welche speichert wieviele Sätze valide sind nach der reinigung ist evtl auch ganz nett!
 			//get sentences and gather words
 			sentences_cleaned = st.sentencesAsStrings(sentence_objects);
-			for(String s : sentences_cleaned) System.out.println(s);
-			
-			//TODO eine zahl welche festhält wieviele Sätze valide sind nach der reinigung ist evtl auch ganz nett!
-			
 			words = StanfordTokenizer.gatherWords(sentence_objects);
 			
 			System.out.println("GENERATING NIF FILE AND CALCULATION SYN ERR DIST STARTED!");
-			/* M_3: Syntactic error Distribution over all Sentence [STORED] */
+			/* M_3 */
 			gai.setSyntax_error_dist(st.getSyn_error_dist());
 			gai.addSEDMap(DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned));
 			file = new File(attnifc.getNIFFileBySentences(sentences_cleaned, out_file_path, gai));
@@ -158,7 +159,7 @@ public class Main
 			wfe.gatherWordFrequencyByList(words);
 			
 			System.out.println("CALCULATION POS DIST STARTED!");
-			/* M_5: POS-Tags Distribution over all Sentences [STORED] */
+			/* M_5 */
 			pos_tags_dist = st.countPosTagsOccourence(sentence_objects);
 			text_info.setPos_tags_dist(pos_tags_dist);
 			
@@ -175,18 +176,17 @@ public class Main
 			}
 			
 			System.out.println("CALCULATION ENTITY DIST STARTED!");
-			/* M_6: Entity Distribution over all Sentence [STORED] */
+			/* M_6 */
 			annotation_dist = DistributionProcessing.getAnnotDist(sos);
 			text_info.setAnnotation_dist(annotation_dist);
 			
 			System.out.println("CALCULATION WPS DIST STARTED!");
-			/* M_4: Word Distribution over all Sentences [STORED] */
+			/* M_4 */
 			word_occurr_dist = DistributionProcessing.getWPSDist(sos,st);
 			text_info.setWords_occurr_distr(word_occurr_dist);
 			
-			//TODO soll das auch eine Distribution werden?
-			/* M_1: Symbol Average over text (all Sentences) [STORED] */
-			text_info.setSymbol_count(texts_raws.getLast().length());
+			/* M_1 */
+			text_info.setSymbol_sent_dist(st.getSymbol_per_sent_dist());
 			
 			/* 
 			 * [NOT in USE currently because to BIG for big files]
@@ -196,8 +196,8 @@ public class Main
 
 			System.out.println("CALCULATION GERBIL METRICS STARTED!");
 			/* M_GERBIL [STORED] */
-//			jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
-//			text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
+			jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
+			text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
 			
 			//*************************************************************************************************************************************************
 			//STORE ALL RESULTS
@@ -209,10 +209,11 @@ public class Main
 			//LOCAL PRESENTATION
 			
 			//General
-			System.out.println("\n\n######################### INFO ##########################\t\t\t\n");
+			System.out.println("\n\n######################### INFO ##########################\n");
 			System.out.println("Resource:\t\t\t"+text_info.getResource_name());
 			System.out.println("Date and Time:\t\t\t"+text_info.getGeneration_date());
-			System.out.println("Symbol count:\t\t\t"+text_info.getSymbol_count());
+			
+			if((k+1) < filenames.size()) System.out.println("\n######################### NEXT ##########################\n");
 		}
 		
 		//*************************************************************************************************************************************************
@@ -221,18 +222,23 @@ public class Main
 		System.out.println("FINAL CALCULATION STARTED!");
 		gold_info = experiments_results.get(0);
 		gold_mvp = new MetricVectorProcessing(gold_info, 6);
+		mvps.add(gold_mvp);
 		
 		for(int cal = 0; cal < experiments_results.size(); cal++)
 		{
 			//get current metrics
 			if(cal == 0){
-				current_mvp = gold_mvp;
+				//calculate the differences between gold's and the vector's metrics
+				current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, gold_mvp);
 			}else{
 				current_mvp = new MetricVectorProcessing(experiments_results.get(cal), 6);
+				
+				//calculate the differences between gold's and the vector's metrics
+				current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, current_mvp);
+				mvps.add(current_mvp);
 			}
 			
-			//calculate the differences between gold's and the vector's metrics
-			current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, current_mvp);
+			
 			
 			//then do cos_distance
 			rating = MetricVectorProcessing.rate(current_dist_vec, gold_mvp.getZero_vector());
@@ -240,8 +246,8 @@ public class Main
 		}
 		
 		System.out.println("STORING RESULTS\n");
-		TextWriter.writeGoldMVP(gold_mvp, rating_path.replace("_rating", "_gold_nvp")+".content.prop");
-		TextWriter.writeGoldMVP(current_mvp, rating_path.replace("_rating", "_current_nvp")+".content.prop");
+		TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_nvp")+".content.prop");
+		for(int mvs = 0; mvs < mvps.size(); mvs++) TextWriter.writeMVP(current_mvp, rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", ".content.prop"));
 		TextWriter.writeRating(ros);
 	}
 	
@@ -294,6 +300,17 @@ public class Main
 		
 		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(default_annotators));
 		
+		System.out.println("#########################################################");
+		System.out.println("############# THESE METRICS ARE WE CHECKING #############");
+		System.out.println("#########################################################");
+		
+		System.out.println("[Distribution] M_1: Symbol error cleaning and collection over all sentences");
+		System.out.println("[Distribution] M_2: Symbol average over all clean sentences");
+		System.out.println("[Distribution] M_3: Syntactic error collection over all sentences");
+		System.out.println("[Distribution] M_4: Words over all sentences");
+		System.out.println("[Distribution] M_5: POS-Tags collection over all sentences");
+		System.out.println("[Distribution] M_6: Entities over all sentences");
+		System.out.println("[Values] GERBIL METRICS: "+annotators);
 		
 		Main.pipeline(filenames, annotators, exp_type, matching_type, rating_out_path);
 	}

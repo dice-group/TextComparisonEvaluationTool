@@ -50,7 +50,7 @@ public class TextWriter
 	 * @param path
 	 * @return content file path
 	 */
-	public static String writeGoldMVP(MetricVectorProcessing mvp, String path)
+	public static String writeMVP(MetricVectorProcessing mvp, String path)
 	{
 		try {
 			
@@ -65,7 +65,12 @@ public class TextWriter
 			
 			bw.write("M_1");
 			bw.newLine();
-			bw.write(mvp.symbol_average);
+			for(Integer key: mvp.symbol_sent_dist.keySet())
+			{
+				bw.write("["+key+"]["+mvp.symbol_sent_dist.get(key)+"]");
+				bw.newLine();
+			}
+			
 			bw.newLine();
 			bw.newLine();
 			
@@ -206,7 +211,7 @@ public class TextWriter
 				Writer bw = new BufferedWriter(new OutputStreamWriter( new FileOutputStream(file.getAbsoluteFile()), "UTF-8"));
 				
 				bw.write(ro.getResource());
-				((BufferedWriter) bw).newLine();
+				bw.write("REMIND: Its the distance vector!");
 				
 				for (int k = 0; k < ro.getDistance_vector().size(); k++) 
 				{
@@ -217,14 +222,12 @@ public class TextWriter
 						bw.write("GERBIL_"+m+": "+ro.getDistance_vector().get(k));
 						m++;
 					}
-					((BufferedWriter) bw).newLine();
 					
 				}
 				
 				if(ro.getRating() == 0.0){
-					bw.write("Rating: "+ro.getRating());
-					((BufferedWriter) bw).newLine();
-					bw.write("THIS IS A PERFECT MATCH!");
+					bw.write("The final rating: "+ro.getRating());
+					bw.write("PERFECT MATCH!");
 				}else{
 					bw.write("\nRating: "+ro.getRating());
 				}

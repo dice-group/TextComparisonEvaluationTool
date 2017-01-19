@@ -1,4 +1,4 @@
-package Engines.SimpleObjects;
+package Engines.simpleTextProcessing;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 import AnnotedText2NIF.IOContent.TextReader;
-import Engines.simpleTextProcessing.DistributionProcessing;
 
 /**
  * This class if for the text cleaning at the beginning of the whole text processing.

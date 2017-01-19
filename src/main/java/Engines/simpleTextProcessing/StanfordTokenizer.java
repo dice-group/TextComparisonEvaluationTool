@@ -6,20 +6,37 @@ import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+
 import AnnotedText2NIF.IOContent.TextReader;
-import Engines.SimpleObjects.DevelishParenthesis;
 import edu.stanford.nlp.simple.*;
 
+/**
+ * This class handle the everything about sentence creation and cleaning, word collection and part-of-speech tagging.
+ * Its using parts from Stanford CoreNLP 3.7.0
+ * @author TTurke
+ *
+ */
 public class StanfordTokenizer 
 {
 	private static HashMap<String, Integer> syn_error_dist;
+	private static HashMap<Integer, Integer> symbol_per_sent_dist;
 
+	//#############################################################################
+	//############################# CONSTRUCTORS ##################################
+	//#############################################################################
+	
 	/**
 	 * Constructor
 	 */
 	public StanfordTokenizer(){
 		syn_error_dist = new HashMap<String, Integer>();
+		symbol_per_sent_dist = new HashMap<Integer, Integer>();
 	}
+	
+	//#############################################################################
+	//############################ USAGE METHODS ##################################
+	//#############################################################################
 	
 	/**
 	 * This method split a given text into sentences and store only these who contain annotation entities.
@@ -33,10 +50,11 @@ public class StanfordTokenizer
     {
 		 Document doc = new Document(paragraph);
 		 ArrayList<Sentence> sentenceList = new ArrayList<Sentence>();
+		 List<Sentence> sents = doc.sentences();
 		 
-		 for(Sentence s : doc.sentences())
+		 for(int s = 0; s < sents.size(); s++)
 		 {
-			 String c1 = dp.cleanErrorsAndParenthesis(s.text());
+			 String c1 = dp.cleanErrorsAndParenthesis(sents.get(s).text());
 			 tc.setErrors(dp.getErrors());
 			 String c2 = tc.decompose(c1);
 			 dp.setErrors(tc.getErrors());
@@ -45,7 +63,7 @@ public class StanfordTokenizer
 			 if(c2.contains("[[") && c2.contains("]]"))
 			 {
 				 //English sentences in general has subject, predicate and object => min. 3 words
-				 if(gatherWords(s).size() > 2)
+				 if(gatherWords(sents.get(s)).size() > 2)
 				 {
 					 sentenceList.add(new Sentence(c2));
 				 }else{
@@ -56,6 +74,9 @@ public class StanfordTokenizer
 				 //filter not annotated sentences
 				 DistributionProcessing.calcDistString(syn_error_dist, "NOT_ANNOTATED_SENTENCE");
 			 } 
+			 
+			 //Only relevant for big gold texts
+			 if(s > 0 && s % 999 == 0) System.out.println((s+1)+" sentences cleaned!");
 		 }
 		 return sentenceList;
     }
@@ -111,7 +132,11 @@ public class StanfordTokenizer
 	public LinkedList<String> sentencesAsStrings(ArrayList<Sentence> sents)
 	{
 		LinkedList<String> sentences = new LinkedList<String>();
-		for(Sentence s : sents) sentences.add(s.text());
+		for(Sentence s : sents)
+		{
+			sentences.add(s.text());
+			DistributionProcessing.calcDistInteger(symbol_per_sent_dist, sentences.getLast().length());
+		}
 		return sentences;
 	}
     
@@ -147,10 +172,22 @@ public class StanfordTokenizer
 		return Normalizer.normalize(text, Form.NFD).replaceAll("[^A-Za-z0-9-]", "");
 	}
 	
+	//#############################################################################
+	//###################### GETTERS, SETTERS & EDITS #############################
+	//#############################################################################
+	
 	public HashMap<String, Integer> getSyn_error_dist() {
 		return syn_error_dist;
 	}
 
+	public HashMap<Integer, Integer> getSymbol_per_sent_dist() {
+		return symbol_per_sent_dist;
+	}
+
+	//#############################################################################
+	//############################### EXAMPLE #####################################
+	//#############################################################################
+	
 	/*
 	 * EXAMPLE of USE
 	 */

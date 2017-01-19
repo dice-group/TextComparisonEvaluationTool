@@ -19,8 +19,11 @@ public class MetricVectorProcessing
 	//epsilon
 	static double epsilon = 0.00000001;
 	
+	//resource
+	private String name;
+	
 	//Non_Gerbil metrics
-	public int symbol_average;
+	public HashMap<Integer, Integer> symbol_sent_dist;
 	public HashMap<Character, Integer> symbol_error_dist;
 	public HashMap<String, Integer> syntactic_error_dist;
 	public HashMap<Integer, Integer> word_occurrence_dist;
@@ -46,7 +49,8 @@ public class MetricVectorProcessing
 	 */
 	public MetricVectorProcessing(TextInformations insertion, int ngm_count)
 	{
-		this.symbol_average = insertion.getSymbol_count();				/*M_1*/
+		this.name = insertion.getResource_name();
+		this.symbol_sent_dist = insertion.getSymbol_sent_dist();				/*M_1*/
 		this.symbol_error_dist = insertion.getSymbol_error_dist();		/*M_2*/
 		this.syntactic_error_dist = insertion.getSyn_error_dist();		/*M_3*/
 		this.word_occurrence_dist = insertion.getWords_occurr_distr();	/*M_4*/
@@ -85,7 +89,7 @@ public class MetricVectorProcessing
 		double[] gm;
 		
 		// Gerbil metrics (6 metrics currently) ATTENTION add more right here if you need them
-		distance_vector.add(QuadError.calcQE(v1.symbol_average, v2.symbol_average));
+		distance_vector.add(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.symbol_sent_dist, v2.symbol_sent_dist));
 		distance_vector.add(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.symbol_error_dist, v2.symbol_error_dist));
 		distance_vector.add(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.syntactic_error_dist, v2.syntactic_error_dist));
 		distance_vector.add(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.word_occurrence_dist, v2.word_occurrence_dist));
@@ -202,10 +206,14 @@ public class MetricVectorProcessing
 		return zero_vector;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 	//##################################################################################
 	//#################################### EXAMPLE #####################################
 	//##################################################################################
-	
+
 	public static void main(String[] args) throws NoSuchFieldException, SecurityException, ClassNotFoundException 
 	{
 		

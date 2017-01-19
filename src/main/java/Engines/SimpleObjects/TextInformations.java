@@ -14,15 +14,15 @@ public class TextInformations
 	//Store creation and resource info
 	private String resource_name = "";
 	private LocalDateTime generation_date;
-	private int symbol_count = 0;					//USED
 	
-	private HashMap<String, Double> metrics_GERBIL = new HashMap<String, Double>();			//USED
-	private HashMap<String, Integer> words_distribution = new HashMap<String, Integer>();	//USED
-	private HashMap<Integer, Integer> words_occurr_distr = new HashMap<Integer, Integer>();	//USED
-	private HashMap<Integer, Integer> annotation_dist = new HashMap<Integer, Integer>();	//USED
-	private HashMap<String, Integer> syn_error_dist = new HashMap<String, Integer>();		//USED
-	private HashMap<String, Integer> pos_tags_dist = new HashMap<String, Integer>();		//USED
-	HashMap<Character, Integer> symbol_error_dist = new HashMap<Character, Integer>();		//USED
+	private HashMap<String, Double> metrics_GERBIL = new HashMap<String, Double>();				//USED
+	private HashMap<String, Integer> words_distribution = new HashMap<String, Integer>();		//USED
+	private HashMap<Integer, Integer> words_occurr_distr = new HashMap<Integer, Integer>();		//USED
+	private HashMap<Integer, Integer> symbol_sent_dist = new HashMap<Integer, Integer>();		//USED
+	private HashMap<Integer, Integer> annotation_dist = new HashMap<Integer, Integer>();		//USED
+	private HashMap<String, Integer> syn_error_dist = new HashMap<String, Integer>();			//USED
+	private HashMap<String, Integer> pos_tags_dist = new HashMap<String, Integer>();			//USED
+	HashMap<Character, Integer> symbol_error_dist = new HashMap<Character, Integer>();			//USED
 	
 	/**
 	 * This constructor store the original resource file name
@@ -35,17 +35,8 @@ public class TextInformations
 	}
 	
 	//##################################################################################
-	//################## GETTERS, SETTERS, ADDERS and EDITS ############################
+	//#################### METHODS FOR RESOURCE USE AND TIME ###########################
 	//##################################################################################
-	
-	public int getSymbol_count() {
-		return symbol_count;
-	}
-
-	
-	public void setSymbol_count(int symbol_count) {
-		this.symbol_count = symbol_count;
-	}
 	
 	public LocalDateTime getGeneration_date() {
 		return generation_date;
@@ -56,9 +47,9 @@ public class TextInformations
 	}
 	
 	
-	//#############################################################################
-	//############################### METRICS #####################################
-	//#############################################################################
+	//##################################################################################
+	//################## GETTERS, SETTERS, ADDERS and EDITS ############################
+	//##################################################################################
 	
 
 	public HashMap<String, Double> getMetrics_GERBIL() {
@@ -115,5 +106,13 @@ public class TextInformations
 
 	public void setSymbol_error_dist(HashMap<Character, Integer> symbol_error_dist) {
 		this.symbol_error_dist = symbol_error_dist;
+	}
+
+	public HashMap<Integer, Integer> getSymbol_sent_dist() {
+		return symbol_sent_dist;
+	}
+
+	public void setSymbol_sent_dist(HashMap<Integer, Integer> symbol_sent_dist) {
+		this.symbol_sent_dist = symbol_sent_dist;
 	}	
 }
