@@ -77,7 +77,7 @@ public class StanfordTokenizer
 			 } 
 			 
 			 //Only relevant for big gold texts
-			 if(s > 0 && s % 999 == 0) System.out.println((s+1)+" sentences cleaned!");
+			 if((s > 0 && s % 1000 == 0) || s == sents.size()-1) System.out.println((s)+" sentences processed!");
 		 }
 		 return sentenceList;
     }
