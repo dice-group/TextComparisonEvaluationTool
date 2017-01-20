@@ -55,6 +55,8 @@ public class Main
 		//*************************************************************************************************
 		//*************************************************************************************************
 		
+		System.out.println("############# PIPE IS PREPARING  #############");
+		
 		//GENERAL SETUP (VARIABLES)
 
 		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!

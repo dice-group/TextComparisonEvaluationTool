@@ -86,7 +86,7 @@ public class TextConversion
 			
 			if(Character.isAlphabetic(c) || Character.isDigit(c) || Character.isSpaceChar(c))						// Check Letter, Digit and Whitespace
 			{
-				if(!(Character.isSpaceChar(c) && chars_in[k+1] == '.'))
+				if(!((k+1) < chars_in.length && Character.isSpaceChar(c) && chars_in[k+1] == '.'))
 				{
 					out += c;
 				}else{
