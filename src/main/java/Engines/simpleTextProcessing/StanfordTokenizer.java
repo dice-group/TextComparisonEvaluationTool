@@ -51,6 +51,7 @@ public class StanfordTokenizer
 		 Document doc = new Document(paragraph);
 		 ArrayList<Sentence> sentenceList = new ArrayList<Sentence>();
 		 List<Sentence> sents = doc.sentences();
+		 System.out.println("Raw sentences: "+sents.size());
 		 
 		 for(int s = 0; s < sents.size(); s++)
 		 {
