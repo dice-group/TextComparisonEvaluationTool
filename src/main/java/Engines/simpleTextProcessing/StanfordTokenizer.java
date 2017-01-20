@@ -19,6 +19,7 @@ import edu.stanford.nlp.simple.*;
  */
 public class StanfordTokenizer 
 {
+	private double rawSentenceSize = Double.NaN;
 	private static HashMap<String, Integer> syn_error_dist;
 	private static HashMap<Integer, Integer> symbol_per_sent_dist;
 
@@ -51,6 +52,8 @@ public class StanfordTokenizer
 		 Document doc = new Document(paragraph);
 		 ArrayList<Sentence> sentenceList = new ArrayList<Sentence>();
 		 List<Sentence> sents = doc.sentences();
+		 
+		 rawSentenceSize = sents.size();
 		 System.out.println("Raw sentences: "+sents.size());
 		 
 		 for(int s = 0; s < sents.size(); s++)
@@ -201,11 +204,15 @@ public class StanfordTokenizer
 	public HashMap<Integer, Integer> getSymbol_per_sent_dist() {
 		return symbol_per_sent_dist;
 	}
+	
+	public double getRawSentenceSize() {
+		return rawSentenceSize;
+	}
 
 	//#############################################################################
 	//############################### EXAMPLE #####################################
 	//#############################################################################
-	
+
 	/*
 	 * EXAMPLE of USE
 	 */

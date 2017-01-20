@@ -144,7 +144,11 @@ public class Main
 			//PROCESSING
 			System.out.println("PROCESSING STARTED!");
 			
-			//TODO eine zahl welche speichert wieviele Sätze valide sind nach der reinigung ist evtl auch ganz nett!
+			// TODO should we use it?
+			/* M_0 CURRENTLY NOT USED*/
+			text_info.setCanBeUsed((sentence_objects.size() * 100.0)/(st.getRawSentenceSize()));
+			System.out.println("Usable senteces===> ["+text_info.getCanBeUsed()+"]");
+			
 			//get sentences and gather words
 			sentences_cleaned = st.sentencesAsStrings(sentence_objects);
 			words = StanfordTokenizer.gatherWords(sentence_objects);

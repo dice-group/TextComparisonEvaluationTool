@@ -56,7 +56,7 @@ public class URLControl
 			} catch (SocketTimeoutException | ConnectException exception) 
 			{
 				System.out.println("Socket or Connect Timeout Exception was thrown!");
-				Thread.sleep(TimeUnit.MINUTES.toMillis(3));
+				Thread.sleep(TimeUnit.MINUTES.toMillis(1));
 				continue;
 			}
 		}

@@ -15,6 +15,7 @@ public class TextInformations
 	private String resource_name = "";
 	private LocalDateTime generation_date;
 	
+	private double canBeUsed = Double.NaN;
 	private HashMap<String, Double> metrics_GERBIL = new HashMap<String, Double>();				//USED
 	private HashMap<String, Integer> words_distribution = new HashMap<String, Integer>();		//USED
 	private HashMap<Integer, Integer> words_occurr_distr = new HashMap<Integer, Integer>();		//USED
@@ -51,11 +52,18 @@ public class TextInformations
 	//################## GETTERS, SETTERS, ADDERS and EDITS ############################
 	//##################################################################################
 	
+	public double getCanBeUsed() {
+		return canBeUsed;
+	}
+
+	public void setCanBeUsed(double canBeUsed) {
+		this.canBeUsed = canBeUsed;
+	}
 
 	public HashMap<String, Double> getMetrics_GERBIL() {
 		return metrics_GERBIL;
 	}
-
+	
 	public HashMap<Integer, Integer> getAnnotation_dist() {
 		return annotation_dist;
 	}
