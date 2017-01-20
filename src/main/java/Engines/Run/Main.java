@@ -168,17 +168,6 @@ public class Main
 			pos_tags_dist = st.countPosTagsOccourence(sentence_objects);
 			text_info.setPos_tags_dist(pos_tags_dist);
 			
-//			/*
-//			 * ATTENTION: 
-//			 * This part takes time because of the URL real time control
-//			 */
-//			for (int i = 0; i < sentence_objects.size(); i++) 
-//			{	
-//				//gather text annotations and store sentence objects
-//				dobjs = gai.gatherDefsFast(sentence_objects.get(i).text());
-//				if(dobjs.size() > 0) sos.add(new SentenceObject(sentence_objects.get(i), dobjs.size()));
-//			}
-			
 			System.out.println("CALCULATION ENTITY DIST STARTED!");
 			/* M_6 */
 			annotation_dist = DistributionProcessing.getAnnotDist(sos);
