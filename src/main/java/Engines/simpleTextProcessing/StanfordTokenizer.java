@@ -51,7 +51,30 @@ public class StanfordTokenizer
 		 Document doc = new Document(paragraph);
 		 ArrayList<Sentence> sentenceList = new ArrayList<Sentence>();
 		 List<Sentence> sents = doc.sentences();
+		 int size_control = 0;
+		 
 		 System.out.println("Raw sentences: "+sents.size());
+		 
+		 //Split for heap exception avoid
+		 ArrayList<List<Sentence>> sentencesLL = splitIntoParts(sents);
+		 
+		 for(List<Sentence> s : sentencesLL) size_control+= s.size();
+		 
+		 if(size_control != sents.size())
+		 {
+			 System.out.println("Works fine!");
+			 sents = null;
+		 }else{
+			 
+		 }
+		 
+		 System.exit(0);
+		 
+//		 for()
+//		 {
+//			 
+//		 }
+		 
 		 
 		 for(int s = 0; s < sents.size(); s++)
 		 {
@@ -162,6 +185,23 @@ public class StanfordTokenizer
         return POS_tag_distribution;
     }	
 	
+    /**
+     * This method split a huge list into 4 or 5 parts
+     * @param list
+     * @return List of desired smaller lists
+     */
+    public <T>  ArrayList<List<T>> splitIntoParts(List<T> list)
+    {
+    	int partitionSize = (int)list.size()/4;
+    	ArrayList<List<T>> partitions = new ArrayList<List<T>>();
+    	
+    	for (int i = 0; i < list.size(); i += partitionSize) 
+    	{
+    	    partitions.add(list.subList(i, Math.min(i + partitionSize, list.size())));
+    	}
+    	
+    	return partitions;
+    }
     
 	/**
 	 * This method normalize a text and replace all non all non alpha numerics with dots.
