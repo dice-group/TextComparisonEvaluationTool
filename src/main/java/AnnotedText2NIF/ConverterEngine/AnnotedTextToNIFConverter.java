@@ -155,8 +155,10 @@ public class AnnotedTextToNIFConverter
 			
 			documents.add(document);
 			
-			if(k % 999 == 0)System.out.println(k+" sentences annotated and controlled");
+			if(k % 1000 == 0)System.out.println(k+" sentences annotated and controlled");
 		}
+		
+		System.out.println("SOS list size: "+sos.size());
 		
 		// Writing our new list of documents to a String
 		NIFWriter writer = new TurtleNIFWriter();
