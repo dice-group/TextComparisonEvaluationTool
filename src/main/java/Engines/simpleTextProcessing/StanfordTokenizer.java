@@ -51,7 +51,7 @@ public class StanfordTokenizer
 		 Document doc = new Document(paragraph);
 		 ArrayList<Sentence> sentenceList = new ArrayList<Sentence>();
 		 List<Sentence> sents = doc.sentences();
-		 int size_control = 0;
+		 int size_control = 0, size;
 		 
 		 System.out.println("Raw sentences: "+sents.size());
 		 
@@ -60,48 +60,76 @@ public class StanfordTokenizer
 		 
 		 for(List<Sentence> s : sentencesLL) size_control+= s.size();
 		 
-		 if(size_control != sents.size())
+		 //Check if split works
+		 if(size_control == sents.size())
 		 {
-			 System.out.println("Works fine!");
 			 sents = null;
+			 size = sentencesLL.size();
+			 
+			 for(int sl = 0;sl < size; sl++)
+			 {
+				 List<Sentence> list_sent = sentencesLL.get(0);
+				 
+				//Delete processed stuff => avoid heap error
+				 sentencesLL.remove(0);
+				 
+				 for(int s = 0; s < list_sent.size(); s++)
+				 {
+					 String c1 = dp.cleanErrorsAndParenthesis(list_sent.get(s).text());
+					 tc.setErrors(dp.getErrors());
+					 String c2 = tc.decompose(c1);
+					 dp.setErrors(tc.getErrors());
+					 
+					 
+					 if(c2.contains("[[") && c2.contains("]]"))
+					 {
+						 //English sentences in general has subject, predicate and object => min. 3 words
+						 if(gatherWords(list_sent.get(s)).size() > 2)
+						 {
+							 sentenceList.add(new Sentence(c2));
+						 }else{
+							 //filter to short sequences
+							 DistributionProcessing.calcDistString(syn_error_dist, "LESS_THAN_2_WORDS_SEQUENCE");
+						 }
+					 }else{
+						 //filter not annotated sentences
+						 DistributionProcessing.calcDistString(syn_error_dist, "NOT_ANNOTATED_SENTENCE");
+					 } 
+
+					 //Only relevant for big gold texts
+					 if(s > 0 && s % 999 == 0) System.out.println((s+1)+" sentences cleaned!");
+				 } 
+			 }
+			 
 		 }else{
 			 
-		 }
-		 
-		 System.exit(0);
-		 
-//		 for()
-//		 {
-//			 
-//		 }
-		 
-		 
-		 for(int s = 0; s < sents.size(); s++)
-		 {
-			 String c1 = dp.cleanErrorsAndParenthesis(sents.get(s).text());
-			 tc.setErrors(dp.getErrors());
-			 String c2 = tc.decompose(c1);
-			 dp.setErrors(tc.getErrors());
-			 
-			 
-			 if(c2.contains("[[") && c2.contains("]]"))
+			 for(int s = 0; s < sents.size(); s++)
 			 {
-				 //English sentences in general has subject, predicate and object => min. 3 words
-				 if(gatherWords(sents.get(s)).size() > 2)
+				 String c1 = dp.cleanErrorsAndParenthesis(sents.get(s).text());
+				 tc.setErrors(dp.getErrors());
+				 String c2 = tc.decompose(c1);
+				 dp.setErrors(tc.getErrors());
+				 
+				 
+				 if(c2.contains("[[") && c2.contains("]]"))
 				 {
-					 sentenceList.add(new Sentence(c2));
+					 //English sentences in general has subject, predicate and object => min. 3 words
+					 if(gatherWords(sents.get(s)).size() > 2)
+					 {
+						 sentenceList.add(new Sentence(c2));
+					 }else{
+						 //filter to short sequences
+						 DistributionProcessing.calcDistString(syn_error_dist, "LESS_THAN_2_WORDS_SEQUENCE");
+					 }
 				 }else{
-					 //filter to short sequences
-					 DistributionProcessing.calcDistString(syn_error_dist, "LESS_THAN_2_WORDS_SEQUENCE");
-				 }
-			 }else{
-				 //filter not annotated sentences
-				 DistributionProcessing.calcDistString(syn_error_dist, "NOT_ANNOTATED_SENTENCE");
-			 } 
-			 
-			 //Only relevant for big gold texts
-			 if(s > 0 && s % 999 == 0) System.out.println((s+1)+" sentences cleaned!");
-		 }
+					 //filter not annotated sentences
+					 DistributionProcessing.calcDistString(syn_error_dist, "NOT_ANNOTATED_SENTENCE");
+				 } 
+				 
+				 //Only relevant for big gold texts
+				 if(s > 0 && s % 999 == 0) System.out.println((s+1)+" sentences cleaned!");
+			 }
+		 }		 
 		 return sentenceList;
     }
 	
