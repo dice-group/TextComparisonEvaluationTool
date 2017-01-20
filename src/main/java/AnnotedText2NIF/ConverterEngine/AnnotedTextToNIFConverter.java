@@ -30,6 +30,8 @@ import org.junit.Ignore;
 
 import AnnotedText2NIF.IOContent.TextReader;
 import AnnotedText2NIF.IOContent.TextWriter;
+import Engines.SimpleObjects.SentenceObject;
+import edu.stanford.nlp.simple.Sentence;
 
 /**
  * This class generates NIF files from a given text containing wiki markdown.
@@ -41,6 +43,7 @@ import AnnotedText2NIF.IOContent.TextWriter;
 public class AnnotedTextToNIFConverter 
 {
 	static LinkedList<DefinitionObject> defObjList = new LinkedList<DefinitionObject>();
+	static LinkedList<SentenceObject> sos = new LinkedList<SentenceObject>();
 	
 	//#############################################################################
 	//############################# CONSTRUCTORS ##################################
@@ -49,6 +52,7 @@ public class AnnotedTextToNIFConverter
 	public AnnotedTextToNIFConverter()
 	{
 		defObjList = new LinkedList<DefinitionObject>();
+		sos = new LinkedList<SentenceObject>();
 	}
 	
 	//#############################################################################
@@ -128,22 +132,30 @@ public class AnnotedTextToNIFConverter
 	 * @throws IOException 
 	 * @throws InterruptedException 
 	 */
-	public static String createNIFStringByList(LinkedList<String> input, GatherAnnotationInformations gai) throws IOException, InterruptedException
+	public static String createNIFStringByList(LinkedList<Sentence> input, GatherAnnotationInformations gai) throws IOException, InterruptedException
 	{
 		resetDefObjList();
 		LinkedList<DefinitionObject> DOList = new LinkedList<DefinitionObject>();
 		List<Document> documents = new ArrayList<Document>();
 		Document document;
 		
+		System.out.println("NIF creation and harder syntax control!");
+		//TODO if(dobjs.size() > 0) sos.add(new SentenceObject(sentence_objects.get(i), dobjs.size()));
+		
 		for(int k = 0; k < input.size(); k++)
 		{
-			DOList = gai.gatherDefsFast(input.get(k));
+			DOList = gai.gatherDefsFast(input.get(k).text());
 			addToDefObjList(DOList);
+			
+			if(DOList.size() > 0) sos.add(new SentenceObject(input.get(k), DOList.size()));
+			
 			document = new DocumentImpl(gai.getNot_annot_text(), "http://example.org/document_"+(k+1));
 			
 			for(DefinitionObject dobj : DOList) document.addMarking(createMarkingNamedEntity(dobj));
 			
 			documents.add(document);
+			
+			if(k % 999 == 0)System.out.println(k+" sentences annotated and controlled");
 		}
 		
 		// Writing our new list of documents to a String
@@ -175,7 +187,7 @@ public class AnnotedTextToNIFConverter
 	 * @throws IOException
 	 * @throws InterruptedException 
 	 */
-	public String getNIFFileBySentences(LinkedList<String> input, String out_file_path, GatherAnnotationInformations gai) throws IOException, InterruptedException
+	public String getNIFFileBySentences(LinkedList<Sentence> input, String out_file_path, GatherAnnotationInformations gai) throws IOException, InterruptedException
 	{
 		return TextWriter.fileWriter(createNIFStringByList(input, gai), out_file_path);
 	}
@@ -196,10 +208,18 @@ public class AnnotedTextToNIFConverter
 		AnnotedTextToNIFConverter.defObjList = new LinkedList<DefinitionObject>();
 	}
 	
+	public static LinkedList<SentenceObject> getSos() {
+		return sos;
+	}
+
+	public static void setSos(LinkedList<SentenceObject> sos) {
+		AnnotedTextToNIFConverter.sos = sos;
+	}
+	
 	//#############################################################################
 	//############################### EXAMPLE #####################################
 	//#############################################################################
-	
+
 	/*
 	 * EXAMPLE of USE
 	 */

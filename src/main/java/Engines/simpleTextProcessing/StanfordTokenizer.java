@@ -47,10 +47,10 @@ public class StanfordTokenizer
 	 * @param tc 
 	 * @return List of Sentence objects
 	 */
-	public ArrayList<Sentence> gatherSentences(String paragraph, DevelishParenthesis dp, TextConversion tc)
+	public LinkedList<Sentence> gatherSentences(String paragraph, DevelishParenthesis dp, TextConversion tc)
     {
 		 Document doc = new Document(paragraph);
-		 ArrayList<Sentence> sentenceList = new ArrayList<Sentence>();
+		 LinkedList<Sentence> sentenceList = new LinkedList<Sentence>();
 		 List<Sentence> sents = doc.sentences();
 		 
 		 rawSentenceSize = sents.size();
@@ -70,6 +70,7 @@ public class StanfordTokenizer
 				 if(gatherWords(sents.get(s)).size() > 2)
 				 {
 					 sentenceList.add(new Sentence(c2));
+					 DistributionProcessing.calcDistInteger(symbol_per_sent_dist, sentenceList.getLast().length());
 				 }else{
 					 //filter to short sequences
 					 DistributionProcessing.calcDistString(syn_error_dist, "LESS_THAN_2_WORDS_SEQUENCE");
@@ -90,7 +91,7 @@ public class StanfordTokenizer
 	 * @param sentences
 	 * @return List of words as String
 	 */
-	public static LinkedList<String> gatherWords(ArrayList<Sentence> sentences)
+	public static LinkedList<String> gatherWords(LinkedList<Sentence> sentences)
 	{
 		LinkedList<String> words = new LinkedList<String>();
 		
@@ -133,14 +134,10 @@ public class StanfordTokenizer
 	 * @param sents
 	 * @return List of Sentences as String
 	 */
-	public LinkedList<String> sentencesAsStrings(ArrayList<Sentence> sents)
+	public LinkedList<String> sentencesAsStrings(LinkedList<Sentence> sents)
 	{
 		LinkedList<String> sentences = new LinkedList<String>();
-		for(Sentence s : sents)
-		{
-			sentences.add(s.text());
-			DistributionProcessing.calcDistInteger(symbol_per_sent_dist, sentences.getLast().length());
-		}
+		for(Sentence s : sents) sentences.add(s.text());
 		return sentences;
 	}
     
@@ -153,11 +150,11 @@ public class StanfordTokenizer
      * @param token
      * @return Map of POS-Tags as Keys and there occurrence count as value
      */
-    public HashMap<String, Integer> countPosTagsOccourence(ArrayList<Sentence> sentenceList) 
+    public HashMap<String, Integer> countPosTagsOccourence(LinkedList<Sentence> sentence_objects)
 	{
     	HashMap<String, Integer> POS_tag_distribution = new HashMap<String, Integer>();
     	
-    	for(Sentence s : sentenceList)
+    	for(Sentence s : sentence_objects)
     	{
     		for(String pos_tag : s.posTags()) DistributionProcessing.calcDistString(POS_tag_distribution, pos_tag);
     	}
@@ -224,7 +221,7 @@ public class StanfordTokenizer
 		DevelishParenthesis dp = new DevelishParenthesis();
 		TextConversion tc = new TextConversion();
 		String file_location = tr.getResourceFileAbsolutePath("BVFragment.txt");
-		ArrayList<Sentence> sentenceList = st.gatherSentences(TextReader.fileReader(file_location), dp, tc);
+		LinkedList<Sentence> sentenceList = st.gatherSentences(TextReader.fileReader(file_location), dp, tc);
 		
 		
 		System.out.println("ERRORS: "+dp.getErrors().size());

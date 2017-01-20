@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import org.json.JSONObject;
 
 import AnnotedText2NIF.ConverterEngine.AnnotedTextToNIFConverter;
-import AnnotedText2NIF.ConverterEngine.DefinitionObject;
 import AnnotedText2NIF.ConverterEngine.GatherAnnotationInformations;
 import AnnotedText2NIF.IOContent.TextReader;
 import AnnotedText2NIF.IOContent.TextWriter;
@@ -105,9 +104,8 @@ public class Main
 			//Multiple items
 			LinkedList<String> words;
 			LinkedList<String> sentences_cleaned = new LinkedList<String>();
-			ArrayList<Sentence> sentence_objects;
+			LinkedList<Sentence> sentence_objects;
 			LinkedList<SentenceObject> sos = new LinkedList<SentenceObject>();
-			LinkedList<DefinitionObject> dobjs = new LinkedList<DefinitionObject>();
 			HashMap<String, Integer> pos_tags_dist;
 			HashMap<Integer, Integer> word_occurr_dist, annotation_dist;
 			
@@ -157,7 +155,8 @@ public class Main
 			/* M_3 */
 			gai.setSyntax_error_dist(st.getSyn_error_dist());
 			gai.addSEDMap(DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned));
-			file = new File(attnifc.getNIFFileBySentences(sentences_cleaned, out_file_path, gai));
+			file = new File(attnifc.getNIFFileBySentences(sentence_objects, out_file_path, gai));
+			sos = AnnotedTextToNIFConverter.getSos();	//store this for 2 other metrics
 			text_info.setSyn_error_dist(gai.getSyntax_error_dist());
 			
 			System.out.println("CALCULATION WF STARTED!");
@@ -169,17 +168,16 @@ public class Main
 			pos_tags_dist = st.countPosTagsOccourence(sentence_objects);
 			text_info.setPos_tags_dist(pos_tags_dist);
 			
-			System.out.println("URL CONTROL STARTED!");
-			/*
-			 * ATTENTION: 
-			 * This part takes time because of the URL real time control
-			 */
-			for (int i = 0; i < sentence_objects.size(); i++) 
-			{	
-				//gather text annotations and store sentence objects
-				dobjs = gai.gatherDefsFast(sentence_objects.get(i).text());
-				if(dobjs.size() > 0) sos.add(new SentenceObject(sentence_objects.get(i), dobjs.size()));
-			}
+//			/*
+//			 * ATTENTION: 
+//			 * This part takes time because of the URL real time control
+//			 */
+//			for (int i = 0; i < sentence_objects.size(); i++) 
+//			{	
+//				//gather text annotations and store sentence objects
+//				dobjs = gai.gatherDefsFast(sentence_objects.get(i).text());
+//				if(dobjs.size() > 0) sos.add(new SentenceObject(sentence_objects.get(i), dobjs.size()));
+//			}
 			
 			System.out.println("CALCULATION ENTITY DIST STARTED!");
 			/* M_6 */

@@ -49,14 +49,18 @@ public class DistributionProcessing
 	 */
 	public static HashMap<String, Integer> calcSimpleSynErrorDist(LinkedList<String> sentences_raw)
 	{
-		HashMap<String, Integer> syn_err_dist = new HashMap<String, Integer>(); 
+		System.out.println("Simple syntax control for "+sentences_raw.size()+" sentences!");
 		
+		HashMap<String, Integer> syn_err_dist = new HashMap<String, Integer>(); 
 		for (int i = 0; i < sentences_raw.size(); i++) 
 		{
 			char[] chars_in = sentences_raw.get(i).toCharArray();
 			boolean first_char = TextConversion.scoreChar(chars_in[0], false);
 			if(!first_char) calcDistString(syn_err_dist, "START_CHAR_ERROR");	
 		}
+		
+		System.out.println("Simple syntax control done!");
+		
 		return syn_err_dist;
 	}
 	
