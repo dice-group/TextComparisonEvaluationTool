@@ -219,18 +219,11 @@ public class Main
 		
 		for(int cal = 0; cal < experiments_results.size(); cal++)
 		{
-			//get current metrics
-			if(cal == 0){
-				//calculate the differences between gold's and the vector's metrics
-				current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, gold_mvp);
-				mvps.add(gold_mvp);
-			}else{
-				current_mvp = new MetricVectorProcessing(experiments_results.get(cal), 6);
-				
-				//calculate the differences between gold's and the vector's metrics
-				current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, current_mvp);
-				mvps.add(current_mvp);
-			}
+			current_mvp = new MetricVectorProcessing(experiments_results.get(cal), 6);
+			
+			//calculate the differences between gold's and the vector's metrics
+			current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, current_mvp);
+			mvps.add(current_mvp);
 
 			//then do cos_distance
 			rating = MetricVectorProcessing.rate(current_dist_vec, gold_mvp.getZero_vector());

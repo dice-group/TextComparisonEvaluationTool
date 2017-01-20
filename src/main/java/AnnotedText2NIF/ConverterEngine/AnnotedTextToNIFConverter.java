@@ -155,7 +155,7 @@ public class AnnotedTextToNIFConverter
 			
 			documents.add(document);
 			
-			if(k % 1000 == 0)System.out.println(k+" sentences annotated and controlled");
+			if((k > 0 && k % 1000 == 0) || k ==  input.size()-1)System.out.println(k+" sentences annotated and controlled");
 		}
 		
 		System.out.println("SOS list size: "+sos.size());
