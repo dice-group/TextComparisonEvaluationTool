@@ -51,85 +51,34 @@ public class StanfordTokenizer
 		 Document doc = new Document(paragraph);
 		 ArrayList<Sentence> sentenceList = new ArrayList<Sentence>();
 		 List<Sentence> sents = doc.sentences();
-		 int size_control = 0, size;
-		 
 		 System.out.println("Raw sentences: "+sents.size());
 		 
-		 //Split for heap exception avoid
-		 ArrayList<List<Sentence>> sentencesLL = splitIntoParts(sents);
-		 
-		 for(List<Sentence> s : sentencesLL) size_control+= s.size();
-		 
-		 //Check if split works
-		 if(size_control == sents.size())
+		 for(int s = 0; s < sents.size(); s++)
 		 {
-			 sents = null;
-			 size = sentencesLL.size();
+			 String c1 = dp.cleanErrorsAndParenthesis(sents.get(s).text());
+			 tc.setErrors(dp.getErrors());
+			 String c2 = tc.decompose(c1);
+			 dp.setErrors(tc.getErrors());
 			 
-			 for(int sl = 0;sl < size; sl++)
+			 
+			 if(c2.contains("[[") && c2.contains("]]"))
 			 {
-				 List<Sentence> list_sent = sentencesLL.get(0);
-				 
-				//Delete processed stuff => avoid heap error
-				 sentencesLL.remove(0);
-				 
-				 for(int s = 0; s < list_sent.size(); s++)
+				 //English sentences in general has subject, predicate and object => min. 3 words
+				 if(gatherWords(sents.get(s)).size() > 2)
 				 {
-					 String c1 = dp.cleanErrorsAndParenthesis(list_sent.get(s).text());
-					 tc.setErrors(dp.getErrors());
-					 String c2 = tc.decompose(c1);
-					 dp.setErrors(tc.getErrors());
-					 
-					 
-					 if(c2.contains("[[") && c2.contains("]]"))
-					 {
-						 //English sentences in general has subject, predicate and object => min. 3 words
-						 if(gatherWords(list_sent.get(s)).size() > 2)
-						 {
-							 sentenceList.add(new Sentence(c2));
-						 }else{
-							 //filter to short sequences
-							 DistributionProcessing.calcDistString(syn_error_dist, "LESS_THAN_2_WORDS_SEQUENCE");
-						 }
-					 }else{
-						 //filter not annotated sentences
-						 DistributionProcessing.calcDistString(syn_error_dist, "NOT_ANNOTATED_SENTENCE");
-					 } 
-
-					 //Only relevant for big gold texts
-					 if(s > 0 && s % 999 == 0) System.out.println((s+1)+" sentences cleaned!");
-				 } 
-			 }
-			 
-		 }else{
-			 
-			 for(int s = 0; s < sents.size(); s++)
-			 {
-				 String c1 = dp.cleanErrorsAndParenthesis(sents.get(s).text());
-				 tc.setErrors(dp.getErrors());
-				 String c2 = tc.decompose(c1);
-				 dp.setErrors(tc.getErrors());
-				 
-				 
-				 if(c2.contains("[[") && c2.contains("]]"))
-				 {
-					 //English sentences in general has subject, predicate and object => min. 3 words
-					 if(gatherWords(sents.get(s)).size() > 2)
-					 {
-						 sentenceList.add(new Sentence(c2));
-					 }else{
-						 //filter to short sequences
-						 DistributionProcessing.calcDistString(syn_error_dist, "LESS_THAN_2_WORDS_SEQUENCE");
-					 }
+					 sentenceList.add(new Sentence(c2));
 				 }else{
-					 //filter not annotated sentences
-					 DistributionProcessing.calcDistString(syn_error_dist, "NOT_ANNOTATED_SENTENCE");
-				 } 
-				 
-				 //Only relevant for big gold texts
-				 if(s > 0 && s % 999 == 0) System.out.println((s+1)+" sentences cleaned!");
-			 }
-		 }		 
+					 //filter to short sequences
+					 DistributionProcessing.calcDistString(syn_error_dist, "LESS_THAN_2_WORDS_SEQUENCE");
+				 }
+			 }else{
+				 //filter not annotated sentences
+				 DistributionProcessing.calcDistString(syn_error_dist, "NOT_ANNOTATED_SENTENCE");
+			 } 
+			 
+			 //Only relevant for big gold texts
+			 if(s > 0 && s % 999 == 0) System.out.println((s+1)+" sentences cleaned!");
+		 }
 		 return sentenceList;
     }
 	
@@ -218,14 +167,14 @@ public class StanfordTokenizer
      * @param list
      * @return List of desired smaller lists
      */
-    public <T>  ArrayList<List<T>> splitIntoParts(List<T> list)
+    public <T>  ArrayList<ArrayList<T>> splitIntoParts(ArrayList<T> list)
     {
     	int partitionSize = (int)list.size()/4;
-    	ArrayList<List<T>> partitions = new ArrayList<List<T>>();
+    	ArrayList<ArrayList<T>> partitions = new ArrayList<ArrayList<T>>();
     	
     	for (int i = 0; i < list.size(); i += partitionSize) 
     	{
-    	    partitions.add(list.subList(i, Math.min(i + partitionSize, list.size())));
+    	    partitions.add((ArrayList<T>) list.subList(i, Math.min(i + partitionSize, list.size())));
     	}
     	
     	return partitions;
