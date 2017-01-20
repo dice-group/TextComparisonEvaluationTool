@@ -211,24 +211,30 @@ public class TextWriter
 				Writer bw = new BufferedWriter(new OutputStreamWriter( new FileOutputStream(file.getAbsoluteFile()), "UTF-8"));
 				
 				bw.write(ro.getResource());
+				((BufferedWriter) bw).newLine();
 				bw.write("REMIND: Its the distance vector!");
+				((BufferedWriter) bw).newLine();
 				
 				for (int k = 0; k < ro.getDistance_vector().size(); k++) 
 				{
 					if(k < 6){
-						if(k == 0) System.out.println("Average: "+ro.getDistance_vector().get(k));
 						bw.write("M_"+(k+1)+": "+ro.getDistance_vector().get(k));
+						((BufferedWriter) bw).newLine();
 					}else{
 						bw.write("GERBIL_"+m+": "+ro.getDistance_vector().get(k));
+						((BufferedWriter) bw).newLine();
 						m++;
 					}
 					
 				}
 				
 				if(ro.getRating() == 0.0){
+					((BufferedWriter) bw).newLine();
 					bw.write("The final rating: "+ro.getRating());
+					((BufferedWriter) bw).newLine();
 					bw.write("PERFECT MATCH!");
 				}else{
+					((BufferedWriter) bw).newLine();
 					bw.write("\nRating: "+ro.getRating());
 				}
 				

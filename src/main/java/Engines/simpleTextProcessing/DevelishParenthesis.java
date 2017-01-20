@@ -26,6 +26,10 @@ public class DevelishParenthesis
 	public static final String punctutations = ",;.!?-'";
 	private HashMap<Character, Integer> errors;
 
+	//#############################################################################
+	//############################# CONSTRUCTORS ##################################
+	//#############################################################################
+	
 	/**
 	 * Constructor
 	 */

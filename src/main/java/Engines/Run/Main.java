@@ -210,6 +210,7 @@ public class Main
 			
 			//General
 			System.out.println("\n\n######################### INFO ##########################\n");
+			
 			System.out.println("Resource:\t\t\t"+text_info.getResource_name());
 			System.out.println("Date and Time:\t\t\t"+text_info.getGeneration_date());
 			
@@ -219,10 +220,9 @@ public class Main
 		//*************************************************************************************************************************************************
 		//CALCULATION
 		
-		System.out.println("FINAL CALCULATION STARTED!");
+		System.out.println("\n\n############## FINAL CALCULATION STARTED! ###############\n");
 		gold_info = experiments_results.get(0);
 		gold_mvp = new MetricVectorProcessing(gold_info, 6);
-		mvps.add(gold_mvp);
 		
 		for(int cal = 0; cal < experiments_results.size(); cal++)
 		{
@@ -230,6 +230,7 @@ public class Main
 			if(cal == 0){
 				//calculate the differences between gold's and the vector's metrics
 				current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, gold_mvp);
+				mvps.add(gold_mvp);
 			}else{
 				current_mvp = new MetricVectorProcessing(experiments_results.get(cal), 6);
 				
@@ -237,17 +238,16 @@ public class Main
 				current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, current_mvp);
 				mvps.add(current_mvp);
 			}
-			
-			
-			
+
 			//then do cos_distance
 			rating = MetricVectorProcessing.rate(current_dist_vec, gold_mvp.getZero_vector());
+			System.out.println("File: ["+current_mvp.getName()+"] | Rating: ["+rating+"]");
 			ros.add(new ResultObject(rating, current_dist_vec, rating_path+"_"+(cal+1)+".txt", experiments_results.get(cal).getResource_name()));
 		}
 		
 		System.out.println("STORING RESULTS\n");
 		TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_nvp")+".content.prop");
-		for(int mvs = 0; mvs < mvps.size(); mvs++) TextWriter.writeMVP(current_mvp, rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", ".content.prop"));
+		for(int mvs = 1; mvs < mvps.size(); mvs++) TextWriter.writeMVP(current_mvp, rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", ".content.prop"));
 		TextWriter.writeRating(ros);
 	}
 	
@@ -265,38 +265,39 @@ public class Main
 	{	
 		TextReader tr = new TextReader();
 		
-		String exp_type = ExpType.A2KB.name();
-		String matching_type = Matching.WEAK_ANNOTATION_MATCH.name();
-		String gold_name = "GoldTextWikipedia.txt";								//Gold standard text
-		String fragment_name = "BVFragment.txt";								//Bottom value text
-		String gold_path = tr.getResourceFileAbsolutePath(gold_name);
-		String fragment_path = gold_path.replace(gold_name, fragment_name);
-		String rating_out_path = gold_path.replace(gold_name, Timestamp.getLocalDateAsString(Timestamp.getCurrentTime())+"_rating");
+		String exp_type 			= ExpType.A2KB.name();
+		String matching_type 		= Matching.WEAK_ANNOTATION_MATCH.name();
+		String gold_name 			= "GoldTextWikipedia.txt";						//Gold standard text
+		String fragment_name 		= "BVFragment.txt";								//Bottom value text
+		String gold_path 			= tr.getResourceFileAbsolutePath(gold_name);
+		String fragment_path 		= gold_path.replace(gold_name, fragment_name);
+		String rating_out_path 		= gold_path.replace(gold_name, Timestamp.getLocalDateAsString(Timestamp.getCurrentTime())+"_rating");
 		
 		//If file is not created, just create a new one!
 		if (!new File(fragment_path).exists()) 
-		{
-			System.out.println("the file do not exist!");
-			TextWriter.fileWriter(CruelTextGenerator.createRandomFragment(TextReader.fileReader(gold_path)), fragment_path);
-		}
-//		String[] additional_files = new String[5];
-		String[] additional_files = new String[2];
-//		additional_files[0] = gold_name;
-		additional_files[0] = fragment_name;
-		additional_files[1] = "epoch15.txt";
-//		additional_files[3] = "epoch30.txt";
-//		additional_files[4] = "epoch70Final.txt";
+			System.out.println("The file dont exist! Create new at "
+					+TextWriter.fileWriter(CruelTextGenerator.createRandomFragment(TextReader.fileReader(gold_path)), fragment_path)); 
+		
+		//TODO if gold is loaded inside a content.prop file just gather informations from there need to implemented maybe as XML
+		
+		String[] additional_files 	= new String[1];
+//		String[] additional_files 	= new String[4];
+		additional_files[0] 		= gold_name;
+//		additional_files[0] 		= fragment_name;
+//		additional_files[1] 		= "epoch15.txt";
+//		additional_files[2] 		= "epoch30.txt";
+//		additional_files[3] 		= "epoch70Final.txt";
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
 		LinkedList<String> filenames = new LinkedList<String>(Arrays.asList(additional_files));
 		
 		//The 4 default annotators
 		String[] default_annotators = new String[5];
-		default_annotators[0] = Annotators.AIDA.name();
-		default_annotators[1] = Annotators.WAT.name();
-		default_annotators[2] = Annotators.FOX.name();
-		default_annotators[3] = "TagMe 2";
-		default_annotators[4] = "DBpedia Spotlight";
+		default_annotators[0] 		= Annotators.AIDA.name();
+		default_annotators[1] 		= Annotators.WAT.name();
+		default_annotators[2] 		= Annotators.FOX.name();
+		default_annotators[3] 		= "TagMe 2";
+		default_annotators[4] 		= "DBpedia Spotlight";
 		
 		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(default_annotators));
 		

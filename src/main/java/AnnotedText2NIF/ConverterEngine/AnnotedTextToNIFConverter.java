@@ -208,12 +208,9 @@ public class AnnotedTextToNIFConverter
 		TextReader tr = new TextReader();
 		
 		
-//		String infile_name = "epoch70Final.txt";
-//		String outfile_name = "epoch70Final.ttl";
-		
-		String infile_name = "Bsp1.txt";
-		String outfile_name = "bsp.ttl";
-		
+		String infile_name = "epoch70Final.txt";
+		String outfile_name = "epoch70Final.ttl";
+
 		String file_location = tr.getResourceFileAbsolutePath(infile_name);
 		System.out.println(file_location);
 		System.out.println(getNIFFileByText(file_location, tr.getResourceFileAbsolutePath(infile_name).replace(infile_name, outfile_name), false));
