@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class CosDistance 
 {
-	static double epsilon = 0.00000001;
+	public static double epsilon = 0.00000001;
 	
 	//##################################################################################
 	//################################# USAGE METHODS ##################################
@@ -27,10 +27,7 @@ public class CosDistance
 	 */
 	public static boolean equality(List<Double> v1, List<Double> v2)
 	{
-		for(int ix = 0; ix < v1.size(); ix++)
-		{
-			if(!(v1.get(ix).equals(v2.get(ix)))) return false;
-		}
+		for(int ix = 0; ix < v1.size(); ix++) if(!doubleCheck(v1.get(ix), v2.get(ix))) return false; 
 		return true;
 	}
 	
@@ -44,14 +41,13 @@ public class CosDistance
 	{
 		double v1_value = Double.NaN, v2_value = Double.NaN;
 		
-		
 		if(containsEqualValues(v1) && containsEqualValues(v2))
 		{
-			if(v1.get(0).equals(0.0))
+			if(doubleCheck(v1.get(0),0.0))
 			{
 				v1_value = 0.0;
 				v2_value = epsilon;
-			}else if(v1.get(0).equals(epsilon)){
+			}else if(doubleCheck(v1.get(0),epsilon)){
 				v1_value = epsilon;
 				v2_value = 0.0;
 			}else{
@@ -60,9 +56,8 @@ public class CosDistance
 		}else{
 			return false;
 		}
-		
-		
-		for(int ix = 0; ix < v1.size(); ix++) if((v1.get(ix).equals(v1_value) && v2.get(ix).equals(v2_value))) return true;
+											
+		for(int ix = 0; ix < v1.size(); ix++) if(doubleCheck(v1.get(ix), v1_value) && doubleCheck(v2.get(ix), v2_value)) return true;
 		return false;
 	}
 	
@@ -77,7 +72,7 @@ public class CosDistance
 		
 		for(int k = 1; k < v1.size(); k++)
 		{
-			if(!v1.get(k).equals(old))
+			if(!doubleCheck(v1.get(k), old))
 			{
 				return false;
 			}
@@ -129,7 +124,7 @@ public class CosDistance
 				divider = Math.sqrt(lower_left)*Math.sqrt(lower_right);
 				
 				//evade a dividing 0
-				if(divider > 0)
+				if(divider > epsilon)
 				{
 					//calc cosin similarity 
 					similarity = upper_value/divider;
@@ -139,12 +134,23 @@ public class CosDistance
 				}
 				
 				//return cosin dist
-				return 1.0 -similarity;
+				return 1.0 - similarity;
 			}
 		}else{
 			System.out.println("Vector size equality miss match!");
 			return Double.NaN;
 		}
+	}
+	
+	/**
+	 * This method check the distance between 2 double is lower then desired min epsilon
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public static boolean doubleCheck(double a, double b)
+	{
+		return Math.abs(a-b) < epsilon;
 	}
 	
 	//##################################################################################
@@ -187,19 +193,20 @@ public class CosDistance
 		System.out.println("Test_6: "+CosDistance.cosineDistanceDecimal(zv, zv));	//Should be okay identical 0.0
 		System.out.println("Test_7: "+CosDistance.cosineDistanceDecimal(v1, zv));	//Should be okay identical 0.0
 		
-		v2 = new ArrayList<Double>(Arrays.asList(epsilon,epsilon,epsilon,epsilon,epsilon,epsilon,epsilon,epsilon,epsilon,epsilon));
+		v2 = new ArrayList<Double>(Arrays.asList(epsilon, epsilon, epsilon, epsilon, epsilon, epsilon, epsilon, epsilon, epsilon, epsilon));
+		v2 = new ArrayList<Double>(Arrays.asList(1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0));
 		v1 = new ArrayList<Double>(Arrays.asList(	0.0,
-													332.24566668767005,
-													-43.6542558055136,
-													-1.2163953243244934,
-													-421.7892842641955,
-													5.921213802559668,
+													332.2457,
+													-43.6543,
+													-1.2164,
+													-421.7893,
+													5.9212,
 													0.3171,
 													0.1429,
 													0.4616,
 													0.2642));
 		
-		System.out.println("Test_8: "+CosDistance.cosineDistanceDecimal(v1, v2));	//Should be okay 1.0 [ERROR]
+		System.out.println("Test_8: "+CosDistance.cosineDistanceDecimal(v1, v2));	//[ERROR]
 		
 		v2 = new ArrayList<Double>(Arrays.asList(2.0, 1.0, 0.0, 2.0, 0.0, 1.0, 1.0, 1.0));
 		v1 = new ArrayList<Double>(Arrays.asList(2.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0));

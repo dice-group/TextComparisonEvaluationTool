@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import Engines.Distances.CosDistance;
+
 /**
  * This class calculate the Kullback-Leibler divergence in various ways.
  * @author TTurke
@@ -31,13 +33,13 @@ public class KullbackLeiblerDivergenz
 		
 		for(T key : all_keys)
 		{
-			if(s1.get(key) == null || s2.get(key) == null || s1.get(key) == 0 || s2.get(key) == 0.0000) {continue;}
+			if(s1.get(key) == null || s2.get(key) == null || s1.get(key) < CosDistance.epsilon || s2.get(key) < CosDistance.epsilon) {continue;}
 	        kld += (s1.get(key) * Math.log((s1.get(key)/s2.get(key))));
 		}
-		
 		return kld;
 	}
 	
+	//TODO der macht keinen Sinn da wir verteilungen berechnen.. sonst wäre hier je nur 0 oder 1 zugelassen!!
 	/**
 	 * This method takes 2 Maps <T, Integer> of comparable distributions of 2 texts 
 	 * and calculate the Kullback-Leibler divergence 
@@ -108,11 +110,11 @@ public class KullbackLeiblerDivergenz
 		Map<String, Integer> textValuesB = new HashMap<String, Integer>();
 
 		//EXAMPLE 1
-		text1Values.put("av", 5.0);			text2Values.put("av", 5.0);
-		text1Values.put("occ", 3.0);		text2Values.put("occ", 4.0);
-		text1Values.put("wc", 3.0);			text2Values.put("wc", 3.0);
-		text1Values.put("len", 7.0);		text2Values.put("len", 0.0);
-		text1Values.put("err", 8.0);		text2Values.put("err", 9.0);
+		text1Values.put("av", 0.12);		text2Values.put("av", 0.119);
+		text1Values.put("occ", 0.08);		text2Values.put("occ", 0.079);
+		text1Values.put("wc", 0.6);			text2Values.put("wc", 0.6);
+		text1Values.put("len", 0.17);		text2Values.put("len", 0.17);
+		text1Values.put("err", 0.03);		text2Values.put("err", 0.032);
 		
 		//EXAMPLE 1
 		textValuesA.put("av", 5);		textValuesB.put("av", 5);
