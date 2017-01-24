@@ -3,6 +3,7 @@ package Engines.Run;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import org.json.JSONObject;
@@ -57,8 +58,9 @@ public class Main
 		System.out.println("############# PIPE IS PREPARING  #############");
 		
 		//GENERAL SETUP (VARIABLES)
-
+		
 		//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
+		
 		
 		double rating = Double.NaN;
 		TextConversion tc;
@@ -145,7 +147,7 @@ public class Main
 			// TODO should we use it?
 			/* M_0 CURRENTLY NOT USED*/
 			text_info.setCanBeUsed((sentence_objects.size() * 100.0)/(st.getRawSentenceSize()));
-			System.out.println("Usable senteces===> ["+text_info.getCanBeUsed()+"]");
+			System.out.println("Usable senteces===> ["+SimpleRounding.round(text_info.getCanBeUsed())+"%]");
 			
 			//get sentences and gather words
 			sentences_cleaned = st.sentencesAsStrings(sentence_objects);
@@ -266,13 +268,13 @@ public class Main
 		
 		//TODO if gold is loaded inside a content.prop file just gather informations from there need to implemented maybe as XML
 		
-		String[] additional_files 	= new String[1];
-//		String[] additional_files 	= new String[4];
-		additional_files[0] 		= gold_name;
-//		additional_files[0] 		= fragment_name;
-//		additional_files[1] 		= "epoch15.txt";
-//		additional_files[2] 		= "epoch30.txt";
-//		additional_files[3] 		= "epoch70Final.txt";
+//		String[] additional_files 	= new String[1];
+		String[] additional_files 	= new String[4];
+//		additional_files[0] 		= gold_name;
+		additional_files[0] 		= fragment_name;
+		additional_files[1] 		= "epoch15.txt";
+		additional_files[2] 		= "epoch30.txt";
+		additional_files[3] 		= "epoch70Final.txt";
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
 		LinkedList<String> filenames = new LinkedList<String>(Arrays.asList(additional_files));

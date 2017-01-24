@@ -19,7 +19,15 @@ public class SimpleRounding
 	public static double round(double value)
 	{
 		DecimalFormat df = new DecimalFormat("#.####");
-		df.setRoundingMode(RoundingMode.CEILING);
+		df.setRoundingMode(RoundingMode.HALF_EVEN);
 		return Double.parseDouble(df.format(value).replace(",", "."));
+	}
+	
+	public static void main(String [] args)
+	{
+		System.out.println(SimpleRounding.round(332.24566668767005));
+		System.out.println(SimpleRounding.round(-43.6542558055136));
+		System.out.println(SimpleRounding.round(5.921213802559668));
+		System.out.println(SimpleRounding.round(0.0));
 	}
 }

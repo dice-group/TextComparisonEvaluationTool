@@ -239,7 +239,9 @@ public class TextWriter
 					bw.write("PERFECT MATCH!");
 				}else{
 					((BufferedWriter) bw).newLine();
-					bw.write("\nRating: "+ro.getRating());
+					bw.write("\nDistance: "+(1-ro.getRating()));
+					((BufferedWriter) bw).newLine();
+					bw.write("\nSimilarity: "+ro.getRating());
 				}
 				
 				bw.close();

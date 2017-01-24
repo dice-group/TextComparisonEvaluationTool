@@ -146,7 +146,7 @@ public class KullbackLeiblerDivergenz
 		
 		System.out.println("Die KL-Divergenz Easy TD beträgt:\t"+EasyKLDivergenceTD(text1Values, text2Values));
 		
-		//Bsp result ist 0.001547 und mein result ist 0.0015468691570075686 [WORKS]
+		//Bsp result 0.0 [WORKS]
 		text1Values.put("a", 0.000);		text2Values.put("a", 0.000);
 		text1Values.put("b", 0.000);		text2Values.put("b", 0.000);
 				
