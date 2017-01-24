@@ -1,5 +1,6 @@
 package Engines.IO;
 
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import Engines.SimpleObjects.TextInformations;
  * @author TTurke
  *
  */
-public class PropertieReader 
+public class PropertyReader 
 {
 	
 	/**
