@@ -3,7 +3,6 @@ package AnnotedText2NIF.IOContent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -23,24 +22,24 @@ public class TextWriter
 	 * This method write the given text to a file in the parent folder with a given name
 	 * @param writeable
 	 * @param path
+	 * @throws IOException 
 	 */
-	public static String fileWriter(String writeable, String path) 
+	public static String fileWriter(String writeable, String path) throws IOException
 	{
-		try {
-			
-			File file = new File(path);
+		File file = new File(path);
 
-			if (!file.exists()) 
-			{
-				file.createNewFile();
-			}
-			
-			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
-			bw.write(writeable);
-			bw.close();
-			
-		} catch (IOException ioe) { ioe.printStackTrace(); }
+		if (!file.exists()) 
+		{
+			file.createNewFile();
+		}
 		
+		Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsoluteFile()), "UTF-8"));
+		out.write(writeable);
+		out.close();
+		
+//		BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+//		bw.write(writeable);
+//		bw.close();
 		return path;
 	}
 	
@@ -61,90 +60,92 @@ public class TextWriter
 				file.createNewFile();
 			}
 			
-			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+			Writer bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsoluteFile()), "UTF-8"));
+			
+//			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 			
 			bw.write("M_1");
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
 			for(Integer key: mvp.symbol_sent_dist.keySet())
 			{
 				bw.write("["+key+"]["+mvp.symbol_sent_dist.get(key)+"]");
-				bw.newLine();
+				((BufferedWriter) bw).newLine();
 			}
 			
-			bw.newLine();
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
+			((BufferedWriter) bw).newLine();
 			
 			//####################################################################
 			
 			bw.write("M_2");
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
 			for(Character key: mvp.symbol_error_dist.keySet())
 			{
 				bw.write("["+key+"]["+mvp.symbol_error_dist.get(key)+"]");
-				bw.newLine();
+				((BufferedWriter) bw).newLine();
 			}
-			bw.newLine();
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
+			((BufferedWriter) bw).newLine();
 			
 			//####################################################################
 			
 			bw.write("M_3");
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
 			for(String key: mvp.syntactic_error_dist.keySet())
 			{
 				bw.write("["+key+"]["+mvp.syntactic_error_dist.get(key)+"]");
-				bw.newLine();
+				((BufferedWriter) bw).newLine();
 			}
-			bw.newLine();
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
+			((BufferedWriter) bw).newLine();
 			
 			//####################################################################
 			
 			bw.write("M_4");
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
 			for(Integer key: mvp.word_occurrence_dist.keySet())
 			{
 				bw.write("["+key+"]["+mvp.word_occurrence_dist.get(key)+"]");
-				bw.newLine();
+				((BufferedWriter) bw).newLine();
 			}
-			bw.newLine();
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
+			((BufferedWriter) bw).newLine();
 			
 			//####################################################################
 			
 			bw.write("M_5");
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
 			for(String key: mvp.pos_tags_dist.keySet())
 			{
 				bw.write("["+key+"]["+mvp.pos_tags_dist.get(key)+"]");
-				bw.newLine();
+				((BufferedWriter) bw).newLine();
 			}
-			bw.newLine();
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
+			((BufferedWriter) bw).newLine();
 			
 			//####################################################################
 			
 			bw.write("M_6");
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
 			
 			for(Integer key: mvp.annotated_entity_dist.keySet())
 			{
 				bw.write("["+key+"]["+mvp.annotated_entity_dist.get(key)+"]");
-				bw.newLine();
+				((BufferedWriter) bw).newLine();
 			}
-			bw.newLine();
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
+			((BufferedWriter) bw).newLine();
 			
 			//####################################################################
 			
 			bw.write("M_GERBIL");
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
 			for(String key: mvp.gerbil_metrics.keySet())
 			{
 				bw.write("["+key+"]["+mvp.gerbil_metrics.get(key)+"]");
-				bw.newLine();
+				((BufferedWriter) bw).newLine();;
 			}
-			bw.newLine();
+			((BufferedWriter) bw).newLine();
 
 			//close the buffered writer
 			bw.close();
@@ -174,7 +175,10 @@ public class TextWriter
 				file.createNewFile();
 			}
 			
-			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+			Writer bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsoluteFile()), "UTF-8"));
+			
+//			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+			
 			bw.write(writeable);
 			bw.close();
 			
