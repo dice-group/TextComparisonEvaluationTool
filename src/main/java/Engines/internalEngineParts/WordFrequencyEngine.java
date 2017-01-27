@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class WordFrequencyEngine 
 {
-
 	private HashMap<String, Integer> map = null;
 	private HashSet<String> set = null;
 	
@@ -56,44 +55,6 @@ public class WordFrequencyEngine
 				}
 			}
 		}	
-	}
-	
-	/**
-	 * This method check size equality between a HashMap and HashSet depending on there KeySet's.
-	 * @param map
-	 * @param set
-	 * @return true or false
-	 */
-	public boolean sizeEqualitySetMap(HashMap<?, ?> map, HashSet<?> set)
-	{
-		return (map.size() == set.size());
-	}
-	
-	/**
-	 * This method check size equality between two HashMap's depending on there KeySet's.
-	 * @param map1
-	 * @param map2
-	 * @return true or false
-	 */
-	public boolean sizeEqualityMaps(HashMap<?, ?> map1 , HashMap<?, ?> map2)
-	{
-		return (map1.size() == map2.size());
-	}
-	
-	/**
-	 * This mehtod count the words in a HashMap by the value of a key.
-	 * @param hashmap
-	 * @return element count
-	 */
-	public static int getElementCount(HashMap<String, Integer> hashmap)
-	{
-		int i = 0;
-		
-		for(String elem : hashmap.keySet())
-		{
-			i += hashmap.get(elem);
-		}
-		return i;
 	}
 	
 	/**
