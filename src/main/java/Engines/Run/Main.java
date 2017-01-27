@@ -26,10 +26,10 @@ import edu.stanford.nlp.simple.Sentence;
 import Engines.Enums.Annotators;
 import Engines.Enums.ExpType;
 import Engines.Enums.Matching;
+import Engines.Run.Pipeline;
 
 /**
  * This class start the whole process and return all necessary informations.
- * (maybe add a structured data output)  
  * @author TTurke
  *
  */
@@ -258,6 +258,16 @@ public class Main
 		String fragment_path 		= gold_path.replace(gold_name, fragment_name);
 		String rating_out_path 		= gold_path.replace(gold_name, Timestamp.getLocalDateAsString(Timestamp.getCurrentTime())+"_rating");
 		
+		
+		String[] additional_files;
+		String[] default_annotators;
+		LinkedList<String> filenames;
+		LinkedList<String> annotators;
+		LinkedList<Double> ratings;
+		LinkedList<TextInformations> experiments_infos;
+		LinkedList<TextInformations> no_gold_exp_results = new LinkedList<TextInformations>();
+		
+		
 		//If file is not created, just create a new one!
 		if (!new File(fragment_path).exists()) 
 			System.out.println("The file dont exist! Create new at "
@@ -265,8 +275,7 @@ public class Main
 		
 		//TODO if gold is loaded inside a content.prop file just gather informations from there need to implemented maybe as XML
 		
-//		String[] additional_files 	= new String[1];
-		String[] additional_files 	= new String[4];
+		additional_files 			= new String[4];
 //		additional_files[0] 		= gold_name;
 		additional_files[0] 		= fragment_name;
 		additional_files[1] 		= "epoch15.txt";
@@ -274,17 +283,17 @@ public class Main
 		additional_files[3] 		= "epoch70Final.txt";
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
-		LinkedList<String> filenames = new LinkedList<String>(Arrays.asList(additional_files));
+		filenames = new LinkedList<String>(Arrays.asList(additional_files));
 		
 		//The 4 default annotators
-		String[] default_annotators = new String[5];
+		default_annotators = new String[5];
 		default_annotators[0] 		= Annotators.AIDA.name();
 		default_annotators[1] 		= Annotators.WAT.name();
 		default_annotators[2] 		= Annotators.FOX.name();
 		default_annotators[3] 		= "TagMe 2";
 		default_annotators[4] 		= "DBpedia Spotlight";
 		
-		LinkedList<String> annotators = new LinkedList<String>(Arrays.asList(default_annotators));
+		annotators = new LinkedList<String>(Arrays.asList(default_annotators));
 		
 		System.out.println("#########################################################");
 		System.out.println("############# THESE METRICS ARE WE CHECKING #############");
@@ -298,7 +307,14 @@ public class Main
 		System.out.println("[Distribution] M_6: Entities over all sentences");
 		System.out.println("[Values] GERBIL METRICS: "+annotators);
 		
-		Main.pipeline(filenames, annotators, exp_type, matching_type, rating_out_path);
+		experiments_infos = Pipeline.gather(filenames, annotators, exp_type, matching_type);
+		
+		//get non gold text exps
+		for(int i = 1; i < experiments_infos.size(); i++) no_gold_exp_results.add(experiments_infos.get(i));
+		
+		ratings = Pipeline.calculater(experiments_infos.getFirst(), experiments_infos, rating_out_path);
+		
+		System.out.println(ratings);
 	}
 
 }

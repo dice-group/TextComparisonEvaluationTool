@@ -26,23 +26,25 @@ import Web.Controller.JSONCollector;
 import Web.Objects.ExperimentObjectGERBIL;
 import edu.stanford.nlp.simple.Sentence;
 
+/**
+ * This pipeline presents all functions to gather the desired features informations of a text and rate them if necessary. 
+ * @author TTurke
+ *
+ */
 public class Pipeline 
 {
 	
+	/**
+	 * This method collect all desired informations (depending on the desired features) of a list of texts.
+	 * @param filenames
+	 * @param annotators
+	 * @param exp_type
+	 * @param matching_type
+	 * @return list of text informations
+	 * @throws Exception
+	 */
 	public static LinkedList<TextInformations> gather(LinkedList<String> filenames, LinkedList<String> annotators, String exp_type, String matching_type) throws Exception
 	{
-		//*************************************************************************************************
-				//*************************************************************************************************
-				//****************************************** PIPELINE *********************************************
-				//*************************************************************************************************
-				//*************************************************************************************************
-				
-				System.out.println("############# PIPE IS PREPARING  #############");
-				
-				//GENERAL SETUP (VARIABLES)
-
-				//Initiate pipeline --> Just Load ONCE! It takes very much time to initiate it! Remind that for usage!!!
-				
 				TextConversion tc;
 				DevelishParenthesis dp;
 				GatherAnnotationInformations gai;	
@@ -53,12 +55,12 @@ public class Pipeline
 				LinkedList<String> nameNIFFile = new LinkedList<String>();
 				LinkedList<String> resourceFilesAbsolutePaths = new LinkedList<String>();
 				LinkedList<String> texts_raws = new LinkedList<String>();
-				
-				//All file experiment informations and there NIF files 
-				LinkedList<TextInformations> experiments_results = new LinkedList<TextInformations>();
+				LinkedList<TextInformations> text_informations = new LinkedList<TextInformations>();
 
 				
 				//*************************************************************************************************************************************************
+				
+				System.out.println("############# GATHERER HAS STARTED  #############");
 				
 				for(int k = 0; k < filenames.size(); k++)
 				{	
@@ -134,8 +136,8 @@ public class Pipeline
 					gai.setSyntax_error_dist(st.getSyn_error_dist());
 					gai.addSEDMap(DistributionProcessing.calcSimpleSynErrorDist(sentences_cleaned));
 					file = new File(attnifc.getNIFFileBySentences(sentence_objects, out_file_path, gai));
-					text_info.setNif_path(file.getAbsolutePath());
 					sos = AnnotedTextToNIFConverter.getSos();	//store this for 2 other metrics
+					text_info.setNif_path(file.getAbsolutePath());
 					text_info.setSyn_error_dist(gai.getSyntax_error_dist());
 					
 					System.out.println("CALCULATION WF STARTED!");
@@ -173,7 +175,7 @@ public class Pipeline
 					
 					//*************************************************************************************************************************************************
 					//STORE ALL RESULTS
-					experiments_results.add(text_info);			
+					text_informations.add(text_info);			
 					
 					//*************************************************************************************************************************************************
 					//LOCAL PRESENTATION
@@ -184,19 +186,22 @@ public class Pipeline
 					System.out.println("Resource:\t\t\t"+text_info.getResource_name());
 					System.out.println("Date and Time:\t\t\t"+text_info.getGeneration_date());
 					
-					if((k+1) < filenames.size()) System.out.println("\n######################### NEXT ##########################\n");
+					if((k+1) < filenames.size()) 
+						System.out.println("\n######################### NEXT ##########################\n");
 				}
 				
-				return experiments_results;
+				return text_informations;
 	}
 	
 	
 	/**
 	 * This method calculates the arithmetical mean (named rating) of all texts towards the the gold text.
-	 * @param experiments_results
+	 * @param gold_exp_result
+	 * @param no_gold_exp_results
 	 * @param rating_path
+	 * @return list of all ratings (excepting gold to gold because its always 0)
 	 */
-	public static void calculater(TextInformations gold_exp_result, LinkedList<TextInformations> experiments_results, String rating_path)
+	public static LinkedList<Double> calculater(TextInformations gold_exp_result, LinkedList<TextInformations> no_gold_exp_results, String rating_path)
 	{
 		LinkedList<Double> ratings = new LinkedList<Double>();
 		
@@ -209,9 +214,9 @@ public class Pipeline
 				
 		System.out.println("\n\n############## CALCULATION STARTED ###############\n");
 				
-		for(int cal = 0; cal < experiments_results.size(); cal++)
+		for(int cal = 0; cal < no_gold_exp_results.size(); cal++)
 		{
-			current_mvp = new MetricVectorProcessing(experiments_results.get(cal), 6);
+			current_mvp = new MetricVectorProcessing(no_gold_exp_results.get(cal), 6);
 			
 			//calculate the differences between gold's and the vector's metrics
 			current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, current_mvp);
@@ -219,7 +224,7 @@ public class Pipeline
 			
 			//TODO change to arithmetical mean
 			ratings.add(MetricVectorProcessing.rate(current_dist_vec, gold_mvp.getZero_vector()));
-			ros.add(new ResultObject(ratings.getLast(), current_dist_vec, rating_path+"_"+(cal+1)+".txt", experiments_results.get(cal).getResource_name()));
+			ros.add(new ResultObject(ratings.getLast(), current_dist_vec, rating_path+"_"+(cal+1)+".txt", no_gold_exp_results.get(cal).getResource_name()));
 			
 			System.out.println("File: ["+current_mvp.getName()+"] | Rating: ["+ratings.getLast()+"]");
 		}
@@ -229,6 +234,7 @@ public class Pipeline
 		TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_nvp")+".content.prop");
 		for(int mvs = 1; mvs < mvps.size(); mvs++) TextWriter.writeMVP(current_mvp, rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", ".content.prop"));
 		TextWriter.writeRating(ros);
+		
+		return ratings;
 	}
-	
 }
