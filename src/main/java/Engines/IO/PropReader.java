@@ -242,7 +242,7 @@ public class PropReader
 	{
 		PropReader pr = new PropReader();
 		String path = pr.getResourceFileAbsolutePath("24.01.2017_gold_nvp.content.prop");
-		pr.fileReader(path,6);
+		PropReader.fileReader(path,6);
 
 	}
 }

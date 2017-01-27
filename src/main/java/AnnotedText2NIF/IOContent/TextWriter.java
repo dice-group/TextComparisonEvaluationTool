@@ -57,9 +57,6 @@ public class TextWriter
 			}
 			
 			Writer bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsoluteFile()), "UTF-8"));
-			
-//			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
-			
 
 			bw.write("M_1");
 			((BufferedWriter) bw).newLine();
