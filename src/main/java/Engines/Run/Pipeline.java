@@ -15,6 +15,7 @@ import AnnotedText2NIF.IOContent.TextWriter;
 import Engines.SimpleObjects.MetricVectorProcessing;
 import Engines.SimpleObjects.ResultObject;
 import Engines.SimpleObjects.SentenceObject;
+import Engines.SimpleObjects.SimpleRounding;
 import Engines.SimpleObjects.TextInformations;
 import Engines.internalEngineParts.WordFrequencyEngine;
 import Engines.simpleTextProcessing.DevelishParenthesis;
@@ -70,6 +71,8 @@ public class Pipeline
 					JSONObject jsobj;
 					
 					dp = new DevelishParenthesis();
+					
+					//TODO urls cachen so das sie für alle texte erhalten bleiben
 					gai = new GatherAnnotationInformations();
 					tc = new TextConversion();
 					st = new StanfordTokenizer();
@@ -222,7 +225,7 @@ public class Pipeline
 			current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, current_mvp);
 			mvps.add(current_mvp);
 			
-			ratings.add(MetricVectorProcessing.rate(current_dist_vec));
+			ratings.add(SimpleRounding.round(MetricVectorProcessing.rate(current_dist_vec)));
 			ros.add(new ResultObject(ratings.getLast(), current_dist_vec, rating_path+"_"+(cal+1)+".txt", no_gold_exp_results.get(cal).getResource_name()));
 			
 			System.out.println("File: ["+current_mvp.getName()+"] | Rating: ["+ratings.getLast()+"]");
