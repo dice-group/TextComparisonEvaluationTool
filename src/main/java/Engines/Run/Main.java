@@ -78,7 +78,6 @@ public class Main
 		
 		//All file experiment informations and there NIF files 
 		LinkedList<TextInformations> experiments_results = new LinkedList<TextInformations>();
-		LinkedList<File> experiments_NifFiles = new LinkedList<File>();
 		LinkedList<ResultObject> ros = new LinkedList<ResultObject>();
 		LinkedList<MetricVectorProcessing> mvps = new LinkedList<MetricVectorProcessing>();
 		
@@ -197,8 +196,6 @@ public class Main
 			//*************************************************************************************************************************************************
 			//STORE ALL RESULTS
 			experiments_results.add(text_info);
-			experiments_NifFiles.add(file);
-			
 			
 			//*************************************************************************************************************************************************
 			//LOCAL PRESENTATION

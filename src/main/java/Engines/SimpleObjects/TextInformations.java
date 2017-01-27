@@ -15,6 +15,7 @@ public class TextInformations
 	private String resource_name = "";
 	private LocalDateTime generation_date;
 	
+	private String nif_path = "";
 	private double canBeUsed = Double.NaN;
 	private HashMap<String, Double> metrics_GERBIL = new HashMap<String, Double>();				//USED
 	private HashMap<String, Integer> words_distribution = new HashMap<String, Integer>();		//USED
@@ -47,11 +48,18 @@ public class TextInformations
 		return resource_name;
 	}
 	
-	
 	//##################################################################################
 	//################## GETTERS, SETTERS, ADDERS and EDITS ############################
 	//##################################################################################
 	
+	public String getNif_path() {
+		return nif_path;
+	}
+
+	public void setNif_path(String nif_path) {
+		this.nif_path = nif_path;
+	}
+
 	public double getCanBeUsed() {
 		return canBeUsed;
 	}
