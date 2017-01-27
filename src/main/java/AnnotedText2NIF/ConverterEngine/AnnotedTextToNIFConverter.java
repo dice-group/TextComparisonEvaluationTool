@@ -140,7 +140,6 @@ public class AnnotedTextToNIFConverter
 		Document document;
 		
 		System.out.println("NIF creation and harder syntax control!");
-		//TODO if(dobjs.size() > 0) sos.add(new SentenceObject(sentence_objects.get(i), dobjs.size()));
 		
 		for(int k = 0; k < input.size(); k++)
 		{

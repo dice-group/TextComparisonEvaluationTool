@@ -18,9 +18,8 @@ import Web.Controller.URLControl;
 public class GatherAnnotationInformations 
 {
 	private String not_annot_text;
-	//TODO which prefix to use??!
-//	public static final String real_prefix = "https://en.wikipedia.org/wiki/";
-	public static final String real_prefix = "http://dbpedia.org/resource/";
+	public static final String real_prefix = "https://en.wikipedia.org/wiki/";
+//	public static final String real_prefix = "http://dbpedia.org/resource/";
 	
 	public static final String dummy_prefix = "http://aksw.org/NOTINWIKI/";
 	

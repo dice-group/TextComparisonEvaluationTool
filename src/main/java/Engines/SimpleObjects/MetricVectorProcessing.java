@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import Engines.Distances.CosDistance;
 import Engines.Distances.QuadError;
 import Engines.KLDiv.KullbackLeiblerDivergenz;
 
@@ -23,12 +22,12 @@ public class MetricVectorProcessing
 	private String name;
 	
 	//Non_Gerbil metrics
-	public HashMap<Integer, Integer> symbol_sent_dist;
-	public HashMap<Character, Integer> symbol_error_dist;
-	public HashMap<String, Integer> syntactic_error_dist;
-	public HashMap<Integer, Integer> word_occurrence_dist;
-	public HashMap<String, Integer> pos_tags_dist;
-	public HashMap<Integer, Integer> annotated_entity_dist;
+	public HashMap<Integer, Double> symbol_sent_dist;
+	public HashMap<Character, Double> symbol_error_dist;
+	public HashMap<String, Double> syntactic_error_dist;
+	public HashMap<Integer, Double> word_occurrence_dist;
+	public HashMap<String, Double> pos_tags_dist;
+	public HashMap<Integer, Double> annotated_entity_dist;
 	
 	//Gerbil metrics
 	public HashMap<String, Double> gerbil_metrics;
@@ -91,12 +90,12 @@ public class MetricVectorProcessing
 		double[] gm;
 		
 		// Gerbil metrics (6 metrics currently) ATTENTION add more right here if you need them
-		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.symbol_sent_dist, v2.symbol_sent_dist)));
-		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.symbol_error_dist, v2.symbol_error_dist)));
-		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.syntactic_error_dist, v2.syntactic_error_dist)));
-		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.word_occurrence_dist, v2.word_occurrence_dist)));
-		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.pos_tags_dist, v2.pos_tags_dist)));
-		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTI(v1.annotated_entity_dist, v2.annotated_entity_dist)));
+		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.symbol_sent_dist, v2.symbol_sent_dist)));
+		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.symbol_error_dist, v2.symbol_error_dist)));
+		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.syntactic_error_dist, v2.syntactic_error_dist)));
+		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.word_occurrence_dist, v2.word_occurrence_dist)));
+		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.pos_tags_dist, v2.pos_tags_dist)));
+		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.annotated_entity_dist, v2.annotated_entity_dist)));
 		
 		// Gerbil metrics (4 metrics currently)
 		ArrayList<String> keys = new ArrayList<String>(v1.gerbil_metrics.keySet());
@@ -190,14 +189,21 @@ public class MetricVectorProcessing
 	}
 	
 	/**
-	 * This method rate a distance vector towards the zero vector by calculation the cosine distance between them.
+	 * This method calculate the arithmetical mean of a distance vector.
 	 * @param dist_vec
-	 * @param zero_vec
 	 * @return rating decimal value
 	 */
-	public static double rate(ArrayList<Double> dist_vec, ArrayList<Double> zero_vec)
+	public static double rate(ArrayList<Double> dist_vec)
 	{
-		return CosDistance.cosineDistanceDecimal(dist_vec, zero_vec);
+		if(dist_vec.isEmpty())
+		{
+			return Double.NaN;
+		}
+		
+		double rating = 0.0;
+		for(double v : dist_vec) rating += v; 
+		
+		return (rating/dist_vec.size());
 	}
 	
 	//##################################################################################

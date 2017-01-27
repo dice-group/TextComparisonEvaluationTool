@@ -39,30 +39,6 @@ public class KullbackLeiblerDivergenz
 		return kld;
 	}
 	
-	//TODO der macht keinen Sinn da wir verteilungen berechnen.. sonst wäre hier je nur 0 oder 1 zugelassen!!
-	/**
-	 * This method takes 2 Maps <T, Integer> of comparable distributions of 2 texts 
-	 * and calculate the Kullback-Leibler divergence 
-	 * @param s1
-	 * @param s2
-	 * @return divergence decimal
-	 */
-	public static <T> double EasyKLDivergenceTI(Map<T,Integer> s1, Map<T,Integer> s2)
-	{
-		Set<T> all_keys = createFullKeySetT2I(s1, s2);
-		double kld = 0.0, v1 = Double.NaN, v2 = Double.NaN;
-		
-		for(T key : all_keys)
-		{
-			if(s1.get(key) == null || s2.get(key) == null || s1.get(key) == 0 || s2.get(key) == 0) {continue;}
-	        v1 = s1.get(key);
-	        v2 = s2.get(key);
-	        kld += (v1 * Math.log((v1/v2)));
-		}
-		
-		return kld;
-	}
-	
 	/**
 	 * This method calculate the full key set for 2 Maps <T, Integer>
 	 * @param s1
@@ -106,8 +82,6 @@ public class KullbackLeiblerDivergenz
 	{
 		Map<String, Double> text1Values = new HashMap<String, Double>();
 		Map<String, Double> text2Values = new HashMap<String, Double>();
-		Map<String, Integer> textValuesA = new HashMap<String, Integer>();
-		Map<String, Integer> textValuesB = new HashMap<String, Integer>();
 
 		//EXAMPLE 1
 		text1Values.put("av", 0.12);		text2Values.put("av", 0.119);
@@ -116,16 +90,8 @@ public class KullbackLeiblerDivergenz
 		text1Values.put("len", 0.17);		text2Values.put("len", 0.17);
 		text1Values.put("err", 0.03);		text2Values.put("err", 0.032);
 		
-		//EXAMPLE 1
-		textValuesA.put("av", 5);		textValuesB.put("av", 5);
-		textValuesA.put("occ", 3);		textValuesB.put("occ", 4);
-		textValuesA.put("wc", 3);		textValuesB.put("wc", 3);
-		textValuesA.put("len", 0);		textValuesB.put("len", 0);
-		textValuesA.put("err", 8);		textValuesB.put("err", 9);
-		
 		//Bsp result ist -1.8053105026064107 [WORKS]
 		System.out.println("Die KL-Divergenz Easy TD beträgt:\t"+EasyKLDivergenceTD(text1Values, text2Values));
-		System.out.println("Die KL-Divergenz Easy TI beträgt:\t"+EasyKLDivergenceTI(textValuesA, textValuesB));
 		
 		
 		//NEW EXAMPLE 2

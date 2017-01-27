@@ -2,12 +2,9 @@ package Engines.internalEngineParts;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-
-import Engines.SimpleObjects.PosTagObject;
 
 /**
  * This class handle the word occurrence, frequency and the frequency percentage calculation. 
@@ -100,35 +97,28 @@ public class WordFrequencyEngine
 	}
 	
 	/**
-	 * This method calculate the word appearance percentage in a text by using a HashMap with the word count and the number of words in the text.
-	 * @param hashmap
+	 * This method calculate the probability distribution of a simple distribution.
+	 * @param distribution
 	 * @return HashMap with the percentages
 	 */
-	public HashMap<String, Double> appearancePercentage(HashMap<String, Integer> hashmap, int word_count)
+	public static <T> HashMap<T, Double> calcProbabilityDistribution(HashMap<T, Integer> distribution)
 	{
+		int count = 0;
 		double percantage;
-		HashMap<String, Double> perc_map = new HashMap<String, Double>();
+		HashMap<T, Double> prop_dist = new HashMap<T, Double>();
 		
-		for(String elem : hashmap.keySet())
+		//get the key values sum 
+		for(Integer i : distribution.values()) count += i;
+		
+		//calc propability distribution
+		for(T elem : distribution.keySet())
 		{
-			percantage = ( (hashmap.get(elem)*1.0) / (word_count*1.0)* 100.0);
-			perc_map.put(elem, percantage);
+			percantage = ((distribution.get(elem)*1.0) / (count*1.0)* 100.0);
+			prop_dist.put(elem, percantage);
 		}
-		return perc_map;
+		
+		return prop_dist;
 	}
-	
-	/**
-	 * This method calculate and add the occurrence percentage of each POS-Tag object in a list to its local value inside it.
-	 * @param pos_tags
-	 * @param sentence_count
-	 * @return Same list with added percentage
-	 */
-	public LinkedList<PosTagObject> appearancePercentage(LinkedList<PosTagObject> pos_tags, int sentence_count)
-	{
-		for(PosTagObject tags : pos_tags) tags.setTag_oucc_percentage( (tags.getTag_ouccurrence()*1.0) / (sentence_count*1.0)* 100.0);
-		return pos_tags;
-	}
-	
 	
 	//################### GETTERS AND SETTERS ###################
 	
