@@ -241,7 +241,7 @@ public class PropReader
 	public static void main(String[] args) throws IOException 
 	{
 		PropReader pr = new PropReader();
-		String path = pr.getResourceFileAbsolutePath("24.01.2017_gold_nvp.content.prop");
+		String path = pr.getResourceFileAbsolutePath("27.01.2017_gold_nvp.content.prop");
 		PropReader.fileReader(path,6);
 
 	}
