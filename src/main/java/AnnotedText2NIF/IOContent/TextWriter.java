@@ -36,10 +36,6 @@ public class TextWriter
 		Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsoluteFile()), "UTF-8"));
 		out.write(writeable);
 		out.close();
-		
-//		BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
-//		bw.write(writeable);
-//		bw.close();
 		return path;
 	}
 	
@@ -64,7 +60,20 @@ public class TextWriter
 			
 //			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 			
+
 			bw.write("M_1");
+			((BufferedWriter) bw).newLine();
+			for(Character key: mvp.symbol_error_dist.keySet())
+			{
+				bw.write("["+key+"]["+mvp.symbol_error_dist.get(key)+"]");
+				((BufferedWriter) bw).newLine();
+			}
+			((BufferedWriter) bw).newLine();
+			((BufferedWriter) bw).newLine();
+			
+			//####################################################################
+			
+			bw.write("M_2");
 			((BufferedWriter) bw).newLine();
 			for(Integer key: mvp.symbol_sent_dist.keySet())
 			{
@@ -77,17 +86,6 @@ public class TextWriter
 			
 			//####################################################################
 			
-			bw.write("M_2");
-			((BufferedWriter) bw).newLine();
-			for(Character key: mvp.symbol_error_dist.keySet())
-			{
-				bw.write("["+key+"]["+mvp.symbol_error_dist.get(key)+"]");
-				((BufferedWriter) bw).newLine();
-			}
-			((BufferedWriter) bw).newLine();
-			((BufferedWriter) bw).newLine();
-			
-			//####################################################################
 			
 			bw.write("M_3");
 			((BufferedWriter) bw).newLine();
