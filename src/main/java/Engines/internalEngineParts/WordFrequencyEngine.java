@@ -74,7 +74,7 @@ public class WordFrequencyEngine
 		//calc propability distribution
 		for(T elem : distribution.keySet())
 		{
-			percantage = ((distribution.get(elem)*1.0) / (count*1.0)* 100.0);
+			percantage = ((distribution.get(elem)*1.0) / (count*1.0));
 			prop_dist.put(elem, percantage);
 		}
 		
