@@ -37,13 +37,13 @@ public class PropReader
 		Pattern pattern = null;
         Matcher matcher = null;
 		BufferedReader br = null;
-		boolean m1 = false, 
-				m2 = false, 
-				m3 = false, 
-				m4 = false, 
-				m5 = false, 
-				m6 = false, 
-				mgerbil = false;
+		boolean m1 = false; 
+		boolean m2 = false; 
+		boolean m3 = false; 
+		boolean m4 = false; 
+		boolean m5 = false; 
+		boolean m6 = false; 
+		boolean mgerbil = false;
 		
 
 		try {
@@ -53,15 +53,17 @@ public class PropReader
 			br = new BufferedReader(new FileReader(path));
 			
 			//General variables
-			pattern = Pattern.compile("\\[(.*?)\\]");
+			
+			String optimalRexSQBR = Pattern.quote("[") +"(.*?)"+ Pattern.quote("]");
+			pattern = Pattern.compile(optimalRexSQBR);
 			ti = new TextInformations(path);
 			HashMap<String, Double> metrics_GERBIL = new HashMap<String, Double>();
-			HashMap<Integer, Integer> words_occurr_distr = new HashMap<Integer, Integer>();
-			HashMap<Integer, Integer> symbol_sent_dist = new HashMap<Integer, Integer>();
-			HashMap<Integer, Integer> annotation_dist = new HashMap<Integer, Integer>();
-			HashMap<String, Integer> syn_error_dist = new HashMap<String, Integer>();
-			HashMap<String, Integer> pos_tags_dist = new HashMap<String, Integer>();
-			HashMap<Character, Integer> symbol_error_dist = new HashMap<Character, Integer>();
+			HashMap<Integer, Double> words_occurr_distr = new HashMap<Integer, Double>();
+			HashMap<Integer, Double> symbol_sent_dist = new HashMap<Integer, Double>();
+			HashMap<Integer, Double> annotation_dist = new HashMap<Integer, Double>();
+			HashMap<String, Double> syn_error_dist = new HashMap<String, Double>();
+			HashMap<String, Double> pos_tags_dist = new HashMap<String, Double>();
+			HashMap<Character, Double> symbol_error_dist = new HashMap<Character, Double>();
 			
 			
 			while ((sCurrentLine = br.readLine()) != null)
@@ -70,7 +72,15 @@ public class PropReader
 				
 				if(!(sCurrentLine.length()>0))
 				{
+					m1 = false;
+					m2 = false; 
+					m3 = false; 
+					m4 = false; 
+					m5 = false; 
+					m6 = false; 
+					mgerbil = false;
 					continue;
+					
 				}else  if(sCurrentLine.equals("M_1") || m1)
 				{
 					if(sCurrentLine.equals("M_1"))
@@ -81,14 +91,13 @@ public class PropReader
 					}else{
 						
 						matcher.find();	//1st
-						System.out.println(matcher.group());
-				        char c = replaceSQBR(matcher.group()).charAt(0);
+				        char c = matcher.group().charAt(1);
 				        
 				        matcher.find();	//2nd
-				        int i = Integer.parseInt(replaceSQBR(matcher.group()));
+				        double d = Double.parseDouble(replaceSQBR(matcher.group()));
 				        
-				        System.out.println("["+c+"]["+i+"]");
-						symbol_error_dist.put(c, i);
+				        System.out.println("["+c+"]["+d+"]");
+						symbol_error_dist.put(c, d);
 					}
 					
 					
@@ -97,7 +106,7 @@ public class PropReader
 					if(sCurrentLine.equals("M_2"))
 					{
 						m2 = true;
-						System.out.println("\nM_2");
+						System.out.println("\nM_2 Done");
 						continue;
 					}else{
 
@@ -105,10 +114,10 @@ public class PropReader
 						int i =  Integer.parseInt(replaceSQBR(matcher.group()));
 								
 						matcher.find();	//2st
-						int j =  Integer.parseInt(replaceSQBR(matcher.group()));
+						double d  =  Double.parseDouble(replaceSQBR(matcher.group()));
 						
-						System.out.println("["+i+"]["+j+"]");
-						symbol_sent_dist.put(i, j);
+						System.out.println("["+i+"]["+d+"]");
+						symbol_sent_dist.put(i, d);
 					}
 					
 					
@@ -125,10 +134,10 @@ public class PropReader
 				        String s = replaceSQBR(matcher.group());
 				        
 				        matcher.find();	//2nd
-				        int i = Integer.parseInt(replaceSQBR(matcher.group()));
+				        double d = Double.parseDouble(replaceSQBR(matcher.group()));
 						
-				        System.out.println("["+s+"]["+i+"]");
-						syn_error_dist.put(s, i);
+				        System.out.println("["+s+"]["+d+"]");
+						syn_error_dist.put(s, d);
 					}
 					
 					
@@ -145,10 +154,10 @@ public class PropReader
 						int i =  Integer.parseInt(replaceSQBR(matcher.group()));
 								
 						matcher.find();	//2st
-						int j =  Integer.parseInt(replaceSQBR(matcher.group()));
+						double d =  Double.parseDouble(replaceSQBR(matcher.group()));
 						
-						System.out.println("["+i+"]["+j+"]");
-						words_occurr_distr.put(i, j);
+						System.out.println("["+i+"]["+d+"]");
+						words_occurr_distr.put(i, d);
 					}
 					
 					
@@ -165,10 +174,10 @@ public class PropReader
 				        String s = replaceSQBR(matcher.group());
 				        
 				        matcher.find();	//2nd
-				        int i = Integer.parseInt(replaceSQBR(matcher.group()));
+				        double d = Double.parseDouble(replaceSQBR(matcher.group()));
 						
-				        System.out.println("["+s+"]["+i+"]");
-						pos_tags_dist.put(s, i);
+				        System.out.println("["+s+"]["+d+"]");
+						pos_tags_dist.put(s, d);
 					}
 					
 					
@@ -185,10 +194,10 @@ public class PropReader
 						int i =  Integer.parseInt(replaceSQBR(matcher.group()));
 								
 						matcher.find();	//2st
-						int j =  Integer.parseInt(replaceSQBR(matcher.group()));
+						double d =  Double.parseDouble(replaceSQBR(matcher.group()));
 						
-						System.out.println("["+i+"]["+j+"]");
-						annotation_dist.put(i, j);
+						System.out.println("["+i+"]["+d+"]");
+						annotation_dist.put(i, d);
 					}
 					
 					
@@ -210,11 +219,8 @@ public class PropReader
 						System.out.println("["+s+"]["+d+"]");
 						metrics_GERBIL.put(s, d);
 					}
-					
-					
 				}
 			}
-			
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -241,7 +247,7 @@ public class PropReader
 	public static void main(String[] args) throws IOException 
 	{
 		PropReader pr = new PropReader();
-		String path = pr.getResourceFileAbsolutePath("27.01.2017_gold_nvp.content.prop");
+		String path = pr.getResourceFileAbsolutePath("27.01.2017_mvp_epoch70Final.content.prop");
 		PropReader.fileReader(path,6);
 
 	}
