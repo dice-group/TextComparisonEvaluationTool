@@ -33,6 +33,14 @@ public class PropReader
 	 */
 	public static MetricVectorProcessing fileReader(String path, int nmg_count)
 	{
+		HashMap<String, Double> metrics_GERBIL = new HashMap<String, Double>();
+		HashMap<Integer, Double> words_occurr_distr = new HashMap<Integer, Double>();
+		HashMap<Integer, Double> symbol_sent_dist = new HashMap<Integer, Double>();
+		HashMap<Integer, Double> annotation_dist = new HashMap<Integer, Double>();
+		HashMap<String, Double> syn_error_dist = new HashMap<String, Double>();
+		HashMap<String, Double> pos_tags_dist = new HashMap<String, Double>();
+		HashMap<Character, Double> symbol_error_dist = new HashMap<Character, Double>();
+		
 		TextInformations ti = new TextInformations(path);
 		Pattern pattern = null;
         Matcher matcher = null;
@@ -46,25 +54,17 @@ public class PropReader
 		boolean mgerbil = false;
 		
 
-		try {
+		try 
+		{
 			
 			//Reader parts
 			String sCurrentLine;
 			br = new BufferedReader(new FileReader(path));
 			
 			//General variables
-			
 			String optimalRexSQBR = Pattern.quote("[") +"(.*?)"+ Pattern.quote("]");
 			pattern = Pattern.compile(optimalRexSQBR);
 			ti = new TextInformations(path);
-			HashMap<String, Double> metrics_GERBIL = new HashMap<String, Double>();
-			HashMap<Integer, Double> words_occurr_distr = new HashMap<Integer, Double>();
-			HashMap<Integer, Double> symbol_sent_dist = new HashMap<Integer, Double>();
-			HashMap<Integer, Double> annotation_dist = new HashMap<Integer, Double>();
-			HashMap<String, Double> syn_error_dist = new HashMap<String, Double>();
-			HashMap<String, Double> pos_tags_dist = new HashMap<String, Double>();
-			HashMap<Character, Double> symbol_error_dist = new HashMap<Character, Double>();
-			
 			
 			while ((sCurrentLine = br.readLine()) != null)
 			{ 
@@ -231,6 +231,15 @@ public class PropReader
 				ex.printStackTrace();
 			}
 		}
+		
+		ti.setAnnotation_dist(annotation_dist);
+		ti.setMetrics_GERBIL(metrics_GERBIL);
+		ti.setWords_occurr_distr(words_occurr_distr);
+		ti.setSymbol_sent_dist(symbol_sent_dist);
+		ti.setSyn_error_dist(syn_error_dist);
+		ti.setPos_tags_dist(pos_tags_dist);
+		ti.setSymbol_error_dist(symbol_error_dist);
+		
 		return new MetricVectorProcessing(ti, nmg_count);
 	}
 	

@@ -112,7 +112,7 @@ public class Main
 		
 		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath("GoldTextWikipedia.txt.content.prop"),6);
 		
-		ratings = Pipeline.calculater(goldinf, experiments_infos.getFirst(), experiments_infos, rating_out_path);
+		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);
 		
 		System.out.println(ratings);
 	}

@@ -33,26 +33,10 @@ public class KullbackLeiblerDivergenz
 		
 		for(T key : all_keys)
 		{
-			if(s1.get(key) == null || s2.get(key) == null || s1.get(key) < CosDistance.epsilon || s2.get(key) < CosDistance.epsilon) {continue;}
+			if(s1.get(key) == null || s2.get(key) == null || Math.abs(s1.get(key)) < CosDistance.epsilon || Math.abs(s2.get(key)) < CosDistance.epsilon) {continue;}
 	        kld += (s1.get(key) * Math.log((s1.get(key)/s2.get(key))));
 		}
 		return kld;
-	}
-	
-	/**
-	 * This method calculate the full key set for 2 Maps <T, Integer>
-	 * @param s1
-	 * @param s2
-	 * @return key set <T>
-	 */
-	public static <T> Set<T> createFullKeySetT2I(Map<T,Integer> s1, Map<T,Integer> s2)
-	{
-		Set<T> all_keys = new HashSet<T>(); 
-		
-		for(T key : s1.keySet()) all_keys.add(key);
-		for(T key : s2.keySet()) all_keys.add(key);
-		
-		return all_keys;
 	}
 	
 	/**
@@ -84,14 +68,14 @@ public class KullbackLeiblerDivergenz
 		Map<String, Double> text2Values = new HashMap<String, Double>();
 
 		//EXAMPLE 1
-		text1Values.put("av", 0.12);		text2Values.put("av", 0.119);
+		text1Values.put("av", 0.12);		text2Values.put("av", 0.149);
 		text1Values.put("occ", 0.08);		text2Values.put("occ", 0.079);
-		text1Values.put("wc", 0.6);			text2Values.put("wc", 0.6);
-		text1Values.put("len", 0.17);		text2Values.put("len", 0.17);
+		text1Values.put("wc", 0.6);			text2Values.put("wc", 0.3);
+		text1Values.put("len", 0.17);		//text2Values.put("len", 0.17);
 		text1Values.put("err", 0.03);		text2Values.put("err", 0.032);
 		
 		//Bsp result ist -1.8053105026064107 [WORKS]
-		System.out.println("Die KL-Divergenz Easy TD beträgt:\t"+EasyKLDivergenceTD(text1Values, text2Values));
+		System.out.println("Die KL-Divergenz Easy TD beträgt:\t"+EasyKLDivergenceTD(text2Values, text1Values));
 		
 		
 		//NEW EXAMPLE 2
