@@ -170,9 +170,7 @@ public class Pipeline
 					 * M_7: Word Distribution over the text [STORED] 
 					 */
 					text_info.setWords_distribution(WordFrequencyEngine.calcProbabilityDistribution(wfe.getMap()));	//For the whole text
-					
-					TextWriter.writeMVP(new MetricVectorProcessing(text_info, 6), tr.getResourceFileAbsolutePath("GoldTextWikipedia.txt")+".content.prop");
-					
+
 					System.out.println("CALCULATION GERBIL METRICS STARTED!");
 					/* M_GERBIL [STORED] */
 					jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);

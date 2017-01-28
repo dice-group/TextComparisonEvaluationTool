@@ -69,12 +69,12 @@ public class Main
 		
 		//TODO if gold is loaded inside a content.prop file just gather informations from there need to implemented maybe as XML
 		
-		additional_files 			= new String[1];
-		additional_files[0] 		= gold_name;
-//		additional_files[0] 		= fragment_name;
-//		additional_files[1] 		= "epoch15.txt";
-//		additional_files[2] 		= "epoch30.txt";
-//		additional_files[3] 		= "epoch70Final.txt";
+		additional_files 			= new String[4];
+//		additional_files[0] 		= gold_name;
+		additional_files[0] 		= fragment_name;
+		additional_files[1] 		= "epoch15.txt";
+		additional_files[2] 		= "epoch30.txt";
+		additional_files[3] 		= "epoch70Final.txt";
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
 		filenames = new LinkedList<String>(Arrays.asList(additional_files));
@@ -106,9 +106,9 @@ public class Main
 		//get non gold text exps
 		for(int i = 1; i < experiments_infos.size(); i++) no_gold_exp_results.add(experiments_infos.get(i));
 		
-//		ratings = Pipeline.calculater(experiments_infos.getFirst(), experiments_infos, rating_out_path);
+		ratings = Pipeline.calculater(experiments_infos.getFirst(), experiments_infos, rating_out_path);
 		
-//		System.out.println(ratings);
+		System.out.println(ratings);
 	}
 
 }
