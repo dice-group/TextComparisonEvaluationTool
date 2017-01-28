@@ -9,6 +9,8 @@ import AnnotedText2NIF.IOContent.TextWriter;
 import Engines.Enums.Annotators;
 import Engines.Enums.ExpType;
 import Engines.Enums.Matching;
+import Engines.IO.PropReader;
+import Engines.SimpleObjects.MetricVectorProcessing;
 import Engines.SimpleObjects.TextInformations;
 import Engines.SimpleObjects.Timestamp;
 import Engines.simpleTextProcessing.CruelTextGenerator;
@@ -52,6 +54,8 @@ public class Main
 		String gold_path 			= tr.getResourceFileAbsolutePath(gold_name);
 		String fragment_path 		= gold_path.replace(gold_name, fragment_name);
 		String rating_out_path 		= gold_path.replace(gold_name, Timestamp.getLocalDateAsString(Timestamp.getCurrentTime())+"_rating");
+		
+		PropReader pr = new PropReader();
 		
 		String[] additional_files;
 		String[] default_annotators;
@@ -106,7 +110,9 @@ public class Main
 		//get non gold text exps
 		for(int i = 1; i < experiments_infos.size(); i++) no_gold_exp_results.add(experiments_infos.get(i));
 		
-		ratings = Pipeline.calculater(experiments_infos.getFirst(), experiments_infos, rating_out_path);
+		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath("GoldTextWikipedia.txt.content.prop"),6);
+		
+		ratings = Pipeline.calculater(goldinf, experiments_infos.getFirst(), experiments_infos, rating_out_path);
 		
 		System.out.println(ratings);
 	}

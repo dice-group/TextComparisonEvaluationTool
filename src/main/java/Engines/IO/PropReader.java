@@ -247,8 +247,7 @@ public class PropReader
 	public static void main(String[] args) throws IOException 
 	{
 		PropReader pr = new PropReader();
-		String path = pr.getResourceFileAbsolutePath("27.01.2017_mvp_epoch70Final.content.prop");
-		PropReader.fileReader(path,6);
+		PropReader.fileReader(pr.getResourceFileAbsolutePath("GoldTextWikipedia.txt.content.prop"),6);
 
 	}
 }

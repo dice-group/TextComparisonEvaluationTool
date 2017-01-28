@@ -204,12 +204,17 @@ public class Pipeline
 	 * @param rating_path
 	 * @return list of all ratings (excepting gold to gold because its always 0)
 	 */
-	public static LinkedList<Double> calculater(TextInformations gold_exp_result, LinkedList<TextInformations> no_gold_exp_results, String rating_path)
+	public static LinkedList<Double> calculater(MetricVectorProcessing gold_mvp, TextInformations gold_exp_result, LinkedList<TextInformations> no_gold_exp_results, String rating_path)
 	{
 		LinkedList<Double> ratings = new LinkedList<Double>();
 		
 		MetricVectorProcessing current_mvp = null;
-		MetricVectorProcessing gold_mvp = new MetricVectorProcessing(gold_exp_result, 6);
+		
+		if(gold_mvp == null)
+		{
+			gold_mvp = new MetricVectorProcessing(gold_exp_result, 6);
+		}
+		
 		
 		ArrayList<Double> current_dist_vec;
 		LinkedList<ResultObject> ros = new LinkedList<ResultObject>();
