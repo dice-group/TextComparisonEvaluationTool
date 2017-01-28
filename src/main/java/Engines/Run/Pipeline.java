@@ -207,18 +207,13 @@ public class Pipeline
 	public static LinkedList<Double> calculater(MetricVectorProcessing gold_mvp, TextInformations gold_exp_result, LinkedList<TextInformations> no_gold_exp_results, String rating_path)
 	{
 		LinkedList<Double> ratings = new LinkedList<Double>();
-		
 		MetricVectorProcessing current_mvp = null;
-		
-		if(gold_mvp == null)
-		{
-			gold_mvp = new MetricVectorProcessing(gold_exp_result, 6);
-		}
-		
-		
 		ArrayList<Double> current_dist_vec;
 		LinkedList<ResultObject> ros = new LinkedList<ResultObject>();
 		LinkedList<MetricVectorProcessing> mvps = new LinkedList<MetricVectorProcessing>();
+		
+		if(gold_mvp == null && gold_exp_result != null ) gold_mvp = new MetricVectorProcessing(gold_exp_result, 6);
+		mvps.add(gold_mvp);
 				
 		System.out.println("\n\n############## CALCULATION STARTED ###############\n");
 				
@@ -238,8 +233,12 @@ public class Pipeline
 		
 		System.out.println("\n\n############## STORING THE RESULTS ###############\n");
 		
-		TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_mvp")+".content.prop");
-		for(int mvs = 1; mvs < mvps.size(); mvs++) TextWriter.writeMVP(current_mvp, rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", ".content.prop"));
+		
+		for(int mvs = 0; mvs < mvps.size(); mvs++)
+		{
+			if(mvs == 0) TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_mvp")+".content.prop");
+			if(mvs > 0) TextWriter.writeMVP(mvps.get(mvs), rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", ".content.prop"));
+		}
 		TextWriter.writeRating(ros);
 		
 		return ratings;
