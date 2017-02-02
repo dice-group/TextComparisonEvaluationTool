@@ -134,5 +134,27 @@ public class DistributionProcessing
 		}
 	}
 	
+	/**
+	 * This method simply add a key to a given map and edit or create an entry into the map. 
+	 * @param dist
+	 * @param key
+	 */
+	public static <T> void calcDist(HashMap<T, Integer> dist, T key)
+	{
+		if(dist.size() < 1)
+		{
+			//fill empty map
+			dist.put(key, 1);
+		}else{
+			if(dist.get(key) == null)
+			{	
+				//add new object
+				dist.put(key, 1);
+			}else{
+				//raise count of known object
+				dist.put(key, dist.get(key) + 1);
+			}
+		}
+	}
 	
 }

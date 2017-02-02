@@ -44,7 +44,10 @@ public class Pipeline
 	 * @return list of text informations
 	 * @throws Exception
 	 */
-	public static LinkedList<TextInformations> gather(LinkedList<String> filenames, LinkedList<String> annotators, String exp_type, String matching_type) throws Exception
+	public static LinkedList<TextInformations> gather(	LinkedList<String> filenames, 
+														LinkedList<String> annotators, 
+														String exp_type, 
+														String matching_type) throws Exception
 	{
 				TextConversion tc;
 				DevelishParenthesis dp;
