@@ -52,9 +52,7 @@ public class StanfordTokenizer
 		 Document doc = new Document(paragraph);
 		 LinkedList<Sentence> sentenceList = new LinkedList<Sentence>();
 		 List<Sentence> sents = doc.sentences();
-		 
 		 rawSentenceSize = sents.size();
-		 System.out.println("Raw sentences: "+sents.size());
 		 
 		 for(int s = 0; s < sents.size(); s++)
 		 {
@@ -63,25 +61,11 @@ public class StanfordTokenizer
 			 String c2 = tc.decompose(c1);
 			 dp.setErrors(tc.getErrors());
 			 
-			 
-			 if(c2.contains("[[") && c2.contains("]]"))
-			 {
-				 //English sentences in general has subject, predicate and object => min. 3 words
-				 if(gatherWords(sents.get(s)).size() > 2)
-				 {
-					 sentenceList.add(new Sentence(c2));
-					 DistributionProcessing.calcDistInteger(symbol_per_sent_dist, sentenceList.getLast().length());
-				 }else{
-					 //filter to short sequences
-					 DistributionProcessing.calcDistString(syn_error_dist, "LESS_THAN_2_WORDS_SEQUENCE");
-				 }
-			 }else{
-				 //filter not annotated sentences
-				 DistributionProcessing.calcDistString(syn_error_dist, "NOT_ANNOTATED_SENTENCE");
-			 } 
+			 sentenceList.add(new Sentence(c2));
+			 DistributionProcessing.calcDistInteger(symbol_per_sent_dist, sentenceList.getLast().length());
 			 
 			 //Only relevant for big gold texts
-			 if((s > 0 && s % 1000 == 0) || s == sents.size()-1) System.out.println((s)+" sentences processed!");
+			 if((s > 0 && s % 999 == 0) || s == sents.size()-1) System.out.println((s+1)+" sentences processed!");
 		 }
 		 return sentenceList;
     }

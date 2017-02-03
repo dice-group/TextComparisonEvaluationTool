@@ -73,23 +73,23 @@ public class Main
 		
 		//TODO if gold is loaded inside a content.prop file just gather informations from there need to implemented maybe as XML
 		
-		additional_files 			= new String[4];
-//		additional_files[0] 		= gold_name;
-		additional_files[0] 		= fragment_name;
-		additional_files[1] 		= "epoch15.txt";
-		additional_files[2] 		= "epoch30.txt";
-		additional_files[3] 		= "epoch70Final.txt";
+		additional_files 			= new String[1];
+		additional_files[0] 		= gold_name;
+//		additional_files[0] 		= fragment_name;
+//		additional_files[1] 		= "epoch15.txt";
+//		additional_files[2] 		= "epoch30.txt";
+//		additional_files[3] 		= "epoch70Final.txt";
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
 		filenames = new LinkedList<String>(Arrays.asList(additional_files));
 		
 		//The 4 default annotators
-		default_annotators = new String[5];
-		default_annotators[0] 		= Annotators.AIDA.name();
-		default_annotators[1] 		= Annotators.WAT.name();
-		default_annotators[2] 		= Annotators.FOX.name();
-		default_annotators[3] 		= "TagMe 2";
-		default_annotators[4] 		= "DBpedia Spotlight";
+		default_annotators = new String[3];
+//		default_annotators[0] 		= Annotators.AIDA.name();
+		default_annotators[0] 		= Annotators.WAT.name();
+		default_annotators[1] 		= Annotators.FOX.name();
+//		default_annotators[3] 		= "TagMe 2";
+		default_annotators[2] 		= "DBpedia Spotlight";
 		
 		annotators = new LinkedList<String>(Arrays.asList(default_annotators));
 		
@@ -105,18 +105,20 @@ public class Main
 		System.out.println("[Distribution] M_6: Entities over all sentences");
 		System.out.println("[Values] GERBIL METRICS: "+annotators);
 		
-		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath("GoldTextWikipedia.txt.content.prop"),6);
+//		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath("GoldTextWikipedia.txt.content.prop"),6);
 		
-		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);
+//		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);
+		
+		experiments_infos = Pipeline.gather(null, filenames, annotators, exp_type, matching_type);
 		
 		//get non gold text exps
 		for(int i = 1; i < experiments_infos.size(); i++) no_gold_exp_results.add(experiments_infos.get(i));
 		
 		
 		
-		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);
+//		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);
 		
-		System.out.println(ratings);
+//		System.out.println(ratings);
 	}
 
 }
