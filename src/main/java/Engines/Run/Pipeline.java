@@ -40,7 +40,7 @@ public class Pipeline
 	 * This method choose the correct probability distribution depending on having a corpus or not
 	 * @param isCorpus
 	 * @param distribution
-	 * @return
+	 * @return correct calculated probability distribution as map
 	 */
 	public static <T> HashMap<T, Double> calcDesiredPropDist(boolean isCorpus, Corpus cps, Distributions dist, HashMap<T, Integer> distribution)
 	{
@@ -214,6 +214,7 @@ public class Pipeline
 					/* M_GERBIL [STORED] */
 					jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
 					text_info.setMetrics_GERBIL(Corpus.createCorpProbDistGERBIL(corpus, JSONCollector.collectMetrics(jsobj)));	//Storing
+//Old				text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
 					
 					//*************************************************************************************************************************************************
 					//STORE ALL RESULTS
