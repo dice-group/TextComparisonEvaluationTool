@@ -47,7 +47,7 @@ public class StanfordTokenizer
 	 * @param tc 
 	 * @return List of Sentence objects
 	 */
-	public LinkedList<Sentence> gatherSentences(String paragraph, DevelishParenthesis dp, TextConversion tc)
+	public LinkedList<Sentence> gatherSentences(String paragraph, DevelishParenthesis dp)
     {
 		 Document doc = new Document(paragraph);
 		 LinkedList<Sentence> sentenceList = new LinkedList<Sentence>();
@@ -57,12 +57,14 @@ public class StanfordTokenizer
 		 for(int s = 0; s < sents.size(); s++)
 		 {
 			 String c1 = dp.cleanErrorsAndParenthesis(sents.get(s).text());
-			 tc.setErrors(dp.getErrors());
-			 String c2 = tc.decompose(c1);
-			 dp.setErrors(tc.getErrors());
+			 if(c1.length()<2 && c1.equals("."))
+			 {
+				 DistributionProcessing.calcDist(syn_error_dist, "ONLY_A_DOT_ERROR");
+			 }else{
+				 sentenceList.add(new Sentence(c1));
+			 }
 			 
-			 sentenceList.add(new Sentence(c2));
-			 DistributionProcessing.calcDistInteger(symbol_per_sent_dist, sentenceList.getLast().length());
+			 DistributionProcessing.calcDist(symbol_per_sent_dist, sentenceList.getLast().length());
 			 
 			 //Only relevant for big gold texts
 			 if((s > 0 && s % 999 == 0) || s == sents.size()-1) System.out.println((s+1)+" sentences processed!");
@@ -140,7 +142,7 @@ public class StanfordTokenizer
     	
     	for(Sentence s : sentence_objects)
     	{
-    		for(String pos_tag : s.posTags()) DistributionProcessing.calcDistString(POS_tag_distribution, pos_tag);
+    		for(String pos_tag : s.posTags()) DistributionProcessing.calcDist(POS_tag_distribution, pos_tag);
     	}
     	
         return POS_tag_distribution;
@@ -203,9 +205,8 @@ public class StanfordTokenizer
 		TextReader tr = new TextReader();
 		StanfordTokenizer st = new StanfordTokenizer();
 		DevelishParenthesis dp = new DevelishParenthesis();
-		TextConversion tc = new TextConversion();
 		String file_location = tr.getResourceFileAbsolutePath("BVFragment.txt");
-		LinkedList<Sentence> sentenceList = st.gatherSentences(TextReader.fileReader(file_location), dp, tc);
+		LinkedList<Sentence> sentenceList = st.gatherSentences(TextReader.fileReader(file_location), dp);
 		
 		
 		System.out.println("ERRORS: "+dp.getErrors().size());

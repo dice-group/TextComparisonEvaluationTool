@@ -23,7 +23,6 @@ import Engines.internalEngineParts.WordFrequencyEngine;
 import Engines.simpleTextProcessing.DevelishParenthesis;
 import Engines.simpleTextProcessing.DistributionProcessing;
 import Engines.simpleTextProcessing.StanfordTokenizer;
-import Engines.simpleTextProcessing.TextConversion;
 import Web.Controller.HttpController;
 import Web.Controller.JSONCollector;
 import Web.Objects.ExperimentObjectGERBIL;
@@ -40,7 +39,7 @@ public class Pipeline
 	 * This method choose the correct probability distribution depending on having a corpus or not
 	 * @param isCorpus
 	 * @param distribution
-	 * @return correct calculated probability distribution as map
+	 * @return correctly calculated probability distribution as map
 	 */
 	public static <T> HashMap<T, Double> calcDesiredPropDist(boolean isCorpus, Corpus cps, Distributions dist, HashMap<T, Integer> distribution)
 	{
@@ -67,7 +66,6 @@ public class Pipeline
 														String exp_type, 
 														String matching_type) throws Exception
 	{
-				TextConversion tc;
 				DevelishParenthesis dp;
 				GatherAnnotationInformations gai;	
 
@@ -103,7 +101,6 @@ public class Pipeline
 					
 					//TODO urls cachen so das sie für alle texte erhalten bleiben
 					gai = new GatherAnnotationInformations();
-					tc = new TextConversion();
 					st = new StanfordTokenizer();
 					
 					nameNIFFile.add(filenames.get(k).replace(".txt", ".ttl"));
@@ -146,8 +143,8 @@ public class Pipeline
 					System.out.println("CLEANING STARTED!");
 					
 					/* M_2 */ 
-					sentence_objects = st.gatherSentences(texts_raws.getLast(), dp, tc);	//Clean Step 3
-					text_info.setSymbol_error_dist(calcDesiredPropDist(havingCorpus, corpus, Distributions.SymbolErr, tc.getErrors()));			//store errors
+					sentence_objects = st.gatherSentences(texts_raws.getLast(), dp);	//Clean Step 3
+					text_info.setSymbol_error_dist(calcDesiredPropDist(havingCorpus, corpus, Distributions.SymbolErr, dp.getErrors()));			//store errors
 //Old				text_info.setSymbol_error_dist(WordFrequencyEngine.calcProbabilityDistribution(tc.getErrors()));
 					System.out.println("===> ["+sentence_objects.size()+" sentences to check!]");
 					

@@ -73,7 +73,7 @@ public class DevelishParenthesis
 				
 				if(!Character.isAlphabetic(current) && !Character.isDigit(current) && !Character.isWhitespace(current) && current != '*' && !punctutations.contains(""+current))
 				{
-					DistributionProcessing.calcDistChar(errors, current);
+					DistributionProcessing.calcDist(errors, current);
 					index_stack.push(i); 
 					out_ix.add(i);
 				}	
@@ -82,7 +82,13 @@ public class DevelishParenthesis
 			while(!index_stack.isEmpty())
 			{
 				index = index_stack.pop();
-				content = content.substring(0,index)+content.substring(index+1);
+				if(index > 1 && Character.isAlphabetic(content.charAt(index-1)) && Character.isAlphabetic(content.charAt(index+1)))
+				{
+					content = content.substring(0,index)+" "+content.substring(index+1);
+				}else{
+					content = content.substring(0,index)+content.substring(index+1);
+				}
+				
 			}
 
 			return content;
@@ -114,27 +120,14 @@ public class DevelishParenthesis
 		TextReader tr = new TextReader();
 		String name = "BVFragment.txt";
 		String input = TextReader.fileReader(tr.getResourceFileAbsolutePath(name));
-		input = 	"I like town bath [[[[Field|Heinesen]]]]. "							
-				+ 	"It was 1962, the Militaryhistory was [[acquired]]. "
-				+ 	"And in [[Brenntwood ((south (Carolina))) in the USA]] we found Gold. " 	
-				+	"I saw a lot of [[Crows (black birds) | bird]] fly. "
-				+ 	"I was in [[Afar | a young country]] it was hot. "
-				+ 	"The been [[Melton by( Secret (Dutch hands hydrogen of with due the) Mexico]]. " 	//error
-				+ 	"And [[the big (wood|tree) house )in georgia]].";									//error
+		
+		StanfordTokenizer st = new StanfordTokenizer();
+		DevelishParenthesis dp = new DevelishParenthesis();		
+		System.out.println(input);
+		LinkedList<String> sentences_cleaned = st.sentencesAsStrings(st.gatherSentences(input, dp));
+		
+		for(String current : sentences_cleaned) System.out.println(current); 
 		
 		
-		DevelishParenthesis dp = new DevelishParenthesis();
-		
-		System.out.println("INPUT: \n"+input);
-		input = dp.cleanErrorsAndParenthesis(input);
-		System.out.println("RESULT: \n"+input);
-		System.out.println("ERRORS: \n"+dp.getErrors().keySet());
-		System.out.println();
-		for (char c : dp.getErrors().keySet())
-		{
-			System.out.println("ERROR SYMBOL >"+c+"<");
-			System.out.println("VALUE: "+dp.getErrors().get(c));
-		}
-
 	}
 }

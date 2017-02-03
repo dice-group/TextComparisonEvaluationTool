@@ -6,8 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import AnnotedText2NIF.IOContent.TextReader;
+import Engines.simpleTextProcessing.DevelishParenthesis;
 import Engines.simpleTextProcessing.DistributionProcessing;
+import Engines.simpleTextProcessing.StanfordTokenizer;
 import Web.Controller.URLControl;
+import edu.stanford.nlp.simple.Sentence;
 
 /**
  * This class gather all informations about every annotations inside a text 
@@ -108,7 +111,7 @@ public class GatherAnnotationInformations
 						url = real_prefix+url_part;
 					}else{
 						url = dummy_prefix+url_part;
-						DistributionProcessing.calcDistString(syntax_error_dist, "URL_NOT_EX_ERROR");
+						DistributionProcessing.calcDist(syntax_error_dist, "URL_NOT_EX_ERROR");
 					}
 					addUrl(url_part, url);
 				}
@@ -130,7 +133,7 @@ public class GatherAnnotationInformations
 				{
 					
 					//report error about to much separator entity
-					DistributionProcessing.calcDistString(syntax_error_dist, "ENTITY_SEPA_ERROR");
+					DistributionProcessing.calcDist(syntax_error_dist, "ENTITY_SEPA_ERROR");
 
 					//Replace text
 					input = input.replace(matcher.group(), entity_container[1]);
@@ -157,7 +160,7 @@ public class GatherAnnotationInformations
 							url = real_prefix+url_part;
 						}else{
 							url = dummy_prefix+url_part;
-							DistributionProcessing.calcDistString(syntax_error_dist, "URL_NOT_EX_ERROR");
+							DistributionProcessing.calcDist(syntax_error_dist, "URL_NOT_EX_ERROR");
 						}
 						addUrl(url_part, url);
 					}
@@ -262,26 +265,38 @@ public class GatherAnnotationInformations
 	public static void main(String[] args) throws IOException, InterruptedException
 	{
 		TextReader tr = new TextReader();
-		String infile_name = "epoch15.txt";
+		String infile_name = "TestIT.txt";
 		String path = tr.getResourceFileAbsolutePath(infile_name);
 		String input = TextReader.fileReader(path);
 		GatherAnnotationInformations gai = new GatherAnnotationInformations();
 		
-		LinkedList<DefinitionObject> dobjs = gai.gatherDefsFast(input);
+		DevelishParenthesis dp = new DevelishParenthesis();
+		StanfordTokenizer st = new StanfordTokenizer();
 		
-		System.out.println(input);
-		System.out.println(gai.getNot_annot_text());
-		System.out.println("Separator Error: "+gai.getSyntax_error_dist().keySet()+"\n");
+		LinkedList<Sentence> sentence_objects =	st.gatherSentences(input, dp);
+		LinkedList<String> sentences =st.sentencesAsStrings(sentence_objects);
 		
-		for (int i = 0; i < dobjs.size(); i++) 
+//		String input = "The guitarist also noted that the albums cleaner guitar sound was attributed to little [[distortion (music)|distortion effects]] used in comparison to earlier albums, while describing prolotherapy The evidence for these uses, however, is tentative.";
+		
+		for(String source: sentences)
 		{
-			System.out.println("ELEMENT: "+(i+1));
-			System.out.println("T: "+gai.getNot_annot_text().substring(dobjs.get(i).getStartPos(), dobjs.get(i).getEndPos()));
-			System.out.print("S: "+dobjs.get(i).getStartPos()+" | ");
-			System.out.print("E: "+dobjs.get(i).getEndPos()+" | ");
-			System.out.print("L: "+(dobjs.get(i).getEndPos()-dobjs.get(i).getStartPos())+" | ");
-			System.out.print("W: "+dobjs.get(i).getContent()+" | ");
-			System.out.println("U: "+dobjs.get(i).getEngWikiUrl()+"\n");
-		}	
+			LinkedList<DefinitionObject> dobjs = gai.gatherDefsFast(source);
+			
+			System.out.println(source);
+			System.out.println(gai.getNot_annot_text());
+			System.out.println("Separator Error: "+gai.getSyntax_error_dist().keySet()+"\n");
+			
+			for (int i = 0; i < dobjs.size(); i++) 
+			{
+				System.out.println("ELEMENT: "+(i+1));
+				System.out.println("T: "+gai.getNot_annot_text().substring(dobjs.get(i).getStartPos(), dobjs.get(i).getEndPos()));
+				System.out.print("S: "+dobjs.get(i).getStartPos()+" | ");
+				System.out.print("E: "+dobjs.get(i).getEndPos()+" | ");
+				System.out.print("L: "+(dobjs.get(i).getEndPos()-dobjs.get(i).getStartPos())+" | ");
+				System.out.print("W: "+dobjs.get(i).getContent()+" | ");
+				System.out.println("U: "+dobjs.get(i).getEngWikiUrl()+"\n");
+			}	
+		}
+		
 	}
 }
