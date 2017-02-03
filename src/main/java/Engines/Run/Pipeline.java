@@ -12,6 +12,8 @@ import AnnotedText2NIF.ConverterEngine.AnnotedTextToNIFConverter;
 import AnnotedText2NIF.ConverterEngine.GatherAnnotationInformations;
 import AnnotedText2NIF.IOContent.TextReader;
 import AnnotedText2NIF.IOContent.TextWriter;
+import Engines.Enums.Distributions;
+import Engines.SimpleObjects.Corpus;
 import Engines.SimpleObjects.MetricVectorProcessing;
 import Engines.SimpleObjects.ResultObject;
 import Engines.SimpleObjects.SentenceObject;
@@ -34,6 +36,21 @@ import edu.stanford.nlp.simple.Sentence;
  */
 public class Pipeline 
 {
+	/**
+	 * This method choose the correct probability distribution depending on having a corpus or not
+	 * @param isCorpus
+	 * @param distribution
+	 * @return
+	 */
+	public static <T> HashMap<T, Double> calcDesiredPropDist(boolean isCorpus, Corpus cps, Distributions dist, HashMap<T, Integer> distribution)
+	{
+		if(isCorpus)
+		{
+			return Corpus.createCorpProbDist(dist, cps, distribution);
+		}else{
+			return WordFrequencyEngine.calcProbabilityDistribution(distribution);
+		}
+	}
 	
 	/**
 	 * This method collect all desired informations (depending on the desired features) of a list of texts.
@@ -44,7 +61,8 @@ public class Pipeline
 	 * @return list of text informations
 	 * @throws Exception
 	 */
-	public static LinkedList<TextInformations> gather(	LinkedList<String> filenames, 
+	public static LinkedList<TextInformations> gather(	MetricVectorProcessing gold_corpus,
+														LinkedList<String> filenames, 
 														LinkedList<String> annotators, 
 														String exp_type, 
 														String matching_type) throws Exception
@@ -53,14 +71,22 @@ public class Pipeline
 				DevelishParenthesis dp;
 				GatherAnnotationInformations gai;	
 
+				boolean havingCorpus = false;
 				StanfordTokenizer st;
 				TextReader tr = new TextReader();
+				Corpus corpus = null;
 				
 				LinkedList<String> nameNIFFile = new LinkedList<String>();
 				LinkedList<String> resourceFilesAbsolutePaths = new LinkedList<String>();
 				LinkedList<String> texts_raws = new LinkedList<String>();
 				LinkedList<TextInformations> text_informations = new LinkedList<TextInformations>();
-
+				
+				if(gold_corpus != null)
+				{
+					corpus = new Corpus(gold_corpus);
+					havingCorpus = true;
+					
+				}
 				
 				//*************************************************************************************************************************************************
 				
@@ -121,7 +147,8 @@ public class Pipeline
 					
 					/* M_2 */ 
 					sentence_objects = st.gatherSentences(texts_raws.getLast(), dp, tc);	//Clean Step 3
-					text_info.setSymbol_error_dist(WordFrequencyEngine.calcProbabilityDistribution(tc.getErrors()));							//store errors
+					text_info.setSymbol_error_dist(calcDesiredPropDist(havingCorpus, corpus, Distributions.SymbolErr, tc.getErrors()));			//store errors
+//Old				text_info.setSymbol_error_dist(WordFrequencyEngine.calcProbabilityDistribution(tc.getErrors()));
 					System.out.println("===> ["+sentence_objects.size()+" sentences to check!]");
 					
 					//*************************************************************************************************************************************************
@@ -144,7 +171,9 @@ public class Pipeline
 					file = new File(attnifc.getNIFFileBySentences(sentence_objects, out_file_path, gai));
 					sos = AnnotedTextToNIFConverter.getSos();	//store this for 2 other metrics
 					text_info.setNif_path(file.getAbsolutePath());
-					text_info.setSyn_error_dist(WordFrequencyEngine.calcProbabilityDistribution(gai.getSyntax_error_dist()));
+					
+					text_info.setSyn_error_dist(calcDesiredPropDist(havingCorpus, corpus, Distributions.SyntaxErr, gai.getSyntax_error_dist()));
+//Old				text_info.setSyn_error_dist(WordFrequencyEngine.calcProbabilityDistribution(gai.getSyntax_error_dist()));
 					
 					System.out.println("CALCULATION WF STARTED!");
 					//calculate word frequency
@@ -153,20 +182,27 @@ public class Pipeline
 					System.out.println("CALCULATION POS DIST STARTED!");
 					/* M_5 */
 					pos_tags_dist = st.countPosTagsOccourence(sentence_objects);
-					text_info.setPos_tags_dist(WordFrequencyEngine.calcProbabilityDistribution(pos_tags_dist));
+					
+					text_info.setPos_tags_dist(calcDesiredPropDist(havingCorpus, corpus, Distributions.PosTags, pos_tags_dist));
+//Old				text_info.setPos_tags_dist(WordFrequencyEngine.calcProbabilityDistribution(pos_tags_dist));
 					
 					System.out.println("CALCULATION ENTITY DIST STARTED!");
 					/* M_6 */
 					annotation_dist = DistributionProcessing.getAnnotDist(sos);
-					text_info.setAnnotation_dist(WordFrequencyEngine.calcProbabilityDistribution(annotation_dist));
+					
+					text_info.setAnnotation_dist(calcDesiredPropDist(havingCorpus, corpus, Distributions.AnnotEntity, annotation_dist));
+//Old				text_info.setAnnotation_dist(WordFrequencyEngine.calcProbabilityDistribution(annotation_dist));
 					
 					System.out.println("CALCULATION WPS DIST STARTED!");
 					/* M_4 */
 					word_occurr_dist = DistributionProcessing.getWPSDist(sos,st);
-					text_info.setWords_occurr_distr(WordFrequencyEngine.calcProbabilityDistribution(word_occurr_dist));
+					
+					text_info.setWords_occurr_distr(calcDesiredPropDist(havingCorpus, corpus, Distributions.WordOccur, word_occurr_dist));
+//Old				text_info.setWords_occurr_distr(WordFrequencyEngine.calcProbabilityDistribution(word_occurr_dist));
 					
 					/* M_1 */
-					text_info.setSymbol_sent_dist(WordFrequencyEngine.calcProbabilityDistribution(st.getSymbol_per_sent_dist()));
+					text_info.setSymbol_sent_dist(calcDesiredPropDist(havingCorpus, corpus, Distributions.SymbolCount, st.getSymbol_per_sent_dist()));
+//Old				text_info.setSymbol_sent_dist(WordFrequencyEngine.calcProbabilityDistribution(st.getSymbol_per_sent_dist()));
 					
 					/* 
 					 * [NOT in USE currently because to BIG for big files]
@@ -177,11 +213,12 @@ public class Pipeline
 					System.out.println("CALCULATION GERBIL METRICS STARTED!");
 					/* M_GERBIL [STORED] */
 					jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
-					text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
+					text_info.setMetrics_GERBIL(Corpus.createCorpProbDistGERBIL(corpus, JSONCollector.collectMetrics(jsobj)));	//Storing
 					
 					//*************************************************************************************************************************************************
 					//STORE ALL RESULTS
 					text_informations.add(text_info);			
+					if(!havingCorpus && k == 0) corpus = new Corpus(new MetricVectorProcessing(text_info, 6));
 					
 					//*************************************************************************************************************************************************
 					//LOCAL PRESENTATION

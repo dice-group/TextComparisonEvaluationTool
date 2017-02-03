@@ -105,12 +105,14 @@ public class Main
 		System.out.println("[Distribution] M_6: Entities over all sentences");
 		System.out.println("[Values] GERBIL METRICS: "+annotators);
 		
-		experiments_infos = Pipeline.gather(filenames, annotators, exp_type, matching_type);
+		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath("GoldTextWikipedia.txt.content.prop"),6);
+		
+		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);
 		
 		//get non gold text exps
 		for(int i = 1; i < experiments_infos.size(); i++) no_gold_exp_results.add(experiments_infos.get(i));
 		
-		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath("GoldTextWikipedia.txt.content.prop"),6);
+		
 		
 		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);
 		
