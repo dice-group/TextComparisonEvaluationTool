@@ -206,7 +206,7 @@ public class PropReader
 					if(sCurrentLine.equals("M_GERBIL"))
 					{
 						mgerbil = true;
-						System.out.println();
+						System.out.println("\nM_GERBIL");
 						continue;
 					}else{
 
