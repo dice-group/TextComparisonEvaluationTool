@@ -61,12 +61,13 @@ public class JSONCollector
 	 */
 	public static void main(String[] args) throws JSONException, IOException 
 	{
-		JSONObject js = new JSONObject(TextReader.fileReader(new TextReader().getResourceFileAbsolutePath("Example JSON.txt")));
+		JSONObject js = new JSONObject(TextReader.fileReader(new TextReader().getResourceFileAbsolutePath("GoldJSON.txt")));
 		HashMap<String, Double> collection = JSONCollector.collectMetrics(js);
 		
 		
-		for(String key : collection.keySet()){
-			System.out.println(collection.get(key));
+		for(String key : collection.keySet())
+		{
+			System.out.println("["+key+"]["+collection.get(key)+"]");
 		}
 		
 	}
