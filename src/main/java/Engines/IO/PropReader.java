@@ -1,8 +1,10 @@
 package Engines.IO;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -56,10 +58,10 @@ public class PropReader
 
 		try 
 		{
-			
+			System.out.println("Called: "+path);
 			//Reader parts
 			String sCurrentLine;
-			br = new BufferedReader(new FileReader(path));
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF8"));
 			
 			//General variables
 			String optimalRexSQBR = Pattern.quote("[") +"(.*?)"+ Pattern.quote("]");
@@ -86,7 +88,7 @@ public class PropReader
 					if(sCurrentLine.equals("M_1"))
 					{
 						m1 = true;
-						System.out.println("\nM_1");
+//						System.out.println("\nM_1");
 						continue;
 					}else{
 						
@@ -96,7 +98,7 @@ public class PropReader
 				        matcher.find();	//2nd
 				        double d = Double.parseDouble(replaceSQBR(matcher.group()));
 				        
-				        System.out.println("["+c+"]["+d+"]");
+//				        System.out.println("["+c+"]["+d+"]");
 						symbol_error_dist.put(c, d);
 					}
 					
@@ -106,7 +108,7 @@ public class PropReader
 					if(sCurrentLine.equals("M_2"))
 					{
 						m2 = true;
-						System.out.println("\nM_2 Done");
+//						System.out.println("\nM_2 Done");
 						continue;
 					}else{
 
@@ -116,7 +118,7 @@ public class PropReader
 						matcher.find();	//2st
 						double d  =  Double.parseDouble(replaceSQBR(matcher.group()));
 						
-						System.out.println("["+i+"]["+d+"]");
+//						System.out.println("["+i+"]["+d+"]");
 						symbol_sent_dist.put(i, d);
 					}
 					
@@ -126,7 +128,7 @@ public class PropReader
 					if(sCurrentLine.equals("M_3"))
 					{
 						m3 = true;
-						System.out.println("\nM_3");
+//						System.out.println("\nM_3");
 						continue;
 					}else{
 						
@@ -136,7 +138,7 @@ public class PropReader
 				        matcher.find();	//2nd
 				        double d = Double.parseDouble(replaceSQBR(matcher.group()));
 						
-				        System.out.println("["+s+"]["+d+"]");
+//				        System.out.println("["+s+"]["+d+"]");
 						syn_error_dist.put(s, d);
 					}
 					
@@ -146,7 +148,7 @@ public class PropReader
 					if(sCurrentLine.equals("M_4"))
 					{
 						m4 = true;
-						System.out.println("\nM_4");
+//						System.out.println("\nM_4");
 						continue;
 					}else{
 						
@@ -156,7 +158,7 @@ public class PropReader
 						matcher.find();	//2st
 						double d =  Double.parseDouble(replaceSQBR(matcher.group()));
 						
-						System.out.println("["+i+"]["+d+"]");
+//						System.out.println("["+i+"]["+d+"]");
 						words_occurr_distr.put(i, d);
 					}
 					
@@ -166,7 +168,7 @@ public class PropReader
 					if(sCurrentLine.equals("M_5"))
 					{
 						m5 = true;
-						System.out.println("\nM_5");
+//						System.out.println("\nM_5");
 						continue;
 					}else{
 						
@@ -176,7 +178,7 @@ public class PropReader
 				        matcher.find();	//2nd
 				        double d = Double.parseDouble(replaceSQBR(matcher.group()));
 						
-				        System.out.println("["+s+"]["+d+"]");
+//				        System.out.println("["+s+"]["+d+"]");
 						pos_tags_dist.put(s, d);
 					}
 					
@@ -186,7 +188,7 @@ public class PropReader
 					if(sCurrentLine.equals("M_6"))
 					{
 						m6 = true;
-						System.out.println("\nM_6");
+//						System.out.println("\nM_6");
 						continue;
 					}else{
 						
@@ -196,7 +198,7 @@ public class PropReader
 						matcher.find();	//2st
 						double d =  Double.parseDouble(replaceSQBR(matcher.group()));
 						
-						System.out.println("["+i+"]["+d+"]");
+//						System.out.println("["+i+"]["+d+"]");
 						annotation_dist.put(i, d);
 					}
 					
@@ -206,7 +208,7 @@ public class PropReader
 					if(sCurrentLine.equals("M_GERBIL"))
 					{
 						mgerbil = true;
-						System.out.println("\nM_GERBIL");
+//						System.out.println("\nM_GERBIL");
 						continue;
 					}else{
 
@@ -216,15 +218,24 @@ public class PropReader
 						matcher.find();	//2st
 						double d =  Double.parseDouble(replaceSQBR(matcher.group()));
 						
-						System.out.println("["+s+"]["+d+"]");
+//						System.out.println("["+s+"]["+d+"]");
 						metrics_GERBIL.put(s, d);
 					}
 				}
 			}
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
+		} catch (UnsupportedEncodingException e)
+	    {
+			System.out.println(e.getMessage());
+	    }
+	    catch (IOException e)
+	    {
+			System.out.println(e.getMessage());
+	    }
+	    catch (Exception e)
+	    {
+			System.out.println(e.getMessage());
+	    } finally {
 			try {
 				if (br != null)br.close();
 			} catch (IOException ex) {

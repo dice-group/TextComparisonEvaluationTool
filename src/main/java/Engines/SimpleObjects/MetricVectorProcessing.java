@@ -90,16 +90,24 @@ public class MetricVectorProcessing
 		double[] gm;
 		
 		// Gerbil metrics (6 metrics currently) ATTENTION add more right here if you need them
-		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.symbol_sent_dist, v2.symbol_sent_dist)));
+		
+//		System.out.println("\nM_1");
 		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.symbol_error_dist, v2.symbol_error_dist)));
+//		System.out.println("\nM_2");
+		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.symbol_sent_dist, v2.symbol_sent_dist)));
+//		System.out.println("\nM_3");
 		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.syntactic_error_dist, v2.syntactic_error_dist)));
+//		System.out.println("\nM_4");
 		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.word_occurrence_dist, v2.word_occurrence_dist)));
+//		System.out.println("\nM_5");
 		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.pos_tags_dist, v2.pos_tags_dist)));
+//		System.out.println("\nM_6");
 		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.annotated_entity_dist, v2.annotated_entity_dist)));
 		
 		// Gerbil metrics (4 metrics currently)
 		ArrayList<String> keys = new ArrayList<String>(v1.gerbil_metrics.keySet());
 		
+//		System.out.println("\nM_GERBIL");
 		for (String key :  keys) 
 		{
 			gm = useOrRepalceDouble(v1.gerbil_metrics, v2.gerbil_metrics, key);
