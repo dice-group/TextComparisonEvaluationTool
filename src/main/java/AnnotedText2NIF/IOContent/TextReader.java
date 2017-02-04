@@ -1,7 +1,8 @@
 package AnnotedText2NIF.IOContent;
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URLDecoder;
 	
 /**
@@ -35,7 +36,7 @@ public class TextReader
 		try {
 
 			String sCurrentLine;
-			br = new BufferedReader(new FileReader(path));
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF8"));
 			while ((sCurrentLine = br.readLine()) != null) str += sCurrentLine;
 
 		} catch (IOException e) {
