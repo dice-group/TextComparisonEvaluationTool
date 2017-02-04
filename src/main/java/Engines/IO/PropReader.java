@@ -58,7 +58,7 @@ public class PropReader
 
 		try 
 		{
-			System.out.println("Called: "+path);
+//			System.out.println("Called: "+path);
 			//Reader parts
 			String sCurrentLine;
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF8"));

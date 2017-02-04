@@ -1,6 +1,7 @@
 package Engines.KLDiv;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class KullbackLeiblerDivergenz
 	 */
 	public static <T> double EasyKLDivergenceTD(Map<T,Double> s1, Map<T,Double> s2)
 	{
-		if(isProbDist(s1) && isProbDist(s2) && haveSameKeyCorpus(s1, s2))
+		if(isProbDist(s1) && isProbDist(s2) && haveAllowedKeyCorpus(s1, s2))
 		{
 			double kld = 0.0;
 			
@@ -45,10 +46,17 @@ public class KullbackLeiblerDivergenz
 					return Double.NaN;
 				}
 				
-				if(Math.abs(s1.get(key)) < CosDistance.epsilon || Math.abs(s2.get(key)) < CosDistance.epsilon) {continue;}
+				if(Math.abs(s2.get(key)) < CosDistance.epsilon)
+				{
+					System.err.println("The 2nd key value is smaller then desired error epsilon ("+epsilon+")! Key: "+key);
+					System.out.println("Its needed to preserve Q(x) exist if P(x) > 0 !");
+					return Double.NaN;
+				}
+				
+				if(Math.abs(s1.get(key)) < CosDistance.epsilon) {continue;}
 		        kld += (s1.get(key) * Math.log((s1.get(key)/s2.get(key))));
 		        
-		        System.out.println("[Key: "+key+" | S1: "+s1.get(key)+" | S2: "+s2.get(key)+" | CALC: "+(s1.get(key) * Math.log((s1.get(key)/s2.get(key))))+" | KLD: "+kld);
+//		        System.out.println("[Key: "+key+" | S1: "+s1.get(key)+" | S2: "+s2.get(key)+" | CALC: "+(s1.get(key) * Math.log((s1.get(key)/s2.get(key))))+" | KLD: "+kld);
 			}
 			return kld;
 			
@@ -68,7 +76,7 @@ public class KullbackLeiblerDivergenz
 	 */
 	public static <T> boolean isProbDist(Map<T,Double> dist)
 	{
-		double sum = 0.0;
+		double sum = 0.00000000;
 		
 		for(T key : dist.keySet()) sum += dist.get(key);
 		
@@ -89,14 +97,13 @@ public class KullbackLeiblerDivergenz
 	 * @param dist_2
 	 * @return true if the keys corpora are equal
 	 */
-	public static <T> boolean haveSameKeyCorpus(Map<T,Double> dist_1, Map<T,Double> dist_2)
+	public static <T> boolean haveAllowedKeyCorpus(Map<T,Double> dist_1, Map<T,Double> dist_2)
 	{
 		
 		Set<T> allKeys = createFullKeySetT2D(dist_1, dist_2);
 		
 		if(dist_1.keySet().size() != dist_2.keySet().size() && dist_1.keySet().size() != allKeys.size())
 		{
-			System.out.println("The maps keys corpora not Equal! D1: "+dist_1.keySet().size()+" | D2: "+dist_2.keySet().size()+" | All: "+allKeys.size()+"");
 			
 			if(dist_1.keySet().size() < dist_2.keySet().size() && dist_1.keySet().size() != allKeys.size())
 			{
@@ -104,7 +111,7 @@ public class KullbackLeiblerDivergenz
 			}else
 			{
 				System.out.println(	 "The 1st map (desired corpus) keyset is bigger then the 2nd map!\n"
-									+"This wont work for the KL-Div calculation, because it ignore, if P(x) > 0 then Q(x) MUST exist!");
+									+"This wont work and is not allowed for the KL-Div calculation, \nbecause it ignore, if P(x) > 0 then Q(x) MUST exist!");
 				System.out.println("1st key set: "+dist_1.keySet());
 				System.out.println("2nd key set: "+dist_2.keySet());
 				return false;
@@ -148,18 +155,23 @@ public class KullbackLeiblerDivergenz
 		String eps30_mvp_path		= "04.02.2017_mvp_epoch30.content.prop";
 		String eps70_mvp_path		= "04.02.2017_mvp_epoch70Final.content.prop";
 		
-		System.out.println(pr.getResourceFileAbsolutePath(Frag_mvp_path));
-		
 		MetricVectorProcessing mvp_gold  = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6);
 		MetricVectorProcessing mvp_Frag  = PropReader.fileReader(pr.getResourceFileAbsolutePath(Frag_mvp_path),6);
 		MetricVectorProcessing mvp_15Eps = PropReader.fileReader(pr.getResourceFileAbsolutePath(eps15_mvp_path),6);
 		MetricVectorProcessing mvp_30Eps = PropReader.fileReader(pr.getResourceFileAbsolutePath(eps30_mvp_path),6);
 		MetricVectorProcessing mvp_70Eps = PropReader.fileReader(pr.getResourceFileAbsolutePath(eps70_mvp_path),6);
 
-		System.out.println("RV: "+MetricVectorProcessing.calcDistanceVector(mvp_gold, mvp_Frag));
-//		System.out.println("RV: "+MetricVectorProcessing.calcDistanceVector(mvp_gold, mvp_15Eps));
-//		System.out.println("RV: "+MetricVectorProcessing.calcDistanceVector(mvp_gold, mvp_30Eps));
-//		System.out.println("RV: "+MetricVectorProcessing.calcDistanceVector(mvp_gold, mvp_70Eps));
+		ArrayList<Double> v1 = MetricVectorProcessing.calcDistanceVector(mvp_gold, mvp_Frag);
+		ArrayList<Double> v2 = MetricVectorProcessing.calcDistanceVector(mvp_gold, mvp_15Eps);
+		ArrayList<Double> v3 = MetricVectorProcessing.calcDistanceVector(mvp_gold, mvp_30Eps);
+		ArrayList<Double> v4 = MetricVectorProcessing.calcDistanceVector(mvp_gold, mvp_70Eps);
+		
+		System.out.println("Dist-V: "+v1+" \t\t| \tRating: "+MetricVectorProcessing.rate(v1));
+		System.out.println("Dist-V: "+v2+" \t| \tRating: "+MetricVectorProcessing.rate(v2));
+		System.out.println("Dist-V: "+v3+" \t| \tRating: "+MetricVectorProcessing.rate(v3));
+		System.out.println("Dist-V: "+v4+" \t\t| \tRating: "+MetricVectorProcessing.rate(v4));
+		
+		
 		
 		
 //		Map<String, Double> text1Values = new HashMap<String, Double>();
