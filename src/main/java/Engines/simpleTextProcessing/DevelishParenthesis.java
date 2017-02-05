@@ -23,7 +23,10 @@ public class DevelishParenthesis
 	public static final String optimalRexRDBR = Pattern.quote("(") + "([a-zA-Z0-9, ]*)" + Pattern.quote(")");
 	public static final String optimalREXEntity = Pattern.quote("[[") + "([a-zA-Z0-9,| ]*)"+"(([(])([a-zA-Z0-9, ]*)([)])|([a-zA-Z0-9,| ]*))"+"([a-zA-Z0-9,| ]*)" + Pattern.quote("]]");
 	
-	public static final String punctutations = ",;.!?-'";
+	public static char[] puncs = ",;.!?-'".toCharArray();
+	public static final LinkedList<Character> punctuations = new LinkedList<Character>();
+	
+	
 	private HashMap<Character, Integer> errors;
 
 	//#############################################################################
@@ -35,12 +38,28 @@ public class DevelishParenthesis
 	 */
 	public DevelishParenthesis(){
 		 errors = new HashMap<Character, Integer>();
+		 for(char c : puncs) punctuations.add(c);
 	}
 	
 	
 	//#############################################################################
 	//############################ USAGE METHODS ##################################
 	//#############################################################################
+	
+	/**
+	 * This method check a character is a letter or a digit or a spacing or a *-placeholder or a punctuation
+	 * @param c
+	 * @return true if allowed
+	 */
+	public static boolean isAllowedChar(char c)
+	{
+		if(Character.isLetter(c) || Character.isDigit(c) || Character.isWhitespace(c) || c == '*' || punctuations.contains(c))
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	/**
 	 * This method take a text and clean all errors and false opened or never closed square and round brackets.
@@ -71,24 +90,43 @@ public class DevelishParenthesis
 			{
 				char current = input_chars[i];
 				
-				if(!Character.isAlphabetic(current) && !Character.isDigit(current) && !Character.isWhitespace(current) && current != '*' && !punctutations.contains(""+current))
+				if(isAllowedChar(current))
 				{
+					continue;
+				}else{
 					DistributionProcessing.calcDist(errors, current);
 					index_stack.push(i); 
 					out_ix.add(i);
-				}	
+				}
 			}
 			
 			while(!index_stack.isEmpty())
 			{
-				index = index_stack.pop();
-				if(index > 1 && Character.isAlphabetic(content.charAt(index-1)) && Character.isAlphabetic(content.charAt(index+1)))
-				{
-					content = content.substring(0,index)+" "+content.substring(index+1);
-				}else{
-					content = content.substring(0,index)+content.substring(index+1);
-				}
 				
+				
+				String part1, part2;
+				index = index_stack.pop();
+				
+				if(index > 1 )
+				{
+					part1 = content.substring(0,index);
+					
+					if(index < content.length()-1)
+					{
+						part2 = content.substring(index+1,content.length());
+						
+						if(Character.isLetter(content.charAt(index-1)) && Character.isLetter(content.charAt(index+1)))
+						{
+							content = part1+" "+part2;
+						}else{
+							content = part1+part2;
+						}	
+					}else{
+						content = part1;
+					}
+				}else{
+					content = content.substring(1);
+				}
 			}
 
 			return content;
@@ -123,10 +161,10 @@ public class DevelishParenthesis
 		
 		StanfordTokenizer st = new StanfordTokenizer();
 		DevelishParenthesis dp = new DevelishParenthesis();		
-		System.out.println(input);
+		
 		LinkedList<String> sentences_cleaned = st.sentencesAsStrings(st.gatherSentences(input, dp));
 		
-		for(String current : sentences_cleaned) System.out.println(current); 
+		for(String current : sentences_cleaned) System.out.println("Output: "+current); 
 		
 		
 	}

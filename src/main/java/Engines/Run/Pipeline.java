@@ -103,6 +103,8 @@ public class Pipeline
 					gai = new GatherAnnotationInformations();
 					st = new StanfordTokenizer();
 					
+					System.out.println("File: "+filenames.get(k));
+					
 					nameNIFFile.add(filenames.get(k).replace(".txt", ".ttl"));
 					resourceFilesAbsolutePaths.add(tr.getResourceFileAbsolutePath(filenames.get(k)));
 					texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
