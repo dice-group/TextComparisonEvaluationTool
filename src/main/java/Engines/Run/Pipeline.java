@@ -105,7 +105,7 @@ public class Pipeline
 					
 					System.out.println("File: "+filenames.get(k));
 					
-					nameNIFFile.add(filenames.get(k).replace(".txt", ".ttl"));
+					nameNIFFile.add(filenames.get(k).replace(".txt", "")+".ttl");
 					resourceFilesAbsolutePaths.add(tr.getResourceFileAbsolutePath(filenames.get(k)));
 					texts_raws.add(TextReader.fileReader(resourceFilesAbsolutePaths.getLast()));
 					
@@ -277,7 +277,7 @@ public class Pipeline
 		for(int mvs = 0; mvs < mvps.size(); mvs++)
 		{
 			if(mvs == 0) TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_mvp")+".content.prop");
-			if(mvs > 0) TextWriter.writeMVP(mvps.get(mvs), rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", ".content.prop"));
+			if(mvs > 0) TextWriter.writeMVP(mvps.get(mvs), rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", "")+".content.prop");
 		}
 		TextWriter.writeRating(ros);
 		
