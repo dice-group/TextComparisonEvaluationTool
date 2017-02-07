@@ -212,8 +212,7 @@ public class Pipeline
 					System.out.println("CALCULATION GERBIL METRICS STARTED!");
 					/* M_GERBIL [STORED] */
 					jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
-					text_info.setMetrics_GERBIL(Corpus.createCorpProbDistGERBIL(corpus, JSONCollector.collectMetrics(jsobj)));	//Storing
-//Old				text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
+					text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
 					
 					//*************************************************************************************************************************************************
 					//STORE ALL RESULTS

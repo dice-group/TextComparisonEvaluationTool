@@ -117,9 +117,9 @@ public class Main
 		
 //		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);						//If you have a mvp of your Goldtxt  you should use this.
 		
-//		ratings = Pipeline.calculater(null, experiments_infos.getFirst(), experiments_infos, rating_out_path);	//If you gonna proceed Goldtxt solo you should use this.
+		ratings = Pipeline.calculater(null, experiments_infos.getFirst(), experiments_infos, rating_out_path);	//If you gonna proceed Goldtxt solo you should use this.
 		
-//		System.out.println(ratings);
+		System.out.println(ratings);
 	}
 
 }
