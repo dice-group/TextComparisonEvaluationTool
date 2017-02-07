@@ -74,12 +74,12 @@ public class Main
 		
 		//TODO if gold is loaded inside a content.prop file just gather informations from there need to implemented maybe as XML
 		
-		additional_files 			= new String[4];
+		additional_files 			= new String[1];
 //		additional_files[0] 		= gold_name;
 		additional_files[0] 		= fragment_name;
-		additional_files[1] 		= "LSTM25_sample";
-		additional_files[2] 		= "LSTM50_sample";
-		additional_files[3] 		= "LSTM75_sample";
+//		additional_files[1] 		= "LSTM25_sample";
+//		additional_files[2] 		= "LSTM50_sample";
+//		additional_files[3] 		= "LSTM75_sample";
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
 		filenames = new LinkedList<String>(Arrays.asList(additional_files));
@@ -105,17 +105,17 @@ public class Main
 		System.out.println("[Distribution] M_6: Entities over all sentences");
 		System.out.println("[Values] GERBIL METRICS: "+annotators);
 		
-		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6);
+//		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6);
 		
-		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);			//If you have a mvp of your Goldtxt  you should use this.
+//		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);			//If you have a mvp of your Goldtxt  you should use this.
 		
-//		experiments_infos = Pipeline.gather(null, filenames, annotators, exp_type, matching_type);				//If you gonna proceed Goldtxt solo you should use this.
+		experiments_infos = Pipeline.gather(null, filenames, annotators, exp_type, matching_type);				//If you gonna proceed Goldtxt solo you should use this.
 		
 		//get non gold text experiments collecting
-		for(int i = 1; i < experiments_infos.size(); i++) no_gold_exp_results.add(experiments_infos.get(i));
+//		for(int i = 1; i < experiments_infos.size(); i++) no_gold_exp_results.add(experiments_infos.get(i));
 		
 		
-		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);						//If you have a mvp of your Goldtxt  you should use this.
+//		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);						//If you have a mvp of your Goldtxt  you should use this.
 		
 //		ratings = Pipeline.calculater(null, experiments_infos.getFirst(), experiments_infos, rating_out_path);	//If you gonna proceed Goldtxt solo you should use this.
 		

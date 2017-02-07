@@ -58,7 +58,7 @@ public class Corpus {
 	public static <T> HashMap<T, Double> calcCorpGERBILProbDist(HashMap<T, Double> corpus, HashMap<T, Double> distribution)
 	{
 		for(T key : corpus.keySet()) 
-			if(!distribution.containsKey(key) || (distribution.containsKey(key) && Math.abs(distribution.get(key)) < epsilon)) 
+			if(!distribution.containsKey(key) || (distribution.containsKey(key) && (Math.abs(distribution.get(key)) < epsilon))) 
 				distribution.put(key, epsilon);
 		return distribution;
 	}
