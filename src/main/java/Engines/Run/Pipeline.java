@@ -144,7 +144,7 @@ public class Pipeline
 					//CLEANING
 					System.out.println("CLEANING STARTED!");
 					
-					/* M_2 */ 
+					/* M_1 */ 
 					sentence_objects = st.gatherSentences(texts_raws.getLast(), dp);	//Clean Step 3
 					text_info.setSymbol_error_dist(calcDesiredPropDist(havingCorpus, corpus, Distributions.SymbolErr, dp.getErrors()));			//store errors
 //Old				text_info.setSymbol_error_dist(WordFrequencyEngine.calcProbabilityDistribution(tc.getErrors()));
@@ -153,9 +153,6 @@ public class Pipeline
 					//*************************************************************************************************************************************************
 					//PROCESSING
 					System.out.println("PROCESSING STARTED!");
-					
-					// TODO should we use it?
-					/* M_0 CURRENTLY NOT USED*/
 					text_info.setCanBeUsed((sentence_objects.size() * 100.0)/(st.getRawSentenceSize()));
 					System.out.println("Usable senteces===> ["+text_info.getCanBeUsed()+"]");
 					
@@ -178,6 +175,13 @@ public class Pipeline
 					//calculate word frequency
 					wfe.gatherWordFrequencyByList(words);
 					
+					System.out.println("CALCULATION WPS DIST STARTED!");
+					/* M_4 */
+					word_occurr_dist = DistributionProcessing.getWPSDist(sos,st);
+					
+					text_info.setWords_occurr_distr(calcDesiredPropDist(havingCorpus, corpus, Distributions.WordOccur, word_occurr_dist));
+//Old				text_info.setWords_occurr_distr(WordFrequencyEngine.calcProbabilityDistribution(word_occurr_dist));
+					
 					System.out.println("CALCULATION POS DIST STARTED!");
 					/* M_5 */
 					pos_tags_dist = st.countPosTagsOccourence(sentence_objects);
@@ -192,20 +196,15 @@ public class Pipeline
 					text_info.setAnnotation_dist(calcDesiredPropDist(havingCorpus, corpus, Distributions.AnnotEntity, annotation_dist));
 //Old				text_info.setAnnotation_dist(WordFrequencyEngine.calcProbabilityDistribution(annotation_dist));
 					
-					System.out.println("CALCULATION WPS DIST STARTED!");
-					/* M_4 */
-					word_occurr_dist = DistributionProcessing.getWPSDist(sos,st);
+
 					
-					text_info.setWords_occurr_distr(calcDesiredPropDist(havingCorpus, corpus, Distributions.WordOccur, word_occurr_dist));
-//Old				text_info.setWords_occurr_distr(WordFrequencyEngine.calcProbabilityDistribution(word_occurr_dist));
-					
-					/* M_1 */
+					/* M_2 */
 					text_info.setSymbol_sent_dist(calcDesiredPropDist(havingCorpus, corpus, Distributions.SymbolCount, st.getSymbol_per_sent_dist()));
 //Old				text_info.setSymbol_sent_dist(WordFrequencyEngine.calcProbabilityDistribution(st.getSymbol_per_sent_dist()));
 					
 					/* 
 					 * [NOT in USE currently because to BIG for big files]
-					 * M_7: Word Distribution over the text [STORED] 
+					 * Word Distribution over the text [STORED] 
 					 */
 					text_info.setWords_distribution(WordFrequencyEngine.calcProbabilityDistribution(wfe.getMap()));	//For the whole text
 
