@@ -54,6 +54,14 @@
     		<version>1.8.3</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-parser -->
+		<dependency>
+    		<groupId>edu.stanford.nlp</groupId>
+    		<artifactId>stanford-parser</artifactId>
+    		<version>3.7.0</version>
+		</dependency>
+		
+		
 	</dependencies>
      
    	<repositories>
