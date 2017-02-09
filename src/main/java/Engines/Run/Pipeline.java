@@ -156,6 +156,10 @@ public class Pipeline
 					text_info.setCanBeUsed((sentence_objects.size() * 100.0)/(st.getRawSentenceSize()));
 					System.out.println("Usable senteces===> ["+text_info.getCanBeUsed()+"]");
 					
+					/* M_2 */
+					text_info.setSymbol_sent_dist(calcDesiredPropDist(havingCorpus, corpus, Distributions.SymbolCount, st.getSymbol_per_sent_dist()));
+//Old				text_info.setSymbol_sent_dist(WordFrequencyEngine.calcProbabilityDistribution(st.getSymbol_per_sent_dist()));
+					
 					//get sentences and gather words
 					sentences_cleaned = st.sentencesAsStrings(sentence_objects);
 					words = StanfordTokenizer.gatherWords(sentence_objects);
@@ -197,11 +201,6 @@ public class Pipeline
 //Old				text_info.setAnnotation_dist(WordFrequencyEngine.calcProbabilityDistribution(annotation_dist));
 					
 
-					
-					/* M_2 */
-					text_info.setSymbol_sent_dist(calcDesiredPropDist(havingCorpus, corpus, Distributions.SymbolCount, st.getSymbol_per_sent_dist()));
-//Old				text_info.setSymbol_sent_dist(WordFrequencyEngine.calcProbabilityDistribution(st.getSymbol_per_sent_dist()));
-					
 					/* 
 					 * [NOT in USE currently because to BIG for big files]
 					 * Word Distribution over the text [STORED] 
