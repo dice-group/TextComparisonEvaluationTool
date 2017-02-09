@@ -1,4 +1,4 @@
-package Engines.DependencyParser;
+package Engines.Test.StanfordParser;
 
 import java.util.Properties;
 
@@ -15,8 +15,10 @@ import edu.stanford.nlp.util.PropertiesUtils;
 import edu.stanford.nlp.util.logging.Redwood;
 
 /**
- * Demonstrates how to use the NN dependency
- * parser via a CoreNLP pipeline.
+ * USING THE EDITED EXAMPLE:
+ * 
+ * "Demonstrates how to use the NN dependency
+ * parser via a CoreNLP pipeline."
  *
  * @author Christopher Manning
  */

@@ -1,6 +1,8 @@
-package Engines.DependencyParser;
+package Engines.Test.StanfordParser;
 
 /**
+* USING THE EDITED EXAMPLE: 
+* 
 * A Stanford CoreNLP tree visualizer.  
 * Copyright (C) 2014  Long Qiu 
  

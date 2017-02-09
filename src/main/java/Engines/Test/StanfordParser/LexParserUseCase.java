@@ -1,4 +1,4 @@
-package Engines.DependencyParser;
+package Engines.Test.StanfordParser;
 
 import java.io.StringReader;
 import java.util.List;

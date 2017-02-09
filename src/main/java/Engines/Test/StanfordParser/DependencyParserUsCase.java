@@ -1,4 +1,4 @@
-package Engines.DependencyParser;
+package Engines.Test.StanfordParser;
 
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.TaggedWord;
@@ -12,8 +12,10 @@ import java.io.StringReader;
 import java.util.List;
 
 /**
- * Demonstrates how to first use the tagger, then use the NN dependency
- * parser. Note that the parser will not work on untagged text.
+ * USING THE EDITED EXAMPLE:
+ * 
+ * "Demonstrates how to first use the tagger, then use the NN dependency
+ * parser. Note that the parser will not work on untagged text."
  *
  * @author Jon Gauthier
  */
