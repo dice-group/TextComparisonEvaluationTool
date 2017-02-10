@@ -79,12 +79,12 @@ public class Main
 		additional_files[6] 		= "RNN25_sample";
 		additional_files[7] 		= "RNN50_sample";
 		additional_files[8] 		= "RNN75_sample";
-		additional_files[9] 		= "LSTM25_sample";
-		additional_files[10] 		= "LSTM50_sample";
-		additional_files[11] 		= "LSTM75_sample";
-		additional_files[12] 		= "RNN25_sample";
-		additional_files[13] 		= "RNN50_sample";
-		additional_files[14] 		= "RNN75_sample";
+		additional_files[9] 		= "StackedOldRNN_25epoch";
+		additional_files[10] 		= "StackedOldRNN_50epoch";
+		additional_files[11] 		= "StackedOldRNN_75epoch";
+		additional_files[12] 		= "StakedOldLSTM_25";
+		additional_files[13] 		= "StakedOldLSTM_50";
+		additional_files[14] 		= "StakedOldLSTM_75";
 		
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
