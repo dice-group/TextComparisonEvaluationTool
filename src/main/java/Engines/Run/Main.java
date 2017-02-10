@@ -68,7 +68,7 @@ public class Main
 		//TODO FURTHER PROGRAMMING: gold text properties are stored inside a content.prop text file maybe implement as XML structure => better to use
 		//TODO FURTHER PROGRAMMING: maybe a semantic check up 
 		
-		additional_files 			= new String[9];
+		additional_files 			= new String[15];
 //		additional_files[0] 		= gold_name;		//use if u need to process your goldfile
 		additional_files[0] 		= "GRU25_sample";
 		additional_files[1] 		= "GRU50_sample";
@@ -79,6 +79,13 @@ public class Main
 		additional_files[6] 		= "RNN25_sample";
 		additional_files[7] 		= "RNN50_sample";
 		additional_files[8] 		= "RNN75_sample";
+		additional_files[9] 		= "LSTM25_sample";
+		additional_files[10] 		= "LSTM50_sample";
+		additional_files[11] 		= "LSTM75_sample";
+		additional_files[12] 		= "RNN25_sample";
+		additional_files[13] 		= "RNN50_sample";
+		additional_files[14] 		= "RNN75_sample";
+		
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
 		filenames = new LinkedList<String>(Arrays.asList(additional_files));
