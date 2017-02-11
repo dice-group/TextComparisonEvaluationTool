@@ -157,14 +157,14 @@ public class DevelishParenthesis
 	{
 		TextReader tr = new TextReader();
 		String name = "BVFragment.txt";
-		String input = TextReader.fileReader(tr.getResourceFileAbsolutePath(name));
-		
+//		String input = TextReader.fileReader(tr.getResourceFileAbsolutePath(name));
+		String input =  "Gora]] Cover stations prestigious Around [[rock . ";
 		StanfordTokenizer st = new StanfordTokenizer();
 		DevelishParenthesis dp = new DevelishParenthesis();		
 		
 		LinkedList<String> sentences_cleaned = st.sentencesAsStrings(st.gatherSentences(input, dp));
-		
-		for(String current : sentences_cleaned) System.out.println("Output: "+current); 
+		System.out.println("Unbearbeitet: \t"+input);
+		for(String current : sentences_cleaned) System.out.println("Bereinigt: \t"+current); 
 		
 		
 	}
