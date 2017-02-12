@@ -12,7 +12,7 @@ public class QuadError
 	//##################################################################################
 	
 	/**
-	 * The calculation of the quadratic error.
+	 * The calculation of the rooted quadratic error.
 	 * @param a
 	 * @param b
 	 * @return error value as decimal
