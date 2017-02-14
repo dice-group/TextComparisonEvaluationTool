@@ -32,7 +32,6 @@ public class MetricVectorProcessing
 	
 	//Gerbil metrics
 	public HashMap<String, Double> gerbil_metrics;
-	
 	public ArrayList<Double> distanceVector;
 	private ArrayList<Double> zero_vector;
 	
