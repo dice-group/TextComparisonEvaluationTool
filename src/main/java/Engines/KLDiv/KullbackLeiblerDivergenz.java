@@ -27,6 +27,7 @@ public class KullbackLeiblerDivergenz
 	 * This method takes 2 Maps <T, Double> of comparable distributions of 2 texts and calculate the Kullback-Leibler divergence.
 	 * The 1st map should be the map containing the map with the desired key corpus. 
 	 * Otherwise the method will reject the calculation.
+	 * The used Logarithm has basis 2.
 	 * 
 	 * @param s1
 	 * @param s2
@@ -58,10 +59,9 @@ public class KullbackLeiblerDivergenz
 		        
 //		        System.out.println("[Key: "+key+" | S1: "+s1.get(key)+" | S2: "+s2.get(key)+" | CALC: "+(s1.get(key) * Math.log((s1.get(key)/s2.get(key))))+" | KLD: "+kld);
 			}
-			return kld;
+			return kld/ Math.log(2);
 			
 		}else{
-			
 			System.err.println("Distribution setup error has occurred in KL-Div calculation!");
 			return 1.0;
 		}
