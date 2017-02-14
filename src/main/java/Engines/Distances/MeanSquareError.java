@@ -3,6 +3,8 @@ package Engines.Distances;
 import java.util.Arrays;
 import java.util.List;
 
+import Engines.SimpleObjects.SimpleRounding;
+
 /**
  * This class calculate the (rooted) mean square error of 2 decimal values. 
  * @author TTurke
@@ -85,9 +87,10 @@ public class MeanSquareError
 	{
 		List<Double> a = Arrays.asList(2.68888); 
 		List<Double> b = Arrays.asList(2.7);
-		System.out.println("MSE: "+MeanSquareError.meanSquareError(a,b));
-		System.out.println("RMSE: "+MeanSquareError.meanSquareError(a,b));
-		
+		System.out.println("MSE: "+SimpleRounding.round(MeanSquareError.meanSquareError(a,b)));
+		System.out.println("RMSE: "+SimpleRounding.round(MeanSquareError.meanSquareError(a,b)));
+		System.out.println("MAE: "+SimpleRounding.round(MeanSquareError.meanAbsoluteError(a,b)));
+
 	}
 
 }
