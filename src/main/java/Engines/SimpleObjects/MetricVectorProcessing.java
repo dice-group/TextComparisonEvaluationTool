@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Engines.Distances.EuclideanDistance;
-import Engines.Distances.QuadError;
 import Engines.KLDiv.KullbackLeiblerDivergenz;
 
 /**
