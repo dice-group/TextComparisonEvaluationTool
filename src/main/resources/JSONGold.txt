@@ -1,0 +1,948 @@
+{
+  "@graph" : [ {
+    "@id" : "http://gerbil.aksw.org/gerbil/experiment?id=201702060000",
+    "structure" : "gerbil:dsd",
+    "experimentType" : "gerbil:A2KB",
+    "matching" : "gerbil:WeakAnnoMatch",
+    "rdf:type" : [ {
+      "@id" : "gerbil:Experiment"
+    }, {
+      "@id" : "qb:Dataset"
+    } ],
+    "rdfs:label" : "Experiment 201702060000"
+  }, {
+    "@id" : "http://gerbil.aksw.org/gerbil/experimentTask_31872",
+    "qb:dataset" : "http://gerbil.aksw.org/gerbil/experiment?id=201702060000",
+    "gerbil:EE_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7048372306281522"
+    },
+    "gerbil:EE_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7048372306281522"
+    },
+    "gerbil:EE_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7048372306281522"
+    },
+    "gerbil:EE_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:InKB_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4832454212809076"
+    },
+    "gerbil:InKB_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.43160705157562845"
+    },
+    "gerbil:InKB_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.6293705660424866"
+    },
+    "gerbil:InKB_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4966110376538136"
+    },
+    "gerbil:InKB_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.384587000239848"
+    },
+    "gerbil:InKB_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7007193760925104"
+    },
+    "gerbil:annotator" : "http://gerbil.aksw.org/gerbil/dataId/annotators/GoldTextWikipedia.ttl_(uploaded)",
+    "gerbil:avg_millis/doc" : {
+      "@type" : "xsd:decimal",
+      "@value" : "98.20208619899128"
+    },
+    "gerbil:confidence_threshold" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:dataset" : "http://gerbil.aksw.org/gerbil/dataId/corpora/DBpedia_Spotlight",
+    "gerbil:errorCount" : "0",
+    "gerbil:macroF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.45222603288736096"
+    },
+    "gerbil:macroPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4149289222771422"
+    },
+    "gerbil:macroRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5623031205460985"
+    },
+    "gerbil:microF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4557379916482651"
+    },
+    "gerbil:microPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.384587000239848"
+    },
+    "gerbil:microRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5591919950639804"
+    },
+    "gerbil:statusCode" : {
+      "@type" : "xsd:int",
+      "@value" : "0"
+    },
+    "gerbil:timestamp" : {
+      "@type" : "xsd:dateTime",
+      "@value" : "2017-02-06T15:01:08.32Z"
+    },
+    "rdf:type" : {
+      "@id" : "qb:Observation"
+    }
+  }, {
+    "@id" : "http://gerbil.aksw.org/gerbil/experimentTask_31873",
+    "qb:dataset" : "http://gerbil.aksw.org/gerbil/experiment?id=201702060000",
+    "gerbil:EE_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5908152760743703"
+    },
+    "gerbil:EE_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5913695505900156"
+    },
+    "gerbil:EE_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5919379412253274"
+    },
+    "gerbil:EE_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.08504446240905417"
+    },
+    "gerbil:EE_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.10865523652137989"
+    },
+    "gerbil:EE_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.06986319564351176"
+    },
+    "gerbil:InKB_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.37110640508671194"
+    },
+    "gerbil:InKB_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3709403388259921"
+    },
+    "gerbil:InKB_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.40929542123655643"
+    },
+    "gerbil:InKB_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3756802464794628"
+    },
+    "gerbil:InKB_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3742701764921763"
+    },
+    "gerbil:InKB_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3771009815785935"
+    },
+    "gerbil:annotator" : "http://gerbil.aksw.org/gerbil/dataId/annotators/GoldTextWikipedia.ttl_(uploaded)",
+    "gerbil:avg_millis/doc" : {
+      "@type" : "xsd:decimal",
+      "@value" : "859.650452751335"
+    },
+    "gerbil:confidence_threshold" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:dataset" : "http://gerbil.aksw.org/gerbil/dataId/corpora/FOX",
+    "gerbil:errorCount" : "220",
+    "gerbil:macroF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.28082432427228754"
+    },
+    "gerbil:macroPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.2821884630142503"
+    },
+    "gerbil:macroRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3203917642820827"
+    },
+    "gerbil:microF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3258104340347616"
+    },
+    "gerbil:microPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3373355546619176"
+    },
+    "gerbil:microRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.31504681170695065"
+    },
+    "gerbil:statusCode" : {
+      "@type" : "xsd:int",
+      "@value" : "0"
+    },
+    "gerbil:timestamp" : {
+      "@type" : "xsd:dateTime",
+      "@value" : "2017-02-06T18:36:31.588Z"
+    },
+    "rdf:type" : {
+      "@id" : "qb:Observation"
+    }
+  }, {
+    "@id" : "http://gerbil.aksw.org/gerbil/experimentTask_31874",
+    "qb:dataset" : "http://gerbil.aksw.org/gerbil/experiment?id=201702060000",
+    "gerbil:EE_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:InKB_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.43785640305389834"
+    },
+    "gerbil:InKB_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.43721187099795417"
+    },
+    "gerbil:InKB_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.48384948252198023"
+    },
+    "gerbil:InKB_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4672028233058468"
+    },
+    "gerbil:InKB_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.47166837958204866"
+    },
+    "gerbil:InKB_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4628210299852091"
+    },
+    "gerbil:annotator" : "http://gerbil.aksw.org/gerbil/dataId/annotators/GoldTextWikipedia.ttl_(uploaded)",
+    "gerbil:avg_millis/doc" : {
+      "@type" : "xsd:decimal",
+      "@value" : "85.40025274283417"
+    },
+    "gerbil:confidence_threshold" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.2128697782754898"
+    },
+    "gerbil:dataset" : "http://gerbil.aksw.org/gerbil/dataId/corpora/WAT",
+    "gerbil:errorCount" : "39",
+    "gerbil:macroF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.33601509982908556"
+    },
+    "gerbil:macroPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3488922928228063"
+    },
+    "gerbil:macroRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3684783479687149"
+    },
+    "gerbil:microF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.41428077090887205"
+    },
+    "gerbil:microPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.47166837958204866"
+    },
+    "gerbil:microRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.36934302653110496"
+    },
+    "gerbil:statusCode" : {
+      "@type" : "xsd:int",
+      "@value" : "0"
+    },
+    "gerbil:timestamp" : {
+      "@type" : "xsd:dateTime",
+      "@value" : "2017-02-06T15:04:47.978Z"
+    },
+    "rdf:type" : {
+      "@id" : "qb:Observation"
+    }
+  }, {
+    "@id" : "http://gerbil.aksw.org/gerbil/experimentTask_31891",
+    "qb:dataset" : "http://gerbil.aksw.org/gerbil/experiment?id=201702060000",
+    "gerbil:annotator" : "http://gerbil.aksw.org/gerbil/dataId/annotators/GoldTextWikipedia.ttl_(uploaded)",
+    "gerbil:confidence_threshold" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:dataset" : "http://gerbil.aksw.org/gerbil/dataId/corpora/DBpedia_Spotlight",
+    "gerbil:errorCount" : "0",
+    "gerbil:macroF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.6356664853721602"
+    },
+    "gerbil:macroPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5846720828767852"
+    },
+    "gerbil:macroRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7905232461279968"
+    },
+    "gerbil:microF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.6431054461181923"
+    },
+    "gerbil:microPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5427021641667128"
+    },
+    "gerbil:microRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7890924698875983"
+    },
+    "gerbil:statusCode" : {
+      "@type" : "xsd:int",
+      "@value" : "0"
+    },
+    "subExperimentOf" : "http://gerbil.aksw.org/gerbil/experimentTask_31872",
+    "gerbil:timestamp" : {
+      "@type" : "xsd:dateTime",
+      "@value" : "2017-02-06T15:01:08.32Z"
+    },
+    "rdf:type" : {
+      "@id" : "qb:Observation"
+    }
+  }, {
+    "@id" : "http://gerbil.aksw.org/gerbil/experimentTask_31892",
+    "qb:dataset" : "http://gerbil.aksw.org/gerbil/experiment?id=201702060000",
+    "gerbil:EE_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7048372306281522"
+    },
+    "gerbil:EE_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7048372306281522"
+    },
+    "gerbil:EE_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7048372306281522"
+    },
+    "gerbil:EE_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:GSInKB_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7189062755929871"
+    },
+    "gerbil:GSInKB_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7722017811900165"
+    },
+    "gerbil:GSInKB_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.6926768915766971"
+    },
+    "gerbil:GSInKB_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7662663949830858"
+    },
+    "gerbil:GSInKB_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.931061006682371"
+    },
+    "gerbil:GSInKB_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.6510353637219309"
+    },
+    "gerbil:InKB_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.6368404923703679"
+    },
+    "gerbil:InKB_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.6749199341619877"
+    },
+    "gerbil:InKB_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.6290592849742221"
+    },
+    "gerbil:InKB_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.713583021683462"
+    },
+    "gerbil:InKB_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7894264867729182"
+    },
+    "gerbil:InKB_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.6510353637219309"
+    },
+    "gerbil:annotator" : "http://gerbil.aksw.org/gerbil/dataId/annotators/GoldTextWikipedia.ttl_(uploaded)",
+    "gerbil:confidence_threshold" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:dataset" : "http://gerbil.aksw.org/gerbil/dataId/corpora/DBpedia_Spotlight",
+    "gerbil:errorCount" : "0",
+    "gerbil:macroF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.558778580592008"
+    },
+    "gerbil:macroPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.620758998811232"
+    },
+    "gerbil:macroRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5287071391938957"
+    },
+    "gerbil:microF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.6266623523701668"
+    },
+    "gerbil:microPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7894264867729182"
+    },
+    "gerbil:microRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5195428816696622"
+    },
+    "gerbil:statusCode" : {
+      "@type" : "xsd:int",
+      "@value" : "0"
+    },
+    "subExperimentOf" : "http://gerbil.aksw.org/gerbil/experimentTask_31872",
+    "gerbil:timestamp" : {
+      "@type" : "xsd:dateTime",
+      "@value" : "2017-02-06T15:01:08.32Z"
+    },
+    "rdf:type" : {
+      "@id" : "qb:Observation"
+    }
+  }, {
+    "@id" : "http://gerbil.aksw.org/gerbil/experimentTask_31893",
+    "qb:dataset" : "http://gerbil.aksw.org/gerbil/experiment?id=201702060000",
+    "gerbil:annotator" : "http://gerbil.aksw.org/gerbil/dataId/annotators/GoldTextWikipedia.ttl_(uploaded)",
+    "gerbil:confidence_threshold" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.12189514935016632"
+    },
+    "gerbil:dataset" : "http://gerbil.aksw.org/gerbil/dataId/corpora/WAT",
+    "gerbil:errorCount" : "0",
+    "gerbil:macroF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.44508187784021"
+    },
+    "gerbil:macroPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4442399434089095"
+    },
+    "gerbil:macroRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5121998430076765"
+    },
+    "gerbil:microF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5288848895964561"
+    },
+    "gerbil:microPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5464271411407975"
+    },
+    "gerbil:microRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5124339404995037"
+    },
+    "gerbil:statusCode" : {
+      "@type" : "xsd:int",
+      "@value" : "0"
+    },
+    "subExperimentOf" : "http://gerbil.aksw.org/gerbil/experimentTask_31874",
+    "gerbil:timestamp" : {
+      "@type" : "xsd:dateTime",
+      "@value" : "2017-02-06T15:04:47.978Z"
+    },
+    "rdf:type" : {
+      "@id" : "qb:Observation"
+    }
+  }, {
+    "@id" : "http://gerbil.aksw.org/gerbil/experimentTask_31894",
+    "qb:dataset" : "http://gerbil.aksw.org/gerbil/experiment?id=201702060000",
+    "gerbil:EE_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:EE_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:GSInKB_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5377886369500343"
+    },
+    "gerbil:GSInKB_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.6010182614313327"
+    },
+    "gerbil:GSInKB_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5088799644804258"
+    },
+    "gerbil:GSInKB_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.6008551195831292"
+    },
+    "gerbil:GSInKB_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.8900250692703523"
+    },
+    "gerbil:GSInKB_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4535094796288826"
+    },
+    "gerbil:InKB_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5321792712124583"
+    },
+    "gerbil:InKB_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5940553607220372"
+    },
+    "gerbil:InKB_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5045814775478259"
+    },
+    "gerbil:InKB_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.596880876009291"
+    },
+    "gerbil:InKB_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.8728084363071748"
+    },
+    "gerbil:InKB_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4535094796288826"
+    },
+    "gerbil:annotator" : "http://gerbil.aksw.org/gerbil/dataId/annotators/GoldTextWikipedia.ttl_(uploaded)",
+    "gerbil:confidence_threshold" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.003934127278625965"
+    },
+    "gerbil:dataset" : "http://gerbil.aksw.org/gerbil/dataId/corpora/WAT",
+    "gerbil:errorCount" : "0",
+    "gerbil:macroF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3986196427765879"
+    },
+    "gerbil:macroPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4805753057014061"
+    },
+    "gerbil:macroRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3634382749138728"
+    },
+    "gerbil:microF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.51166230515417"
+    },
+    "gerbil:microPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.8728084363071748"
+    },
+    "gerbil:microRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3619121710438072"
+    },
+    "gerbil:statusCode" : {
+      "@type" : "xsd:int",
+      "@value" : "0"
+    },
+    "subExperimentOf" : "http://gerbil.aksw.org/gerbil/experimentTask_31874",
+    "gerbil:timestamp" : {
+      "@type" : "xsd:dateTime",
+      "@value" : "2017-02-06T15:04:47.978Z"
+    },
+    "rdf:type" : {
+      "@id" : "qb:Observation"
+    }
+  }, {
+    "@id" : "http://gerbil.aksw.org/gerbil/experimentTask_31913",
+    "qb:dataset" : "http://gerbil.aksw.org/gerbil/experiment?id=201702060000",
+    "gerbil:annotator" : "http://gerbil.aksw.org/gerbil/dataId/annotators/GoldTextWikipedia.ttl_(uploaded)",
+    "gerbil:confidence_threshold" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:dataset" : "http://gerbil.aksw.org/gerbil/dataId/corpora/FOX",
+    "gerbil:errorCount" : "0",
+    "gerbil:macroF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4339197729027245"
+    },
+    "gerbil:macroPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.43679095850659466"
+    },
+    "gerbil:macroRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4983606653076828"
+    },
+    "gerbil:microF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5072200413366439"
+    },
+    "gerbil:microPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5251622910323434"
+    },
+    "gerbil:microRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.49046328835474956"
+    },
+    "gerbil:statusCode" : {
+      "@type" : "xsd:int",
+      "@value" : "0"
+    },
+    "subExperimentOf" : "http://gerbil.aksw.org/gerbil/experimentTask_31873",
+    "gerbil:timestamp" : {
+      "@type" : "xsd:dateTime",
+      "@value" : "2017-02-06T18:36:31.588Z"
+    },
+    "rdf:type" : {
+      "@id" : "qb:Observation"
+    }
+  }, {
+    "@id" : "http://gerbil.aksw.org/gerbil/experimentTask_31914",
+    "qb:dataset" : "http://gerbil.aksw.org/gerbil/experiment?id=201702060000",
+    "gerbil:EE_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7077277242854955"
+    },
+    "gerbil:EE_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7091309414641602"
+    },
+    "gerbil:EE_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7072362197826634"
+    },
+    "gerbil:EE_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.09270240832627374"
+    },
+    "gerbil:EE_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.5217983651226158"
+    },
+    "gerbil:EE_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.050869969451454375"
+    },
+    "gerbil:GSInKB_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.43962502556231065"
+    },
+    "gerbil:GSInKB_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4947555414268553"
+    },
+    "gerbil:GSInKB_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4155211071593221"
+    },
+    "gerbil:GSInKB_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4615091099875989"
+    },
+    "gerbil:GSInKB_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7941562705187131"
+    },
+    "gerbil:GSInKB_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.32526556407153423"
+    },
+    "gerbil:InKB_Macro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.434008911258"
+    },
+    "gerbil:InKB_Macro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4896191847070715"
+    },
+    "gerbil:InKB_Macro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4103629228402026"
+    },
+    "gerbil:InKB_Micro_F1_score" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4621704241497899"
+    },
+    "gerbil:InKB_Micro_Precision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7980864401187727"
+    },
+    "gerbil:InKB_Micro_Recall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.32526556407153423"
+    },
+    "gerbil:annotator" : "http://gerbil.aksw.org/gerbil/dataId/annotators/GoldTextWikipedia.ttl_(uploaded)",
+    "gerbil:confidence_threshold" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.0"
+    },
+    "gerbil:dataset" : "http://gerbil.aksw.org/gerbil/dataId/corpora/FOX",
+    "gerbil:errorCount" : "0",
+    "gerbil:macroF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.3178820815530753"
+    },
+    "gerbil:macroPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.38676549456863296"
+    },
+    "gerbil:macroRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.28944837835254394"
+    },
+    "gerbil:microF1" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.4012765533060736"
+    },
+    "gerbil:microPrecision" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.7823145123658423"
+    },
+    "gerbil:microRecall" : {
+      "@type" : "xsd:decimal",
+      "@value" : "0.2698446763419803"
+    },
+    "gerbil:statusCode" : {
+      "@type" : "xsd:int",
+      "@value" : "0"
+    },
+    "subExperimentOf" : "http://gerbil.aksw.org/gerbil/experimentTask_31873",
+    "gerbil:timestamp" : {
+      "@type" : "xsd:dateTime",
+      "@value" : "2017-02-06T18:36:31.588Z"
+    },
+    "rdf:type" : {
+      "@id" : "qb:Observation"
+    }
+  } ],
+  "@context" : {
+    "InKB_Macro_Precision" : {
+      "@id" : "http://w3id.org/gerbil/vocab#InKB_Macro_Precision",
+      "@type" : "@id"
+    },
+    "GSInKB_Macro_Precision" : {
+      "@id" : "http://w3id.org/gerbil/vocab#GSInKB_Macro_Precision",
+      "@type" : "@id"
+    },
+    "confidence_threshold" : {
+      "@id" : "http://w3id.org/gerbil/vocab#confidence_threshold",
+      "@type" : "@id"
+    },
+    "annotator" : {
+      "@id" : "http://w3id.org/gerbil/vocab#annotator",
+      "@type" : "@id"
+    },
+    "InKB_Micro_Precision" : {
+      "@id" : "http://w3id.org/gerbil/vocab#InKB_Micro_Precision",
+      "@type" : "@id"
+    },
+    "dataset" : {
+      "@id" : "http://purl.org/linked-data/cube#dataset",
+      "@type" : "@id"
+    },
+    "EE_Macro_F1_score" : {
+      "@id" : "http://w3id.org/gerbil/vocab#EE_Macro_F1_score",
+      "@type" : "@id"
+    },
+    "GSInKB_Micro_Precision" : {
+      "@id" : "http://w3id.org/gerbil/vocab#GSInKB_Micro_Precision",
+      "@type" : "@id"
+    },
+    "GSInKB_Micro_F1_score" : {
+      "@id" : "http://w3id.org/gerbil/vocab#GSInKB_Micro_F1_score",
+      "@type" : "@id"
+    },
+    "GSInKB_Micro_Recall" : {
+      "@id" : "http://w3id.org/gerbil/vocab#GSInKB_Micro_Recall",
+      "@type" : "@id"
+    },
+    "EE_Micro_Precision" : {
+      "@id" : "http://w3id.org/gerbil/vocab#EE_Micro_Precision",
+      "@type" : "@id"
+    },
+    "macroPrecision" : {
+      "@id" : "http://w3id.org/gerbil/vocab#macroPrecision",
+      "@type" : "@id"
+    },
+    "EE_Macro_Recall" : {
+      "@id" : "http://w3id.org/gerbil/vocab#EE_Macro_Recall",
+      "@type" : "@id"
+    },
+    "GSInKB_Macro_Recall" : {
+      "@id" : "http://w3id.org/gerbil/vocab#GSInKB_Macro_Recall",
+      "@type" : "@id"
+    },
+    "EE_Micro_F1_score" : {
+      "@id" : "http://w3id.org/gerbil/vocab#EE_Micro_F1_score",
+      "@type" : "@id"
+    },
+    "macroRecall" : {
+      "@id" : "http://w3id.org/gerbil/vocab#macroRecall",
+      "@type" : "@id"
+    },
+    "timestamp" : {
+      "@id" : "http://w3id.org/gerbil/vocab#timestamp",
+      "@type" : "@id"
+    },
+    "microRecall" : {
+      "@id" : "http://w3id.org/gerbil/vocab#microRecall",
+      "@type" : "@id"
+    },
+    "errorCount" : {
+      "@id" : "http://w3id.org/gerbil/vocab#errorCount",
+      "@type" : "@id"
+    },
+    "InKB_Micro_F1_score" : {
+      "@id" : "http://w3id.org/gerbil/vocab#InKB_Micro_F1_score",
+      "@type" : "@id"
+    },
+    "EE_Micro_Recall" : {
+      "@id" : "http://w3id.org/gerbil/vocab#EE_Micro_Recall",
+      "@type" : "@id"
+    },
+    "InKB_Macro_F1_score" : {
+      "@id" : "http://w3id.org/gerbil/vocab#InKB_Macro_F1_score",
+      "@type" : "@id"
+    },
+    "EE_Macro_Precision" : {
+      "@id" : "http://w3id.org/gerbil/vocab#EE_Macro_Precision",
+      "@type" : "@id"
+    },
+    "macroF1" : {
+      "@id" : "http://w3id.org/gerbil/vocab#macroF1",
+      "@type" : "@id"
+    },
+    "subExperimentOf" : {
+      "@id" : "http://w3id.org/gerbil/vocab#subExperimentOf",
+      "@type" : "@id"
+    },
+    "InKB_Micro_Recall" : {
+      "@id" : "http://w3id.org/gerbil/vocab#InKB_Micro_Recall",
+      "@type" : "@id"
+    },
+    "microPrecision" : {
+      "@id" : "http://w3id.org/gerbil/vocab#microPrecision",
+      "@type" : "@id"
+    },
+    "InKB_Macro_Recall" : {
+      "@id" : "http://w3id.org/gerbil/vocab#InKB_Macro_Recall",
+      "@type" : "@id"
+    },
+    "statusCode" : {
+      "@id" : "http://w3id.org/gerbil/vocab#statusCode",
+      "@type" : "@id"
+    },
+    "GSInKB_Macro_F1_score" : {
+      "@id" : "http://w3id.org/gerbil/vocab#GSInKB_Macro_F1_score",
+      "@type" : "@id"
+    },
+    "microF1" : {
+      "@id" : "http://w3id.org/gerbil/vocab#microF1",
+      "@type" : "@id"
+    },
+    "doc" : {
+      "@id" : "http://w3id.org/gerbil/vocab#avg_millis/doc",
+      "@type" : "@id"
+    },
+    "matching" : {
+      "@id" : "http://w3id.org/gerbil/vocab#matching",
+      "@type" : "@id"
+    },
+    "experimentType" : {
+      "@id" : "http://w3id.org/gerbil/vocab#experimentType",
+      "@type" : "@id"
+    },
+    "structure" : {
+      "@id" : "http://purl.org/linked-data/cube#structure",
+      "@type" : "@id"
+    },
+    "label" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#label",
+      "@type" : "@id"
+    },
+    "qb" : "http://purl.org/linked-data/cube#",
+    "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "gerbil" : "http://w3id.org/gerbil/vocab#",
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "rdfs" : "http://www.w3.org/2000/01/rdf-schema#"
+  }
+}
