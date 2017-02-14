@@ -145,10 +145,10 @@ public class Main
 		 */
 		
 		//If you have a mvp.class object of your Goldtext you should use this.
-//		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6); // mvp.class object
-//		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);	
-//		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);
-//		System.out.println(ratings);
+		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6); // mvp.class object
+		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);	
+		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);
+		System.out.println(ratings);
 		
 		
 //		//If you need to process the Goldtext you should use this.
@@ -158,10 +158,10 @@ public class Main
 //		System.out.println(ratings);
 		
 		//If you have mvps for all texts and only want to rate them you should use this.
-		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6); // mvp.class object
-		for(String path : propetyFilesPaths) mvps.add(PropReader.fileReader(pr.getResourceFileAbsolutePath(path),6));
-		ratings = Pipeline.calculater(goldinf,mvps, rating_out_path);
-		System.out.println(ratings);
+//		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6); // mvp.class object
+//		for(String path : propetyFilesPaths) mvps.add(PropReader.fileReader(pr.getResourceFileAbsolutePath(path),6));
+//		ratings = Pipeline.calculater(goldinf,mvps, rating_out_path);
+//		System.out.println(ratings);
 	}
 
 }
