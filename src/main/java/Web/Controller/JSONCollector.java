@@ -61,7 +61,7 @@ public class JSONCollector
 	 */
 	public static void main(String[] args) throws JSONException, IOException 
 	{
-		JSONObject js = new JSONObject(TextReader.fileReader(new TextReader().getResourceFileAbsolutePath("GoldJSON.txt")));
+		JSONObject js = new JSONObject(TextReader.fileReader(new TextReader().getResourceFileAbsolutePath("JSONGold.txt")));
 		HashMap<String, Double> collection = JSONCollector.collectMetrics(js);
 		
 		
