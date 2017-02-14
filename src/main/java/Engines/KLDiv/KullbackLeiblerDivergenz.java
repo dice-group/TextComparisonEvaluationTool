@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import Engines.Distances.CosDistance;
 import Engines.IO.PropReader;
 import Engines.SimpleObjects.MetricVectorProcessing;
 
@@ -47,14 +46,14 @@ public class KullbackLeiblerDivergenz
 					return Double.NaN;
 				}
 				
-				if(Math.abs(s2.get(key)) < CosDistance.epsilon)
+				if(Math.abs(s2.get(key)) < epsilon)
 				{
 					System.err.println("The 2nd key value is smaller then desired error epsilon ("+epsilon+")! Key: "+key);
 					System.out.println("Its needed to preserve Q(x) exist if P(x) > 0 !");
 					return Double.NaN;
 				}
 				
-				if(Math.abs(s1.get(key)) < CosDistance.epsilon) {continue;}
+				if(Math.abs(s1.get(key)) < epsilon) {continue;}
 		        kld += (s1.get(key) * Math.log((s1.get(key)/s2.get(key))));
 		        
 //		        System.out.println("[Key: "+key+" | S1: "+s1.get(key)+" | S2: "+s2.get(key)+" | CALC: "+(s1.get(key) * Math.log((s1.get(key)/s2.get(key))))+" | KLD: "+kld);
@@ -150,26 +149,22 @@ public class KullbackLeiblerDivergenz
 		PropReader pr = new PropReader();
 
 		String gold_mvp_path		= "WikipediaDumpGold_mvp.content.prop";
-		String Frag_mvp_path		= "04.02.2017_mvp_BVFragment.content.prop";
-		String eps15_mvp_path		= "04.02.2017_mvp_epoch15.content.prop";
-		String eps30_mvp_path		= "04.02.2017_mvp_epoch30.content.prop";
-		String eps70_mvp_path		= "04.02.2017_mvp_epoch70Final.content.prop";
+		String eps25_mvp_path		= "14.02.2017_mvp_GRU25_sample.content.prop";
+		String eps50_mvp_path		= "14.02.2017_mvp_GRU50_sample.content.prop";
+		String eps75_mvp_path		= "14.02.2017_mvp_GRU75_sample.content.prop";
 		
 		MetricVectorProcessing mvp_gold  = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6);
-		MetricVectorProcessing mvp_Frag  = PropReader.fileReader(pr.getResourceFileAbsolutePath(Frag_mvp_path),6);
-		MetricVectorProcessing mvp_15Eps = PropReader.fileReader(pr.getResourceFileAbsolutePath(eps15_mvp_path),6);
-		MetricVectorProcessing mvp_30Eps = PropReader.fileReader(pr.getResourceFileAbsolutePath(eps30_mvp_path),6);
-		MetricVectorProcessing mvp_70Eps = PropReader.fileReader(pr.getResourceFileAbsolutePath(eps70_mvp_path),6);
+		MetricVectorProcessing mvp_15Eps = PropReader.fileReader(pr.getResourceFileAbsolutePath(eps25_mvp_path),6);
+		MetricVectorProcessing mvp_30Eps = PropReader.fileReader(pr.getResourceFileAbsolutePath(eps50_mvp_path),6);
+		MetricVectorProcessing mvp_70Eps = PropReader.fileReader(pr.getResourceFileAbsolutePath(eps75_mvp_path),6);
 
-		ArrayList<Double> v1 = MetricVectorProcessing.calcDistanceVector(mvp_gold, mvp_Frag);
 		ArrayList<Double> v2 = MetricVectorProcessing.calcDistanceVector(mvp_gold, mvp_15Eps);
 		ArrayList<Double> v3 = MetricVectorProcessing.calcDistanceVector(mvp_gold, mvp_30Eps);
 		ArrayList<Double> v4 = MetricVectorProcessing.calcDistanceVector(mvp_gold, mvp_70Eps);
 		
-		System.out.println("Dist-V: "+v1+" \t\t| \tRating: "+MetricVectorProcessing.rate(v1));
 		System.out.println("Dist-V: "+v2+" \t| \tRating: "+MetricVectorProcessing.rate(v2));
 		System.out.println("Dist-V: "+v3+" \t| \tRating: "+MetricVectorProcessing.rate(v3));
-		System.out.println("Dist-V: "+v4+" \t\t| \tRating: "+MetricVectorProcessing.rate(v4));
+		System.out.println("Dist-V: "+v4+" \t| \tRating: "+MetricVectorProcessing.rate(v4));
 		
 		
 		
