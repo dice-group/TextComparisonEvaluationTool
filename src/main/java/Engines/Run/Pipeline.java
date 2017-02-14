@@ -233,6 +233,54 @@ public class Pipeline
 				return text_informations;
 	}
 	
+	/**
+	 * This method calculates the arithmetical mean (named rating) of all texts towards the the gold text.
+	 * @param gold_mvp
+	 * @param no_gold_exp_mvps
+	 * @param rating_path
+	 * @return list of all ratings (excepting gold to gold because its always 0)
+	 */
+	public static LinkedList<Double> calculater(MetricVectorProcessing gold_mvp, LinkedList<MetricVectorProcessing> no_gold_exp_mvps, String rating_path)
+	{
+		LinkedList<Double> ratings = new LinkedList<Double>();
+		MetricVectorProcessing current_mvp = null;
+		ArrayList<Double> current_dist_vec;
+		LinkedList<ResultObject> ros = new LinkedList<ResultObject>();
+		LinkedList<MetricVectorProcessing> mvps = new LinkedList<MetricVectorProcessing>();
+		
+		if(gold_mvp == null ){
+			System.err.println("No Gold Mvp set!");
+			System.exit(0);
+		}
+				
+		System.out.println("\n\n############## CALCULATION STARTED ###############\n");
+				
+		for(int cal = 0; cal < no_gold_exp_mvps.size(); cal++)
+		{
+			current_mvp = no_gold_exp_mvps.get(cal);
+			
+			//calculate the differences between gold's and the vector's metrics
+			current_dist_vec = MetricVectorProcessing.calcDistanceVector(gold_mvp, current_mvp);
+			mvps.add(current_mvp);
+			
+			ratings.add(SimpleRounding.round(MetricVectorProcessing.rate(current_dist_vec)));
+			ros.add(new ResultObject(ratings.getLast(), current_dist_vec, rating_path+"_"+(cal+1)+".txt", current_mvp.getName()));
+			
+			System.out.println("File: ["+current_mvp.getName()+"] | Rating: ["+ratings.getLast()+"]");
+		}
+		
+		System.out.println("\n\n############## STORING THE RESULTS ###############\n");
+		
+		
+		for(int mvs = 0; mvs < mvps.size(); mvs++)
+		{
+			if(mvs == 0) TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_mvp")+".content.prop");
+			if(mvs > 0) TextWriter.writeMVP(mvps.get(mvs), rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", "")+".content.prop");
+		}
+		TextWriter.writeRating(ros);
+		
+		return ratings;
+	}
 	
 	/**
 	 * This method calculates the arithmetical mean (named rating) of all texts towards the the gold text.

@@ -158,7 +158,7 @@ public class DevelishParenthesis
 		TextReader tr = new TextReader();
 		String name = "BVFragment.txt";
 //		String input = TextReader.fileReader(tr.getResourceFileAbsolutePath(name));
-		String input =  "Gora]] Cover stations prestigious Around [[rock . ";
+		String input =  "Gora]] Co3ver [[stations&]] [[the prestigious]] Around [[rock . ";
 		StanfordTokenizer st = new StanfordTokenizer();
 		DevelishParenthesis dp = new DevelishParenthesis();		
 		

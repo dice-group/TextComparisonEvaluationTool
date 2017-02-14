@@ -123,6 +123,7 @@ public class Main
 		 * TODO 1. Exclude GERBIL HTTP EXP ULOAD AND START FROM GATHERER!
 		 * TODO 2. Parallelize the gatherer after excluding the GERBIL part!
 		 * TODO 3. Implement GERBIL EXP upload and start then just keep going other stuff. (maybe)
+		 * TODO 4. Allow to load non Goldtext property files for the rating also!
 		 * The reason for the 3. "To do" depends on the fact that you can't progress huge files with alot of unknown references inside the *.ttl File.
 		 * So you need to avoid the waiting time for there calculation and call the EXP page later to gather the desired informations.
 		 * If we do that we will get a huge performance increase.
@@ -134,7 +135,7 @@ public class Main
 		
 		//If you have a mvp.class object of your Goldtext  you should use this.
 		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6); // mvp.class object
-		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);			
+		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);	
 		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);
 		System.out.println(ratings);
 		
