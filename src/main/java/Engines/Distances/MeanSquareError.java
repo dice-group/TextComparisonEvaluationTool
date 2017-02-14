@@ -22,7 +22,14 @@ public class MeanSquareError
 	 */
 	public static double rootedMeanSquareError(List<Double> a, List<Double> b)
 	{
-		return Math.sqrt(meanSquareError(a,b));
+		if(a.size() > 0 && a.size() == b.size())
+		{
+			return Math.sqrt(meanSquareError(a,b));
+		}else{
+			System.out.println("List done haven same size or some are empty for RMSE calculation!");
+			return Double.NaN;
+		}
+		
 	}
 	
 	/**
@@ -33,7 +40,7 @@ public class MeanSquareError
 	 */
 	public static double meanSquareError(List<Double> a, List<Double> b)
 	{
-		if(a.size() == b.size())
+		if(a.size() > 0 && a.size() == b.size())
 		{
 			double sum = 0.00000000;
 			
@@ -41,7 +48,7 @@ public class MeanSquareError
 			
 			return sum/a.size();
 		}else{
-			System.out.println("List done haven same size for MSE calculation!");
+			System.out.println("List done haven same size or some are empty for MSE calculation!");
 			return Double.NaN;
 		}
 	}
@@ -54,7 +61,7 @@ public class MeanSquareError
 	 */
 	public static double meanAbsoluteError(List<Double> a, List<Double> b)
 	{
-		if(a.size() == b.size())
+		if(a.size() > 0 && a.size() == b.size())
 		{
 			double sum = 0.00000000;
 			
@@ -62,7 +69,7 @@ public class MeanSquareError
 			
 			return sum/a.size();
 		}else{
-			System.out.println("List done haven same size for MSE calculation!");
+			System.out.println("List done haven same size or some are empty for MAE calculation!");
 			return Double.NaN;
 		}
 	}
