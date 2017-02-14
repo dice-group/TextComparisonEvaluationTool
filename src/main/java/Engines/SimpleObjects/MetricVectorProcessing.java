@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import Engines.Distances.EuclideanDistance;
 import Engines.Distances.QuadError;
 import Engines.KLDiv.KullbackLeiblerDivergenz;
 
@@ -111,7 +113,7 @@ public class MetricVectorProcessing
 		for (String key :  keys) 
 		{
 			gm = useOrRepalceDouble(v1.gerbil_metrics, v2.gerbil_metrics, key);
-			distance_vector.add(SimpleRounding.round(QuadError.calcQE(gm[0], gm[1])));
+			distance_vector.add(SimpleRounding.round(EuclideanDistance.euclideanDistance(gm[0], gm[1])));
 		}
 		
 		return distance_vector;
