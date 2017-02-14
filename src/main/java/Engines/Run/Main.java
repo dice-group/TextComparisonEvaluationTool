@@ -120,6 +120,15 @@ public class Main
 		System.out.println("\n#################################################");
 		
 		/*
+		 * TODO 1. Exclude GERBIL HTTP EXP ULOAD AND START FROM GATHERER!
+		 * TODO 2. Parallelize the gatherer after excluding the GERBIL part!
+		 * TODO 3. Implement GERBIL EXP upload and start then just keep going other stuff. (maybe)
+		 * The reason for the 3. "To do" depends on the fact that you can't progress huge files with alot of unknown references inside the *.ttl File.
+		 * So you need to avoid the waiting time for there calculation and call the EXP page later to gather the desired informations.
+		 * If we do that we will get a huge performance increase.
+		 */
+		
+		/*
 		 * HOW TO USE
 		 */
 		

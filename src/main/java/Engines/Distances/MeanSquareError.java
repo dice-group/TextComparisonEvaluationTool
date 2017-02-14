@@ -47,7 +47,6 @@ public class MeanSquareError
 			double sum = 0.00000000;
 			
 			for(int k = 0; k < a.size(); k++) sum += Math.pow((a.get(k) - b.get(k)), 2);
-			
 			return sum/a.size();
 		}else{
 			System.out.println("List done haven same size or some are empty for MSE calculation!");
@@ -85,12 +84,20 @@ public class MeanSquareError
 	 */
 	public static void main(String[] args) 
 	{
-		List<Double> a = Arrays.asList(2.68888); 
-		List<Double> b = Arrays.asList(2.7);
+		List<Double> a = Arrays.asList(7.0, 10.0, 12.0, 10.0, 10.0, 8.0, 7.0, 8.0, 11.0, 13.0, 10.0, 8.0); 
+		List<Double> b = Arrays.asList(6.0, 10.0, 14.0, 16.0, 7.0, 5.0, 5.0, 13.0, 12.0, 13.0, 8.0, 5.0);
+		
+		List<Double> i = Arrays.asList(12.0); 
+		List<Double> j = Arrays.asList(14.0);
+		
 		System.out.println("MSE: "+SimpleRounding.round(MeanSquareError.meanSquareError(a,b)));
-		System.out.println("RMSE: "+SimpleRounding.round(MeanSquareError.meanSquareError(a,b)));
+		System.out.println("RMSE: "+SimpleRounding.round(MeanSquareError.rootedMeanSquareError(a,b)));
 		System.out.println("MAE: "+SimpleRounding.round(MeanSquareError.meanAbsoluteError(a,b)));
-
+		
+		System.out.println("MSE: "+SimpleRounding.round(MeanSquareError.meanSquareError(i,j)));
+		System.out.println("RMSE: "+SimpleRounding.round(MeanSquareError.rootedMeanSquareError(i,j)));
+		System.out.println("MAE: "+SimpleRounding.round(MeanSquareError.meanAbsoluteError(i,j)));
+		
 	}
 
 }
