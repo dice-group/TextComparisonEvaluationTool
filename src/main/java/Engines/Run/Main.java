@@ -52,7 +52,7 @@ public class Main
 		String gold_name 			= "MichaGoldPreFormated.txt";						//Gold standard text
 		String gold_path 			= tr.getResourceFileAbsolutePath(gold_name);
 		String rating_out_path 		= gold_path.replace(gold_name, Timestamp.getLocalDateAsString(Timestamp.getCurrentTime())+"_rating");
-		String gold_mvp_path		= "WikipediaDumpGold_mvp.content.prop";
+		String gold_mvp_path		= "MichaGoldPreFormated_mvp.content.prop";
 		
 		PropReader pr = new PropReader();
 		
@@ -70,23 +70,23 @@ public class Main
 		//TODO FURTHER PROGRAMMING: gold text properties are stored inside a content.prop text file maybe implement as XML structure => better to use
 		//TODO FURTHER PROGRAMMING: maybe a semantic check up 
 		
-		additional_files 			= new String[1];
-		additional_files[0] 		= gold_name;		//use if u need to process your goldfile
-//		additional_files[0] 		= "GRU25_sample";
-//		additional_files[1] 		= "GRU50_sample";
-//		additional_files[2] 		= "GRU75_sample";
-//		additional_files[3] 		= "LSTM25_sample";
-//		additional_files[4] 		= "LSTM50_sample";
-//		additional_files[5] 		= "LSTM75_sample";
-//		additional_files[6] 		= "RNN25_sample";
-//		additional_files[7] 		= "RNN50_sample";
-//		additional_files[8] 		= "RNN75_sample";
-//		additional_files[9] 		= "StackedOldRNN_25epoch";
-//		additional_files[10] 		= "StackedOldRNN_50epoch";
-//		additional_files[11] 		= "StackedOldRNN_75epoch";
-//		additional_files[12] 		= "StakedOldLSTM_25";
-//		additional_files[13] 		= "StakedOldLSTM_50";
-//		additional_files[14] 		= "StakedOldLSTM_75";
+		additional_files 			= new String[15];
+//		additional_files[0] 		= gold_name;		//use if u need to process your goldfile
+		additional_files[0] 		= "GRU25_sample";
+		additional_files[1] 		= "GRU50_sample";
+		additional_files[2] 		= "GRU75_sample";
+		additional_files[3] 		= "LSTM25_sample";
+		additional_files[4] 		= "LSTM50_sample";
+		additional_files[5] 		= "LSTM75_sample";
+		additional_files[6] 		= "RNN25_sample";
+		additional_files[7] 		= "RNN50_sample";
+		additional_files[8] 		= "RNN75_sample";
+		additional_files[9] 		= "StackedOldRNN_25epoch";
+		additional_files[10] 		= "StackedOldRNN_50epoch";
+		additional_files[11] 		= "StackedOldRNN_75epoch";
+		additional_files[12] 		= "StakedOldLSTM_25";
+		additional_files[13] 		= "StakedOldLSTM_50";
+		additional_files[14] 		= "StakedOldLSTM_75";
 		
 		propetyFilesPaths.add("14.02.2017_mvp_GRU25_sample.content.prop");
 		propetyFilesPaths.add("14.02.2017_mvp_GRU50_sample.content.prop");
@@ -103,10 +103,10 @@ public class Main
 		
 		//The 4 default annotators
 		default_annotators = new String[3];
-//		default_annotators[0] 		= Annotators.AIDA.name();		//Funktioniert gerade nicht gut
-		default_annotators[0] 		= Annotators.WAT.name();
-		default_annotators[1] 		= Annotators.FOX.name();
-		default_annotators[2] 		= "DBpedia Spotlight";
+		default_annotators[0] 		= Annotators.AIDA.name();		//Funktioniert gerade nicht gut
+		default_annotators[1] 		= Annotators.WAT.name();
+		default_annotators[2] 		= Annotators.FOX.name();
+		default_annotators[3] 		= "DBpedia Spotlight";
 		
 		annotators = new LinkedList<String>(Arrays.asList(default_annotators));
 		
@@ -146,17 +146,17 @@ public class Main
 		 */
 		
 		//If you have a mvp.class object of your Goldtext you should use this.
-//		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6); // mvp.class object
-//		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);	
-//		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);
-//		System.out.println(ratings);
+		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6); // mvp.class object
+		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);	
+		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);
+		System.out.println(ratings);
 		
 		
 		//If you need to process the Goldtext you should use this.
-		experiments_infos = Pipeline.gather(null, filenames, annotators, exp_type, matching_type);				
-		for(int i = 1; i < experiments_infos.size(); i++) no_gold_exp_results.add(experiments_infos.get(i));	//list of all NOT Goldtext information objects
-		ratings = Pipeline.calculater(null, experiments_infos.getFirst(), no_gold_exp_results, rating_out_path);
-		System.out.println(ratings);
+//		experiments_infos = Pipeline.gather(null, filenames, annotators, exp_type, matching_type);				
+//		for(int i = 1; i < experiments_infos.size(); i++) no_gold_exp_results.add(experiments_infos.get(i));	//list of all NOT Goldtext information objects
+//		ratings = Pipeline.calculater(null, experiments_infos.getFirst(), no_gold_exp_results, rating_out_path);
+//		System.out.println(ratings);
 		
 		//If you have mvps for all texts and only want to rate them you should use this.
 //		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6); // mvp.class object
