@@ -102,7 +102,7 @@ public class Main
 		filenames = new LinkedList<String>(Arrays.asList(additional_files));
 		
 		//The 4 default annotators
-		default_annotators = new String[3];
+		default_annotators = new String[4];
 		default_annotators[0] 		= Annotators.AIDA.name();		//Funktioniert gerade nicht gut
 		default_annotators[1] 		= Annotators.WAT.name();
 		default_annotators[2] 		= Annotators.FOX.name();
