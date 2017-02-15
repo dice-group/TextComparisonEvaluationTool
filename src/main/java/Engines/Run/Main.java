@@ -49,7 +49,7 @@ public class Main
 		
 		String exp_type 			= ExpType.A2KB.name();
 		String matching_type 		= Matching.WEAK_ANNOTATION_MATCH.name();
-		String gold_name 			= "GoldTextWikipedia.txt";						//Gold standard text
+		String gold_name 			= "MichaGoldPreFormated.txt";						//Gold standard text
 		String gold_path 			= tr.getResourceFileAbsolutePath(gold_name);
 		String rating_out_path 		= gold_path.replace(gold_name, Timestamp.getLocalDateAsString(Timestamp.getCurrentTime())+"_rating");
 		String gold_mvp_path		= "WikipediaDumpGold_mvp.content.prop";
