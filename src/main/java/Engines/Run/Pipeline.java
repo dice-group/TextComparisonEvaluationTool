@@ -209,8 +209,8 @@ public class Pipeline
 
 					System.out.println("CALCULATION GERBIL METRICS STARTED!");
 					/* M_GERBIL [STORED] */
-//					jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
-//					text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
+					jsobj = HttpController.run(new LinkedList<String>(Arrays.asList(file.getName())), exoGERBIL);
+					text_info.setMetrics_GERBIL(JSONCollector.collectMetrics(jsobj));	//Storing
 					
 					//*************************************************************************************************************************************************
 					//STORE ALL RESULTS
@@ -271,14 +271,9 @@ public class Pipeline
 		
 		System.out.println("\n\n############## STORING THE RESULTS ###############\n");
 		
-		
-		for(int mvs = 0; mvs < mvps.size(); mvs++)
-		{
-			if(mvs == 0) TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_mvp")+".content.prop");
-			if(mvs > 0) TextWriter.writeMVP(mvps.get(mvs), rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", "")+".content.prop");
-		}
+		TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_mvp")+".content.prop");
+		for(int mvs = 0; mvs < mvps.size(); mvs++) TextWriter.writeMVP(mvps.get(mvs), rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", "")+".content.prop");
 		TextWriter.writeRating(ros);
-		
 		return ratings;
 	}
 	
@@ -298,7 +293,6 @@ public class Pipeline
 		LinkedList<MetricVectorProcessing> mvps = new LinkedList<MetricVectorProcessing>();
 		
 		if(gold_mvp == null && gold_exp_result != null ) gold_mvp = new MetricVectorProcessing(gold_exp_result, 6);
-		mvps.add(gold_mvp);
 				
 		System.out.println("\n\n############## CALCULATION STARTED ###############\n");
 				
@@ -318,14 +312,9 @@ public class Pipeline
 		
 		System.out.println("\n\n############## STORING THE RESULTS ###############\n");
 		
-		
-		for(int mvs = 0; mvs < mvps.size(); mvs++)
-		{
-			if(mvs == 0) TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_mvp")+".content.prop");
-			if(mvs > 0) TextWriter.writeMVP(mvps.get(mvs), rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", "")+".content.prop");
-		}
+		TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_mvp")+".content.prop");
+		for(int mvs = 0; mvs < mvps.size(); mvs++) TextWriter.writeMVP(mvps.get(mvs), rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", "")+".content.prop");
 		TextWriter.writeRating(ros);
-		
 		return ratings;
 	}
 }
