@@ -81,12 +81,6 @@ public class Main
 		additional_files[6] 		= "RNN25_sample";
 		additional_files[7] 		= "RNN50_sample";
 		additional_files[8] 		= "RNN75_sample";
-//		additional_files[9] 		= "StackedOldRNN_25epoch";
-//		additional_files[10] 		= "StackedOldRNN_50epoch";
-//		additional_files[11] 		= "StackedOldRNN_75epoch";
-//		additional_files[12] 		= "StakedOldLSTM_25";
-//		additional_files[13] 		= "StakedOldLSTM_50";
-//		additional_files[14] 		= "StakedOldLSTM_75";
 		
 		propetyFilesPaths.add("14.02.2017_mvp_GRU25_sample.content.prop");
 		propetyFilesPaths.add("14.02.2017_mvp_GRU50_sample.content.prop");
