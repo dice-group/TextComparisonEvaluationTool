@@ -106,11 +106,8 @@ public class MetricVectorProcessing
 //		System.out.println("\nM_6");
 		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.annotated_entity_dist, v2.annotated_entity_dist)));
 		
-		//Get maximum of the non GERBIL metrics
+		//Get maximum of the non GERBIL metrics and Normalize them with the maximum
 		maximum = getMaxValue(distance_vector);
-		System.out.println("Maximum: "+maximum);
-		
-		//Normalize the non GERBIL metrics using the maximum
 		for(int vv = 0; vv < distance_vector.size(); vv++) distance_vector.set(vv, (distance_vector.get(vv)/maximum));
 		
 		// Gerbil metrics (4 metrics currently)
