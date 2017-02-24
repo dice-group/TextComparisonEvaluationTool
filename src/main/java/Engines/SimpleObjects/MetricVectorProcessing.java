@@ -88,9 +88,11 @@ public class MetricVectorProcessing
 	{
 		ArrayList<Double> distance_vector = new ArrayList<Double>();
 		double[] gm;
+		double maximum;
 		
 		// Gerbil metrics (6 metrics currently) ATTENTION add more right here if you need them
 		
+
 //		System.out.println("\nM_1");
 		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.symbol_error_dist, v2.symbol_error_dist)));
 //		System.out.println("\nM_2");
@@ -103,6 +105,14 @@ public class MetricVectorProcessing
 		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.pos_tags_dist, v2.pos_tags_dist)));
 //		System.out.println("\nM_6");
 		distance_vector.add(SimpleRounding.round(KullbackLeiblerDivergenz.EasyKLDivergenceTD(v1.annotated_entity_dist, v2.annotated_entity_dist)));
+		
+		//Get maximum of the non GERBIL metrics
+		maximum = getMaxValue(distance_vector);
+		System.out.println("Maximum: "+maximum);
+		
+		//Normalize the non GERBIL metrics using the maximum
+		System.out.println("Size non G metrics: "+distance_vector.size());
+		for(int vv = 0; vv < distance_vector.size(); vv++) distance_vector.set(vv, (distance_vector.get(vv)/maximum));
 		
 		// Gerbil metrics (4 metrics currently)
 		ArrayList<String> keys = new ArrayList<String>(v1.gerbil_metrics.keySet());
@@ -213,6 +223,31 @@ public class MetricVectorProcessing
 		
 		return (rating/dist_vec.size());
 	}
+	
+	/**
+	 * Get the maximum value of a list of doubles
+	 * @param ds
+	 * @return maximum
+	 */
+	public static double getMaxValue(ArrayList<Double> ds)
+	{
+		double max=Double.MIN_VALUE;
+		for (double d : ds) if (d > max) max=d;
+		return max;
+	}
+	
+	/**
+	 * Get the minimum value of a list of doubles
+	 * @param ds
+	 * @return minimum
+	 */
+	public static double getMinValue(ArrayList<Double> ds)
+	{
+		double min=Double.MAX_VALUE;
+		for (double d : ds) if (d < min ) min=d;
+		return min;
+	}
+	
 	
 	//##################################################################################
 	//############################## GETTERS AND SETTERS ###############################

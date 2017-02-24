@@ -82,15 +82,15 @@ public class Main
 		additional_files[7] 		= "RNN50_sample";
 		additional_files[8] 		= "RNN75_sample";
 		
-		propetyFilesPaths.add("14.02.2017_mvp_GRU25_sample.content.prop");
-		propetyFilesPaths.add("14.02.2017_mvp_GRU50_sample.content.prop");
-		propetyFilesPaths.add("14.02.2017_mvp_GRU75_sample.content.prop");
-		propetyFilesPaths.add("14.02.2017_mvp_LSTM25_sample.content.prop");
-		propetyFilesPaths.add("14.02.2017_mvp_LSTM50_sample.content.prop");
-		propetyFilesPaths.add("14.02.2017_mvp_LSTM75_sample.content.prop");
-		propetyFilesPaths.add("14.02.2017_mvp_RNN25_sample.content.prop");
-		propetyFilesPaths.add("14.02.2017_mvp_RNN50_sample.content.prop");
-		propetyFilesPaths.add("14.02.2017_mvp_RNN75_sample.content.prop");
+		propetyFilesPaths.add("23.02.2017_mvp_GRU25_sample.content.prop");
+		propetyFilesPaths.add("23.02.2017_mvp_GRU50_sample.content.prop");
+		propetyFilesPaths.add("23.02.2017_mvp_GRU75_sample.content.prop");
+		propetyFilesPaths.add("23.02.2017_mvp_LSTM25_sample.content.prop");
+		propetyFilesPaths.add("23.02.2017_mvp_LSTM50_sample.content.prop");
+		propetyFilesPaths.add("23.02.2017_mvp_LSTM75_sample.content.prop");
+		propetyFilesPaths.add("23.02.2017_mvp_RNN25_sample.content.prop");
+		propetyFilesPaths.add("23.02.2017_mvp_RNN50_sample.content.prop");
+		propetyFilesPaths.add("23.02.2017_mvp_RNN75_sample.content.prop");
 		
 		//ATTENTION: always the GOLD TEXT need to be first element of the list! 
 		filenames = new LinkedList<String>(Arrays.asList(additional_files));
@@ -140,10 +140,10 @@ public class Main
 		 */
 		
 		//If you have a mvp.class object of your Goldtext you should use this.
-		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6); // mvp.class object
-		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);	
-		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);
-		System.out.println(ratings);
+//		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6); // mvp.class object
+//		experiments_infos = Pipeline.gather(goldinf, filenames, annotators, exp_type, matching_type);	
+//		ratings = Pipeline.calculater(goldinf, null, experiments_infos, rating_out_path);
+//		System.out.println(ratings);
 		
 		
 		//If you need to process the Goldtext you should use this.
@@ -153,10 +153,10 @@ public class Main
 //		System.out.println(ratings);
 		
 		//If you have mvps for all texts and only want to rate them you should use this.
-//		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6); // mvp.class object
-//		for(String path : propetyFilesPaths) mvps.add(PropReader.fileReader(pr.getResourceFileAbsolutePath(path),6));
-//		ratings = Pipeline.calculater(goldinf,mvps, rating_out_path);
-//		System.out.println(ratings);
+		MetricVectorProcessing goldinf = PropReader.fileReader(pr.getResourceFileAbsolutePath(gold_mvp_path),6); // mvp.class object
+		for(String path : propetyFilesPaths) mvps.add(PropReader.fileReader(pr.getResourceFileAbsolutePath(path),6));
+		ratings = Pipeline.calculater(goldinf,mvps, rating_out_path);
+		System.out.println(ratings);
 	}
 
 }
