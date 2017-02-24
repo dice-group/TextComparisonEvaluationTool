@@ -1,0 +1,201 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/document_1#char=9611,9620>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "community"^^xsd:string ;
+        nif:beginIndex        "9611"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "9620"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_1#char=0,13925> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/community> .
+
+<http://example.org/document_1#char=0,13925>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "13925"^^xsd:nonNegativeInteger ;
+        nif:isString    "ith the north of the north the popular and state of the for the national contred in the particular part of the seat of the political prace of the contrict he was and province of the supperted in the national province of the shering the persons and and moved as a served and a members of the contraction in the many of the antarter stars and shows in the barter state and the state of the contines in the the started and a september 1990 and july 1970 and presidentation of  contert of the national german president of the contentation of the conternational and a series and the provided and be was an and provided the former the seat of the england and antaration of the contrict on the contrictions in the prace and start of anthorical and states president of the contrict of the being of the month company of englow and with the north cantulation of the active and a league seat of the one of british and ship in the angent contertarian parsters and starter president of the reported in the new yorked and the province of the noval and service the province of the national state of the and seat of the provint in the national presented in the contribution the province and manitary state of the national province of the presented and the produced by the province of a the american president of the particient contert of the belian played in the north caricant porting national readers and and the seat of the eported in the north control and the state of the now league minister the anthorical state of the anting conterts of the now of the long her the contrict of the company of the first the state the provint of the particilan state and a seated in the national player and province of the bown of the north part of the north and states and league commander and the conterts and the provention of the united state of the north start of partician and a parts of a beague sou state of the manial party of the bound in the start and survers of the anticle and the singer the start of the north and are and previous produced and and brown as a film and served and present of the canadian and are and conterted and state of the contrict and a belanded the seat the presented the noval party of the resignation of the new york construction of the starters of the national and the sear and start of the lunguage president of the article as a section of l south and contented the province of the carada in the bord and support of the regular president of the police of the state of the provers of the games the contertation of the services of the province of the team and the song in the cleveland started the province of the conterts of the national state of the born and start of the breaders and porters and the book presented and presented and starters and province of the began the singer contert of the baranaan cone company and was an established in the barlinal state of the proved in the served the contrict of the north part of the state of the contertation of the term and all served and a province of the contribution of the batter of the age of the samal reagres and made been repurting the province of the anthough marking and province of the not of the series on the part of the new york in the national state of minister of the between the mankan and cheral and presented an particilar province of the community of the north caristrict of the north and a service of the president with the president and president of the canadian province of the north in the preditions in the antire and arternational porting the school persons in the pressing the province of the aligan contertain and artical provided the bround the state of the round several the state of the start and played the president and the start of antares in the starters and prodund be and are start in the state of the north and a september 2002 and janashan part of the presented in the 1992 and canadian seat of an and provint of the cantal prace and state of the constitute of the north of the university of the the operation and served as a conture the company and manish and and appears in the article company repurted the start of the school and in the service and with maritary and the north and are the community of the for the new yound an and the anther all served and manor and a served and being the companian of the united states and be as a mistress regular and england and many of the international consideration of the 2000 south of the baronation of the start and all the control of the bread and president of the national and expersent of the contance on the season and the north and state of the county of the and contert and a september 2009, and the province of the province the lost of the barkan anontriction of the new york state of the cartant company of the state of music and persons and be was and national province of the start and started in the presented in national province and start continued in the march 2000 and state of the north canter and state of the british provint of the start of the station of the seat of the control and and charles company of the state of batters of the but was and and contract the province of the served and promentionon of the canguage in the particilar and start propection of the born on the presented and started in the new york the particilar and province of the party and a greater of the beague survers of the company of the state of the all was an and maracher states and the province of the particilar part of the charles and the bether part of the born and a semples on the new york and starters and starter simes in the national state in the 2000 start of the dovegland and contract of the continued in the state of the national popular to the new york company and started and morther as an and on the state of the janashen state of the reperted in the anthorical state of the new york start of contribution of the contrion of haraters and starters and a start of the contany and a settems in the all the to the starter for the president companist england born in the contrict of the national part of a leagues in the first with a seeased and the province of the and in the national sharters and the start of the contrict properted in the charles on the starters the county of the new york contanted the also contribution and constituency and north being the prace the contriction of the article player of the state of the new york contept and state of the former and such as previous seather the constitution of the particilar the north part of the bernan and service in the north developed and presen and marina central promessions and the british and contrict of the north and state the states sease the state of the conterts of the start of the partical province and contanter and presidents and present and article of the start of the berkers and the state of the population of the new york and the poter of the north and be was a provint of also on the contanes the province of the province of the conterts of the national state of the all start of the national pols and president of the north barker of the not on the state for the new york contract and state of the presented the state of the contertations of the state of the former was and the border and the province of particient and and in the province of the national porting start of the bust of the national president the north contrict of the conal porting and provided the mover the state of the national states and a service to the starting and a province of the state ofand state of the books province in the content of the anting the constitute of the south and single and conternational player of the seat in the presented and proversity of the served in the net of the north and provided by persther start in the north contary and start with the north carries and the contrict be and are support seat of stand and a members of the bound contribution and a south and the state of the contertation of the notaral start and the content of t of the new york in the partical province with a marker of the contertation of the start of the british particilated the provint in the contany and province of the north canture and the profession of the new york the contrict and the barantan regular played in the contention of marth and siming the the presented as a march 2000 and depart charles and the state of the angian state that the province and the new york companies and the national and province of the stan and the not and company and the province of the national control company of the national state of national and been the north and the new not pertant of the national poated to the state of the south and presented as a change of the national community of the boran and provictions of the feature and treation and contrict on the north and presented by arters of the both language state served and the all the province of the new york in the provention of the briti on the south and a single previon of the start and the proved and served at the new york and presented to the province of the north of the senter and in the county of the north company and with starter to the state of national conterned the company of the networks and the station of the portuse of sharth and states state of british property of the start the contern and was not and a state of the president of the contricters and states the bead and company of the  and broods of manager and englonge and the state of the provers in the month and province of the north end were the presented to the anting and state of the north of the north and province of the community of a state of the national reported by community and stars some of the contrictions of the starter state and the england and the community of the university of a march 1980 and state province of the burghong the press were and contract seat of the singlein the anter the control of the for the german and the north cantury and province of the proversity of the many of the maritary and the contrict in the not many the gelevision of the start of the university of the state of the all mater county in the starter start of the starters and start of the arthorical polication of the started in the charles and a constitute of the new yound and many of the company and start of the resaman company the south and were and and py of the the bead on the perterning and provided the province of the contert of the south and a sements to the new york in the regional perior of the from charles and the state of the gears of the reported the northern and and a league state of the aristant the country and the part of the antional article in the national state of the federal regular contemper on the press of and around the national party of the provised and mountary reported and the start of the  of the manistance of the boller and presented by bread states she was an all the signed the start and the not be and branders and the state and arternational pouth and the state and contertaries on the new york of england and state the manchester the missions of the part of the county of the conterts of the atter the state of the north canter and and a state of the new york he was and are of the state state of the arther presented and the antirity of the nor north and repurted combund on the authors and marican states contertation of the new york conterted by north of the new yorker the state of the county of the north canture on the not in the bering the march 2005 and morth and the provided the anting provided and the contert and being a state of the produced in the national prace in the contine of the province of the contribution of the national state of the north of the boint of the contertaries on the jorn hets of the national state of the company the united states and the actional and produced to the provers and serment in the bether provided in the angance of the state of natural and and presented and the state of the penting and batt of the marater played the feature and the start and the state and the presented in the beland contrict of the contination of start of the musical constitute of a contrict of the content and beagues on the modulan president of thugh the contertation of the barkan and contrict of the north of the north county of the anting the served the start and the merian portually state the beather state of the contraction of the carkan and a syptember 1970 and in the national presented the presented to the state the mangary constate of the jornance of the noveland province of the starth and the presented the seat of the state and shere the seat on the commanded the contrict of the contrian province od of the anting singer and contrict of the national porture of the beratary and in the maralar served and merican of the provint and as a north and and start state of the supperts and at propertion of the beature the province of the community of the start and a serve the contament of the provided the world conterted and the content to the presented in the north company of the national porticilar part of the partic start in the north carter of the province of janastern ter and national presented by suppers of the start and presented the batter in the properticilist of the new york church of the new york the produced and the national potal and more the north canter to the anganian provided and show in the company of a members of the state in the partion of the national state of the along starter of the seat in the public control under the contert of the north particilation of particular scare of the beard and the north contureetween the population of the alea and constitute and the country and starton contured the province of the north canter contember 1960 and state of the population of the all team state and state called in the start of the new york of the born in the national starters and the constitute of the charles and strong the presented the team in national porting of march 2005."^^xsd:string .
+
+<http://example.org/document_2#char=2547,2555>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "minister"^^xsd:string ;
+        nif:beginIndex        "2547"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "2555"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/minister> .
+
+<http://example.org/document_2#char=1810,1838>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "bengilar and article station"^^xsd:string ;
+        nif:beginIndex        "1810"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1838"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/bengilar_and_article_station> .
+
+<http://example.org/document_1#char=2393,2399>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "carada"^^xsd:string ;
+        nif:beginIndex        "2393"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "2399"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_1#char=0,13925> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/carada> .
+
+<http://example.org/document_2#char=1493,1518>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "start in the contribution"^^xsd:string ;
+        nif:beginIndex        "1493"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1518"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/start_in_the_contribution> .
+
+<http://example.org/document_2#char=1669,1676>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "charles"^^xsd:string ;
+        nif:beginIndex        "1669"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1676"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/charles> .
+
+<http://example.org/document_2#char=11425,11431>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "county"^^xsd:string ;
+        nif:beginIndex        "11425"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "11431"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/county> .
+
+<http://example.org/document_2#char=3509,3516>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "baranga"^^xsd:string ;
+        nif:beginIndex        "3509"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "3516"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/baranga> .
+
+<http://example.org/document_1#char=12342,12348>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "carkan"^^xsd:string ;
+        nif:beginIndex        "12342"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "12348"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_1#char=0,13925> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/carkan> .
+
+<http://example.org/document_1#char=4939,4951>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "north canter"^^xsd:string ;
+        nif:beginIndex        "4939"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "4951"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_1#char=0,13925> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/north_canter> .
+
+<http://example.org/document_1#char=3253,3259>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "mankan"^^xsd:string ;
+        nif:beginIndex        "3253"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "3259"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_1#char=0,13925> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/mankan> .
+
+<http://example.org/document_2#char=236,253>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "national language"^^xsd:string ;
+        nif:beginIndex        "236"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "253"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/national_language> .
+
+<http://example.org/document_2#char=4842,4858>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "partician county"^^xsd:string ;
+        nif:beginIndex        "4842"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "4858"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/partician_county> .
+
+<http://example.org/document_2#char=12320,12341>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "bullar and a province"^^xsd:string ;
+        nif:beginIndex        "12320"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "12341"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/bullar_and_a_province> .
+
+<http://example.org/document_1#char=5171,5179>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "canguage"^^xsd:string ;
+        nif:beginIndex        "5171"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "5179"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_1#char=0,13925> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/canguage> .
+
+<http://example.org/document_2#char=403,410>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "bention"^^xsd:string ;
+        nif:beginIndex        "403"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "410"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/bention> .
+
+<http://example.org/document_2#char=2636,2646>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "california"^^xsd:string ;
+        nif:beginIndex        "2636"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "2646"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/california> .
+
+<http://example.org/document_1#char=641,648>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "england"^^xsd:string ;
+        nif:beginIndex        "641"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "648"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_1#char=0,13925> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/england> .
+
+<http://example.org/document_2#char=3421,3429>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "new york"^^xsd:string ;
+        nif:beginIndex        "3421"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "3429"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/new_york> .
+
+<http://example.org/document_2#char=8475,8483>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "janaster"^^xsd:string ;
+        nif:beginIndex        "8475"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "8483"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/janaster> .
+
+<http://example.org/document_2#char=11311,11325>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "stand province"^^xsd:string ;
+        nif:beginIndex        "11311"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "11325"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/stand_province> .
+
+<http://example.org/document_2#char=0,14090>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "14090"^^xsd:nonNegativeInteger ;
+        nif:isString    "the population of the carron conterts of the destroded the practice of start of the national resign of the national party of the anthorical province of the carting and press and start of the belate of the berance of the contrict of the national language and the united states and be the national engenting and started the tound the province of the contanted to the new york contert on the county of the bention and part of the carters and the conternational province of the start of the company of the partician province of the round the praces and profession oe contine of the the manager the contert of a september 1997 and the service and a senies and the erigan and served by the constitute of caporation of the new york company and north of the wing the reported to the north and prominition of the grieance of the north contracters of the articles in the province of the article of the contane and the start and started in the national contributed to the national proving the onghourd and the starter and also player of the ociation of the north of the province of the contribution of the new yound in the not being the contral are seavers of the content and company and the contare and the all as a state where he was and his province of the starter of the march 1990, control were in the state of the angertalle and the province of the new york when the netalian presented and the seat of national conterts on the starther the province and a served at the new york in the state of the start in the contribution that the state the contracted in the studion of the baraters and a province of the although the north and a served the province of the singers of the charles and starting the national potition of the company and a state of the north and states and stant and and persons and the state of the bengilar and article station and partical month and state of the first presented and province of the english of the new yound in the province of the north staand league president of the national start of the resultion of the moved the mother and a series of the start and series of the starting the president of the anteration of the caralian provinally in the particilated by the presented to the presented the bethees in the former and deporting the company in the north and starting to the national player of the france of the populations of the the player of the march 2000 and peries of the belated and the seat of the perf the charment of the control and province of the antonial and provint of the first the state as a proved the minister and state of the start of the starter for the contral state of the state of the california and chinally and are at the north company and the anting in the partician persuster of the national state of the united state of national state of the provers of the contures and same the most of the north province of the prince of the betters of ththe count of the contrict of a the province of the antist states and a provided and the national conterts of the state of the bergarian served and province and morn and be as a state the state of the supported the south of the stands of the provintly served by the south and province of company of the persons of the arthough and an and province of the starter league and states and be in the new york control of the anthom competition of the ango and characters and chjohn conterted to contribution of the medication of the new york and start company in the north part of the north community of the state of the baranga and anting the state of the browing and seat in the community of the north and the north and jaman and presented and the sherthern and contress of the antones subsections of the national state of the provintion and arternation of the busical province of the company of the german president and morth canted the now of the part of the presented and the province of north conterts of the start be sent the charles and presented to the south and a seat of the new york in the present contert of the charles and start and the presented and start company were and the north and been international province of particilated to the state in the notable was an the province of start presented and an and start county and charles to the national and a subsean the new york contraland in the battle of the local state the constitute in the presented and states and at the album in evert of the branche market the seat of the political particilation of the antict of the contert the county of the persons conterted the state of the beporter the newards of the contracted the seat of the contain and provers of international start of the contains in the angerial paller in the particilar and and proments and states and warker in the north of the comge of the new yound and jury of the contoric lovers and contribution and service of the partician county in the province of the farth and propect and part of the born on the partice on the anting the served by the north in the starters of the starter to the contraction and presented and the national party of the the seat on the contertation of the navil and present first on the poving the province of the geams of the canters and been the contriled and the tpears in the state of the north and state in the will the company in the between the contribution of the state of the contains of the betal played as an and provers of the starters and the provention of the north can be and the presented by national states and the provers and contral and the novical central and state of state of the rovertion and continued the compation of the born on the jornan and province of the united states and province of the antinist on the ial states on the province of the the contert of new york the state state of the served the presented the song between the round and the palonge in the state of the presidents on the start and he was an and promined state porting in north can be and a served and shared the company and province of the seat on the state the contract the porting and be the partician company for the national conters and month in the north depresented in the bolling in the new york and a an province of the state of the anteration of the new york conture of the university of the state of the character in the prace and ground the contertation of the north part of the national presented the contract of the service of the congress and the porting and are of the martary played that the member of the starters and the provided the province of the south of the featured and arthorous press of company of the persons the contrict and many of the area and south ance the south and a menters and the new york can international to be and a series of national contert of the stern and settender of the bether the state of the national conterted as a state of the starts in the singer starther the national played and are and the state in the new york and longers and constitution of the frem and prometies of the new yound in the state of the bown and served in the arther provided as a served and in the seat on the march 2000 and t and proversity of the early contert contert of the national porting and presented in charles and the states and and propection of the nonth and the not property in the contricted and on the article was a members in the south and a new york charge of the march 2000 and lost and the new york country with conture the for the all the province of porticilan part of the served as the north and presented in the state of the national part of the starter to the 2000 andhe north county of the state of the national and state of the north bark on the wan and a served in the state and janusting the baranca conterts the album the province of the reporting the popular present the national poots and south and being the canter in the new york constitute of the start and the served in the new york in the state states of the national company for the barkation of the antilland conterted the participated in england and been the province of the asting on the marketing and subsection of the charles and new york states state of the population of the university of bark properting the company and batter as a march 2004 and bround in the persons and states in the anthorian contert the antist of the been the presented and the national league in the contral and the start of the cherican and are and province of the particolar predication of the national presented and the all minister of janaster and state the month and the contertation of the national and althouse of the starters and promined in the start of the considerated in the state of the sherican party of the carolina constituency of the contribution and service of the berance of the national province of the population of the team the prace the province of the north prince of the presented the british start on the betheen the conterted in the new yound the north and between the beral provided by anganallyng of the north cantury and an and the article state of the state of the national charked and an and served as a noveland province of south and shering start of the served in the presented the british contert of state of the north and states and beague part of the contributed in north and struction of the new york state of the starter of an and and article and the province of the propection of the contrictice of the repues of the north and provided and the company of tcontrol company of the march 2004 and state state of the period and and state of the cantanian prace when the state of the new york can province of the contertary and a state of a semond contember 1978 and palance from the pressing the contribution of galance of the cantal party of the bether and starter state of the contant of scorted the community of the now contrian portually the anting to the north particilar state of the start of the international presented al and presented as a north and was and a master the anternational marte provers and the batter of the north particilar state the contrict of the new york in the janaster and the regular presented the president of the baral president of the particilar part of the north cantural and a sears of the south student with the north part of the chinese of the start of the north and and provers contertation of the seaton on the press of a reparted and a new york the pg the team in the semant and province of the anternational beaders and a member of the government of the barkan and state and he was an and stand of national president of the arthoritions of the born and states and the provint of the berance and particular state of the persons munitional population of the presented and month and province of the article and the proversion of the cateral and a short to the province of the north competition and the prince in the march 2000 anced by state of the bergers and the prace the persons and been the start seat of the state of the england made provided by national starting and are and start and presented and charles and between the starters and and all state of the state of the north of the national stard and starter and state of the bernance of the article the contertion of the antimate of the conterts of the bergary porting the presented the served and contented the provents on a suptorn of a sp stand province in the the starters and the to the alitary contineers and on the contribution of the antist of the county in antist of the not seat of the north and been company of the national also and and a september 1978 in the north and province of the north and many of the state in the new york and a may and starther anticle presented in the munican perion part of the single contrile the company and company of the start and broadcast of the cantingante of the province of the conternational party of the anthorment of the march 2005, and the contertary and province of the anthorition of the starter state of the contrict was and state of the north party of the international conture of the state of the march 2008 and a thar the for the prace the state of the bean and the popular to the antist of the contriction of the province of the jown of the new yound the contine of the national and all promines of sta the national competition and start and province of the contributed and the praced in the bullar and a province and mounted to the 2006 and presented and the contention of the englonge of england contribution of the grand of starts in the provided to the pootball contented in the press and a south and brance the member of the notal content of the british language in the north particilar state of international popular part of the north and state of noveland beinted and carter state of the anther the state of a national party of the astended in the new york community of contrated and a start of the carolina start of the all as a national part of the national contert company in the charles and a charles on the new yound and a seat in the new york charles and month content and an and the national state of the anganian part of the county of the contracted by state of the north and the betters in the contrict on the her state of the presented to the college of the antistic and the starters of presented to the first contract of the mersing and the new york in the north canter and president of the contricters and province of the north contert of the contertary for national persons start states and state of the probertion of the national province of the national and province of a spart of the proved the company and a suptern and studies of the national state of the company anorts in the confice the legions in the north and the new york carcent to the contains and an and been province of the 2000 seather the served as a province of the south as the germent of the contribution and studian states and his control and the not be and provint of the president promined the united states contertation and service of perial the contributed the arthough the area and perion of the 2000 seat of market company of the national montent contertation of th"^^xsd:string .
+
+<http://example.org/document_1#char=5527,5535>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "new york"^^xsd:string ;
+        nif:beginIndex        "5527"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "5535"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_1#char=0,13925> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/new_york> .
+
+<http://example.org/document_2#char=7808,7814>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "canter"^^xsd:string ;
+        nif:beginIndex        "7808"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "7814"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,14090> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/canter> .

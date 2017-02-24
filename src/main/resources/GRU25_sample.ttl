@@ -1,0 +1,2495 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/document_49#char=0,177>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "177"^^xsd:nonNegativeInteger ;
+        nif:isString    "the conservative party of the paraliance and confederation and revealed the state of empire and college to the south saskatchewan county, south africa and stoney external party."^^xsd:string .
+
+<http://example.org/document_1#char=42,53>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "stoney book"^^xsd:string ;
+        nif:beginIndex        "42"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "53"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_1#char=0,54> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/stoney_book> .
+
+<http://example.org/document_10#char=7,35>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative party of saints"^^xsd:string ;
+        nif:beginIndex        "7"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "35"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_10#char=0,36> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/transmitter_of_the_provincial_parliament_constituency> .
+
+<http://example.org/document_3#char=55,61>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "review"^^xsd:string ;
+        nif:beginIndex        "55"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "61"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_3#char=0,184> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_54#char=264,292>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "anticipation of the paradism"^^xsd:string ;
+        nif:beginIndex        "264"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "292"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/anticipation_of_the_paradism> .
+
+<http://example.org/document_1#char=0,54>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "54"^^xsd:nonNegativeInteger ;
+        nif:isString    "the second stores of nights activists and stoney book."^^xsd:string .
+
+<http://example.org/document_54#char=137,158>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "roman catholic church"^^xsd:string ;
+        nif:beginIndex        "137"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "158"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/roman_catholic_church> .
+
+<http://example.org/document_56#char=54,70>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "steelers college"^^xsd:string ;
+        nif:beginIndex        "54"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "70"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_56#char=0,79> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/steelers_college> .
+
+<http://example.org/document_2#char=89,104>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "the grand state"^^xsd:string ;
+        nif:beginIndex        "89"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "104"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,105> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_grand_state> .
+
+<http://example.org/document_45#char=45,66>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san francisco company"^^xsd:string ;
+        nif:beginIndex        "45"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "66"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_45#char=0,101> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_francisco_company> .
+
+<http://example.org/document_47#char=273,282>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sandarian"^^xsd:string ;
+        nif:beginIndex        "273"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "282"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_47#char=0,324> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conservative_party_state_of_canada> .
+
+<http://example.org/document_3#char=4,11>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "college"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "11"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_3#char=0,184> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/college> .
+
+<http://example.org/document_12#char=26,40>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "state district"^^xsd:string ;
+        nif:beginIndex        "26"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "40"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_12#char=0,41> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/state_district> .
+
+<http://example.org/document_51#char=35,47>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "35"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "47"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_51#char=0,188> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_7#char=227,239>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "227"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "239"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_7#char=0,240> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_57#char=150,157>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "salania"^^xsd:string ;
+        nif:beginIndex        "150"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "157"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/salania> .
+
+<http://example.org/document_39#char=4,32>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "albert high school institute"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "32"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_39#char=0,156> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/albert_high_school_institute> .
+
+<http://example.org/document_18#char=180,192>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "180"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "192"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_25#char=57,81>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "release that the country"^^xsd:string ;
+        nif:beginIndex        "57"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "81"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_25#char=0,90> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/release_that_the_country> .
+
+<http://example.org/document_17#char=125,134>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "seat line"^^xsd:string ;
+        nif:beginIndex        "125"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "134"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_17#char=0,151> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/seat_line> .
+
+<http://example.org/document_55#char=0,129>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "129"^^xsd:nonNegativeInteger ;
+        nif:isString    "the south africa was a route 180 played by the conservative period of the career parliament construction career in 1998 and 1986."^^xsd:string .
+
+<http://example.org/document_18#char=221,250>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "carebrach state national park"^^xsd:string ;
+        nif:beginIndex        "221"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "250"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/carebrach_state_national_park> .
+
+<http://example.org/document_57#char=72,84>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative"^^xsd:string ;
+        nif:beginIndex        "72"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "84"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/conservative> .
+
+<http://example.org/document_54#char=160,170>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "the county"^^xsd:string ;
+        nif:beginIndex        "160"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "170"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_county> .
+
+<http://example.org/document_31#char=181,190>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "hong kong"^^xsd:string ;
+        nif:beginIndex        "181"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "190"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/hong_kong> .
+
+<http://example.org/document_57#char=186,229>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "national register of saints pination street"^^xsd:string ;
+        nif:beginIndex        "186"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "229"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/national_register_of_saints_pination_street> .
+
+<http://example.org/document_32#char=0,111>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "111"^^xsd:nonNegativeInteger ;
+        nif:isString    "the south saskatchewan river was a register of the parliament in the american county council of south services."^^xsd:string .
+
+<http://example.org/document_20#char=368,374>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "war ii"^^xsd:string ;
+        nif:beginIndex        "368"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "374"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_20#char=0,390> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/war_ii> .
+
+<http://example.org/document_45#char=4,34>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san the sand state of pan tour"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "34"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_45#char=0,101> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_the_sand_state_of_pan_tour> .
+
+<http://example.org/document_15#char=0,85>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "85"^^xsd:nonNegativeInteger ;
+        nif:isString    "he was also a conservative the province of golden bridge and tamaa state state state."^^xsd:string .
+
+<http://example.org/document_26#char=118,126>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "reaction"^^xsd:string ;
+        nif:beginIndex        "118"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "126"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_26#char=0,144> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_43#char=31,52>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "alexander same school"^^xsd:string ;
+        nif:beginIndex        "31"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "52"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_43#char=0,161> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/alexander_same_school> .
+
+<http://example.org/document_57#char=141,148>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "salanda"^^xsd:string ;
+        nif:beginIndex        "141"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "148"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/salanda> .
+
+<http://example.org/document_12#char=4,21>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "american football"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "21"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_12#char=0,41> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/american_football> .
+
+<http://example.org/document_41#char=222,283>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "princess of the national academy of saints and lightning line"^^xsd:string ;
+        nif:beginIndex        "222"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "283"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_41#char=0,284> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/princess_of_the_national_academy_of_saints_and_lightning_line> .
+
+<http://example.org/document_42#char=67,79>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "67"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "79"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_42#char=0,132> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_17#char=100,117>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "regional election"^^xsd:string ;
+        nif:beginIndex        "100"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "117"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_17#char=0,151> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_diano_state_of_the_south_africa> .
+
+<http://example.org/document_40#char=4,25>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "grand state of canada"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "25"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_40#char=0,48> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/grand_state_of_canada> .
+
+<http://example.org/document_54#char=388,400>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "388"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "400"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_57#char=116,128>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "116"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "128"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_3#char=19,47>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "angel show of the parliament"^^xsd:string ;
+        nif:beginIndex        "19"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "47"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_3#char=0,184> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/angel_show_of_the_parliament> .
+
+<http://example.org/document_54#char=336,348>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "336"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "348"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_22#char=220,233>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san francisco"^^xsd:string ;
+        nif:beginIndex        "220"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "233"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_22#char=0,263> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/australian_languages> .
+
+<http://example.org/document_24#char=4,16>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "16"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_24#char=0,62> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_30#char=168,202>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san diano man for the south africa"^^xsd:string ;
+        nif:beginIndex        "168"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "202"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_30#char=0,203> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_diano_man_for_the_south_africa> .
+
+<http://example.org/document_22#char=156,163>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "english"^^xsd:string ;
+        nif:beginIndex        "156"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "163"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_22#char=0,263> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/canadian_language> .
+
+<http://example.org/document_41#char=205,217>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "205"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "217"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_41#char=0,284> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_8#char=0,117>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "117"^^xsd:nonNegativeInteger ;
+        nif:isString    "the album was awarded the sale saile in the national register of history of saints park new zealand in 1988 and 1885."^^xsd:string .
+
+<http://example.org/document_36#char=31,50>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san diano montenego"^^xsd:string ;
+        nif:beginIndex        "31"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "50"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_36#char=0,75> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_diano_montenego> .
+
+<http://example.org/document_20#char=99,130>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san francisco and state service"^^xsd:string ;
+        nif:beginIndex        "99"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "130"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_20#char=0,390> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_francisco_and_state_service> .
+
+<http://example.org/document_31#char=34,46>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sanda county"^^xsd:string ;
+        nif:beginIndex        "34"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "46"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sanda_county> .
+
+<http://example.org/document_57#char=89,107>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san diego football"^^xsd:string ;
+        nif:beginIndex        "89"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "107"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_diego_football> .
+
+<http://example.org/document_58#char=0,237>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "237"^^xsd:nonNegativeInteger ;
+        nif:isString    "the council of the san diana and release and brought and significantly also been the song the team trade south af the south wales and ship broadcasting constitution in the the great britain experts to the robert alien and the greek area."^^xsd:string .
+
+<http://example.org/document_12#char=0,41>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "41"^^xsd:nonNegativeInteger ;
+        nif:isString    "the american football and state district."^^xsd:string .
+
+<http://example.org/document_22#char=31,43>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "31"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "43"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_22#char=0,263> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_49#char=155,176>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "stoney external party"^^xsd:string ;
+        nif:beginIndex        "155"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "176"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_49#char=0,177> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/stoney_external_party> .
+
+<http://example.org/document_7#char=172,184>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "172"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "184"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_7#char=0,240> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_22#char=241,262>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "revelutionary council"^^xsd:string ;
+        nif:beginIndex        "241"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "262"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_22#char=0,263> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_57#char=0,278>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "278"^^xsd:nonNegativeInteger ;
+        nif:isString    "electricity council and the south africa and state of japanese language conservative and san diego football and the south africa was born in salanda, salania, tangani, south africa, the national register of saints pination street in the superior and state river and state state."^^xsd:string .
+
+<http://example.org/document_57#char=168,180>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "168"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "180"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_29#char=0,104>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "104"^^xsd:nonNegativeInteger ;
+        nif:isString    "the song was instituted to the new york city county and the south africa and the single article in 1993."^^xsd:string .
+
+<http://example.org/document_36#char=0,75>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "75"^^xsd:nonNegativeInteger ;
+        nif:isString    "the company was the son of the san diano montenego and state of the county."^^xsd:string .
+
+<http://example.org/document_18#char=0,355>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "355"^^xsd:nonNegativeInteger ;
+        nif:isString    "he was also a conservative party of sussemble, the south africa which he was also a remainder of the decision and the romanian empire and connecticut.1993 is a constitution of the south africa and the greek peninsula and carebrach state national park and the stoney county in the 1999 election, the 1978 and the south africa whilst played the sale season."^^xsd:string .
+
+<http://example.org/document_18#char=84,109>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "remainder of the decision"^^xsd:string ;
+        nif:beginIndex        "84"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "109"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/remainder_of_the_decision> .
+
+<http://example.org/document_24#char=42,61>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "canadian parliament"^^xsd:string ;
+        nif:beginIndex        "42"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "61"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_24#char=0,62> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/canadian_parliament> .
+
+<http://example.org/document_35#char=32,44>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "32"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "44"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_35#char=0,45> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_32#char=35,61>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "register of the parliament"^^xsd:string ;
+        nif:beginIndex        "35"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "61"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_32#char=0,111> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/register_of_the_parliament> .
+
+<http://example.org/document_39#char=101,135>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative party of maria county"^^xsd:string ;
+        nif:beginIndex        "101"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "135"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_39#char=0,156> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conservative_party_of_maria_county> .
+
+<http://example.org/document_20#char=328,367>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative constitution of the county"^^xsd:string ;
+        nif:beginIndex        "328"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "367"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_20#char=0,390> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conservative_constitution_of_the_county> .
+
+<http://example.org/document_10#char=0,36>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "36"^^xsd:nonNegativeInteger ;
+        nif:isString    "nd the conservative party of saints."^^xsd:string .
+
+<http://example.org/document_31#char=57,70>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "silicity park"^^xsd:string ;
+        nif:beginIndex        "57"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "70"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/silicity_park> .
+
+<http://example.org/document_47#char=4,35>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "allen the first party of canada"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "35"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_47#char=0,324> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/allen_the_first_party_of_canada> .
+
+<http://example.org/document_4#char=144,156>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "144"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "156"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_4#char=0,157> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_35#char=4,22>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "second road forest"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "22"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_35#char=0,45> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/second_road_forest> .
+
+<http://example.org/document_26#char=18,55>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "order of the south saskatchewan river"^^xsd:string ;
+        nif:beginIndex        "18"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "55"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_26#char=0,144> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/order_of_the_south_saskatchewan_river> .
+
+<http://example.org/document_4#char=35,54>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "tour of carabilling"^^xsd:string ;
+        nif:beginIndex        "35"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "54"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_4#char=0,157> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/tour_of_carabilling> .
+
+<http://example.org/document_27#char=0,83>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "83"^^xsd:nonNegativeInteger ;
+        nif:isString    "the station provincial parliament in the association of the month in 1993 and 1983."^^xsd:string .
+
+<http://example.org/document_43#char=126,136>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "referendum"^^xsd:string ;
+        nif:beginIndex        "126"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "136"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_43#char=0,161> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_54#char=94,103>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "singapore"^^xsd:string ;
+        nif:beginIndex        "94"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "103"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/singapore> .
+
+<http://example.org/document_34#char=0,87>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "87"^^xsd:nonNegativeInteger ;
+        nif:isString    "the song was born in parliament, alamania and the group of santa and the gold motorway."^^xsd:string .
+
+<http://example.org/document_11#char=0,392>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "392"^^xsd:nonNegativeInteger ;
+        nif:isString    "the first part of the conservative career was partially sentenced to the san francisco company and the senate and cartonal parliament and the same national park and the single season and the second party of canada and the san francisco province and the conservative party of pan tony for the same nights and state of california have c the previously records and the south saskatchewan canada."^^xsd:string .
+
+<http://example.org/document_59#char=200,207>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "english"^^xsd:string ;
+        nif:beginIndex        "200"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "207"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/english_language> .
+
+<http://example.org/document_22#char=0,263>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "263"^^xsd:nonNegativeInteger ;
+        nif:isString    "the delige construction of the south africa whilst played by the san tang peners in 1855, the conservative constitution to the parliament of the county and english south africa and herre the new york city council of the san francisco in the revelutionary council."^^xsd:string .
+
+<http://example.org/document_17#char=63,75>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "shore county"^^xsd:string ;
+        nif:beginIndex        "63"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "75"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_17#char=0,151> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/saint_parliament_constituency> .
+
+<http://example.org/document_17#char=138,150>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "138"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "150"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_17#char=0,151> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_54#char=34,58>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sala charles city county"^^xsd:string ;
+        nif:beginIndex        "34"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "58"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sala_charles_city_county> .
+
+<http://example.org/document_31#char=143,155>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sales county"^^xsd:string ;
+        nif:beginIndex        "143"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "155"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sales_county> .
+
+<http://example.org/document_18#char=138,149>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "connecticut"^^xsd:string ;
+        nif:beginIndex        "138"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "149"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/connecticut> .
+
+<http://example.org/document_54#char=72,81>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "red river"^^xsd:string ;
+        nif:beginIndex        "72"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "81"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/red_river> .
+
+<http://example.org/document_11#char=222,244>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san francisco province"^^xsd:string ;
+        nif:beginIndex        "222"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "244"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_11#char=0,392> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_francisco_province> .
+
+<http://example.org/document_47#char=219,268>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "alexander signed with the second state of college"^^xsd:string ;
+        nif:beginIndex        "219"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "268"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_47#char=0,324> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/alexander_signed_with_the_second_state_of_college> .
+
+<http://example.org/document_59#char=168,174>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "racing"^^xsd:string ;
+        nif:beginIndex        "168"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "174"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_8#char=26,36>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sale saile"^^xsd:string ;
+        nif:beginIndex        "26"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "36"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_8#char=0,117> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sale_saile> .
+
+<http://example.org/document_20#char=55,72>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san diano records"^^xsd:string ;
+        nif:beginIndex        "55"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "72"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_20#char=0,390> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_diano_records> .
+
+<http://example.org/document_31#char=292,314>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative community"^^xsd:string ;
+        nif:beginIndex        "292"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "314"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conservative_community> .
+
+<http://example.org/document_11#char=253,283>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative party of pan tony"^^xsd:string ;
+        nif:beginIndex        "253"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "283"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_11#char=0,392> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conservative_party_of_pan_tony> .
+
+<http://example.org/document_37#char=0,138>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "138"^^xsd:nonNegativeInteger ;
+        nif:isString    "the all show the constitution in the south africa which has been a member of the specialized civil engineering and college for the county."^^xsd:string .
+
+<http://example.org/document_11#char=366,391>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south saskatchewan canada"^^xsd:string ;
+        nif:beginIndex        "366"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "391"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_11#char=0,392> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/south_saskatchewan_canada> .
+
+<http://example.org/document_13#char=30,56>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "united states constitution"^^xsd:string ;
+        nif:beginIndex        "30"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "56"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_13#char=0,77> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/united_states_constitution> .
+
+<http://example.org/document_54#char=199,205>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sicona"^^xsd:string ;
+        nif:beginIndex        "199"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "205"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sicona> .
+
+<http://example.org/document_54#char=0,516>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "516"^^xsd:nonNegativeInteger ;
+        nif:isString    "the team was born in new zealand, sala charles city county, surveyands, red river, alexander, singapore, provincial land county, subara, roman catholic church, the county, alexandria, poland county, sicona, sharan barile, state river, the golden began work of the anticipation of the paradism in the south africa while the state of the south africa which was also a the convention of the south africa is a state and provincial parliament produced and south african and the commons of saints park of the south season."^^xsd:string .
+
+<http://example.org/document_6#char=56,68>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "56"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "68"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_6#char=0,226> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_14#char=4,28>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "subject of the community"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "28"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_14#char=0,49> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/subject_of_the_community> .
+
+<http://example.org/document_20#char=135,142>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "records"^^xsd:string ;
+        nif:beginIndex        "135"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "142"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_20#char=0,390> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/records> .
+
+<http://example.org/document_27#char=41,65>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "association of the month"^^xsd:string ;
+        nif:beginIndex        "41"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "65"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_27#char=0,83> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/association_of_the_month> .
+
+<http://example.org/document_44#char=18,36>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "state of the state"^^xsd:string ;
+        nif:beginIndex        "18"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "36"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_44#char=0,37> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/state_of_the_state> .
+
+<http://example.org/document_18#char=160,172>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "constitution"^^xsd:string ;
+        nif:beginIndex        "160"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "172"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/constitution> .
+
+<http://example.org/document_20#char=77,94>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "the great britain"^^xsd:string ;
+        nif:beginIndex        "77"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "94"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_20#char=0,390> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_great_britain> .
+
+<http://example.org/document_59#char=144,160>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "many realignment"^^xsd:string ;
+        nif:beginIndex        "144"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "160"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/many_realignment> .
+
+<http://example.org/document_19#char=180,199>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sandara san antonia"^^xsd:string ;
+        nif:beginIndex        "180"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "199"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_19#char=0,225> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sandara_san_antonia> .
+
+<http://example.org/document_3#char=0,184>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "184"^^xsd:nonNegativeInteger ;
+        nif:isString    "the college in the angel show of the parliament in the review and canadian princess of the group that was also a member of the conference community and harnard barrel in 1984 and 1988."^^xsd:string .
+
+<http://example.org/document_42#char=101,109>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "province"^^xsd:string ;
+        nif:beginIndex        "101"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "109"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_42#char=0,132> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/province> .
+
+<http://example.org/document_51#char=15,30>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "rise of college"^^xsd:string ;
+        nif:beginIndex        "15"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "30"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_51#char=0,188> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/rise_of_college> .
+
+<http://example.org/document_4#char=72,94>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "second holding company"^^xsd:string ;
+        nif:beginIndex        "72"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "94"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_4#char=0,157> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/second_holding_company> .
+
+<http://example.org/document_19#char=91,112>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "provincial parliament"^^xsd:string ;
+        nif:beginIndex        "91"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "112"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_19#char=0,225> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/english_language> .
+
+<http://example.org/document_57#char=266,277>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "state state"^^xsd:string ;
+        nif:beginIndex        "266"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "277"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/state_state> .
+
+<http://example.org/document_20#char=219,285>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "national register of the national register of the general election"^^xsd:string ;
+        nif:beginIndex        "219"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "285"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_20#char=0,390> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/national_register_of_the_national_register_of_the_general_election> .
+
+<http://example.org/document_7#char=135,164>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south saskatchewan parliament"^^xsd:string ;
+        nif:beginIndex        "135"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "164"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_7#char=0,240> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/south_saskatchewan_parliament> .
+
+<http://example.org/document_53#char=0,52>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "52"^^xsd:nonNegativeInteger ;
+        nif:isString    "he saint party of the group of salari charles times."^^xsd:string .
+
+<http://example.org/document_42#char=0,132>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "132"^^xsd:nonNegativeInteger ;
+        nif:isString    "the album was also a league of land county and sir county, and the south african which he was also a province and alexander singers."^^xsd:string .
+
+<http://example.org/document_23#char=69,88>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "american politician"^^xsd:string ;
+        nif:beginIndex        "69"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "88"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_23#char=0,89> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/american_politician> .
+
+<http://example.org/document_25#char=0,90>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "90"^^xsd:nonNegativeInteger ;
+        nif:isString    "the country is a conservative party and south africa and release that the country in 1982."^^xsd:string .
+
+<http://example.org/document_18#char=299,303>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "1978"^^xsd:string ;
+        nif:beginIndex        "299"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "303"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conservative_party_of_saints_nights_and_state_season> .
+
+<http://example.org/document_6#char=4,22>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south south africa"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "22"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_6#char=0,226> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/south_south_africa> .
+
+<http://example.org/document_54#char=207,220>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sharan barile"^^xsd:string ;
+        nif:beginIndex        "207"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "220"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sharan_barile> .
+
+<http://example.org/document_39#char=68,92>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south saskatchewan river"^^xsd:string ;
+        nif:beginIndex        "68"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "92"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_39#char=0,156> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/south_saskatchewan_river> .
+
+<http://example.org/document_46#char=4,34>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "national history of the county"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "34"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_46#char=0,63> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/australian_league_team> .
+
+<http://example.org/document_39#char=140,155>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "the grand state"^^xsd:string ;
+        nif:beginIndex        "140"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "155"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_39#char=0,156> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_grand_state> .
+
+<http://example.org/document_24#char=0,62>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "62"^^xsd:nonNegativeInteger ;
+        nif:isString    "the south african state of maria line and canadian parliament."^^xsd:string .
+
+<http://example.org/document_19#char=0,225>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "225"^^xsd:nonNegativeInteger ;
+        nif:isString    "the parliament of the county and san francisco college in 1985 and 1988 in charles county, provincial parliament  pan may be considerably defense to the south africa, the state of sandara san antonia and canadian syndication."^^xsd:string .
+
+<http://example.org/document_57#char=237,245>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "superior"^^xsd:string ;
+        nif:beginIndex        "237"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "245"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/american_football_team> .
+
+<http://example.org/document_23#char=0,89>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "89"^^xsd:nonNegativeInteger ;
+        nif:isString    "the song was also a transforment princess of the southern county and american politician."^^xsd:string .
+
+<http://example.org/document_27#char=4,33>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "station provincial parliament"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "33"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_27#char=0,83> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/station_provincial_parliament> .
+
+<http://example.org/document_45#char=0,101>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "101"^^xsd:nonNegativeInteger ;
+        nif:isString    "the san the sand state of pan tour while the san francisco company in 1983 and 1988 to 1988 and 1988."^^xsd:string .
+
+<http://example.org/document_33#char=99,141>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "grand state state of the main championship"^^xsd:string ;
+        nif:beginIndex        "99"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "141"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_33#char=0,142> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/grand_state_state_of_the_main_championship> .
+
+<http://example.org/document_54#char=416,437>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "provincial parliament"^^xsd:string ;
+        nif:beginIndex        "416"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "437"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/provincial_parliament> .
+
+<http://example.org/document_16#char=0,25>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "25"^^xsd:nonNegativeInteger ;
+        nif:isString    "the san diego carolingia."^^xsd:string .
+
+<http://example.org/document_38#char=0,70>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "70"^^xsd:nonNegativeInteger ;
+        nif:isString    "the conservative party and the german party of the new zealand survey."^^xsd:string .
+
+<http://example.org/document_37#char=4,29>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "all show the constitution"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "29"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_37#char=0,138> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/all_show_the_constitution> .
+
+<http://example.org/document_3#char=152,166>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "harnard barrel"^^xsd:string ;
+        nif:beginIndex        "152"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "166"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_3#char=0,184> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/harnard_barrel> .
+
+<http://example.org/document_40#char=0,48>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "48"^^xsd:nonNegativeInteger ;
+        nif:isString    "the grand state of canada in the eastern county."^^xsd:string .
+
+<http://example.org/document_13#char=64,76>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "64"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "76"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_13#char=0,77> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_29#char=31,51>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "new york city county"^^xsd:string ;
+        nif:beginIndex        "31"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "51"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_29#char=0,104> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/new_york_city_county> .
+
+<http://example.org/document_21#char=121,139>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative party"^^xsd:string ;
+        nif:beginIndex        "121"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "139"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_21#char=0,161> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_german_party_united_states> .
+
+<http://example.org/document_57#char=159,166>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "tangani"^^xsd:string ;
+        nif:beginIndex        "159"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "166"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/tangani> .
+
+<http://example.org/document_59#char=118,139>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "provincial parliament"^^xsd:string ;
+        nif:beginIndex        "118"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "139"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/philip_provincial_parliament> .
+
+<http://example.org/document_17#char=42,54>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "42"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "54"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_17#char=0,151> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_51#char=91,103>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "91"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "103"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_51#char=0,188> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_59#char=56,67>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "alan review"^^xsd:string ;
+        nif:beginIndex        "56"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "67"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/alan_review> .
+
+<http://example.org/document_43#char=141,160>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "heart film festival"^^xsd:string ;
+        nif:beginIndex        "141"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "160"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_43#char=0,161> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/heart_film_festival> .
+
+<http://example.org/document_29#char=60,72>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "60"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "72"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_29#char=0,104> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_6#char=174,202>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "second state of the parality"^^xsd:string ;
+        nif:beginIndex        "174"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "202"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_6#char=0,226> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/second_state_of_the_parality> .
+
+<http://example.org/document_1#char=4,37>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "second stores of nights activists"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "37"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_1#char=0,54> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/second_stores_of_nights_activists> .
+
+<http://example.org/document_59#char=212,230>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "angeling community"^^xsd:string ;
+        nif:beginIndex        "212"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "230"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/angeling_community> .
+
+<http://example.org/document_20#char=28,36>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "colombia"^^xsd:string ;
+        nif:beginIndex        "28"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "36"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_20#char=0,390> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/colombia> .
+
+<http://example.org/document_37#char=115,137>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "college for the county"^^xsd:string ;
+        nif:beginIndex        "115"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "137"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_37#char=0,138> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/college_for_the_county> .
+
+<http://example.org/document_11#char=169,182>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "single season"^^xsd:string ;
+        nif:beginIndex        "169"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "182"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_11#char=0,392> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/single_season> .
+
+<http://example.org/document_11#char=114,133>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "cartonal parliament"^^xsd:string ;
+        nif:beginIndex        "114"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "133"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_11#char=0,392> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/cartonal_parliament> .
+
+<http://example.org/document_11#char=138,160>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "the same national park"^^xsd:string ;
+        nif:beginIndex        "138"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "160"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_11#char=0,392> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_same_national_park> .
+
+<http://example.org/document_25#char=17,35>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative party"^^xsd:string ;
+        nif:beginIndex        "17"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "35"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_25#char=0,90> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/conservative_party> .
+
+<http://example.org/document_15#char=14,26>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative"^^xsd:string ;
+        nif:beginIndex        "14"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "26"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_15#char=0,85> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/conservative> .
+
+<http://example.org/document_7#char=22,56>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative party of south africa"^^xsd:string ;
+        nif:beginIndex        "22"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "56"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_7#char=0,240> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conservative_party_of_south_africa> .
+
+<http://example.org/document_41#char=118,137>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "anticipation design"^^xsd:string ;
+        nif:beginIndex        "118"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "137"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_41#char=0,284> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/anticipation_design> .
+
+<http://example.org/document_42#char=114,131>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "alexander singers"^^xsd:string ;
+        nif:beginIndex        "114"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "131"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_42#char=0,132> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/alexander_singers> .
+
+<http://example.org/document_54#char=129,135>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "subara"^^xsd:string ;
+        nif:beginIndex        "129"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "135"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/subara> .
+
+<http://example.org/document_11#char=292,327>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "same nights and state of california"^^xsd:string ;
+        nif:beginIndex        "292"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "327"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_11#char=0,392> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/same_nights_and_state_of_california> .
+
+<http://example.org/document_4#char=4,16>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "16"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_4#char=0,157> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_47#char=312,323>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "career show"^^xsd:string ;
+        nif:beginIndex        "312"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "323"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_47#char=0,324> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/career_show> .
+
+<http://example.org/document_6#char=0,226>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "226"^^xsd:nonNegativeInteger ;
+        nif:isString    "the south south african which he was also the times the south africa which would be the station of the saint park review and the south africa, which was also a member of the second state of the parality and the albert hollega."^^xsd:string .
+
+<http://example.org/document_18#char=280,293>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "1999 election"^^xsd:string ;
+        nif:beginIndex        "280"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "293"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/residential_election,_1988> .
+
+<http://example.org/document_16#char=4,24>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san diego carolingia"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "24"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_16#char=0,25> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_diego_carolingia> .
+
+<http://example.org/document_54#char=21,32>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "new zealand"^^xsd:string ;
+        nif:beginIndex        "21"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "32"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/new_zealand> .
+
+<http://example.org/document_31#char=110,121>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sale sander"^^xsd:string ;
+        nif:beginIndex        "110"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "121"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sale_sander> .
+
+<http://example.org/document_18#char=259,272>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "stoney county"^^xsd:string ;
+        nif:beginIndex        "259"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "272"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/same_northeastern_league_canada> .
+
+<http://example.org/document_51#char=114,132>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san francisco band"^^xsd:string ;
+        nif:beginIndex        "114"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "132"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_51#char=0,188> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_francisco_band> .
+
+<http://example.org/document_56#char=0,79>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "79"^^xsd:nonNegativeInteger ;
+        nif:isString    "the convention of the 1989 general election, 1998 and steelers college in 1992."^^xsd:string .
+
+<http://example.org/document_49#char=96,136>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "college to the south saskatchewan county"^^xsd:string ;
+        nif:beginIndex        "96"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "136"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_49#char=0,177> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/college_to_the_south_saskatchewan_county> .
+
+<http://example.org/document_50#char=85,97>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "saler poland"^^xsd:string ;
+        nif:beginIndex        "85"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "97"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_50#char=0,98> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/saler_poland> .
+
+<http://example.org/document_31#char=172,177>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sales"^^xsd:string ;
+        nif:beginIndex        "172"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "177"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/sales> .
+
+<http://example.org/document_28#char=10,22>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "10"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "22"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_28#char=0,71> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_19#char=75,89>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "charles county"^^xsd:string ;
+        nif:beginIndex        "75"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "89"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_19#char=0,225> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/charles_county> .
+
+<http://example.org/document_14#char=0,49>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "49"^^xsd:nonNegativeInteger ;
+        nif:isString    "the subject of the community in the south africa."^^xsd:string .
+
+<http://example.org/document_9#char=42,57>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sanato of raino"^^xsd:string ;
+        nif:beginIndex        "42"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "57"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_9#char=0,58> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sanato_of_raino> .
+
+<http://example.org/document_31#char=133,141>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "salation"^^xsd:string ;
+        nif:beginIndex        "133"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "141"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/salation> .
+
+<http://example.org/document_20#char=379,389>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "subarabara"^^xsd:string ;
+        nif:beginIndex        "379"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "389"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_20#char=0,390> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/subarabara> .
+
+<http://example.org/document_18#char=51,63>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "51"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "63"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_9#char=4,19>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "particle forest"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "19"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_9#char=0,58> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/particle_forest> .
+
+<http://example.org/document_58#char=19,40>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san diana and release"^^xsd:string ;
+        nif:beginIndex        "19"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "40"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_58#char=0,237> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_diana_and_release> .
+
+<http://example.org/document_17#char=83,91>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "reaction"^^xsd:string ;
+        nif:beginIndex        "83"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "91"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_17#char=0,151> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conservative_party_of_south_africa> .
+
+<http://example.org/document_2#char=76,84>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "congress"^^xsd:string ;
+        nif:beginIndex        "76"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "84"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,105> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/album_criticized_company> .
+
+<http://example.org/document_13#char=0,77>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "77"^^xsd:nonNegativeInteger ;
+        nif:isString    "the king of the county in the united states constitution in the south africa."^^xsd:string .
+
+<http://example.org/document_7#char=0,240>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "240"^^xsd:nonNegativeInteger ;
+        nif:isString    "on 12 april 1987 is a conservative party of south africa whilst played the national park new zealand county on 20 august 2003, and the south saskatchewan parliament in the south africa while the south african and served as the south africa."^^xsd:string .
+
+<http://example.org/document_37#char=37,49>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "37"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "49"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_37#char=0,138> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_26#char=0,144>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "144"^^xsd:nonNegativeInteger ;
+        nif:isString    "the country is an order of the south saskatchewan river, but the group of the carolingian charles was a member of the reaction in 1983 and 1980."^^xsd:string .
+
+<http://example.org/document_18#char=197,216>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "the greek peninsula"^^xsd:string ;
+        nif:beginIndex        "197"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "216"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_greek_peninsula> .
+
+<http://example.org/document_50#char=0,98>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "98"^^xsd:nonNegativeInteger ;
+        nif:isString    "the first tennessee was nominated for the same national register of conservative and saler poland."^^xsd:string .
+
+<http://example.org/document_41#char=142,149>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "english"^^xsd:string ;
+        nif:beginIndex        "142"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "149"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_41#char=0,284> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/paradist_language> .
+
+<http://example.org/document_51#char=70,82>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "70"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "82"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_51#char=0,188> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_20#char=151,178>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "grand state of south africa"^^xsd:string ;
+        nif:beginIndex        "151"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "178"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_20#char=0,390> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/grand_state_of_south_africa> .
+
+<http://example.org/document_2#char=31,62>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san francesco district of annel"^^xsd:string ;
+        nif:beginIndex        "31"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "62"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,105> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_francesco_district_of_annel> .
+
+<http://example.org/document_54#char=172,182>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "alexandria"^^xsd:string ;
+        nif:beginIndex        "172"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "182"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/alexandria> .
+
+<http://example.org/document_46#char=50,62>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "50"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "62"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_46#char=0,63> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_11#char=339,357>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "previously records"^^xsd:string ;
+        nif:beginIndex        "339"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "357"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_11#char=0,392> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/south_salentary_station> .
+
+<http://example.org/document_59#char=0,327>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "327"^^xsd:nonNegativeInteger ;
+        nif:isString    "and a transformers and association of the community and alan review and the magnesion was started at the congress and provincial parliament and many realignment in the racing and state revivation and english and angeling community and the south saskatchewan river and the south africa and the san francisco constitution on 15 j"^^xsd:string .
+
+<http://example.org/document_34#char=33,41>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "alamania"^^xsd:string ;
+        nif:beginIndex        "33"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "41"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_34#char=0,87> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/alamania> .
+
+<http://example.org/document_7#char=75,107>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "national park new zealand county"^^xsd:string ;
+        nif:beginIndex        "75"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "107"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_7#char=0,240> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sale_south_africa> .
+
+<http://example.org/document_48#char=17,31>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "richard barrel"^^xsd:string ;
+        nif:beginIndex        "17"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "31"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_48#char=0,49> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/richard_barrel> .
+
+<http://example.org/document_25#char=40,52>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "40"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "52"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_25#char=0,90> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_german_party_united_states> .
+
+<http://example.org/document_8#char=44,99>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "national register of history of saints park new zealand"^^xsd:string ;
+        nif:beginIndex        "44"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "99"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_8#char=0,117> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/national_register_of_history_of_saints_park_new_zealand> .
+
+<http://example.org/document_2#char=0,105>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "105"^^xsd:nonNegativeInteger ;
+        nif:isString    "the controlled reading for the san francesco district of annel in 1983, the congress and the grand state."^^xsd:string .
+
+<http://example.org/document_3#char=127,147>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conference community"^^xsd:string ;
+        nif:beginIndex        "127"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "147"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_3#char=0,184> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conference_community> .
+
+<http://example.org/document_6#char=211,225>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "albert hollega"^^xsd:string ;
+        nif:beginIndex        "211"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "225"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_6#char=0,226> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/albert_hollega> .
+
+<http://example.org/document_18#char=312,324>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "312"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "324"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_39#char=0,156>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "156"^^xsd:nonNegativeInteger ;
+        nif:isString    "the albert high school institute in the canadian politician and the south saskatchewan river and the conservative party of maria county and the grand state."^^xsd:string .
+
+<http://example.org/document_59#char=105,113>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "congress"^^xsd:string ;
+        nif:beginIndex        "105"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "113"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/battle_of_maria_company> .
+
+<http://example.org/document_4#char=102,136>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "simulation production and converge"^^xsd:string ;
+        nif:beginIndex        "102"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "136"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_4#char=0,157> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/simulation_production_and_converge> .
+
+<http://example.org/document_49#char=138,150>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "138"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "150"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_49#char=0,177> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_52#char=0,75>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "75"^^xsd:nonNegativeInteger ;
+        nif:isString    "the research and state of the conservative constitution in the 1900 season."^^xsd:string .
+
+<http://example.org/document_41#char=169,181>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "169"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "181"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_41#char=0,284> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_54#char=105,127>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "provincial land county"^^xsd:string ;
+        nif:beginIndex        "105"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "127"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/provincial_land_county> .
+
+<http://example.org/document_31#char=322,410>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "surface and state of saints nights and state of saints and line to the academy of saints"^^xsd:string ;
+        nif:beginIndex        "322"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "410"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/surface_and_state_of_saints_nights_and_state_of_saints_and_line_to_the_academy_of_saints> .
+
+<http://example.org/document_34#char=69,86>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "the gold motorway"^^xsd:string ;
+        nif:beginIndex        "69"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "86"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_34#char=0,87> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_gold_motorway> .
+
+<http://example.org/document_48#char=0,49>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "49"^^xsd:nonNegativeInteger ;
+        nif:isString    "it is located in richard barrel in 1977 and 1980."^^xsd:string .
+
+<http://example.org/document_58#char=205,217>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "robert alien"^^xsd:string ;
+        nif:beginIndex        "205"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "217"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_58#char=0,237> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_59#char=272,284>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "272"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "284"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_55#char=4,16>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "16"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_55#char=0,129> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_30#char=0,203>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "203"^^xsd:nonNegativeInteger ;
+        nif:isString    "ere also a few participating at the san diano management party of the group of electors history of the national register of the second service as a constitution of the san diano man for the south africa."^^xsd:string .
+
+<http://example.org/document_11#char=103,109>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "senate"^^xsd:string ;
+        nif:beginIndex        "103"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "109"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_11#char=0,392> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/confederation_of_the_south_state> .
+
+<http://example.org/document_54#char=406,411>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "state"^^xsd:string ;
+        nif:beginIndex        "406"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "411"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conservative_party_state> .
+
+<http://example.org/document_59#char=179,195>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "state revivation"^^xsd:string ;
+        nif:beginIndex        "179"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "195"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/state_revivation> .
+
+<http://example.org/document_15#char=61,84>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "tamaa state state state"^^xsd:string ;
+        nif:beginIndex        "61"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "84"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_15#char=0,85> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/tamaa_state_state_state> .
+
+<http://example.org/document_5#char=0,116>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "116"^^xsd:nonNegativeInteger ;
+        nif:isString    "the empire state of canada in 1953 and the national register of the national register of the county council in 1982."^^xsd:string .
+
+<http://example.org/document_53#char=31,51>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "salari charles times"^^xsd:string ;
+        nif:beginIndex        "31"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "51"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_53#char=0,52> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/salari_charles_times> .
+
+<http://example.org/document_17#char=0,151>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "151"^^xsd:nonNegativeInteger ;
+        nif:isString    "the shore taught in 1983 and 1998 for the south africa and the shore county in the reaction and the regional election to the seat line in south africa."^^xsd:string .
+
+<http://example.org/document_51#char=141,161>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "northeastern college"^^xsd:string ;
+        nif:beginIndex        "141"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "161"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_51#char=0,188> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/northeastern_college> .
+
+<http://example.org/document_31#char=255,287>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "subsequent provincial parliament"^^xsd:string ;
+        nif:beginIndex        "255"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "287"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/subsequent_provincial_parliament> .
+
+<http://example.org/document_34#char=21,31>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "parliament"^^xsd:string ;
+        nif:beginIndex        "21"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "31"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_34#char=0,87> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/parliament> .
+
+<http://example.org/document_52#char=63,74>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "1900 season"^^xsd:string ;
+        nif:beginIndex        "63"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "74"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_52#char=0,75> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/united_states_census_2000> .
+
+<http://example.org/document_4#char=0,157>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "157"^^xsd:nonNegativeInteger ;
+        nif:isString    "the south africa was not to be the tour of carabilling in 1983, and the second holding company in the simulation production and converge to the south africa."^^xsd:string .
+
+<http://example.org/document_14#char=36,48>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "36"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "48"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_14#char=0,49> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_50#char=4,19>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "first tennessee"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "19"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_50#char=0,98> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/first_tennessee> .
+
+<http://example.org/document_40#char=33,47>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "eastern county"^^xsd:string ;
+        nif:beginIndex        "33"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "47"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_40#char=0,48> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/base_club_short_service> .
+
+<http://example.org/document_21#char=0,161>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "161"^^xsd:nonNegativeInteger ;
+        nif:isString    "l period in 1982 and 1983 and 1983 and was an american football league in the rainer construction of the south africa in conservative party and state short side."^^xsd:string .
+
+<http://example.org/document_31#char=48,55>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "shindon"^^xsd:string ;
+        nif:beginIndex        "48"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "55"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/parliament_constituency> .
+
+<http://example.org/document_44#char=0,37>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "37"^^xsd:nonNegativeInteger ;
+        nif:isString    "the alexander and state of the state."^^xsd:string .
+
+<http://example.org/document_55#char=23,32>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "route 180"^^xsd:string ;
+        nif:beginIndex        "23"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "32"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_55#char=0,129> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/route_180> .
+
+<http://example.org/document_47#char=83,95>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sanda county"^^xsd:string ;
+        nif:beginIndex        "83"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "95"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_47#char=0,324> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sanda_county> .
+
+<http://example.org/document_19#char=204,224>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "canadian syndication"^^xsd:string ;
+        nif:beginIndex        "204"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "224"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_19#char=0,225> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/canadian_syndication> .
+
+<http://example.org/document_59#char=293,319>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san francisco constitution"^^xsd:string ;
+        nif:beginIndex        "293"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "319"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_grand_state_of_the_united_states> .
+
+<http://example.org/document_6#char=46,51>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "times"^^xsd:string ;
+        nif:beginIndex        "46"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "51"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_6#char=0,226> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/confederation_constituency> .
+
+<http://example.org/document_51#char=175,187>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "175"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "187"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_51#char=0,188> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_31#char=192,201>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sile show"^^xsd:string ;
+        nif:beginIndex        "192"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "201"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sile_show> .
+
+<http://example.org/document_21#char=144,160>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "state short side"^^xsd:string ;
+        nif:beginIndex        "144"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "160"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_21#char=0,161> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/state_short_side> .
+
+<http://example.org/document_53#char=3,27>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "saint party of the group"^^xsd:string ;
+        nif:beginIndex        "3"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "27"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_53#char=0,52> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/saint_party_of_the_group> .
+
+<http://example.org/document_32#char=69,110>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "american county council of south services"^^xsd:string ;
+        nif:beginIndex        "69"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "110"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_32#char=0,111> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/american_county_council_of_south_services> .
+
+<http://example.org/document_38#char=4,22>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative party"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "22"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_38#char=0,70> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/grand_subsequent_constituency> .
+
+<http://example.org/document_32#char=4,28>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south saskatchewan river"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "28"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_32#char=0,111> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/south_saskatchewan_river> .
+
+<http://example.org/document_2#char=15,22>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "reading"^^xsd:string ;
+        nif:beginIndex        "15"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "22"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_2#char=0,105> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/parliament_of_the_south_africa> .
+
+<http://example.org/document_9#char=0,58>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "58"^^xsd:nonNegativeInteger ;
+        nif:isString    "the particle forests are also used to the sanato of raino."^^xsd:string .
+
+<http://example.org/document_47#char=178,214>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "princess of the state of mississippi"^^xsd:string ;
+        nif:beginIndex        "178"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "214"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_47#char=0,324> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/princess_of_the_state_of_mississippi> .
+
+<http://example.org/document_43#char=0,161>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "161"^^xsd:nonNegativeInteger ;
+        nif:isString    "the song was considered to the alexander same school in 1973, when the first north american league to the construction of the referendum and heart film festival."^^xsd:string .
+
+<http://example.org/document_58#char=118,129>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south wales"^^xsd:string ;
+        nif:beginIndex        "118"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "129"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_58#char=0,237> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/south_wales> .
+
+<http://example.org/document_39#char=40,59>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "canadian politician"^^xsd:string ;
+        nif:beginIndex        "40"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "59"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_39#char=0,156> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/canadian_politician> .
+
+<http://example.org/document_57#char=28,40>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "28"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "40"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_5#char=4,26>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "empire state of canada"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "26"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_5#char=0,116> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/empire_state_of_canada> .
+
+<http://example.org/document_54#char=83,92>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "alexander"^^xsd:string ;
+        nif:beginIndex        "83"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "92"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/alexander> .
+
+<http://example.org/document_51#char=0,188>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "188"^^xsd:nonNegativeInteger ;
+        nif:isString    "the song was a rise of college and south africa which he could be the south africa and the south africa where the san francisco band and the northeastern college in 1983, the south africa."^^xsd:string .
+
+<http://example.org/document_28#char=39,53>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "county council"^^xsd:string ;
+        nif:beginIndex        "39"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "53"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_28#char=0,71> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/county_council> .
+
+<http://example.org/document_52#char=30,55>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative constitution"^^xsd:string ;
+        nif:beginIndex        "30"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "55"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_52#char=0,75> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conservative_constitution> .
+
+<http://example.org/document_23#char=20,64>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "transforment princess of the southern county"^^xsd:string ;
+        nif:beginIndex        "20"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "64"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_23#char=0,89> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/transforment_princess_of_the_southern_county> .
+
+<http://example.org/document_31#char=86,108>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sheriff and state show"^^xsd:string ;
+        nif:beginIndex        "86"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "108"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sheriff_and_state_show> .
+
+<http://example.org/document_28#char=0,71>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "71"^^xsd:nonNegativeInteger ;
+        nif:isString    "it is the south africa and the english county council in 1980 and 1986."^^xsd:string .
+
+<http://example.org/document_31#char=217,229>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "217"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "229"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_19#char=4,28>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "parliament of the county"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "28"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_19#char=0,225> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/parliament_of_the_county> .
+
+<http://example.org/document_15#char=27,56>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "the province of golden bridge"^^xsd:string ;
+        nif:beginIndex        "27"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "56"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_15#char=0,85> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_province_of_golden_bridge> .
+
+<http://example.org/document_33#char=0,142>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "142"^^xsd:nonNegativeInteger ;
+        nif:isString    "the alexander singles tour state association in 1983 and 1982, and was also a former member of the grand state state of the main championship."^^xsd:string .
+
+<http://example.org/document_6#char=103,120>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "saint park review"^^xsd:string ;
+        nif:beginIndex        "103"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "120"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_6#char=0,226> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/saint_park_review> .
+
+<http://example.org/document_34#char=46,64>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "the group of santa"^^xsd:string ;
+        nif:beginIndex        "46"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "64"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_34#char=0,87> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_group_of_santa> .
+
+<http://example.org/document_11#char=73,94>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san francisco company"^^xsd:string ;
+        nif:beginIndex        "73"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "94"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_11#char=0,392> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_francisco_company> .
+
+<http://example.org/document_35#char=0,45>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "45"^^xsd:nonNegativeInteger ;
+        nif:isString    "the second road forests and the south africa."^^xsd:string .
+
+<http://example.org/document_42#char=4,42>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "album was also a league of land county"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "42"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_42#char=0,132> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/album_was_also_a_league_of_land_county> .
+
+<http://example.org/document_41#char=0,284>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "284"^^xsd:nonNegativeInteger ;
+        nif:isString    "the conservative conservative state of the allowed the state of history of saints and show the paradistraction of the anticipation design the english parliament and the south africa whilst played with the south africa and princess of the national academy of saints and lightning line."^^xsd:string .
+
+<http://example.org/document_22#char=94,106>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative"^^xsd:string ;
+        nif:beginIndex        "94"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "106"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_22#char=0,263> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/light_provincial_parliament> .
+
+<http://example.org/document_59#char=6,18>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "transformers"^^xsd:string ;
+        nif:beginIndex        "6"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "18"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/transformers> .
+
+<http://example.org/document_17#char=4,16>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "shore taught"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "16"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_17#char=0,151> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/shore_taught> .
+
+<http://example.org/document_31#char=123,131>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "carality"^^xsd:string ;
+        nif:beginIndex        "123"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "131"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/carality> .
+
+<http://example.org/document_19#char=33,54>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san francisco college"^^xsd:string ;
+        nif:beginIndex        "33"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "54"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_19#char=0,225> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_francisco_college> .
+
+<http://example.org/document_28#char=31,38>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "english"^^xsd:string ;
+        nif:beginIndex        "31"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "38"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_28#char=0,71> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/australian_language> .
+
+<http://example.org/document_22#char=65,80>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "san tang peners"^^xsd:string ;
+        nif:beginIndex        "65"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "80"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_22#char=0,263> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/san_tang_peners> .
+
+<http://example.org/document_5#char=43,107>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "national register of the national register of the county council"^^xsd:string ;
+        nif:beginIndex        "43"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "107"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_5#char=0,116> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/national_register_of_the_national_register_of_the_county_council> .
+
+<http://example.org/document_47#char=0,324>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "324"^^xsd:nonNegativeInteger ;
+        nif:isString    "the allen the first party of canada in 2006, and the south african football to the sanda county, which he played a portrait of the national register of the county council of the princess of the state of mississippi and alexander signed with the second state of college and sandarian state of the new zealand and career show."^^xsd:string .
+
+<http://example.org/document_13#char=4,22>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "king of the county"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "22"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_13#char=0,77> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/king_of_the_county> .
+
+<http://example.org/document_24#char=18,37>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "state of maria line"^^xsd:string ;
+        nif:beginIndex        "18"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "37"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_24#char=0,62> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/state_of_maria_line> .
+
+<http://example.org/document_22#char=107,151>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "constitution to the parliament of the county"^^xsd:string ;
+        nif:beginIndex        "107"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "151"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_22#char=0,263> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/constitution_to_the_parliament_of_the_county> .
+
+<http://example.org/document_20#char=0,390>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "390"^^xsd:nonNegativeInteger ;
+        nif:isString    "the first conditions to the colombia particles and the san diano records and the great britain and san francisco and state service and records and the grand state of south africa was a member of the roman empire to the national register of the national register of the general election and the constitution of the constitut the conservative constitution of the county war ii and subarabara."^^xsd:string .
+
+<http://example.org/document_41#char=150,160>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "parliament"^^xsd:string ;
+        nif:beginIndex        "150"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "160"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_41#char=0,284> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/parliament> .
+
+<http://example.org/document_58#char=222,236>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "the greek area"^^xsd:string ;
+        nif:beginIndex        "222"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "236"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_58#char=0,237> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_greek_area> .
+
+<http://example.org/document_49#char=45,91>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "confederation and revealed the state of empire"^^xsd:string ;
+        nif:beginIndex        "45"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "91"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_49#char=0,177> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/confederation_and_revealed_the_state_of_empire> .
+
+<http://example.org/document_47#char=296,307>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "new zealand"^^xsd:string ;
+        nif:beginIndex        "296"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "307"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_47#char=0,324> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/garmen_station> .
+
+<http://example.org/document_18#char=14,45>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative party of sussemble"^^xsd:string ;
+        nif:beginIndex        "14"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "45"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conservative_party_of_sussemble> .
+
+<http://example.org/document_38#char=27,69>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "the german party of the new zealand survey"^^xsd:string ;
+        nif:beginIndex        "27"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "69"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_38#char=0,70> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/the_german_party_of_the_new_zealand_survey> .
+
+<http://example.org/document_29#char=81,95>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "single article"^^xsd:string ;
+        nif:beginIndex        "81"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "95"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_29#char=0,104> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/south_survey_constituency> .
+
+<http://example.org/document_49#char=4,40>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "conservative party of the paraliance"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "40"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_49#char=0,177> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/conservative_party_of_the_paraliance> .
+
+<http://example.org/document_57#char=250,261>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "state river"^^xsd:string ;
+        nif:beginIndex        "250"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "261"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/state_river> .
+
+<http://example.org/document_57#char=0,19>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "electricity council"^^xsd:string ;
+        nif:beginIndex        "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "19"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_57#char=0,278> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/electricity_council> .
+
+<http://example.org/document_59#char=239,263>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south saskatchewan river"^^xsd:string ;
+        nif:beginIndex        "239"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "263"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/south_saskatchewan_river> .
+
+<http://example.org/document_46#char=38,45>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "saleria"^^xsd:string ;
+        nif:beginIndex        "38"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "45"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_46#char=0,63> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/saleria> .
+
+<http://example.org/document_36#char=55,74>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "state of the county"^^xsd:string ;
+        nif:beginIndex        "55"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "74"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_36#char=0,75> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/state_of_the_county> .
+
+<http://example.org/document_31#char=157,170>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "pendal county"^^xsd:string ;
+        nif:beginIndex        "157"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "170"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/pendal_county> .
+
+<http://example.org/document_22#char=164,176>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "164"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "176"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_22#char=0,263> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_54#char=300,312>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "south africa"^^xsd:string ;
+        nif:beginIndex        "300"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "312"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/south_africa> .
+
+<http://example.org/document_42#char=47,57>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sir county"^^xsd:string ;
+        nif:beginIndex        "47"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "57"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_42#char=0,132> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sir_county> .
+
+<http://example.org/document_18#char=343,354>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "sale season"^^xsd:string ;
+        nif:beginIndex        "343"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "354"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_18#char=0,355> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/sale_season> .
+
+<http://example.org/document_54#char=60,70>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "surveyands"^^xsd:string ;
+        nif:beginIndex        "60"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "70"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/surveyands> .
+
+<http://example.org/document_59#char=23,51>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "association of the community"^^xsd:string ;
+        nif:beginIndex        "23"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "51"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_59#char=0,327> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/association_of_the_community> .
+
+<http://example.org/document_11#char=191,213>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "second party of canada"^^xsd:string ;
+        nif:beginIndex        "191"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "213"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_11#char=0,392> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/second_party_of_canada> .
+
+<http://example.org/document_46#char=0,63>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "63"^^xsd:nonNegativeInteger ;
+        nif:isString    "the national history of the county in saleria and south africa."^^xsd:string .
+
+<http://example.org/document_33#char=4,44>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "alexander singles tour state association"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "44"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_33#char=0,142> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/alexander_singles_tour_state_association> .
+
+<http://example.org/document_44#char=4,13>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "alexander"^^xsd:string ;
+        nif:beginIndex        "4"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "13"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_44#char=0,37> ;
+        itsrdf:taIdentRef     <https://en.wikipedia.org/wiki/alexander> .
+
+<http://example.org/document_31#char=0,411>
+        a               nif:RFC5147String , nif:String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "411"^^xsd:nonNegativeInteger ;
+        nif:isString    "he was also a construction of the sanda county, shindon, silicity park, texas county, sheriff and state show, sale sander, carality, salation, sales county, pendal county, sales in hong kong, sile show, the green the south africa was considered to be the subsequent provincial parliament and conservative community to the surface and state of saints nights and state of saints and line to the academy of saints."^^xsd:string .
+
+<http://example.org/document_58#char=134,164>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "ship broadcasting constitution"^^xsd:string ;
+        nif:beginIndex        "134"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "164"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_58#char=0,237> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/ship_broadcasting_constitution> .
+
+<http://example.org/document_31#char=72,84>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "texas county"^^xsd:string ;
+        nif:beginIndex        "72"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "84"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_31#char=0,411> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/texas_county> .
+
+<http://example.org/document_54#char=184,197>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "poland county"^^xsd:string ;
+        nif:beginIndex        "184"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "197"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/poland_county> .
+
+<http://example.org/document_54#char=222,233>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "state river"^^xsd:string ;
+        nif:beginIndex        "222"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "233"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_54#char=0,516> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/state_river> .
+
+<http://example.org/document_50#char=42,80>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "same national register of conservative"^^xsd:string ;
+        nif:beginIndex        "42"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "80"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_50#char=0,98> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/same_national_register_of_conservative> .
+
+<http://example.org/document_55#char=74,111>
+        a                     nif:RFC5147String , nif:String , nif:Phrase ;
+        nif:anchorOf          "career parliament construction career"^^xsd:string ;
+        nif:beginIndex        "74"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "111"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://example.org/document_55#char=0,129> ;
+        itsrdf:taIdentRef     <http://aksw.org/NOTINWIKI/career_parliament_construction_career> .
