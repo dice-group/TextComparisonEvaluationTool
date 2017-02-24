@@ -271,8 +271,8 @@ public class Pipeline
 		
 		System.out.println("\n\n############## STORING THE RESULTS ###############\n");
 		
-		TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_mvp")+".content.prop");
-		for(int mvs = 0; mvs < mvps.size(); mvs++) TextWriter.writeMVP(mvps.get(mvs), rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", "")+".content.prop");
+//		TextWriter.writeMVP(gold_mvp, rating_path.replace("_rating", "_gold_mvp")+".content.prop");
+//		for(int mvs = 0; mvs < mvps.size(); mvs++) TextWriter.writeMVP(mvps.get(mvs), rating_path.replace("_rating", "_mvp_")+mvps.get(mvs).getName().replace(".txt", "")+".content.prop");
 		TextWriter.writeRating(ros);
 		return ratings;
 	}

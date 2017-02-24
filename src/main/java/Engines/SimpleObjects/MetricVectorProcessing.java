@@ -111,7 +111,6 @@ public class MetricVectorProcessing
 		System.out.println("Maximum: "+maximum);
 		
 		//Normalize the non GERBIL metrics using the maximum
-		System.out.println("Size non G metrics: "+distance_vector.size());
 		for(int vv = 0; vv < distance_vector.size(); vv++) distance_vector.set(vv, (distance_vector.get(vv)/maximum));
 		
 		// Gerbil metrics (4 metrics currently)
