@@ -214,10 +214,26 @@ public class MetricVectorProcessing
 			return Double.NaN;
 		}
 		
-		double rating = 0.0;
-		for(double v : dist_vec) rating += v; 
+		double ratingNGM = 0.0, ratingGM = 0.0;
 		
-		return (rating/dist_vec.size());
+		//arithmetic mean for M1-M6 (subratings)
+		for(int ngms = 0; ngms < 6; ngms++){
+			ratingNGM += dist_vec.get(ngms); 
+		}
+		
+		ratingNGM = ratingNGM / 6;
+		System.out.println("Subrating NGM: "+ratingNGM);
+		
+		//arithmetic mean for all GERBIL-metrics (subratings)
+		for(int ngms = 6; ngms < dist_vec.size(); ngms++){
+			ratingGM += dist_vec.get(ngms); 
+		}
+		
+		ratingGM = ratingGM / (dist_vec.size()-6);
+		System.out.println("Subrating GM: "+ratingGM);
+		
+		//arithmetic mean over subratings
+		return ((ratingGM+ratingNGM)/2);
 	}
 	
 	/**
